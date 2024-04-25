@@ -1,0 +1,12 @@
+<h1>HEading</h1>
+<div *ngIf="events">
+  <h2>Events List</h2>
+  <ul>
+    <li *ngFor="let event of events">
+      <h3>{{ event.date }}</h3>
+      <p>Date: {{ event.temperatureC }}</p>
+      <p>Time: {{ event.summary }}</p>
+      <p>Location: {{ event.temperatureF }}</p>
+    </li>
+  </ul>
+</div>
