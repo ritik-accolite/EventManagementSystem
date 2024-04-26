@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using WebApplicationServer.Models;
 
 namespace WebApplicationServer.Controllers
@@ -11,8 +12,6 @@ namespace WebApplicationServer.Controllers
     public class PersonController : ControllerBase
     {
         private string connectionString = "Server=tcp:ems-server.database.windows.net,1433;Initial Catalog=emsdatabase;Persist Security Info=False;User ID=ajaykarode;Password=Emspassword@123;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
-
-
 
         [HttpGet]
         public IEnumerable<Person> GetPerson()
@@ -45,6 +44,38 @@ namespace WebApplicationServer.Controllers
         }
 
 
+
+
+        [HttpGet("{id}")]
+        public IActionResult GetPerson(int id)
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                string sqlQuery = "SELECT * FROM Person WHERE PersonId = @PersonId";
+                SqlCommand command = new SqlCommand(sqlQuery, connection);
+                command.Parameters.AddWithValue("@PersonId", id); // Use the id parameter to identify the person to retrieve
+                connection.Open();
+                SqlDataReader reader = command.ExecuteReader();
+                if (reader.Read())
+                {
+                    Person person = new Person
+                    {
+                        PersonId = (int)reader["PersonId"],
+                        FirstName = reader["FirstName"].ToString(),
+                        LastName = reader["LastName"].ToString(),
+                        Email = reader["Email"].ToString(),
+                        Password = reader["Password"].ToString(),
+                        PhoneNumber = reader["PhoneNumber"].ToString(),
+                        Role = reader["Role"].ToString()
+                    };
+                    return Ok(person); // Found the person, return it
+                }
+                else
+                {
+                    return NotFound(); // No person found with the provided id
+                }
+            }
+        }
 
 
         [HttpPost]
@@ -111,35 +142,6 @@ namespace WebApplicationServer.Controllers
             return NoContent(); // Successfully deleted the person
         }
 
-        [HttpGet("{id}")]
-        public IActionResult GetPerson(int id)
-        {
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            {
-                string sqlQuery = "SELECT * FROM Person WHERE PersonId = @PersonId";
-                SqlCommand command = new SqlCommand(sqlQuery, connection);
-                command.Parameters.AddWithValue("@PersonId", id); // Use the id parameter to identify the person to retrieve
-                connection.Open();
-                SqlDataReader reader = command.ExecuteReader();
-                if (reader.Read())
-                {
-                    Person person = new Person
-                    {
-                        PersonId = (int)reader["PersonId"],
-                        FirstName = reader["FirstName"].ToString(),
-                        LastName = reader["LastName"].ToString(),
-                        Email = reader["Email"].ToString(),
-                        Password = reader["Password"].ToString(),
-                        PhoneNumber = reader["PhoneNumber"].ToString(),
-                        Role = reader["Role"].ToString()
-                    };
-                    return Ok(person); // Found the person, return it
-                }
-                else
-                {
-                    return NotFound(); // No person found with the provided id
-                }
-            }
-        }
+
     }
 }
