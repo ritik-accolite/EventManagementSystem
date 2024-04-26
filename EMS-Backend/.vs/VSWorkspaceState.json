@@ -3,14 +3,20 @@
     "",
     "\\WebApplicationServer",
 <<<<<<< HEAD
+<<<<<<< HEAD
     "\\WebApplicationServer\\WebApplicationServer"
   ],
   "SelectedNode": "\\WebApplicationServer\\WebApplicationServer",
 =======
+=======
+>>>>>>> fcec614eff5d25778609e0c4f51c8f25bd7bd94a
     "\\WebApplicationServer\\WebApplicationServer",
     "\\WebApplicationServer\\WebApplicationServer\\Controllers"
   ],
   "SelectedNode": "\\WebApplicationServer\\WebApplicationServer\\Controllers\\PersonController.cs",
+<<<<<<< HEAD
+>>>>>>> fcec614eff5d25778609e0c4f51c8f25bd7bd94a
+=======
 >>>>>>> fcec614eff5d25778609e0c4f51c8f25bd7bd94a
   "PreviewInSolutionExplorer": false
 }
