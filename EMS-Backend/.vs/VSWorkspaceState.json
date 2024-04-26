@@ -2,8 +2,15 @@
   "ExpandedNodes": [
     "",
     "\\WebApplicationServer",
+<<<<<<< HEAD
     "\\WebApplicationServer\\WebApplicationServer"
   ],
   "SelectedNode": "\\WebApplicationServer\\WebApplicationServer",
+=======
+    "\\WebApplicationServer\\WebApplicationServer",
+    "\\WebApplicationServer\\WebApplicationServer\\Controllers"
+  ],
+  "SelectedNode": "\\WebApplicationServer\\WebApplicationServer\\Controllers\\PersonController.cs",
+>>>>>>> fcec614eff5d25778609e0c4f51c8f25bd7bd94a
   "PreviewInSolutionExplorer": false
 }
