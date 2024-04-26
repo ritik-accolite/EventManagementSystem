@@ -1026,19 +1026,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\ritik.k_7767\\.nuget\\packages\\": {}
+    "C:\\Users\\pratibha.m_int1589\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\ritik.k_7767\\Desktop\\Event Management System\\Project\\Server\\WebApplicationServer\\WebApplicationServer\\WebApplicationServer.csproj",
+      "projectUniqueName": "C:\\Users\\pratibha.m_int1589\\Desktop\\FinalPRoject\\EventManagementSystem\\EMS-Backend\\WebApplicationServer\\WebApplicationServer\\WebApplicationServer.csproj",
       "projectName": "WebApplicationServer",
-      "projectPath": "C:\\Users\\ritik.k_7767\\Desktop\\Event Management System\\Project\\Server\\WebApplicationServer\\WebApplicationServer\\WebApplicationServer.csproj",
-      "packagesPath": "C:\\Users\\ritik.k_7767\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\ritik.k_7767\\Desktop\\Event Management System\\Project\\Server\\WebApplicationServer\\WebApplicationServer\\obj\\",
+      "projectPath": "C:\\Users\\pratibha.m_int1589\\Desktop\\FinalPRoject\\EventManagementSystem\\EMS-Backend\\WebApplicationServer\\WebApplicationServer\\WebApplicationServer.csproj",
+      "packagesPath": "C:\\Users\\pratibha.m_int1589\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\pratibha.m_int1589\\Desktop\\FinalPRoject\\EventManagementSystem\\EMS-Backend\\WebApplicationServer\\WebApplicationServer\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\ritik.k_7767\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\pratibha.m_int1589\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [

@@ -1,9 +1,9 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\ritik.k_7767\\Desktop\\Event Management System\\Project\\Server\\WebApplicationServer\\",
+  "WorkspaceRootPath": "C:\\Users\\pratibha.m_int1589\\Desktop\\FinalPRoject\\EventManagementSystem\\EMS-Backend\\WebApplicationServer\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{2D02295D-E67C-4401-9B40-3A60EE01B53D}|WebApplicationServer\\WebApplicationServer.csproj|c:\\users\\ritik.k_7767\\desktop\\event management system\\project\\server\\webapplicationserver\\webapplicationserver\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{2D02295D-E67C-4401-9B40-3A60EE01B53D}|WebApplicationServer\\WebApplicationServer.csproj|c:\\users\\pratibha.m_int1589\\desktop\\finalproject\\eventmanagementsystem\\ems-backend\\webapplicationserver\\webapplicationserver\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{2D02295D-E67C-4401-9B40-3A60EE01B53D}|WebApplicationServer\\WebApplicationServer.csproj|solutionrelative:webapplicationserver\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
@@ -14,17 +14,25 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 2,
           "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
             {
               "$type": "Document",
               "DocumentIndex": 0,
               "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Users\\ritik.k_7767\\Desktop\\Event Management System\\Project\\Server\\WebApplicationServer\\WebApplicationServer\\Program.cs",
+              "DocumentMoniker": "C:\\Users\\pratibha.m_int1589\\Desktop\\FinalPRoject\\EventManagementSystem\\EMS-Backend\\WebApplicationServer\\WebApplicationServer\\Program.cs",
               "RelativeDocumentMoniker": "WebApplicationServer\\Program.cs",
-              "ToolTip": "C:\\Users\\ritik.k_7767\\Desktop\\Event Management System\\Project\\Server\\WebApplicationServer\\WebApplicationServer\\Program.cs",
+              "ToolTip": "C:\\Users\\pratibha.m_int1589\\Desktop\\FinalPRoject\\EventManagementSystem\\EMS-Backend\\WebApplicationServer\\WebApplicationServer\\Program.cs",
               "RelativeToolTip": "WebApplicationServer\\Program.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABUAAAAkAAAA",
+              "ViewState": "AQIAAAEAAAAAAAAAAAAkwBUAAAAkAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-04-24T07:25:32.879Z",
               "EditorCaption": ""
