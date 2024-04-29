@@ -59,7 +59,6 @@ namespace WebApplicationServer.Controllers
                 }
                 reader.Close();
             }
-
             return Ok(bookedEvents);
         }
     }

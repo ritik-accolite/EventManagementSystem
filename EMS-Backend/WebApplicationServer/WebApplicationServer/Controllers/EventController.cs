@@ -47,14 +47,10 @@ namespace WebApplicationServer.Controllers
 
                     events.Add(@event);
                 }
-
                 reader.Close();
             }
-
             return Ok(events);
         }
-
-
 
         [HttpGet("{id}")]
         public IActionResult GetEvent(int id)

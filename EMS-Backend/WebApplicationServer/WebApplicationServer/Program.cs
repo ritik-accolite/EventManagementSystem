@@ -2,6 +2,9 @@
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using WebApplicationServer.Data;
+using WebApplicationServer.Services;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +14,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddControllers();
+
 
 // Register CORS services
 builder.Services.AddCors(options =>
@@ -27,7 +31,12 @@ builder.Services.AddCors(options =>
 using var conn = new SqlConnection(builder.Configuration.GetConnectionString("AZURE_SQL_CONNECTIONSTRING"));
 conn.Open(); // Open the connection
 // Configure DbContextOptionsBuilder to use the SqlConnection
-builder.Services.AddDbContext<DbContext>(options =>
+//builder.Services.AddDbContext<DbContext>(options =>
+//{
+//    options.UseSqlServer(conn);
+//});
+
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {
     options.UseSqlServer(conn);
 });
@@ -67,6 +76,7 @@ app.UseRouting();
 app.MapControllerRoute(
     name: default,
     pattern: "{controller=Person}/{action = GetPerson}");
+
 app.Run();
 
 internal record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
