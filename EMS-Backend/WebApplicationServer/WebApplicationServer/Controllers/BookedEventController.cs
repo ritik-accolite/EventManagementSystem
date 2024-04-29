@@ -1,7 +1,11 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using WebApplicationServer.Models;
+using WebApplicationServer.Models.ResponseModels;
+using WebApplicationServer.Models.ViewModels;
+using WebApplicationServer.Services.IService;
 
 namespace WebApplicationServer.Controllers
 {
@@ -10,6 +14,42 @@ namespace WebApplicationServer.Controllers
     public class BookedEventController : ControllerBase
     {
         private string connectionString = "Server=tcp:ems-server.database.windows.net,1433;Initial Catalog=emsdatabase;Persist Security Info=False;User ID=ajaykarode;Password=Emspassword@123;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
+
+        private readonly IAddBookedEventService _addBookedEventService;
+        private readonly UserManager<Person> _userManager;
+
+        public BookedEventController(UserManager<Person> userManager, IAddBookedEventService addBookedEventService)
+        {
+            _addBookedEventService = addBookedEventService;
+            _userManager = userManager;
+        }
+        [HttpPost]
+        [Route("addBookedEvent")]
+        public async Task<ResponseViewModel> AddBookedEvent(AddBookedEventViewModel addBookedEvent)
+        {
+
+            ResponseViewModel response;
+            if (!ModelState.IsValid)
+            {
+                response = new ResponseViewModel();
+                response.Status = 422;
+                response.Message = "Please Enter all the details.";
+                return response;
+            }
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null || user.Role == "Organiser")
+            {
+                response = new ResponseViewModel();
+                response.Status = 401;
+                response.Message = "You are either not loggedIn or You are not User.";
+                return response;
+            }
+            response = await _addBookedEventService.AddBookedEvent(addBookedEvent, user.Id);
+
+            return response;
+        }
+
+
 
         // POST: api/BookedEvent/BookEvent
         [HttpPost]
@@ -36,7 +76,7 @@ namespace WebApplicationServer.Controllers
         [Route("GetAllBookedEvents")]
         public IActionResult GetAllBookedEvents()
         {
-            List<BookedEvents> bookedEvents = new List<BookedEvents>();
+            List<BookedEvent> bookedEvents = new List<BookedEvent>();
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
@@ -47,12 +87,12 @@ namespace WebApplicationServer.Controllers
 
                 while (reader.Read())
                 {
-                    BookedEvents bookedEvent = new BookedEvents
+                    BookedEvent bookedEvent = new BookedEvent
                     {
                         BookingId = (int)reader["BookingId"],
                         EventId = (int)reader["EventId"],
-                        EventOrganizerId = (int)reader["EventOrganizerId"],
-                        UserId = (int)reader["UserId"],
+                        //EventOrganizerId = (int)reader["EventOrganizerId"],
+                        //UserId = (int)reader["UserId"],
                         BookingDate = (DateTime)reader["BookingDate"]
                     };
                     bookedEvents.Add(bookedEvent);

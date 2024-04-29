@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿/*using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
@@ -27,7 +27,7 @@ namespace WebApplicationServer.Controllers
                 {
                     Person person = new Person
                     {
-                        PersonId = Convert.ToInt32(reader["PersonId"]),
+                        //PersonId = Convert.ToInt32(reader["PersonId"]),
                         FirstName = Convert.ToString(reader["FirstName"]),
                         LastName = Convert.ToString(reader["LastName"]),
                         Email = Convert.ToString(reader["Email"]),
@@ -60,7 +60,7 @@ namespace WebApplicationServer.Controllers
                 {
                     Person person = new Person
                     {
-                        PersonId = (int)reader["PersonId"],
+                        //PersonId = (int)reader["PersonId"],
                         FirstName = reader["FirstName"].ToString(),
                         LastName = reader["LastName"].ToString(),
                         Email = reader["Email"].ToString(),
@@ -145,3 +145,4 @@ namespace WebApplicationServer.Controllers
 
     }
 }
+*/

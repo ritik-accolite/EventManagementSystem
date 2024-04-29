@@ -1,58 +1,66 @@
 {
   "Version": 1,
-<<<<<<< HEAD
-<<<<<<< HEAD
-  "WorkspaceRootPath": "C:\\Users\\pratibha.m_int1589\\Desktop\\FinalPRoject\\EventManagementSystem\\EMS-Backend\\WebApplicationServer\\",
+  "WorkspaceRootPath": "C:\\Users\\ritik.k_7767\\Desktop\\Event Management System\\2704_clone\\EventManagementSystem\\EMS-Backend\\WebApplicationServer\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{2D02295D-E67C-4401-9B40-3A60EE01B53D}|WebApplicationServer\\WebApplicationServer.csproj|c:\\users\\pratibha.m_int1589\\desktop\\finalproject\\eventmanagementsystem\\ems-backend\\webapplicationserver\\webapplicationserver\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-=======
-  "WorkspaceRootPath": "C:\\Users\\ajay.k_int1595\\Desktop\\Ems-Project\\EventManagementSystem\\EMS-Backend\\WebApplicationServer\\",
-  "Documents": [
-    {
-=======
-  "WorkspaceRootPath": "C:\\Users\\ajay.k_int1595\\Desktop\\Ems-Project\\EventManagementSystem\\EMS-Backend\\WebApplicationServer\\",
-  "Documents": [
-    {
->>>>>>> fcec614eff5d25778609e0c4f51c8f25bd7bd94a
-      "AbsoluteMoniker": "D:0:0:{2D02295D-E67C-4401-9B40-3A60EE01B53D}|WebApplicationServer\\WebApplicationServer.csproj|c:\\users\\ajay.k_int1595\\desktop\\ems-project\\eventmanagementsystem\\ems-backend\\webapplicationserver\\webapplicationserver\\controllers\\bookedeventcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{2D02295D-E67C-4401-9B40-3A60EE01B53D}|WebApplicationServer\\WebApplicationServer.csproj|solutionrelative:webapplicationserver\\controllers\\bookedeventcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{2D02295D-E67C-4401-9B40-3A60EE01B53D}|WebApplicationServer\\WebApplicationServer.csproj|c:\\users\\ritik.k_7767\\desktop\\event management system\\2704_clone\\eventmanagementsystem\\ems-backend\\webapplicationserver\\webapplicationserver\\services\\addeventservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2D02295D-E67C-4401-9B40-3A60EE01B53D}|WebApplicationServer\\WebApplicationServer.csproj|solutionrelative:webapplicationserver\\services\\addeventservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{2D02295D-E67C-4401-9B40-3A60EE01B53D}|WebApplicationServer\\WebApplicationServer.csproj|c:\\users\\ajay.k_int1595\\desktop\\ems-project\\eventmanagementsystem\\ems-backend\\webapplicationserver\\webapplicationserver\\models\\bookedevents.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{2D02295D-E67C-4401-9B40-3A60EE01B53D}|WebApplicationServer\\WebApplicationServer.csproj|solutionrelative:webapplicationserver\\models\\bookedevents.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{2D02295D-E67C-4401-9B40-3A60EE01B53D}|WebApplicationServer\\WebApplicationServer.csproj|c:\\users\\ajay.k_int1595\\desktop\\ems-project\\eventmanagementsystem\\ems-backend\\webapplicationserver\\webapplicationserver\\controllers\\eventcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{2D02295D-E67C-4401-9B40-3A60EE01B53D}|WebApplicationServer\\WebApplicationServer.csproj|c:\\users\\ritik.k_7767\\desktop\\event management system\\2704_clone\\eventmanagementsystem\\ems-backend\\webapplicationserver\\webapplicationserver\\controllers\\eventcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{2D02295D-E67C-4401-9B40-3A60EE01B53D}|WebApplicationServer\\WebApplicationServer.csproj|solutionrelative:webapplicationserver\\controllers\\eventcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{2D02295D-E67C-4401-9B40-3A60EE01B53D}|WebApplicationServer\\WebApplicationServer.csproj|c:\\users\\ajay.k_int1595\\desktop\\ems-project\\eventmanagementsystem\\ems-backend\\webapplicationserver\\webapplicationserver\\controllers\\personcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{2D02295D-E67C-4401-9B40-3A60EE01B53D}|WebApplicationServer\\WebApplicationServer.csproj|solutionrelative:webapplicationserver\\controllers\\personcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{2D02295D-E67C-4401-9B40-3A60EE01B53D}|WebApplicationServer\\WebApplicationServer.csproj|c:\\users\\ritik.k_7767\\desktop\\event management system\\2704_clone\\eventmanagementsystem\\ems-backend\\webapplicationserver\\webapplicationserver\\services\\iservice\\iaddeventservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2D02295D-E67C-4401-9B40-3A60EE01B53D}|WebApplicationServer\\WebApplicationServer.csproj|solutionrelative:webapplicationserver\\services\\iservice\\iaddeventservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{2D02295D-E67C-4401-9B40-3A60EE01B53D}|WebApplicationServer\\WebApplicationServer.csproj|c:\\users\\ajay.k_int1595\\desktop\\ems-project\\eventmanagementsystem\\ems-backend\\webapplicationserver\\webapplicationserver\\models\\event.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{2D02295D-E67C-4401-9B40-3A60EE01B53D}|WebApplicationServer\\WebApplicationServer.csproj|c:\\users\\ritik.k_7767\\desktop\\event management system\\2704_clone\\eventmanagementsystem\\ems-backend\\webapplicationserver\\webapplicationserver\\models\\responsemodels\\geteventbyidresposeviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2D02295D-E67C-4401-9B40-3A60EE01B53D}|WebApplicationServer\\WebApplicationServer.csproj|solutionrelative:webapplicationserver\\models\\responsemodels\\geteventbyidresposeviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2D02295D-E67C-4401-9B40-3A60EE01B53D}|WebApplicationServer\\WebApplicationServer.csproj|c:\\users\\ritik.k_7767\\desktop\\event management system\\2704_clone\\eventmanagementsystem\\ems-backend\\webapplicationserver\\webapplicationserver\\models\\event.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{2D02295D-E67C-4401-9B40-3A60EE01B53D}|WebApplicationServer\\WebApplicationServer.csproj|solutionrelative:webapplicationserver\\models\\event.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{2D02295D-E67C-4401-9B40-3A60EE01B53D}|WebApplicationServer\\WebApplicationServer.csproj|c:\\users\\ajay.k_int1595\\desktop\\ems-project\\eventmanagementsystem\\ems-backend\\webapplicationserver\\webapplicationserver\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{2D02295D-E67C-4401-9B40-3A60EE01B53D}|WebApplicationServer\\WebApplicationServer.csproj|solutionrelative:webapplicationserver\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+      "AbsoluteMoniker": "D:0:0:{2D02295D-E67C-4401-9B40-3A60EE01B53D}|WebApplicationServer\\WebApplicationServer.csproj|c:\\users\\ritik.k_7767\\desktop\\event management system\\2704_clone\\eventmanagementsystem\\ems-backend\\webapplicationserver\\webapplicationserver\\models\\bookedevent.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2D02295D-E67C-4401-9B40-3A60EE01B53D}|WebApplicationServer\\WebApplicationServer.csproj|solutionrelative:webapplicationserver\\models\\bookedevent.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{2D02295D-E67C-4401-9B40-3A60EE01B53D}|WebApplicationServer\\WebApplicationServer.csproj|c:\\users\\ajay.k_int1595\\desktop\\ems-project\\eventmanagementsystem\\ems-backend\\webapplicationserver\\webapplicationserver\\models\\person.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{2D02295D-E67C-4401-9B40-3A60EE01B53D}|WebApplicationServer\\WebApplicationServer.csproj|solutionrelative:webapplicationserver\\models\\person.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{2D02295D-E67C-4401-9B40-3A60EE01B53D}|WebApplicationServer\\WebApplicationServer.csproj|c:\\users\\ritik.k_7767\\desktop\\event management system\\2704_clone\\eventmanagementsystem\\ems-backend\\webapplicationserver\\webapplicationserver\\controllers\\bookedeventcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2D02295D-E67C-4401-9B40-3A60EE01B53D}|WebApplicationServer\\WebApplicationServer.csproj|solutionrelative:webapplicationserver\\controllers\\bookedeventcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{2D02295D-E67C-4401-9B40-3A60EE01B53D}|WebApplicationServer\\WebApplicationServer.csproj|c:\\users\\ajay.k_int1595\\desktop\\ems-project\\eventmanagementsystem\\ems-backend\\webapplicationserver\\webapplicationserver\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-<<<<<<< HEAD
->>>>>>> fcec614eff5d25778609e0c4f51c8f25bd7bd94a
-=======
->>>>>>> fcec614eff5d25778609e0c4f51c8f25bd7bd94a
-      "RelativeMoniker": "D:0:0:{2D02295D-E67C-4401-9B40-3A60EE01B53D}|WebApplicationServer\\WebApplicationServer.csproj|solutionrelative:webapplicationserver\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{2D02295D-E67C-4401-9B40-3A60EE01B53D}|WebApplicationServer\\WebApplicationServer.csproj|c:\\users\\ritik.k_7767\\desktop\\event management system\\2704_clone\\eventmanagementsystem\\ems-backend\\webapplicationserver\\webapplicationserver\\data\\migrations\\20240429085111_initial.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2D02295D-E67C-4401-9B40-3A60EE01B53D}|WebApplicationServer\\WebApplicationServer.csproj|solutionrelative:webapplicationserver\\data\\migrations\\20240429085111_initial.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{2D02295D-E67C-4401-9B40-3A60EE01B53D}|WebApplicationServer\\WebApplicationServer.csproj|c:\\users\\ajay.k_int1595\\desktop\\ems-project\\eventmanagementsystem\\ems-backend\\webapplicationserver\\webapplicationserver\\data\\dbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{2D02295D-E67C-4401-9B40-3A60EE01B53D}|WebApplicationServer\\WebApplicationServer.csproj|solutionrelative:webapplicationserver\\data\\dbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{2D02295D-E67C-4401-9B40-3A60EE01B53D}|WebApplicationServer\\WebApplicationServer.csproj|c:\\users\\ritik.k_7767\\desktop\\event management system\\2704_clone\\eventmanagementsystem\\ems-backend\\webapplicationserver\\webapplicationserver\\services\\addbookedeventservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2D02295D-E67C-4401-9B40-3A60EE01B53D}|WebApplicationServer\\WebApplicationServer.csproj|solutionrelative:webapplicationserver\\services\\addbookedeventservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2D02295D-E67C-4401-9B40-3A60EE01B53D}|WebApplicationServer\\WebApplicationServer.csproj|c:\\users\\ritik.k_7767\\desktop\\event management system\\2704_clone\\eventmanagementsystem\\ems-backend\\webapplicationserver\\webapplicationserver\\models\\viewmodels\\addeventviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2D02295D-E67C-4401-9B40-3A60EE01B53D}|WebApplicationServer\\WebApplicationServer.csproj|solutionrelative:webapplicationserver\\models\\viewmodels\\addeventviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2D02295D-E67C-4401-9B40-3A60EE01B53D}|WebApplicationServer\\WebApplicationServer.csproj|c:\\users\\ritik.k_7767\\desktop\\event management system\\2704_clone\\eventmanagementsystem\\ems-backend\\webapplicationserver\\webapplicationserver\\models\\responsemodels\\getalleventresponseviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2D02295D-E67C-4401-9B40-3A60EE01B53D}|WebApplicationServer\\WebApplicationServer.csproj|solutionrelative:webapplicationserver\\models\\responsemodels\\getalleventresponseviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2D02295D-E67C-4401-9B40-3A60EE01B53D}|WebApplicationServer\\WebApplicationServer.csproj|c:\\users\\ritik.k_7767\\desktop\\event management system\\2704_clone\\eventmanagementsystem\\ems-backend\\webapplicationserver\\webapplicationserver\\data\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2D02295D-E67C-4401-9B40-3A60EE01B53D}|WebApplicationServer\\WebApplicationServer.csproj|solutionrelative:webapplicationserver\\data\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2D02295D-E67C-4401-9B40-3A60EE01B53D}|WebApplicationServer\\WebApplicationServer.csproj|c:\\users\\ritik.k_7767\\desktop\\event management system\\2704_clone\\eventmanagementsystem\\ems-backend\\webapplicationserver\\webapplicationserver\\models\\viewmodels\\addbookedeventviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2D02295D-E67C-4401-9B40-3A60EE01B53D}|WebApplicationServer\\WebApplicationServer.csproj|solutionrelative:webapplicationserver\\models\\viewmodels\\addbookedeventviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2D02295D-E67C-4401-9B40-3A60EE01B53D}|WebApplicationServer\\WebApplicationServer.csproj|c:\\users\\ritik.k_7767\\desktop\\event management system\\2704_clone\\eventmanagementsystem\\ems-backend\\webapplicationserver\\webapplicationserver\\services\\iservice\\iaddbookedeventservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2D02295D-E67C-4401-9B40-3A60EE01B53D}|WebApplicationServer\\WebApplicationServer.csproj|solutionrelative:webapplicationserver\\services\\iservice\\iaddbookedeventservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2D02295D-E67C-4401-9B40-3A60EE01B53D}|WebApplicationServer\\WebApplicationServer.csproj|c:\\users\\ritik.k_7767\\desktop\\event management system\\2704_clone\\eventmanagementsystem\\ems-backend\\webapplicationserver\\webapplicationserver\\controllers\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2D02295D-E67C-4401-9B40-3A60EE01B53D}|WebApplicationServer\\WebApplicationServer.csproj|solutionrelative:webapplicationserver\\controllers\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -62,155 +70,202 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 1,
           "Children": [
             {
-              "$type": "Bookmark",
-<<<<<<< HEAD
-<<<<<<< HEAD
-              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
-=======
-=======
->>>>>>> fcec614eff5d25778609e0c4f51c8f25bd7bd94a
-              "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
-            },
-            {
               "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "PersonController.cs",
-              "DocumentMoniker": "C:\\Users\\ajay.k_int1595\\Desktop\\Ems-Project\\EventManagementSystem\\EMS-Backend\\WebApplicationServer\\WebApplicationServer\\Controllers\\PersonController.cs",
-              "RelativeDocumentMoniker": "WebApplicationServer\\Controllers\\PersonController.cs",
-              "ToolTip": "C:\\Users\\ajay.k_int1595\\Desktop\\Ems-Project\\EventManagementSystem\\EMS-Backend\\WebApplicationServer\\WebApplicationServer\\Controllers\\PersonController.cs",
-              "RelativeToolTip": "WebApplicationServer\\Controllers\\PersonController.cs",
-              "ViewState": "AQIAAAkAAAAAAAAAAAAAABAAAAAqAAAA",
+              "DocumentIndex": 1,
+              "Title": "EventController.cs",
+              "DocumentMoniker": "C:\\Users\\ritik.k_7767\\Desktop\\Event Management System\\2704_clone\\EventManagementSystem\\EMS-Backend\\WebApplicationServer\\WebApplicationServer\\Controllers\\EventController.cs",
+              "RelativeDocumentMoniker": "WebApplicationServer\\Controllers\\EventController.cs",
+              "ToolTip": "C:\\Users\\ritik.k_7767\\Desktop\\Event Management System\\2704_clone\\EventManagementSystem\\EMS-Backend\\WebApplicationServer\\WebApplicationServer\\Controllers\\EventController.cs",
+              "RelativeToolTip": "WebApplicationServer\\Controllers\\EventController.cs",
+              "ViewState": "AQIAABcAAAAAAAAAAAAQwCsAAAAJAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-25T07:15:49.988Z",
+              "WhenOpened": "2024-04-29T09:00:13.022Z",
               "EditorCaption": ""
-<<<<<<< HEAD
->>>>>>> fcec614eff5d25778609e0c4f51c8f25bd7bd94a
-=======
->>>>>>> fcec614eff5d25778609e0c4f51c8f25bd7bd94a
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
-<<<<<<< HEAD
-<<<<<<< HEAD
-              "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Users\\pratibha.m_int1589\\Desktop\\FinalPRoject\\EventManagementSystem\\EMS-Backend\\WebApplicationServer\\WebApplicationServer\\Program.cs",
-              "RelativeDocumentMoniker": "WebApplicationServer\\Program.cs",
-              "ToolTip": "C:\\Users\\pratibha.m_int1589\\Desktop\\FinalPRoject\\EventManagementSystem\\EMS-Backend\\WebApplicationServer\\WebApplicationServer\\Program.cs",
-              "RelativeToolTip": "WebApplicationServer\\Program.cs",
-              "ViewState": "AQIAAAEAAAAAAAAAAAAkwBUAAAAkAAAA",
-=======
-=======
->>>>>>> fcec614eff5d25778609e0c4f51c8f25bd7bd94a
-              "Title": "BookedEventController.cs",
-              "DocumentMoniker": "C:\\Users\\ajay.k_int1595\\Desktop\\Ems-Project\\EventManagementSystem\\EMS-Backend\\WebApplicationServer\\WebApplicationServer\\Controllers\\BookedEventController.cs",
-              "RelativeDocumentMoniker": "WebApplicationServer\\Controllers\\BookedEventController.cs",
-              "ToolTip": "C:\\Users\\ajay.k_int1595\\Desktop\\Ems-Project\\EventManagementSystem\\EMS-Backend\\WebApplicationServer\\WebApplicationServer\\Controllers\\BookedEventController.cs",
-              "RelativeToolTip": "WebApplicationServer\\Controllers\\BookedEventController.cs",
-              "ViewState": "AQIAAAYAAAAAAAAAAAAIwDsAAAAfAAAA",
-<<<<<<< HEAD
->>>>>>> fcec614eff5d25778609e0c4f51c8f25bd7bd94a
-=======
->>>>>>> fcec614eff5d25778609e0c4f51c8f25bd7bd94a
+              "Title": "AddEventService.cs",
+              "DocumentMoniker": "C:\\Users\\ritik.k_7767\\Desktop\\Event Management System\\2704_clone\\EventManagementSystem\\EMS-Backend\\WebApplicationServer\\WebApplicationServer\\Services\\AddEventService.cs",
+              "RelativeDocumentMoniker": "WebApplicationServer\\Services\\AddEventService.cs",
+              "ToolTip": "C:\\Users\\ritik.k_7767\\Desktop\\Event Management System\\2704_clone\\EventManagementSystem\\EMS-Backend\\WebApplicationServer\\WebApplicationServer\\Services\\AddEventService.cs",
+              "RelativeToolTip": "WebApplicationServer\\Services\\AddEventService.cs",
+              "ViewState": "AQIAADgAAAAAAAAAAAAiwEQAAAAcAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-26T06:45:40.47Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "EventController.cs",
-              "DocumentMoniker": "C:\\Users\\ajay.k_int1595\\Desktop\\Ems-Project\\EventManagementSystem\\EMS-Backend\\WebApplicationServer\\WebApplicationServer\\Controllers\\EventController.cs",
-              "RelativeDocumentMoniker": "WebApplicationServer\\Controllers\\EventController.cs",
-              "ToolTip": "C:\\Users\\ajay.k_int1595\\Desktop\\Ems-Project\\EventManagementSystem\\EMS-Backend\\WebApplicationServer\\WebApplicationServer\\Controllers\\EventController.cs",
-              "RelativeToolTip": "WebApplicationServer\\Controllers\\EventController.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAHsAAAAYAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-25T06:56:00.202Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "BookedEvents.cs",
-              "DocumentMoniker": "C:\\Users\\ajay.k_int1595\\Desktop\\Ems-Project\\EventManagementSystem\\EMS-Backend\\WebApplicationServer\\WebApplicationServer\\Models\\BookedEvents.cs",
-              "RelativeDocumentMoniker": "WebApplicationServer\\Models\\BookedEvents.cs",
-              "ToolTip": "C:\\Users\\ajay.k_int1595\\Desktop\\Ems-Project\\EventManagementSystem\\EMS-Backend\\WebApplicationServer\\WebApplicationServer\\Models\\BookedEvents.cs",
-              "RelativeToolTip": "WebApplicationServer\\Models\\BookedEvents.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABMAAAAjAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-25T06:57:30.371Z",
+              "WhenOpened": "2024-04-29T09:09:41.583Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 4,
               "Title": "Event.cs",
-              "DocumentMoniker": "C:\\Users\\ajay.k_int1595\\Desktop\\Ems-Project\\EventManagementSystem\\EMS-Backend\\WebApplicationServer\\WebApplicationServer\\Models\\Event.cs",
+              "DocumentMoniker": "C:\\Users\\ritik.k_7767\\Desktop\\Event Management System\\2704_clone\\EventManagementSystem\\EMS-Backend\\WebApplicationServer\\WebApplicationServer\\Models\\Event.cs",
               "RelativeDocumentMoniker": "WebApplicationServer\\Models\\Event.cs",
-              "ToolTip": "C:\\Users\\ajay.k_int1595\\Desktop\\Ems-Project\\EventManagementSystem\\EMS-Backend\\WebApplicationServer\\WebApplicationServer\\Models\\Event.cs",
+              "ToolTip": "C:\\Users\\ritik.k_7767\\Desktop\\Event Management System\\2704_clone\\EventManagementSystem\\EMS-Backend\\WebApplicationServer\\WebApplicationServer\\Models\\Event.cs",
               "RelativeToolTip": "WebApplicationServer\\Models\\Event.cs",
-              "ViewState": "AQIAAAUAAAAAAAAAAAAxwBYAAAAuAAAA",
+              "ViewState": "AQIAAAMAAAAAAAAAAAAAABEAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-25T06:57:44.822Z",
+              "WhenOpened": "2024-04-29T10:25:05.178Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Users\\ajay.k_int1595\\Desktop\\Ems-Project\\EventManagementSystem\\EMS-Backend\\WebApplicationServer\\WebApplicationServer\\Program.cs",
-              "RelativeDocumentMoniker": "WebApplicationServer\\Program.cs",
-              "ToolTip": "C:\\Users\\ajay.k_int1595\\Desktop\\Ems-Project\\EventManagementSystem\\EMS-Backend\\WebApplicationServer\\WebApplicationServer\\Program.cs",
-              "RelativeToolTip": "WebApplicationServer\\Program.cs",
-              "ViewState": "AQIAAA4AAAAAAAAAAAApwBsAAAAAAAAA",
+              "DocumentIndex": 5,
+              "Title": "BookedEvent.cs",
+              "DocumentMoniker": "C:\\Users\\ritik.k_7767\\Desktop\\Event Management System\\2704_clone\\EventManagementSystem\\EMS-Backend\\WebApplicationServer\\WebApplicationServer\\Models\\BookedEvent.cs",
+              "RelativeDocumentMoniker": "WebApplicationServer\\Models\\BookedEvent.cs",
+              "ToolTip": "C:\\Users\\ritik.k_7767\\Desktop\\Event Management System\\2704_clone\\EventManagementSystem\\EMS-Backend\\WebApplicationServer\\WebApplicationServer\\Models\\BookedEvent.cs",
+              "RelativeToolTip": "WebApplicationServer\\Models\\BookedEvent.cs",
+              "ViewState": "AQIAAAQAAAAAAAAAAAAiwBEAAAAcAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-24T07:25:32.879Z"
+              "WhenOpened": "2024-04-29T10:14:14.403Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "appsettings.json",
-              "DocumentMoniker": "C:\\Users\\ajay.k_int1595\\Desktop\\Ems-Project\\EventManagementSystem\\EMS-Backend\\WebApplicationServer\\WebApplicationServer\\appsettings.json",
-              "RelativeDocumentMoniker": "WebApplicationServer\\appsettings.json",
-              "ToolTip": "C:\\Users\\ajay.k_int1595\\Desktop\\Ems-Project\\EventManagementSystem\\EMS-Backend\\WebApplicationServer\\WebApplicationServer\\appsettings.json",
-              "RelativeToolTip": "WebApplicationServer\\appsettings.json",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAwAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2024-04-25T07:28:34.474Z",
+              "DocumentIndex": 3,
+              "Title": "GetEVentByIdResposeViewModel.cs",
+              "DocumentMoniker": "C:\\Users\\ritik.k_7767\\Desktop\\Event Management System\\2704_clone\\EventManagementSystem\\EMS-Backend\\WebApplicationServer\\WebApplicationServer\\Models\\ResponseModels\\GetEVentByIdResposeViewModel.cs",
+              "RelativeDocumentMoniker": "WebApplicationServer\\Models\\ResponseModels\\GetEVentByIdResposeViewModel.cs",
+              "ToolTip": "C:\\Users\\ritik.k_7767\\Desktop\\Event Management System\\2704_clone\\EventManagementSystem\\EMS-Backend\\WebApplicationServer\\WebApplicationServer\\Models\\ResponseModels\\GetEVentByIdResposeViewModel.cs",
+              "RelativeToolTip": "WebApplicationServer\\Models\\ResponseModels\\GetEVentByIdResposeViewModel.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAkAAAAJAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-29T10:04:56.378Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "IAddEventService.cs",
+              "DocumentMoniker": "C:\\Users\\ritik.k_7767\\Desktop\\Event Management System\\2704_clone\\EventManagementSystem\\EMS-Backend\\WebApplicationServer\\WebApplicationServer\\Services\\IService\\IAddEventService.cs",
+              "RelativeDocumentMoniker": "WebApplicationServer\\Services\\IService\\IAddEventService.cs",
+              "ToolTip": "C:\\Users\\ritik.k_7767\\Desktop\\Event Management System\\2704_clone\\EventManagementSystem\\EMS-Backend\\WebApplicationServer\\WebApplicationServer\\Services\\IService\\IAddEventService.cs",
+              "RelativeToolTip": "WebApplicationServer\\Services\\IService\\IAddEventService.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAsAAABCAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-29T09:00:51.903Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 6,
-              "Title": "Person.cs",
-              "DocumentMoniker": "C:\\Users\\ajay.k_int1595\\Desktop\\Ems-Project\\EventManagementSystem\\EMS-Backend\\WebApplicationServer\\WebApplicationServer\\Models\\Person.cs",
-              "RelativeDocumentMoniker": "WebApplicationServer\\Models\\Person.cs",
-              "ToolTip": "C:\\Users\\ajay.k_int1595\\Desktop\\Ems-Project\\EventManagementSystem\\EMS-Backend\\WebApplicationServer\\WebApplicationServer\\Models\\Person.cs",
-              "RelativeToolTip": "WebApplicationServer\\Models\\Person.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAwAAAABAAAA",
+              "Title": "BookedEventController.cs",
+              "DocumentMoniker": "C:\\Users\\ritik.k_7767\\Desktop\\Event Management System\\2704_clone\\EventManagementSystem\\EMS-Backend\\WebApplicationServer\\WebApplicationServer\\Controllers\\BookedEventController.cs",
+              "RelativeDocumentMoniker": "WebApplicationServer\\Controllers\\BookedEventController.cs",
+              "ToolTip": "C:\\Users\\ritik.k_7767\\Desktop\\Event Management System\\2704_clone\\EventManagementSystem\\EMS-Backend\\WebApplicationServer\\WebApplicationServer\\Controllers\\BookedEventController.cs",
+              "RelativeToolTip": "WebApplicationServer\\Controllers\\BookedEventController.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAoAAAABAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-25T07:13:16.983Z",
+              "WhenOpened": "2024-04-29T10:25:35.192Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "20240429085111_initial.Designer.cs",
+              "DocumentMoniker": "C:\\Users\\ritik.k_7767\\Desktop\\Event Management System\\2704_clone\\EventManagementSystem\\EMS-Backend\\WebApplicationServer\\WebApplicationServer\\Data\\Migrations\\20240429085111_initial.Designer.cs",
+              "RelativeDocumentMoniker": "WebApplicationServer\\Data\\Migrations\\20240429085111_initial.Designer.cs",
+              "ToolTip": "C:\\Users\\ritik.k_7767\\Desktop\\Event Management System\\2704_clone\\EventManagementSystem\\EMS-Backend\\WebApplicationServer\\WebApplicationServer\\Data\\Migrations\\20240429085111_initial.Designer.cs",
+              "RelativeToolTip": "WebApplicationServer\\Data\\Migrations\\20240429085111_initial.Designer.cs",
+              "ViewState": "AQIAAF4AAAAAAAAAAAAkwKAAAABIAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-29T10:26:45.94Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 8,
-              "Title": "DbContext.cs",
-              "DocumentMoniker": "C:\\Users\\ajay.k_int1595\\Desktop\\Ems-Project\\EventManagementSystem\\EMS-Backend\\WebApplicationServer\\WebApplicationServer\\Data\\DbContext.cs",
-              "RelativeDocumentMoniker": "WebApplicationServer\\Data\\DbContext.cs",
-              "ToolTip": "C:\\Users\\ajay.k_int1595\\Desktop\\Ems-Project\\EventManagementSystem\\EMS-Backend\\WebApplicationServer\\WebApplicationServer\\Data\\DbContext.cs",
-              "RelativeToolTip": "WebApplicationServer\\Data\\DbContext.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAwAAAAAAAAA",
+              "Title": "AddBookedEventService.cs",
+              "DocumentMoniker": "C:\\Users\\ritik.k_7767\\Desktop\\Event Management System\\2704_clone\\EventManagementSystem\\EMS-Backend\\WebApplicationServer\\WebApplicationServer\\Services\\AddBookedEventService.cs",
+              "RelativeDocumentMoniker": "WebApplicationServer\\Services\\AddBookedEventService.cs",
+              "ToolTip": "C:\\Users\\ritik.k_7767\\Desktop\\Event Management System\\2704_clone\\EventManagementSystem\\EMS-Backend\\WebApplicationServer\\WebApplicationServer\\Services\\AddBookedEventService.cs",
+              "RelativeToolTip": "WebApplicationServer\\Services\\AddBookedEventService.cs",
+              "ViewState": "AQIAABAAAAAAAAAAAAAgwC8AAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-25T07:00:55.631Z"
+              "WhenOpened": "2024-04-29T10:02:24.639Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "AddEventViewModel.cs",
+              "DocumentMoniker": "C:\\Users\\ritik.k_7767\\Desktop\\Event Management System\\2704_clone\\EventManagementSystem\\EMS-Backend\\WebApplicationServer\\WebApplicationServer\\Models\\ViewModels\\AddEventViewModel.cs",
+              "RelativeDocumentMoniker": "WebApplicationServer\\Models\\ViewModels\\AddEventViewModel.cs",
+              "ToolTip": "C:\\Users\\ritik.k_7767\\Desktop\\Event Management System\\2704_clone\\EventManagementSystem\\EMS-Backend\\WebApplicationServer\\WebApplicationServer\\Models\\ViewModels\\AddEventViewModel.cs",
+              "RelativeToolTip": "WebApplicationServer\\Models\\ViewModels\\AddEventViewModel.cs",
+              "ViewState": "AQIAABcAAAAAAAAAAAAIwCYAAAApAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-29T08:38:39.372Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "GetAllEventResponseViewModel.cs",
+              "DocumentMoniker": "C:\\Users\\ritik.k_7767\\Desktop\\Event Management System\\2704_clone\\EventManagementSystem\\EMS-Backend\\WebApplicationServer\\WebApplicationServer\\Models\\ResponseModels\\GetAllEventResponseViewModel.cs",
+              "RelativeDocumentMoniker": "WebApplicationServer\\Models\\ResponseModels\\GetAllEventResponseViewModel.cs",
+              "ToolTip": "C:\\Users\\ritik.k_7767\\Desktop\\Event Management System\\2704_clone\\EventManagementSystem\\EMS-Backend\\WebApplicationServer\\WebApplicationServer\\Models\\ResponseModels\\GetAllEventResponseViewModel.cs",
+              "RelativeToolTip": "WebApplicationServer\\Models\\ResponseModels\\GetAllEventResponseViewModel.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAoAAAABAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-29T09:42:35.597Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "ApplicationDbContext.cs",
+              "DocumentMoniker": "C:\\Users\\ritik.k_7767\\Desktop\\Event Management System\\2704_clone\\EventManagementSystem\\EMS-Backend\\WebApplicationServer\\WebApplicationServer\\Data\\ApplicationDbContext.cs",
+              "RelativeDocumentMoniker": "WebApplicationServer\\Data\\ApplicationDbContext.cs",
+              "ToolTip": "C:\\Users\\ritik.k_7767\\Desktop\\Event Management System\\2704_clone\\EventManagementSystem\\EMS-Backend\\WebApplicationServer\\WebApplicationServer\\Data\\ApplicationDbContext.cs",
+              "RelativeToolTip": "WebApplicationServer\\Data\\ApplicationDbContext.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAwAAAAyAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-29T10:14:19.674Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "AddBookedEventViewModel.cs",
+              "DocumentMoniker": "C:\\Users\\ritik.k_7767\\Desktop\\Event Management System\\2704_clone\\EventManagementSystem\\EMS-Backend\\WebApplicationServer\\WebApplicationServer\\Models\\ViewModels\\AddBookedEventViewModel.cs",
+              "RelativeDocumentMoniker": "WebApplicationServer\\Models\\ViewModels\\AddBookedEventViewModel.cs",
+              "ToolTip": "C:\\Users\\ritik.k_7767\\Desktop\\Event Management System\\2704_clone\\EventManagementSystem\\EMS-Backend\\WebApplicationServer\\WebApplicationServer\\Models\\ViewModels\\AddBookedEventViewModel.cs",
+              "RelativeToolTip": "WebApplicationServer\\Models\\ViewModels\\AddBookedEventViewModel.cs",
+              "ViewState": "AQIAAAUAAAAAAAAAAAAQwA0AAAArAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-29T08:58:47.336Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "IAddBookedEventService.cs",
+              "DocumentMoniker": "C:\\Users\\ritik.k_7767\\Desktop\\Event Management System\\2704_clone\\EventManagementSystem\\EMS-Backend\\WebApplicationServer\\WebApplicationServer\\Services\\IService\\IAddBookedEventService.cs",
+              "RelativeDocumentMoniker": "WebApplicationServer\\Services\\IService\\IAddBookedEventService.cs",
+              "ToolTip": "C:\\Users\\ritik.k_7767\\Desktop\\Event Management System\\2704_clone\\EventManagementSystem\\EMS-Backend\\WebApplicationServer\\WebApplicationServer\\Services\\IService\\IAddBookedEventService.cs",
+              "RelativeToolTip": "WebApplicationServer\\Services\\IService\\IAddBookedEventService.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-29T10:03:59.246Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "AccountController.cs",
+              "DocumentMoniker": "C:\\Users\\ritik.k_7767\\Desktop\\Event Management System\\2704_clone\\EventManagementSystem\\EMS-Backend\\WebApplicationServer\\WebApplicationServer\\Controllers\\AccountController.cs",
+              "RelativeDocumentMoniker": "WebApplicationServer\\Controllers\\AccountController.cs",
+              "ToolTip": "C:\\Users\\ritik.k_7767\\Desktop\\Event Management System\\2704_clone\\EventManagementSystem\\EMS-Backend\\WebApplicationServer\\WebApplicationServer\\Controllers\\AccountController.cs",
+              "RelativeToolTip": "WebApplicationServer\\Controllers\\AccountController.cs",
+              "ViewState": "AQIAABsAAAAAAAAAAAAowAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-04-29T09:37:59.653Z",
+              "EditorCaption": ""
             }
           ]
         }
