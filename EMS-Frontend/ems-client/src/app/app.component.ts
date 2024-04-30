@@ -1,5 +1,6 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { RouterLink, RouterLinkActive, RouterModule, RouterOutlet } from '@angular/router';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { HomeComponent } from './pages/home/home.component';
@@ -12,7 +13,7 @@ import { NavbarComponent } from "./pages/navbar/navbar.component";
     templateUrl: './app.component.html',
     styleUrl: './app.component.css',
     providers: [NavbarComponent, HomeComponent],
-    imports: [RouterOutlet, HttpClientModule, CommonModule, RouterModule, RouterLink, RouterLinkActive, NavbarComponent]
+    imports: [RouterOutlet, FormsModule, HttpClientModule, CommonModule, RouterModule, RouterLink, RouterLinkActive, NavbarComponent]
 })
 export class AppComponent { //implements OnInit{
   // title = 'ems-client';

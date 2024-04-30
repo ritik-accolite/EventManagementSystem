@@ -22,11 +22,12 @@ namespace WebApplicationServer.Controllers
         }
 
         [HttpPost("register")]
-        public async Task<IActionResult> RegisterPerson(RegisterViewModel person)
+        public async Task<ResponseViewModel> RegisterPerson(RegisterViewModel person)
         {
 
                 string message = "";
-                IdentityResult result = new();
+            ResponseViewModel response = new ResponseViewModel();
+            IdentityResult result = new();
                 try
                 {
                     var user = new Person()
@@ -44,24 +45,30 @@ namespace WebApplicationServer.Controllers
                     result = await _userManager.CreateAsync(user, person.Password);
                     if (!result.Succeeded)
                     {
-                        return BadRequest(result);
-                    }
+                    response.Status = 403;
+                    response.Message = "Unauthorised Access";
+                    return response;
+                }
 
                     message = "Registered Successfully";
                 }
                 catch (Exception ex)
                 {
-                    return BadRequest("Something went wrong, please try again" + ex.Message);
-                }
-                return Ok(result);
+                response.Status = 400;
+                response.Message = ex.Message;
+                return response;
+            }
+            response.Status = 200;
+            response.Message = "Successfully Registered";
+            return response;
 
         }
 
         [HttpPost("login")]
-        public async Task<IActionResult> LoginPerson(LoginViewModel login)
+        public async Task<ResponseViewModel> LoginPerson(LoginViewModel login)
         {
             string message = "";
-
+            ResponseViewModel response = new ResponseViewModel();
             try
             {
                 Person person = await _userManager.FindByEmailAsync(login.Email);
@@ -74,15 +81,22 @@ namespace WebApplicationServer.Controllers
 
                 if (!result.Succeeded)
                 {
-                    return Unauthorized("Check your Login info");
+                    
+                    response.Status = 403;
+                    response.Message = "Unauthorised Access";
+                    return response;
                 }
                 message = "Login Successfully";
             }
             catch(Exception ex) 
             {
-                return BadRequest("Something went wrong" + ex.Message);
+                response.Status = 400;
+                response.Message = ex.Message;
+                return response;
             }
-            return Ok(message);
+            response.Status = 200;
+            response.Message ="Successfully Logged In";
+            return response;
         }
 
 

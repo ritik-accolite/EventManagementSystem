@@ -1,6 +1,6 @@
 <div class="main">
     <div class="container">
-        <form>
+        <form [formGroup]="userDataForm" (ngSubmit)="onSubmit()">
             <h1>Sign Up</h1>
             <div class="form-group">
                 <label for="firstname">Firstname</label>
