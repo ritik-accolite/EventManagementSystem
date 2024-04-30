@@ -1,13 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 
-namespace WebApplicationServer.Models
+namespace WebApplicationServer.Models.ViewModels
 {
-    public class Event
+    public class AddEventViewModel
     {
-        [Key]
-        public int EventId { get; set; }
-
         [Required]
         [StringLength(255)]
         public string EventName { get; set; }
@@ -26,14 +23,11 @@ namespace WebApplicationServer.Models
         [DataType(DataType.Date)]
         public DateTime EventDate { get; set; }
 
-        //[Required]
-        //[DataType(DataType.Time)]
-        //public TimeSpan EventTime { get; set; }
 
         [Required]
         [StringLength(255)]
         public string Event_Time { get; set; }
-        
+
         [Required]
         public string EventLocation { get; set; }
 
@@ -47,12 +41,5 @@ namespace WebApplicationServer.Models
         [Required]
         [StringLength(255)]
         public string BannerImage { get; set; }
-
-        [Required]
-        public string? EventOrganizerId { get; set; }
-
-        [ForeignKey("EventOrganizerId")]
-        public Person? Organizer { get; set; }
-
     }
 }

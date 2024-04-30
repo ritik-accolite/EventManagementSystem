@@ -1,8 +1,13 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Logging;
 using WebApplicationServer.Models;
+using WebApplicationServer.Models.ResponseModels;
+using WebApplicationServer.Models.ViewModels;
+using WebApplicationServer.Services;
+using WebApplicationServer.Services.IService;
 
 
 namespace WebApplicationServer.Controllers
@@ -13,89 +18,147 @@ namespace WebApplicationServer.Controllers
     {
         private string connectionString = "Server=tcp:ems-server.database.windows.net,1433;Initial Catalog=emsdatabase;Persist Security Info=False;User ID=ajaykarode;Password=Emspassword@123;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
 
+        private readonly IAddEventService _addEventService;
+        private readonly UserManager<Person> _userManager;
+
+        public EventController(UserManager<Person> userManager, IAddEventService addEventService)
+        {
+            _addEventService = addEventService;
+            _userManager = userManager;
+        }
 
         [HttpGet]
-        public IActionResult GetAllEvents()
+        public async Task<GetAllEventResponseViewModel> GetAllEvents()
         {
-            List<Event> events = new List<Event>();
+            var events = await _addEventService.GetAllEvents();
+            return events;
+        }
 
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            {
-                string sqlQuery = "SELECT * FROM Event";
-                SqlCommand command = new SqlCommand(sqlQuery, connection);
 
-                connection.Open();
-                SqlDataReader reader = command.ExecuteReader();
+        [HttpGet("{EventId:int}")]
+        public async Task<GetEVentByIdResposeViewModel> GetEventById(int EventId)
+        {
+            var events = await _addEventService.GetEventById(EventId);
+            return events;
 
-                while (reader.Read())
-                {
-                    Event @event = new Event
-                    {
-                        EventId = Convert.ToInt32(reader["EventId"]),
-                        EventName = Convert.ToString(reader["EventName"]),
-                        EventCategory = Convert.ToString(reader["EventCategory"]),
-                        Description = Convert.ToString(reader["Description"]),
-                        ChiefGuest = Convert.ToString(reader["ChiefGuest"]),
-                        EventDate = Convert.ToDateTime(reader["EventDate"]),
-                        Event_Time = Convert.ToString(reader["Event_Time"].ToString()),
-                        EventLocation = Convert.ToString(reader["EventLocation"]),
-                        TicketPrice = Convert.ToDecimal(reader["TicketPrice"]),
-                        Capacity = Convert.ToInt32(reader["Capacity"]),
-                        BannerImage = Convert.ToString(reader["BannerImage"]),
-                        EventOrganizerId = Convert.ToInt32(reader["EventOrganizerId"])
-                    };
-
-                    events.Add(@event);
-                }
-
-                reader.Close();
-            }
-
-            return Ok(events);
         }
 
 
 
-        [HttpGet("{id}")]
-        public IActionResult GetEvent(int id)
+        [HttpPost]
+        [Route("addEvent")]
+        public async Task<ResponseViewModel> AddEvent(AddEventViewModel addEvent)
         {
-            Event @event = null;
-
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            
+            ResponseViewModel response;
+            if (!ModelState.IsValid)
             {
-                string sqlQuery = "SELECT * FROM Event WHERE EventId = @EventId";
-                SqlCommand command = new SqlCommand(sqlQuery, connection);
-                command.Parameters.AddWithValue("@EventId", id); // Use the id parameter to identify the event to retrieve
-                connection.Open();
-                SqlDataReader reader = command.ExecuteReader();
-                if (reader.Read())
-                {
-                    @event = new Event
-                    {
-                        EventId = Convert.ToInt32(reader["EventId"]),
-                        EventName = Convert.ToString(reader["EventName"]),
-                        EventCategory = Convert.ToString(reader["EventCategory"]),
-                        Description = Convert.ToString(reader["Description"]),
-                        ChiefGuest = Convert.ToString(reader["ChiefGuest"]),
-                        EventDate = Convert.ToDateTime(reader["EventDate"]),
-                        Event_Time = Convert.ToString(reader["Event_Time"].ToString()),
-                        EventLocation = Convert.ToString(reader["EventLocation"]),
-                        TicketPrice = Convert.ToDecimal(reader["TicketPrice"]),
-                        Capacity = Convert.ToInt32(reader["Capacity"]),
-                        BannerImage = Convert.ToString(reader["BannerImage"]),
-                        EventOrganizerId = Convert.ToInt32(reader["EventOrganizerId"])
-                    };
-                }
-                reader.Close();
+                response = new ResponseViewModel();
+                response.Status = 422;
+                response.Message = "Please Enter all the details.";
+                return response;
             }
-
-            if (@event == null)
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null || user.Role != "Organiser")
             {
-                return NotFound(); // No event found with the provided id
+                response = new ResponseViewModel();
+                response.Status = 401;
+                response.Message = "You are either not loggedIn or You are not Orgainser.";
+                return response;
             }
+            response = await _addEventService.AddEvent(addEvent, user.Id);
 
-            return Ok(@event);
+            return response;
         }
+
+
+
+        /*        public IActionResult GetAllEvents()
+                {
+                    List<Event> events = new List<Event>();
+
+                    using (SqlConnection connection = new SqlConnection(connectionString))
+                    {
+                        string sqlQuery = "SELECT * FROM Event";
+                        SqlCommand command = new SqlCommand(sqlQuery, connection);
+
+                        connection.Open();
+                        SqlDataReader reader = command.ExecuteReader();
+
+                        while (reader.Read())
+                        {
+                            Event @event = new Event
+                            {
+                                EventId = Convert.ToInt32(reader["EventId"]),
+                                EventName = Convert.ToString(reader["EventName"]),
+                                EventCategory = Convert.ToString(reader["EventCategory"]),
+                                Description = Convert.ToString(reader["Description"]),
+                                ChiefGuest = Convert.ToString(reader["ChiefGuest"]),
+                                EventDate = Convert.ToDateTime(reader["EventDate"]),
+                                Event_Time = Convert.ToString(reader["Event_Time"].ToString()),
+                                EventLocation = Convert.ToString(reader["EventLocation"]),
+                                TicketPrice = Convert.ToDecimal(reader["TicketPrice"]),
+                                Capacity = Convert.ToInt32(reader["Capacity"]),
+                                BannerImage = Convert.ToString(reader["BannerImage"]),
+                                //EventOrganizerId = Convert.ToInt32(reader["EventOrganizerId"])
+                            };
+
+                            events.Add(@event);
+                        }
+
+                        reader.Close();
+                    }
+
+                    return Ok(events);
+                }*/
+        // {
+        //    var events = await _addEventService.GetAllEvents();
+        //    return events;
+        //}
+
+ 
+
+
+        //[HttpGet("{id}")]
+        //public IActionResult GetEvent(int id)
+        //{
+        //    Event @event = null;
+
+        //    using (SqlConnection connection = new SqlConnection(connectionString))
+        //    {
+        //        string sqlQuery = "SELECT * FROM Event WHERE EventId = @EventId";
+        //        SqlCommand command = new SqlCommand(sqlQuery, connection);
+        //        command.Parameters.AddWithValue("@EventId", id); // Use the id parameter to identify the event to retrieve
+        //        connection.Open();
+        //        SqlDataReader reader = command.ExecuteReader();
+        //        if (reader.Read())
+        //        {
+        //            @event = new Event
+        //            {
+        //                EventId = Convert.ToInt32(reader["EventId"]),
+        //                EventName = Convert.ToString(reader["EventName"]),
+        //                EventCategory = Convert.ToString(reader["EventCategory"]),
+        //                Description = Convert.ToString(reader["Description"]),
+        //                ChiefGuest = Convert.ToString(reader["ChiefGuest"]),
+        //                EventDate = Convert.ToDateTime(reader["EventDate"]),
+        //                Event_Time = Convert.ToString(reader["Event_Time"].ToString()),
+        //                EventLocation = Convert.ToString(reader["EventLocation"]),
+        //                TicketPrice = Convert.ToDecimal(reader["TicketPrice"]),
+        //                Capacity = Convert.ToInt32(reader["Capacity"]),
+        //                BannerImage = Convert.ToString(reader["BannerImage"]),
+        //                //EventOrganizerId = Convert.ToInt32(reader["EventOrganizerId"])
+        //            };
+        //        }
+        //        reader.Close();
+        //    }
+
+        //    if (@event == null)
+        //    {
+        //        return NotFound(); // No event found with the provided id
+        //    }
+
+        //    return Ok(@event);
+        //}
 
 
 
