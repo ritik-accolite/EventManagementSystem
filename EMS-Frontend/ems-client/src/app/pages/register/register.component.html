@@ -1,0 +1,38 @@
+<div class="main">
+    <div class="container">
+        <form>
+            <h1>Sign Up</h1>
+            <div class="form-group">
+                <label for="firstname">Firstname</label>
+                <input type="text" class="form-control" id="firstname" name="Firstname" formControlName="firstname" required>
+            </div>
+            <div class="form-group">
+                <label for="lastname">Lastname</label>
+                <input type="text" class="form-control" id="lastname" name="Lastname" formControlName="lastname" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" class="form-control" id="email" name="Email" formControlName="email" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" class="form-control" id="password" name="password" formControlName="password" required>
+            </div>
+            <div class="form-group">
+                <label for="phonenumber">PhoneNumber</label>
+                <input type="tel" class="form-control" id="phonenumber" name="PhoneNumber" formControlName="phonenumber" required>
+            </div>
+            <div class="form-group">
+                <label for="role">Role</label>
+                <select class="form-control" id="role" formControlName="role">
+                    <option value="Admin">Admin</option>
+                    <option value="Organizer">Organizer</option>
+                    <option value="User">User</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary" (onclick)="onSubmit()">Sign Up</button>
+            <p>Login If Already Registered? <a href="login">Login</a></p>
+        </form>
+    </div>
+</div>
+
