@@ -1,9 +1,12 @@
-
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using WebApplicationServer.Data;
+using WebApplicationServer.Models;
 using WebApplicationServer.Services;
+using WebApplicationServer.Services.IService;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,6 +17,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddControllers();
+builder.Services.AddAuthorization();
 
 
 // Register CORS services
@@ -26,20 +30,42 @@ builder.Services.AddCors(options =>
             //builder.WithOrigins("http://localhost:4200").AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin();
         });
 });
+// for testing , sql 
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 // Create a SqlConnection object using the connection string
-using var conn = new SqlConnection(builder.Configuration.GetConnectionString("AZURE_SQL_CONNECTIONSTRING"));
-conn.Open(); // Open the connection
+//using var conn = new SqlConnection(builder.Configuration.GetConnectionString("AZURE_SQL_CONNECTIONSTRING"));
+//conn.Open(); // Open the connection
 // Configure DbContextOptionsBuilder to use the SqlConnection
 //builder.Services.AddDbContext<DbContext>(options =>
 //{
 //    options.UseSqlServer(conn);
 //});
 
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
+builder.Services.AddIdentityApiEndpoints<Person>().AddEntityFrameworkStores<ApplicationDbContext>();
+
+builder.Services.AddScoped<IAddEventService, AddEventService>();
+builder.Services.AddScoped<IAddBookedEventService, AddBookedEventService>();
+builder.Services.AddScoped<IGetAllPerson,GetAllPerson>();
+
+
+builder.Services.AddIdentityCore<Person>(options =>
 {
-    options.UseSqlServer(conn);
-});
+    options.SignIn.RequireConfirmedAccount = true;
+    options.Password.RequireDigit = true;
+    options.Password.RequireLowercase = true;
+    options.Password.RequireUppercase = true;
+    options.Password.RequireNonAlphanumeric = false;
+    options.Password.RequiredLength = 6;
+    options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
+    options.Lockout.MaxFailedAccessAttempts = 5;
+    options.Lockout.AllowedForNewUsers = true;
+    options.User.RequireUniqueEmail = true;
+
+})
+.AddEntityFrameworkStores<ApplicationDbContext>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -51,25 +77,10 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-var summaries = new[]
-{
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-};
+app.UseAuthorization();
+app.MapIdentityApi<Person>();
 
-app.MapGet("/weatherforecast", () =>
-{
-    var forecast = Enumerable.Range(1, 5).Select(index =>
-        new WeatherForecast
-        (
-            DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-            Random.Shared.Next(-20, 55),
-            summaries[Random.Shared.Next(summaries.Length)]
-        ))
-        .ToArray();
-    return forecast;
-})
-.WithName("GetWeatherForecast")
-.WithOpenApi();
+
 // Uncomment this for access through 1 origin only
 //app.UseCors(AllowOrigin)
 app.UseRouting();
@@ -79,7 +90,4 @@ app.MapControllerRoute(
 
 app.Run();
 
-internal record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
-{
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-}
+

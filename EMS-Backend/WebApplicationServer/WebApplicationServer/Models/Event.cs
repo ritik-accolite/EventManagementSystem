@@ -49,10 +49,10 @@ namespace WebApplicationServer.Models
         public string BannerImage { get; set; }
 
         [Required]
-        public int EventOrganizerId { get; set; }
+        public string? EventOrganizerId { get; set; }
 
         [ForeignKey("EventOrganizerId")]
-        public Person Organizer { get; set; }
+        public Person? Organizer { get; set; }
 
     }
 }

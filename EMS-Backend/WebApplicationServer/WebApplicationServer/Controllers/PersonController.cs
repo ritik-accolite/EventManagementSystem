@@ -1,21 +1,128 @@
-﻿//using Microsoft.AspNetCore.Http;
-//using System;
-//using System.Collections.Generic;
-//using System.Threading.Tasks;
-//using Microsoft.AspNetCore.Mvc;
-//using Microsoft.Data.SqlClient;
-//using Microsoft.EntityFrameworkCore;
-//using Microsoft.Extensions.Logging;
-//using WebApplicationServer.Models;
-//using Microsoft.Extensions.Configuration;
+using Microsoft.AspNetCore.Http;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
+using WebApplicationServer.Models;
+using Microsoft.Extensions.Configuration;
+using WebApplicationServer.Models.ResponseModels;
+using Microsoft.AspNetCore.Identity;
+using WebApplicationServer.Services.IService;
+using WebApplicationServer.Services;
+using WebApplicationServer.Models.ViewModels;
 
-//namespace WebApplicationServer.Controllers
-//{
-//    [Route("api/[controller]")]
-//    [ApiController]
-//    public class PersonController : ControllerBase
-//    {
-//        private string connectionString = "Server=tcp:ems-server.database.windows.net,1433;Initial Catalog=emsdatabase;Persist Security Info=False;User ID=ajaykarode;Password=Emspassword@123;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
+namespace WebApplicationServer.Controllers
+{
+    [Route("api/[controller]")]
+    [ApiController]
+    public class PersonController : ControllerBase
+    {
+        private string connectionString = "Server=tcp:ems-server.database.windows.net,1433;Initial Catalog=emsdatabase;Persist Security Info=False;User ID=ajaykarode;Password=Emspassword@123;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
+
+        private readonly IGetAllPerson _getAllPerson;
+        private readonly UserManager<Person> _userManager;
+
+        public PersonController(UserManager<Person> userManager, IGetAllPerson getAllPerson)
+        {
+            _getAllPerson = getAllPerson;
+            _userManager = userManager;
+        }
+
+        [HttpGet]
+        public async Task<GetAllPersonResponseViewModel> GetAllPersons()
+        {
+            var persons = await _getAllPerson.GetAllPersons();
+            return persons;
+        }
+
+        [HttpGet("{Id}")]
+        public async Task<GetPersonByIdResponseViewModel> GetPersonById(string Id)
+        {
+            var person = await _getAllPerson.GetPersonById(Id);
+            return person;
+
+        }
+
+
+
+        [HttpDelete("{Id}")]
+        public async Task<ResponseViewModel> DeletePerson(string Id)
+        {
+            ResponseViewModel response;
+            var user = await _userManager.GetUserAsync(User);
+            //if (user == null || user.Role != "Organizer")
+            //{
+            //    response = new ResponseViewModel();
+            //    response.Status = 401;
+            //    response.Message = "You are either not loggedIn or You are not Orgainser.";
+            //    return response;
+            //}
+
+            response = await _getAllPerson.DeletePerson(Id);
+            return response;
+        }
+
+
+
+
+        [HttpPut("updatePerson/{id}")]
+        public async Task<ResponseViewModel> UpdatePerson(string id, UpdatePersonViewModel updatePerson)
+        {
+            ResponseViewModel response;
+
+            if (!ModelState.IsValid)
+            {
+                response = new ResponseViewModel();
+                response.Status = 422;
+                response.Message = "Please provide valid Person details.";
+                return response;
+            }
+
+            //var user = await _userManager.GetUserAsync(User);
+            //if (user == null || user.Role != "Organizer")
+            //{
+            //    response = new ResponseViewModel();
+            //    response.Status = 401;
+            //    response.Message = "You are either not logged in or not an organizer.";
+            //    return response;
+            //}
+
+            response = await _getAllPerson.UpdatePerson(id, updatePerson);
+            return response;
+        }
+
+
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 //        [HttpGet]
 //        public IEnumerable<Person> GetPerson()
@@ -50,36 +157,36 @@
 
 
 
-//        [HttpGet("{id}")]
-//        public IActionResult GetPerson(int id)
+//[HttpGet("{id}")]
+//public IActionResult GetPerson(int id)
+//{
+//    using (SqlConnection connection = new SqlConnection(connectionString))
+//    {
+//        string sqlQuery = "SELECT * FROM Person WHERE PersonId = @PersonId";
+//        SqlCommand command = new SqlCommand(sqlQuery, connection);
+//        command.Parameters.AddWithValue("@PersonId", id); // Use the id parameter to identify the person to retrieve
+//        connection.Open();
+//        SqlDataReader reader = command.ExecuteReader();
+//        if (reader.Read())
 //        {
-//            using (SqlConnection connection = new SqlConnection(connectionString))
+//            Person person = new Person
 //            {
-//                string sqlQuery = "SELECT * FROM Person WHERE PersonId = @PersonId";
-//                SqlCommand command = new SqlCommand(sqlQuery, connection);
-//                command.Parameters.AddWithValue("@PersonId", id); // Use the id parameter to identify the person to retrieve
-//                connection.Open();
-//                SqlDataReader reader = command.ExecuteReader();
-//                if (reader.Read())
-//                {
-//                    Person person = new Person
-//                    {
-//                        PersonId = (int)reader["PersonId"],
-//                        FirstName = reader["FirstName"].ToString(),
-//                        LastName = reader["LastName"].ToString(),
-//                        Email = reader["Email"].ToString(),
-//                        Password = reader["Password"].ToString(),
-//                        PhoneNumber = reader["PhoneNumber"].ToString(),
-//                        Role = reader["Role"].ToString()
-//                    };
-//                    return Ok(person); // Found the person, return it
-//                }
-//                else
-//                {
-//                    return NotFound(); // No person found with the provided id
-//                }
-//            }
+//                PersonId = (int)reader["PersonId"],
+//                FirstName = reader["FirstName"].ToString(),
+//                LastName = reader["LastName"].ToString(),
+//                Email = reader["Email"].ToString(),
+//                Password = reader["Password"].ToString(),
+//                PhoneNumber = reader["PhoneNumber"].ToString(),
+//                Role = reader["Role"].ToString()
+//            };
+//            return Ok(person); // Found the person, return it
 //        }
+//        else
+//        {
+//            return NotFound(); // No person found with the provided id
+//        }
+//    }
+//}
 
 
 //        [HttpPost]
@@ -147,114 +254,6 @@
 //        }
 
 
-//    }
-//}
 
 
 
-
-
-// Controllers/PersonController.cs
-using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using WebApplicationServer.Models;
-using WebApplicationServer.Services;
-
-namespace WebApplicationServer.Controllers
-{
-    [Route("api/[controller]")]
-    [ApiController]
-    public class PersonController : ControllerBase
-    {
-        private readonly IPersonService _personService;
-
-        public PersonController(IPersonService personService)
-        {
-            _personService = personService;
-        }
-
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<Person>>> GetPeople()
-        {
-            try
-            {
-                var people = await _personService.GetPeople();
-                return Ok(people);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, $"Internal server error: {ex.Message}");
-            }
-        }
-
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Person>> GetPerson(int id)
-        {
-            try
-            {
-                var person = await _personService.GetPerson(id);
-                if (person == null)
-                {
-                    return NotFound();
-                }
-                return Ok(person);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, $"Internal server error: {ex.Message}");
-            }
-        }
-
-        [HttpPost]
-        public async Task<ActionResult<Person>> CreatePerson(Person person)
-        {
-            try
-            {
-                var newPerson = await _personService.CreatePerson(person);
-                return CreatedAtAction(nameof(GetPerson), new { id = newPerson.PersonId }, newPerson);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, $"Internal server error: {ex.Message}");
-            }
-        }
-
-        [HttpPut("{id}")]
-        public async Task<IActionResult> UpdatePerson(int id, Person person)
-        {
-            try
-            {
-                var updatedPerson = await _personService.UpdatePerson(id, person);
-                if (updatedPerson == null)
-                {
-                    return NotFound();
-                }
-                return NoContent();
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, $"Internal server error: {ex.Message}");
-            }
-        }
-
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeletePerson(int id)
-        {
-            try
-            {
-                var result = await _personService.DeletePerson(id);
-                if (!result)
-                {
-                    return NotFound();
-                }
-                return NoContent();
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, $"Internal server error: {ex.Message}");
-            }
-        }
-    }
-}
