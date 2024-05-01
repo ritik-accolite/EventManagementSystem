@@ -82,7 +82,7 @@ app.MapIdentityApi<Person>();
 
 
 // Uncomment this for access through 1 origin only
-//app.UseCors(AllowOrigin)
+app.UseCors("AllowOrigin");
 app.UseRouting();
 app.MapControllerRoute(
     name: default,
