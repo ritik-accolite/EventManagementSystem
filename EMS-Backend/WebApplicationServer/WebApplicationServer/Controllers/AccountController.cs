@@ -30,21 +30,6 @@ namespace WebApplicationServer.Controllers
         public async Task<ResponseViewModel> RegisterPerson(RegisterViewModel person)
         {
 
-                string message = "";
-            ResponseViewModel response = new ResponseViewModel();
-            IdentityResult result = new();
-                try
-                {
-                    var user = new Person()
-                    {
-                        Email = person.Email,
-                        FirstName = person.FirstName,
-                        LastName = person.LastName,
-                        Role = person.Role,
-                        PhoneNumber = person.PhoneNumber,
-                        UserName = person.Email,
-                        Password = person.Password
-                    };
             string message = "";
             ResponseViewModel response = new ResponseViewModel();
             IdentityResult result = new();
@@ -61,14 +46,6 @@ namespace WebApplicationServer.Controllers
                     Password = person.Password
                 };
 
-
-                    result = await _userManager.CreateAsync(user, person.Password);
-                    if (!result.Succeeded)
-                    {
-                    response.Status = 403;
-                    response.Message = "Unauthorised Access";
-                    return response;
-                }
                 result = await _userManager.CreateAsync(user, person.Password);
                 if (!result.Succeeded)
                 {
@@ -88,25 +65,12 @@ namespace WebApplicationServer.Controllers
             response.Status = 200;
             response.Message = "Successfully Registered";
             return response;
-                message = "Registered Successfully";
             }
-            catch (Exception ex)
-            {
-                response.Status = 400;
-                response.Message = ex.Message;
-                return response;
-            }
-            response.Status = 200;
-            response.Message = "Successfully Registered";
-            return response;
-
-        }
 
         [HttpPost("login")]
         public async Task<ResponseViewModel> LoginPerson(LoginViewModel login)
         {
             string message = "";
-            ResponseViewModel response = new ResponseViewModel();
             ResponseViewModel response = new ResponseViewModel();
 
             try
@@ -122,9 +86,6 @@ namespace WebApplicationServer.Controllers
                 if (!result.Succeeded)
                 {
                     
-                    response.Status = 403;
-                    response.Message = "Unauthorised Access";
-                    return response;
                     response.Status = 403;
                     response.Message = "Unauthorised Access";
                     return response;
@@ -144,13 +105,16 @@ namespace WebApplicationServer.Controllers
 
 
         [HttpPost("logout")]
-        public async Task<IActionResult> LogoutPerson()
+        public async Task<ResponseViewModel> LogoutPerson()
         {
+            ResponseViewModel response = new ResponseViewModel();
             try
             {
                 await _signInManager.SignOutAsync();
                 await HttpContext.SignOutAsync(IdentityConstants.ApplicationScheme);
-                return Ok("Logout Successfully");
+                response.Status = 200;
+                response.Message = "Logged Out Successfully";
+                return response;
             }
             catch (Exception ex)
             {
@@ -158,17 +122,14 @@ namespace WebApplicationServer.Controllers
                 response.Message = ex.Message;
                 return response;
             }
-            response.Status = 200;
-            response.Message ="Successfully Logged In";
-            return response;
-        }
         }
 
 
 
         [HttpPost("ChangeEmail")]
-        public async Task<IActionResult> ChangeEmail(ChangeEmailViewModel model)
+        public async Task<ResponseViewModel> ChangeEmail(ChangeEmailViewModel model)
         {
+            ResponseViewModel response = new ResponseViewModel();
             if (ModelState.IsValid)
             {
                 var user = await _userManager.GetUserAsync(User);
@@ -180,18 +141,25 @@ namespace WebApplicationServer.Controllers
                     var setUserNameResult = await _userManager.SetUserNameAsync(user, user.Email);
                     if (!setUserNameResult.Succeeded)
                     {
-                        return BadRequest("Something went wrong");
+                        response.Status = 400;
+                        response.Message = "Email Not Updated";
+                        return response;
                     }
                     await _signInManager.RefreshSignInAsync(user);
-                    return Ok("Email Updated Successfully");
+                    response.Status = 200;
+                    response.Message = "Email changed Successfully";
+                    return response;
                 }
             }
-            return Ok(model);
+            response.Status = 403;
+            response.Message = "Something went wrong";
+            return response;
         }
 
         [HttpPost("ChangePassword")]
-        public async Task<IActionResult> ChangePassword(ChangePasswordViewModel model)
+        public async Task<ResponseViewModel> ChangePassword(ChangePasswordViewModel model)
         {
+            ResponseViewModel response = new ResponseViewModel();
             if (ModelState.IsValid)
             {
                 var user = await _userManager.GetUserAsync(User);
@@ -200,14 +168,20 @@ namespace WebApplicationServer.Controllers
                 if (result.Succeeded)
                 {
                     await _signInManager.RefreshSignInAsync(user);
-                    return Ok("Password updated successfully");
+                    response.Status = 200;
+                    response.Message = "Password changed Successfully";
+                    return response;
                 }
                 else
                 {
-                    return BadRequest("Failed to update password");
+                    response.Status = 400;
+                    response.Message = "Password Not Updated";
+                    return response;
                 }
             }
-            return BadRequest(ModelState);
+            response.Status = 403;
+            response.Message = "Something went wrong";
+            return response;
         }
 
     }
