@@ -11,8 +11,14 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             </ul>
+            <div class="search-container">
+                <form>
+                  <input type="text" placeholder="Search.." name="search">
+                  <button type="submit"><i class="fa fa-search"></i></button>
+                </form>
+              </div>
             <form class="d-flex"> 
-                <a routerLink="/login"><button class="btn btn-outline-primary round-button mx-2 btn-style" type="button">Login</button></a>
+                <a routerLink="/login"><button class="btn btn-success round-button btn-style me-3" type="button">Login</button></a>
                 <a routerLink="/register"><button class="btn btn-success round-button btn-style" type="button">Register</button></a>
             </form>
         </div>

@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
   selector: 'app-register',
   standalone: true,
   imports: [ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule 
   ],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css'
@@ -17,6 +17,7 @@ import { Router } from '@angular/router';
 
 export class RegisterComponent implements OnInit {
   userDataForm!: FormGroup;
+form: any;
 
   constructor(
     private fb: FormBuilder,

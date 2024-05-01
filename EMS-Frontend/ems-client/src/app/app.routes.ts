@@ -8,6 +8,7 @@ import { RegisterComponent } from './pages/register/register.component';
 import { LoginComponent } from './pages/login/login.component';
 import { EventbookingComponent } from './pages/eventbooking/eventbooking.component';
 import { NavbarComponent } from './pages/navbar/navbar.component';
+import { UserprofileComponent } from './pages/userprofile/userprofile.component';
 
 export const routes: Routes = [
     {
@@ -50,6 +51,10 @@ export const routes: Routes = [
     {
         path:'navbar',
         component:NavbarComponent
+    },
+    {
+        path:'user-profile',
+        component:UserprofileComponent
     }
 ];
 
