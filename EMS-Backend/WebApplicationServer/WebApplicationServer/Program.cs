@@ -1,4 +1,3 @@
-
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
@@ -8,6 +7,7 @@ using WebApplicationServer.Data;
 using WebApplicationServer.Models;
 using WebApplicationServer.Services;
 using WebApplicationServer.Services.IService;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -38,15 +38,16 @@ options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnectio
 //using var conn = new SqlConnection(builder.Configuration.GetConnectionString("AZURE_SQL_CONNECTIONSTRING"));
 //conn.Open(); // Open the connection
 // Configure DbContextOptionsBuilder to use the SqlConnection
-/*builder.Services.AddDbContext<DbContext>(options =>
-{
-    options.UseSqlServer(conn);
-});*/
+//builder.Services.AddDbContext<DbContext>(options =>
+//{
+//    options.UseSqlServer(conn);
+//});
 
 builder.Services.AddIdentityApiEndpoints<Person>().AddEntityFrameworkStores<ApplicationDbContext>();
 
 builder.Services.AddScoped<IAddEventService, AddEventService>();
 builder.Services.AddScoped<IAddBookedEventService, AddBookedEventService>();
+builder.Services.AddScoped<IGetAllPerson,GetAllPerson>();
 
 
 builder.Services.AddIdentityCore<Person>(options =>
@@ -86,6 +87,7 @@ app.UseRouting();
 app.MapControllerRoute(
     name: default,
     pattern: "{controller=Person}/{action = GetPerson}");
+
 app.Run();
 
 
