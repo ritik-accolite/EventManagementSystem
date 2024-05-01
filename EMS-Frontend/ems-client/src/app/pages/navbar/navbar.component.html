@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-white myNav">
     <div class="container">
-        <a class="navbar-brand" href="index.html">
+        <a class="navbar-brand" routerLink="/index.html">
             <img src="../assets/Images/EventHub1.PNG" alt="eventpic" class="d-inline-block align-text-top" width="100px" height="40px"/>
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -12,8 +12,8 @@
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             </ul>
             <form class="d-flex"> 
-                <button class="btn btn-outline-primary round-button mx-2 btn-style" type="button"><a href="login">Login</a></button>
-                <button class="btn btn-success round-button btn-style" type="button"><a href="register">Register</a></button>
+                <a routerLink="/login"><button class="btn btn-outline-primary round-button mx-2 btn-style" type="button">Login</button></a>
+                <a routerLink="/register"><button class="btn btn-success round-button btn-style" type="button">Register</button></a>
             </form>
         </div>
     </div>
