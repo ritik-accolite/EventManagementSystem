@@ -3,7 +3,9 @@
     "",
     "\\WebApplicationServer",
     "\\WebApplicationServer\\WebApplicationServer",
-    "\\WebApplicationServer\\WebApplicationServer\\Controllers"
+    "\\WebApplicationServer\\WebApplicationServer\\Controllers",
+    "\\WebApplicationServer\\WebApplicationServer\\Models"
   ],
+  "SelectedNode": "\\WebApplicationServer\\WebApplicationServer.sln",
   "PreviewInSolutionExplorer": false
 }
