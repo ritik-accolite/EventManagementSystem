@@ -3,6 +3,8 @@ import { UserdataService } from '../../userdata.service';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+
 @Component({
   selector: 'app-register',
   standalone: true,
@@ -12,12 +14,16 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   templateUrl: './register.component.html',
   styleUrl: './register.component.css'
 })
+
 export class RegisterComponent implements OnInit {
   userDataForm!: FormGroup;
+
   constructor(
     private fb: FormBuilder,
-    private userDataService: UserdataService
+    private userDataService: UserdataService,
+    private router: Router
   ) {}
+
   ngOnInit(): void {
     this.userDataForm = this.fb.group({
       firstname: ['', Validators.required],
@@ -32,16 +38,16 @@ export class RegisterComponent implements OnInit {
     if (this.userDataForm.valid) {
       this.userDataService.registerUser(this.userDataForm.value).subscribe(
         response => {
+
+          this.router.navigate(['/login']);
           console.log('User registered successfully:', response);
-          // Optionally, reset the form after successful registration
-          this.userDataForm.reset();
+          // this.userDataForm.reset();
         },
         error => {
           console.error('Error registering user:', error);
         }
       );
     } else {
-      // Mark form controls as touched to display validation errors
       this.userDataForm.markAllAsTouched();
     }
   }
