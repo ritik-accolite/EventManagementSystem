@@ -30,6 +30,21 @@ namespace WebApplicationServer.Controllers
         public async Task<ResponseViewModel> RegisterPerson(RegisterViewModel person)
         {
 
+                string message = "";
+            ResponseViewModel response = new ResponseViewModel();
+            IdentityResult result = new();
+                try
+                {
+                    var user = new Person()
+                    {
+                        Email = person.Email,
+                        FirstName = person.FirstName,
+                        LastName = person.LastName,
+                        Role = person.Role,
+                        PhoneNumber = person.PhoneNumber,
+                        UserName = person.Email,
+                        Password = person.Password
+                    };
             string message = "";
             ResponseViewModel response = new ResponseViewModel();
             IdentityResult result = new();
@@ -46,6 +61,14 @@ namespace WebApplicationServer.Controllers
                     Password = person.Password
                 };
 
+
+                    result = await _userManager.CreateAsync(user, person.Password);
+                    if (!result.Succeeded)
+                    {
+                    response.Status = 403;
+                    response.Message = "Unauthorised Access";
+                    return response;
+                }
                 result = await _userManager.CreateAsync(user, person.Password);
                 if (!result.Succeeded)
                 {
@@ -54,6 +77,17 @@ namespace WebApplicationServer.Controllers
                     return response;
                 }
 
+                    message = "Registered Successfully";
+                }
+                catch (Exception ex)
+                {
+                response.Status = 400;
+                response.Message = ex.Message;
+                return response;
+            }
+            response.Status = 200;
+            response.Message = "Successfully Registered";
+            return response;
                 message = "Registered Successfully";
             }
             catch (Exception ex)
@@ -73,6 +107,7 @@ namespace WebApplicationServer.Controllers
         {
             string message = "";
             ResponseViewModel response = new ResponseViewModel();
+            ResponseViewModel response = new ResponseViewModel();
 
             try
             {
@@ -86,6 +121,10 @@ namespace WebApplicationServer.Controllers
 
                 if (!result.Succeeded)
                 {
+                    
+                    response.Status = 403;
+                    response.Message = "Unauthorised Access";
+                    return response;
                     response.Status = 403;
                     response.Message = "Unauthorised Access";
                     return response;
@@ -115,8 +154,14 @@ namespace WebApplicationServer.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest("Something went wrong" + ex.Message);
+                response.Status = 400;
+                response.Message = ex.Message;
+                return response;
             }
+            response.Status = 200;
+            response.Message ="Successfully Logged In";
+            return response;
+        }
         }
 
 

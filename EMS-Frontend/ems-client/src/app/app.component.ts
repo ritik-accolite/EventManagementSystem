@@ -1,15 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule, RouterOutlet } from '@angular/router';
+import { FormsModule } from '@angular/forms';
+import { RouterLink, RouterLinkActive, RouterModule, RouterOutlet } from '@angular/router';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { HomeComponent } from './pages/home/home.component';
+import { Router } from 'express';
+import { NavbarComponent } from "./pages/navbar/navbar.component";
 
 @Component({
-  selector: 'app-root',
-  standalone: true,
-  imports: [RouterOutlet, HttpClientModule, CommonModule , HomeComponent , RouterModule],
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+    selector: 'app-root',
+    standalone: true,
+    templateUrl: './app.component.html',
+    styleUrl: './app.component.css',
+    providers: [NavbarComponent, HomeComponent],
+    imports: [RouterOutlet, FormsModule, HttpClientModule, CommonModule, RouterModule, RouterLink, RouterLinkActive, NavbarComponent]
 })
 export class AppComponent { //implements OnInit{
   // title = 'ems-client';
@@ -29,7 +33,6 @@ export class AppComponent { //implements OnInit{
   //     });
   // }
 
-  isLoginView: boolean=true;
   registerObj: any = {
     "Id":0,
     "Name":"",
@@ -45,53 +48,52 @@ export class AppComponent { //implements OnInit{
   };
 
   constructor(private http: HttpClient){}
-
   
-  openRegister() {
-    this.isLoginView = false;
-    const model = document.getElementById('myModal');
-    if(model !=null){
-      model.style.display = 'block';
-    }
-  }
-  openLogin() {
-    const model = document.getElementById('myModal');
-    if(model !=null){
-      model.style.display = 'block';
-    }
-  }
-  closeModel(){
-    const model = document.getElementById('myModal');
-    if(model !=null){
-      model.style.display = 'none';
-    }
-  }
+  // openRegister() {
+  //   this.isLoginView = false;
+  //   const model = document.getElementById('myModal');
+  //   if(model !=null){
+  //     model.style.display = 'block';
+  //   }
+  // }
+  // openLogin() {
+  //   this.loginPopupVisible = true;
+  //   const model = document.getElementById('myModal');
+  //   if(model !=null){
+  //     model.style.display = 'block';
+  //   }
+  // }
+  // closeModel(){
+  //   const model = document.getElementById('myModal');
+  //   if(model !=null){
+  //     model.style.display = 'none';
+  //   }
+  // }
 
-  onRegister() {
-    this.http.post('',this.registerObj).subscribe((res:any)=>{
-      if(res.result){
-        alert('Registration Success');
-        this.closeModel()
-      } else{
-        alert(res.message)
-      }
-    })
-  }
+  // onRegister() {
+  //   this.http.post('',this.registerObj).subscribe((res:any)=>{
+  //     if(res.result){
+  //       alert('Registration Success');
+  //       this.closeModel()
+  //     } else{
+  //       alert(res.message)
+  //     }
+  //   })
+  // }
 
-  onLogin() {
-    this.http.post('',this.loginObj).subscribe((res:any)=>{
-      if(res.result){
-        alert('Login Success');
+  // onLogin() {
+  //   this.http.post('',this.loginObj).subscribe((res:any)=>{
+  //     if(res.result){
+  //       alert('Login Success');
 
-        //Login thing integration with database
+  //       //Login thing integration with database
 
-        this.closeModel()
-      } else{
-        alert(res.message)
-      }
-    })
-  }
-
+  //       this.closeModel()
+  //     } else{
+  //       alert(res.message)
+  //     }
+  //   })
+  // }
 
 }
 

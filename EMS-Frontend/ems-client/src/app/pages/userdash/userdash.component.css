@@ -1,0 +1,105 @@
+/* form {
+    max-width: 400px;
+    margin: 0 auto;
+}
+h1 {
+    text-align: center;
+    margin-bottom: 30px;
+}
+label {
+    font-weight: bold;
+}
+.form-group {
+    margin-bottom: 20px;
+}
+button {
+    background-color: #42f548;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 2px;
+    border-color: #114413;
+}
+p {
+    text-align: center;
+    margin-top: 20px;
+}
+a:link {
+    text-decoration: none;
+  }
+  
+  a:visited {
+    text-decoration: none;
+  }
+  
+  a:hover {
+    text-decoration: underline;
+  }
+  
+  a:active {
+    text-decoration: underline;
+  } */
+
+body {
+    background-color: #f8f9fa;
+    padding-top: 50px;
+}
+.main{
+    background-image: url(../../../assets/Images/userdash_back.jpg);
+    height: 600px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding-top: 60px;
+    padding-left: 100px;
+    padding-right: 100px;
+    float: right;
+}
+
+.sidebar {
+    height: 100%;
+    width: 250px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: #dce9f5;
+    z-index: 1000;
+    margin-top: 5.5%;
+    padding-left: 2%;
+    color: black;
+}
+
+.nav-item {
+    padding: 8px 0;
+}
+
+.nav-link {
+    padding: 10px 15px;
+    display: block;
+    color: #333;
+}
+
+.nav-link:hover {
+    background-color: #e9ecef;
+}
+
+
+.content {
+    margin-left: 250px;
+    padding: 20px;
+    background-image: url(../../../assets/Images/userdash_back.jpg);
+    height: 600px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding-top: 60px;
+    /* padding-left: 100px;
+    padding-right: 100px; */
+    /* float: right; */
+}

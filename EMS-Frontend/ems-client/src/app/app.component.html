@@ -11,72 +11,8 @@
   </ul>
 </div> -->
 
-<nav class="navbar navbar-expand-lg navbar-white myNav">
-  <div class="container">
-      <a class="navbar-brand" href="index.html">
-          <img src="assets/Images/EventHub1.png" alt="" class="d-inline-block align-text-top">
-      </a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-          data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-          aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-             
 
-          </ul>
-          <form class="d-flex"> 
-              <button class="btn btn-outline-primary round-button mx-2" type="button" (click)="openLogin()">Login</button>
-              <button class="btn btn-success round-button" type="button" (click)="openRegister()">Register</button>
-          </form>
-      </div>
-  </div>
-</nav>
-
-<div class="modal" id="myModal">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-body">
-          <div class="login-container">
-              <form *ngIf="isLoginView">
-                  <h1>Login</h1>
-                  <label for="username">Username</label><br>
-                  <input type="text" id="username" name="username" required><br>
-                  <label for="password">Password</label><br>
-                  <input type="password" id="password" name="password" required><br>
-                  
-                  <button type="button" (click)="onLogin()">Login</button>
-                  <p>Don't have an account? <a href="#" (click)="isLoginView = false">Sign up here</a></p>
-              </form>
-              <form *ngIf="!isLoginView">
-                  <h1>Sign Up</h1>
-                  <label for="username">Firstname</label><br>
-                  <input type="text" id="username" name="Firstname" required><br>
-                  <label for="username">Lastname</label><br>
-                  <input type="text" id="username" name="Lastname" required><br>
-                  <label for="username">Email</label><br>
-                  <input type="text" id="username" name="Email" required><br>
-                  <label for="password">Password</label><br>
-                  <input type="password" id="password" name="password" required><br>
-                  <label for="username">PhoneNumber</label><br>
-                  <input type="tel" id="username" name="PhoneNumber" required><br>
-                  <label for="username">Role</label><br>
-
-                  <select>
-                      <option value="Admin">Admin</option>
-                      <option value="Organizer">Organizer</option>
-                      <option value="User">User</option>
-                    </select><br>
-
-                  <button type="submit" (click)="onRegister()">Sign Up</button><br>
-
-                  <p>Login If Already Registered? <a href="#" (click)="isLoginView = true">Login</a></p>
-              </form>
-          </div>
-      </div>
-    </div>
-  </div>
+<div class="div">
+  <app-navbar></app-navbar>
+  <router-outlet></router-outlet>
 </div>
-
-<app-home></app-home>

@@ -26,7 +26,7 @@ builder.Services.AddCors(options =>
     options.AddPolicy("AllowOrigin",
         builder =>
         {
-            builder.AllowAnyOrigin();
+            builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
             //builder.WithOrigins("http://localhost:4200").AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin();
         });
 });
@@ -67,6 +67,7 @@ builder.Services.AddIdentityCore<Person>(options =>
 .AddEntityFrameworkStores<ApplicationDbContext>();
 
 var app = builder.Build();
+app.UseCors("AllowOrigin");
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -82,7 +83,6 @@ app.MapIdentityApi<Person>();
 
 
 // Uncomment this for access through 1 origin only
-app.UseCors("AllowOrigin");
 app.UseRouting();
 app.MapControllerRoute(
     name: default,
