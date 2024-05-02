@@ -26,10 +26,6 @@ namespace WebApplicationServer.Models
         [DataType(DataType.Date)]
         public DateTime EventDate { get; set; }
 
-        //[Required]
-        //[DataType(DataType.Time)]
-        //public TimeSpan EventTime { get; set; }
-
         [Required]
         [StringLength(255)]
         public string Event_Time { get; set; }

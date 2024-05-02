@@ -14,5 +14,7 @@ namespace WebApplicationServer.Models.ViewModels
         public string? UserId { get; set; }
 
         public DateTime BookingDate { get; set; } = DateTime.Now;
+
+        public int NumberOfTickets { get; set; }
     }
 }

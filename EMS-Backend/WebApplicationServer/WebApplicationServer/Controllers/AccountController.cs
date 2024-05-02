@@ -84,8 +84,7 @@ namespace WebApplicationServer.Controllers
                 var result = await _signInManager.PasswordSignInAsync(person, login.Password, true, false);
 
                 if (!result.Succeeded)
-                {
-                    
+                {                    
                     response.Status = 403;
                     response.Message = "Unauthorised Access";
                     return response;

@@ -11,12 +11,16 @@ namespace WebApplicationServer.Services.IService
 
         public Task<GetBookedEventByIdResponseViewModel> GetBookedEventsById(int id);
 
-        public Task<ResponseViewModel> DeleteBookedEvent(int id);
+        //public Task<ResponseViewModel> DeleteBookedEvent(int id);
 
-        public Task<ResponseViewModel> BookEvent(AddBookedEventViewModel addBookedEvent);
+        //public Task<ResponseViewModel> BookEvent(AddBookedEventViewModel addBookedEvent);
 
         public Task<ResponseViewModel> UnbookEvent(int bookingId);
 
         public Task<List<BookedEventWithDetailsViewModel>> GetBookedEventsWithDetailsByUser(string userId);
+
+        public Task<ResponseViewModel> BookTickets(AddBookedEventViewModel addBookedEvent);
+
+        public Task<EventTicketStatusViewModel> GetEventTicketStatus(string organizerId);
     }
 }

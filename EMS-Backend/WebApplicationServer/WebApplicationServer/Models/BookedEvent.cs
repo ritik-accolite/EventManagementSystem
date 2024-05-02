@@ -20,6 +20,10 @@ namespace WebApplicationServer.Models
 
         public DateTime BookingDate { get; set; }
 
+
+        //new
+        public int NumberOfTickets { get; set; }
+
         // Navigation properties
         public virtual Event? Event { get; set; }
         public virtual Person? Organizer { get; set; }
