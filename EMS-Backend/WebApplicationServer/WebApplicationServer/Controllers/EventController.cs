@@ -1,14 +1,23 @@
 ﻿using Azure;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Logging;
+using System.Data;
+using System.Drawing;
+using System.Reflection;
+using System;
+using System.Security.Claims;
+using System.Security.Cryptography.Xml;
+using WebApplicationServer.Data.Migrations;
 using WebApplicationServer.Models;
 using WebApplicationServer.Models.ResponseModels;
 using WebApplicationServer.Models.ViewModels;
 using WebApplicationServer.Services;
 using WebApplicationServer.Services.IService;
+using static System.Net.Mime.MediaTypeNames;
 
 
 namespace WebApplicationServer.Controllers
@@ -28,12 +37,26 @@ namespace WebApplicationServer.Controllers
             _userManager = userManager;
         }
 
+
         [HttpGet]
-        public async Task<GetAllEventResponseViewModel> GetAllEvents()
+        public async Task<ActionResult<GetAllEventResponseViewModel>> GetAllEvents()
         {
-            var events = await _addEventService.GetAllEvents();
-            return events;
+            try
+            {
+                var events = await _addEventService.GetAllEvents();
+                return Ok(events);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new GetAllEventResponseViewModel
+                {
+                    Status = 500,
+                    Message = $"An error occurred: {ex.Message}",
+                    AllEvents = null
+                });
+            }
         }
+
 
 
         [HttpGet("{EventId:int}")]
@@ -131,5 +154,18 @@ namespace WebApplicationServer.Controllers
             var events = await _addEventService.GetEventsByLocation(location);
             return events;
         }
+
+
+
+
+        //[Authorize(Roles = "Organizer")]
+        [HttpGet("trackTicketDetails/{eventId}")]
+        public async Task<IActionResult> TrackTicketDetails(int eventId)
+        {
+            var organizerId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var ticketDetails = await _addEventService.GetTicketDetailsForOrganizer(eventId, organizerId);
+            return Ok(ticketDetails);
+        }
+
     }
 }

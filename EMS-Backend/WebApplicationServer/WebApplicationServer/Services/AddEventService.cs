@@ -16,12 +16,53 @@ namespace WebApplicationServer.Services
             _context = context;
         }
 
+        //public async Task<GetAllEventResponseViewModel> GetAllEvents()
+        //{
+        //    GetAllEventResponseViewModel response = new GetAllEventResponseViewModel();
+        //    response.Status = 200;
+        //    response.Message = "All Events Fetched";
+        //    response.AllEvents = await _context.Events.ToListAsync();
+        //    return response;
+        //}
+
+
+
         public async Task<GetAllEventResponseViewModel> GetAllEvents()
         {
-            GetAllEventResponseViewModel response = new GetAllEventResponseViewModel();
-            response.Status = 200;
-            response.Message = "All Events Fetched";
-            response.AllEvents = await _context.Events.ToListAsync();
+            var response = new GetAllEventResponseViewModel();
+
+            try
+            {
+                response.Status = 200;
+                response.Message = "All Events Fetched";
+                response.AllEvents = await _context.Events
+                    .Include(e => e.Organizer)
+                    .Select(e => new EventViewModel
+                    {
+                        EventId = e.EventId,
+                        EventName = e.EventName,
+                        EventCategory = e.EventCategory,
+                        Description = e.Description,
+                        ChiefGuest = e.ChiefGuest,
+                        EventDate = e.EventDate,
+                        EventTime = e.Event_Time,
+                        EventLocation = e.EventLocation,
+                        TicketPrice = e.TicketPrice,
+                        Capacity = e.Capacity,
+                        BannerImage = e.BannerImage,
+                        EventOrganizerId = e.EventOrganizerId,
+                        OrganizerFirstName = e.Organizer.FirstName,
+                        OrganizerLastName = e.Organizer.LastName
+                    })
+                    .ToListAsync();
+            }
+            catch
+            {
+                response.Status = 500;
+                response.Message = "Internal server error";
+                response.AllEvents = null;
+            }
+
             return response;
         }
 
@@ -93,14 +134,8 @@ namespace WebApplicationServer.Services
                 response.Status = 500;
                 response.Message = $"Error deleting event: {ex.Message}";
             }
-
             return response;
         }
-
-
-
-
-
 
 
         public async Task<ResponseViewModel> UpdateEvent(int id, UpdateEventViewModel updateEvent, string userId)
@@ -168,6 +203,42 @@ namespace WebApplicationServer.Services
             response.Message = "All Events Fetched that matches the Location";
             response.CategoryEvents = await _context.Events.Where(e => e.EventLocation == location).ToListAsync();
             return response;
+        }
+
+        public async Task<List<TicketDetailsViewModel>> GetTicketDetailsForOrganizer(int eventId, string organizerId)
+        {
+            //var eventDetails = await _context.Events
+            //    .Include(e => e.BookedEvents)
+            //    .FirstOrDefaultAsync(e => e.EventId == eventId && e.EventOrganizerId == organizerId);
+
+            var eventDetails = await _context.Events
+            .FirstOrDefaultAsync(e => e.EventId == eventId && e.EventOrganizerId == organizerId);
+
+            if (eventDetails == null)
+            {
+                // Event not found or organizer does not have permission
+                return null;
+            }
+
+            var bookedEvents = await _context.BookedEvents
+            .Include(be => be.User)
+            .Where(be => be.EventId == eventId)
+            .ToListAsync();
+
+
+            var ticketDetails = bookedEvents
+            .Select(be => new TicketDetailsViewModel
+            {
+                UserName = be.User.FirstName + " " + be.User.LastName,
+                TotalTickets = 1,
+                TotalAmountReceived = eventDetails.TicketPrice,
+                EventName = eventDetails.EventName,
+                EventDate = eventDetails.EventDate,
+                EventLocation = eventDetails.EventLocation,
+                TotalTicketsAvailable = eventDetails.Capacity
+            }).ToList();
+
+            return ticketDetails;
         }
     }
 }
