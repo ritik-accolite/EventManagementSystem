@@ -1,4 +1,39 @@
-<nav class="navbar navbar-expand-lg navbar-white myNav">
+    <!-- Header Section Begin -->
+    <header class="header-section">
+        <div class="container">
+            <div class="logo">
+                <a routerLink="/index.html">
+                    <img src="../../../assets/img/eventhubLogo/Logo Files/For Web/svg/Black logo - no background.svg" alt=""
+                    width="200" height="35">
+                </a>
+            </div>
+            <div class="nav-menu">
+                <nav class="mainmenu mobile-menu">
+                    <ul>
+                        <li class="active"><a href="./index.html">Home</a></li>
+                        <li><a href="./about-us.html">About</a></li>
+                        <li><a href="./speaker.html">Events</a>
+                            <ul class="dropdown">
+                                <li><a href="#">Event1</a></li>
+                                <li><a href="#">Event2</a></li>
+                                <li><a href="#">Event3</a></li>
+                                <li><a href="#">Event4</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="./contact.html">Contact Us</a></li>
+                    </ul>
+                </nav>
+                <a *ngIf="!isLoggedIn" routerLink="/login" class="primary-btn top-btn mx-2">Login</a>
+                <a *ngIf="!isLoggedIn" routerLink="/register" class="primary-btn top-btn">Register</a>
+                <button *ngIf="isLoggedIn" class="primary-btn top-btn" type="button" (click)="logout()">Logout</button>
+
+            </div>
+            <div id="mobile-menu-wrap"></div>
+        </div>
+    </header>
+    <!-- Header End -->
+
+<!-- <nav class="navbar navbar-expand-lg navbar-white myNav">
     <div class="container">
         <a class="navbar-brand" routerLink="/index.html">
             <img src="../assets/Images/EventHub1.PNG" alt="eventpic" class="d-inline-block align-text-top" width="100px" height="40px"/>
@@ -11,10 +46,15 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             </ul>
-            <form class="d-flex"> 
-                <a routerLink="/login"><button class="btn btn-outline-primary round-button mx-2 btn-style" type="button">Login</button></a>
-                <a routerLink="/register"><button class="btn btn-success round-button btn-style" type="button">Register</button></a>
-            </form>
+            <div *ngIf="!isLoggedIn">
+                <form class="d-flex"> 
+                    <a routerLink="/login"><button class="btn btn-outline-primary round-button mx-2 btn-style" type="button">Login</button></a>
+                    <a routerLink="/register"><button class="btn btn-success round-button btn-style" type="button">Register</button></a>
+                </form>
+            </div>
+            <div *ngIf="isLoggedIn">
+                <a routerLink="/login"><button class="btn btn-outline-primary round-button mx-2 btn-style" type="button" (click)="logout()">Logout</button></a>
+            </div>
         </div>
     </div>
-  </nav>
+  </nav> -->

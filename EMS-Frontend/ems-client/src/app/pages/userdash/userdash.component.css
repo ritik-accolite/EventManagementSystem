@@ -51,7 +51,7 @@ body {
     padding-top: 50px;
 }
 .main{
-    background-image: url(../../../assets/Images/userdash_back.jpg);
+    background-image: url(../../../assets/img/userdash_back.jpg);
     height: 600px;
     background-position: center;
     background-repeat: no-repeat;
@@ -93,7 +93,7 @@ body {
 .content {
     margin-left: 250px;
     padding: 20px;
-    background-image: url(../../../assets/Images/userdash_back.jpg);
+    background-image: url(../../../assets/img/userdash_back.jpg);
     height: 600px;
     background-position: center;
     background-repeat: no-repeat;
