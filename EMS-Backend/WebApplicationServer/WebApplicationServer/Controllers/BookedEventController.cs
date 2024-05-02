@@ -26,39 +26,39 @@ namespace WebApplicationServer.Controllers
             _userManager = userManager;
         }
 
-
-
-        //[HttpPost]
-        //[Route("addBookedEvent")]
-        //public async Task<ResponseViewModel> AddBookedEvent(AddBookedEventViewModel addBookedEvent)
-        //{
-        //    ResponseViewModel response;
-        //    if (!ModelState.IsValid)
-        //    {
-        //        response = new ResponseViewModel();
-        //        response.Status = 422;
-        //        response.Message = "Please Enter all the details.";
-        //        return response;
-        //    }
-        //    var user = await _userManager.GetUserAsync(User);
-        //    if (user == null || user.Role == "Organizer")
-        //    {
-        //        response = new ResponseViewModel();
-        //        response.Status = 401;
-        //        response.Message = "You are either not loggedIn or You are not User.";
-        //        return response;
-        //    }
-        //    response = await _addBookedEventService.AddBookedEvent(addBookedEvent, user.Id);
-
-        //    return response;
-        //}
-
-
         [HttpGet]
         public async Task<GetAllBookedEventResposeViewModel> GetAllBookedEvents()
         {
-            var bookedevents = await _addBookedEventService.GetAllBookedEvents();
-            return bookedevents;
+            GetAllBookedEventResposeViewModel response;
+            if (!ModelState.IsValid)
+            {
+                response = new GetAllBookedEventResposeViewModel();
+                response.Status = 422;
+                response.Message = "Something Went Wrong. Unable to get booked Events.";
+                return response;
+            }
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null || user.Role == "User")
+            {
+                response = new GetAllBookedEventResposeViewModel();
+                response.Status = 401;
+                response.Message = "You are either not logged in or you are not a Organizer.";
+                return response;
+            }
+            try
+            {
+                //var response = await _addBookedEventService.BookTickets(addBookedEvent);
+                response = await _addBookedEventService.GetAllBookedEvents();
+                return response;
+
+            }
+            catch (Exception ex)
+            {
+                response = new GetAllBookedEventResposeViewModel();
+                response.Status = 500;
+                response.Message = ex.Message;
+                return response;
+            }
         }
 
 
@@ -69,55 +69,6 @@ namespace WebApplicationServer.Controllers
             return events;
 
         }
-
-
-
-
-        //[HttpDelete("{BookingId:int}")]
-        //public async Task<ResponseViewModel> DeleteBookedEvent(int BookingId)
-        //{
-        //    ResponseViewModel response;
-
-        //    //DOUBT -- IF USER WANT TO UNBOOK THE EVENT AFTER BOOKING.
-
-        //    //var user = await _userManager.GetUserAsync(User);
-        //    //if (user == null || user.Role != "Organizer")
-        //    //{
-        //    //    response = new ResponseViewModel();
-        //    //    response.Status = 401;
-        //    //    response.Message = "You are either not loggedIn or You are not Organizer.";
-        //    //    return response;
-        //    //}
-
-        //    response = await _addBookedEventService.DeleteBookedEvent(BookingId);
-        //    return response;
-        //}
-
-
-        [HttpPost]
-        [Route("bookEvent")]
-        public async Task<ResponseViewModel> BookEvent(AddBookedEventViewModel addBookedEvent)
-        {
-            ResponseViewModel response;
-            if (!ModelState.IsValid)
-            {
-                response = new ResponseViewModel();
-                response.Status = 422;
-                response.Message = "Please Enter all the details.";
-                return response;
-            }
-            var user = await _userManager.GetUserAsync(User);
-            if (user == null || user.Role == "Organizer")
-            {
-                response = new ResponseViewModel();
-                response.Status = 401;
-                response.Message = "You are either not loggedIn or You are not User.";
-                return response;
-            }
-            response = await _addBookedEventService.BookEvent(addBookedEvent);
-            return response;
-        }
-
 
 
         [HttpDelete("unbookEvent/{bookingId}")]
@@ -142,6 +93,7 @@ namespace WebApplicationServer.Controllers
             response = await _addBookedEventService.UnbookEvent(bookingId);
             return response;
         }
+
 
 
 
@@ -170,26 +122,185 @@ namespace WebApplicationServer.Controllers
 
 
 
-        //[HttpGet("GetBookedEventsByUser")]
-        //public async Task<ActionResult<GetAllBookedEventsWithDetailsResponseViewModel>> GetBookedEventsByUser()
-        //{
-        //    var user = await _userManager.GetUserAsync(User);
-        //    if (user == null)
-        //    {
-        //        return BadRequest("User not found");
-        //    }
+        [HttpPost]
+        [Route("BookEvent")]
+        public async Task<ResponseViewModel> BookTickets(AddBookedEventViewModel addBookedEvent)
+        {
+            ResponseViewModel response;
+            if (!ModelState.IsValid)
+            {
+                response = new ResponseViewModel();
+                response.Status = 422;
+                response.Message = "Please enter all the details.";
+                return response;
+            }
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null || user.Role == "Organizer")
+            {
+                response = new ResponseViewModel();
+                response.Status = 401;
+                response.Message = "You are either not logged in or you are not a user.";
+                return response;
+            }
+            try
+            {
+                //var response = await _addBookedEventService.BookTickets(addBookedEvent);
+                response = await _addBookedEventService.BookTickets(addBookedEvent);
+                return response;
+            }
+            catch (Exception ex)
+            {
+                response = new ResponseViewModel();
+                response.Status = 500;
+                response.Message = ex.Message;
+                return response;
+            }
+        }
 
-        //    var bookedEvents = await _addBookedEventService.GetBookedEventsWithDetailsByUser(user.Id);
-        //    var response = new GetAllBookedEventsWithDetailsResponseViewModel
-        //    {
-        //        Status = 200,
-        //        Message = "Booked events fetched successfully",
-        //        BookedEvents = bookedEvents
-        //    };
-        //    return Ok(response);
-        //}
-
-
+        [HttpGet("tracktickets/{organizerId}")]
+        public async Task<IActionResult> GetEventTicketStatus(string organizerId)
+        {
+            var eventTicketStatus = await _addBookedEventService.GetEventTicketStatus(organizerId);
+            return Ok(eventTicketStatus);
+        }
     }
 }
 
+
+
+
+
+
+
+
+
+
+
+
+//[HttpPost]
+//[Route("addBookedEvent")]
+//public async Task<ResponseViewModel> AddBookedEvent(AddBookedEventViewModel addBookedEvent)
+//{
+//    ResponseViewModel response;
+//    if (!ModelState.IsValid)
+//    {
+//        response = new ResponseViewModel();
+//        response.Status = 422;
+//        response.Message = "Please Enter all the details.";
+//        return response;
+//    }
+//    var user = await _userManager.GetUserAsync(User);
+//    if (user == null || user.Role == "Organizer")
+//    {
+//        response = new ResponseViewModel();
+//        response.Status = 401;
+//        response.Message = "You are either not loggedIn or You are not User.";
+//        return response;
+//    }
+//    response = await _addBookedEventService.AddBookedEvent(addBookedEvent, user.Id);
+
+//    return response;
+//}
+
+
+
+
+
+//[HttpGet("GetBookedEventsByUser")]
+//public async Task<ActionResult<GetAllBookedEventsWithDetailsResponseViewModel>> GetBookedEventsByUser()
+//{
+//    var user = await _userManager.GetUserAsync(User);
+//    if (user == null)
+//    {
+//        return BadRequest("User not found");
+//    }
+
+//    var bookedEvents = await _addBookedEventService.GetBookedEventsWithDetailsByUser(user.Id);
+//    var response = new GetAllBookedEventsWithDetailsResponseViewModel
+//    {
+//        Status = 200,
+//        Message = "Booked events fetched successfully",
+//        BookedEvents = bookedEvents
+//    };
+//    return Ok(response);
+//}
+
+
+
+
+
+
+
+//[HttpPost]
+//[Route("BookEvent")]
+//public async Task<IActionResult> BookTickets(AddBookedEventViewModel addBookedEvent)
+//{
+//    try
+//    {
+//        var response = await _addBookedEventService.BookTickets(addBookedEvent);
+//        return StatusCode(response.Status, response);
+//    }
+//    catch (Exception ex)
+//    {
+//        return StatusCode(500, new { Message = ex.Message });
+//    }
+//}
+
+
+
+
+
+//[HttpDelete("{BookingId:int}")]
+//public async Task<ResponseViewModel> DeleteBookedEvent(int BookingId)
+//{
+//    ResponseViewModel response;
+
+//    //DOUBT -- IF USER WANT TO UNBOOK THE EVENT AFTER BOOKING.
+
+//    //var user = await _userManager.GetUserAsync(User);
+//    //if (user == null || user.Role != "Organizer")
+//    //{
+//    //    response = new ResponseViewModel();
+//    //    response.Status = 401;
+//    //    response.Message = "You are either not loggedIn or You are not Organizer.";
+//    //    return response;
+//    //}
+
+//    response = await _addBookedEventService.DeleteBookedEvent(BookingId);
+//    return response;
+//}
+
+
+//[HttpPost]
+//[Route("bookEvent")]
+//public async Task<ResponseViewModel> BookEvent(AddBookedEventViewModel addBookedEvent)
+//{
+//    ResponseViewModel response;
+//    if (!ModelState.IsValid)
+//    {
+//        response = new ResponseViewModel();
+//        response.Status = 422;
+//        response.Message = "Please Enter all the details.";
+//        return response;
+//    }
+//    var user = await _userManager.GetUserAsync(User);
+//    if (user == null || user.Role == "Organizer")
+//    {
+//        response = new ResponseViewModel();
+//        response.Status = 401;
+//        response.Message = "You are either not loggedIn or You are not User.";
+//        return response;
+//    }
+//    response = await _addBookedEventService.BookEvent(addBookedEvent);
+//    return response;
+//}
+
+
+
+
+//[HttpGet]
+//public async Task<GetAllBookedEventResposeViewModel> GetAllBookedEvents()
+//{
+//    var bookedevents = await _addBookedEventService.GetAllBookedEvents();
+//    return bookedevents;
+//}
