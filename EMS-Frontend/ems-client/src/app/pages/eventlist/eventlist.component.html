@@ -1,13 +1,55 @@
-<p>eventlist works!</p>
-
-<div *ngIf="events">
+<!-- <div *ngIf="events && events.length > 0">
     <h2>Events List</h2>
     <ul>
-      <li *ngFor="let event of events">
-        <h3>{{ event.date }}</h3>
-        <p>Date: {{ event.temperatureC }}</p>
-        <p>Time: {{ event.summary }}</p>
-        <p>Location: {{ event.temperatureF }}</p>
+      <li *ngFor="let event of events"> 
+        <h3>{{ event.eventName }}</h3>
+        <p>Category: {{ event.eventCategory }}</p>
+        <p>Description: {{ event.description }}</p>
+        <p>Chief Guest: {{ event.chiefGuest }}</p>
+        <p>Date: {{ event.eventDate }}</p>
+        <p>Time: {{ event.event_Time }}</p>
+        <p>Location: {{ event.eventLocation }}</p>
+        <p>Ticket Price: {{ event.tickePrice }}</p>
+        <p>Capacity: {{ event.capacity }}</p> 
       </li>
     </ul>
-  </div> 
+</div>
+<div *ngIf="!events || events.length === 0">
+    No events found.
+</div> -->
+
+<div *ngIf="events && events.length > 0">
+  <h2>Events List</h2>
+  <div class="row">
+    <div class="col-md-4" *ngFor="let event of events">
+      <div class="card mb-4">
+        <!-- Banner Image -->
+        <img class="card-img-top" src="{{ event.bannerImageUrl }}" alt="Event Image">
+        <div class="card-body">
+          <h5 class="card-title">{{ event.eventName }}</h5>
+          <p class="card-text">Category: {{ event.eventCategory }}</p>
+          <p class="card-text">Description: {{ event.description }}</p>
+          <p class="card-text">Chief Guest: {{ event.chiefGuest }}</p>
+          <p class="card-text">Date: {{ event.eventDate }}</p>
+          <p class="card-text">Time: {{ event.event_Time }}</p>
+          <p class="card-text">Location: {{ event.eventLocation }}</p>
+          <p class="card-text">Ticket Price: {{ event.ticketPrice }}</p> 
+          <p class="card-text">Capacity: {{ event.capacity }}</p>
+          <p class="card-text">Organiser: {{ event.organizerFirstName}} {{event.organizerLastName}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div *ngIf="!events || events.length === 0">
+  No events found.
+</div>
+
+
+<!-- 
+  <div *ngIf="events">
+    <h2>Events List</h2>
+    <ul>
+      <li *ngFor="let event of events">{{ event.EventName }} - {{ event.EventCategory }}</li>
+    </ul>
+  </div> -->

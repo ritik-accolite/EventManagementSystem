@@ -67,6 +67,16 @@ namespace WebApplicationServer.Services
         }
 
 
+
+
+
+
+
+
+
+
+
+
         public async Task<GetEVentByIdResposeViewModel> GetEventById(int EventId)
         {
             GetEVentByIdResposeViewModel response = new GetEVentByIdResposeViewModel();
