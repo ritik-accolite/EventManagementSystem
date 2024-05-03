@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
@@ -8,6 +8,7 @@ import { Observable } from 'rxjs';
 export class UserdataService {
 
   private registerUrl = 'http://localhost:5299/api/Account';
+  loginEvent: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   private eventsUrl = 'http://localhost:5299/api/Event';
 
@@ -20,7 +21,13 @@ export class UserdataService {
   }
 
   loginUser(userdata: any): Observable<any> {
+    this.loginEvent.emit(true); // Emit event upon successful login
     return this.http.post(`${this.registerUrl}/login`,userdata);
+  }
+
+  
+  logout(): Observable<any> {
+    return this.http.post<any>(`${this.registerUrl}/logout`, {});
   }
 
   getEvents(): Observable<any[]> {

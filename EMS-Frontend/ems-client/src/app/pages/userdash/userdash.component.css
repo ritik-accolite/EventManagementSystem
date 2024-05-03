@@ -96,8 +96,8 @@ body {
 .content {
     margin-left: 250px;
     padding: 20px;
-    background-image: url(../../../assets/Images/userdash-background.jpg);
-    height: 654px;
+    background-image: url(../../../assets/img/userdash_back.jpg);
+    height: 600px;
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;

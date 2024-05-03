@@ -1,14 +1,23 @@
 ﻿using Azure;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Logging;
+using System.Data;
+using System.Drawing;
+using System.Reflection;
+using System;
+using System.Security.Claims;
+using System.Security.Cryptography.Xml;
+using WebApplicationServer.Data.Migrations;
 using WebApplicationServer.Models;
 using WebApplicationServer.Models.ResponseModels;
 using WebApplicationServer.Models.ViewModels;
 using WebApplicationServer.Services;
 using WebApplicationServer.Services.IService;
+using static System.Net.Mime.MediaTypeNames;
 
 
 namespace WebApplicationServer.Controllers
@@ -27,14 +36,6 @@ namespace WebApplicationServer.Controllers
             _addEventService = addEventService;
             _userManager = userManager;
         }
-
-        //[HttpGet]
-        //public async Task<GetAllEventResponseViewModel> GetAllEvents()
-        //{
-        //    var events = await _addEventService.GetAllEvents();
-        //    return events;
-        //}
-
 
 
         [HttpGet]
@@ -55,6 +56,8 @@ namespace WebApplicationServer.Controllers
                 });
             }
         }
+
+
 
         [HttpGet("{EventId:int}")]
         public async Task<GetEVentByIdResposeViewModel> GetEventById(int EventId)
@@ -151,5 +154,18 @@ namespace WebApplicationServer.Controllers
             var events = await _addEventService.GetEventsByLocation(location);
             return events;
         }
+
+
+
+
+        //[Authorize(Roles = "Organizer")]
+        [HttpGet("trackTicketDetails/{eventId}")]
+        public async Task<IActionResult> TrackTicketDetails(int eventId)
+        {
+            var organizerId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var ticketDetails = await _addEventService.GetTicketDetailsForOrganizer(eventId, organizerId);
+            return Ok(ticketDetails);
+        }
+
     }
 }

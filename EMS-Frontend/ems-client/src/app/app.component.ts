@@ -6,14 +6,15 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { HomeComponent } from './pages/home/home.component';
 import { Router } from 'express';
 import { NavbarComponent } from "./pages/navbar/navbar.component";
+import { FooterComponent } from './pages/footer/footer.component';
 
 @Component({
     selector: 'app-root',
     standalone: true,
     templateUrl: './app.component.html',
     styleUrl: './app.component.css',
-    providers: [NavbarComponent, HomeComponent],
-    imports: [RouterOutlet, FormsModule, HttpClientModule, CommonModule, RouterModule, RouterLink, RouterLinkActive, NavbarComponent]
+    providers: [NavbarComponent, HomeComponent, FooterComponent],
+    imports: [RouterOutlet, FormsModule, HttpClientModule, CommonModule, RouterModule, RouterLink, RouterLinkActive, NavbarComponent, FooterComponent]
 })
 export class AppComponent { //implements OnInit{
   // title = 'ems-client';

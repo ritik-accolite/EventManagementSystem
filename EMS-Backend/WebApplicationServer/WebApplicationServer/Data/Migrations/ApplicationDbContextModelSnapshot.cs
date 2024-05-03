@@ -172,6 +172,9 @@ namespace WebApplicationServer.Data.Migrations
                     b.Property<string>("EventOrganizerId")
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<int>("NumberOfTickets")
+                        .HasColumnType("int");
+
                     b.Property<string>("UserId")
                         .HasColumnType("nvarchar(450)");
 

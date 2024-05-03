@@ -1,4 +1,5 @@
 ﻿using WebApplicationServer.Models.ViewModels;
+
 namespace WebApplicationServer.Models.ResponseModels
 {
     public class GetAllEventResponseViewModel
