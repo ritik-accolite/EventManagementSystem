@@ -5,7 +5,6 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
-
 @Component({
   selector: 'app-register',
   standalone: true,
@@ -15,17 +14,14 @@ import { Router, RouterLink } from '@angular/router';
   templateUrl: './register.component.html',
   styleUrl: './register.component.css'
 })
-
 export class RegisterComponent implements OnInit {
   userDataForm!: FormGroup;
   form: any;
-
   constructor(
     private fb: FormBuilder,
     private userDataService: UserdataService,
     private router: Router
   ) {}
-
   ngOnInit(): void {
     this.userDataForm = this.fb.group({
       firstname: ['', Validators.required],
@@ -37,11 +33,9 @@ export class RegisterComponent implements OnInit {
       role: ['', Validators.required]
     });
   }
-
   passwordMatchValidator(group: FormGroup) {
     const password = group.get('password')?.value;
     const confirmPassword = group.get('confirmPassword')?.value;
-
     if (password === confirmPassword) {
       return null; // Passwords match, return null (no error)
     } else {
@@ -66,3 +60,12 @@ export class RegisterComponent implements OnInit {
     }
   }
 }
+
+
+
+
+
+
+
+
+
