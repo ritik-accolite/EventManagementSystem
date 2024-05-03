@@ -1,4 +1,4 @@
-﻿namespace WebApplicationServer.Models.ViewModels
+namespace WebApplicationServer.Models.ViewModels
 {
     public class EventViewModel
     {

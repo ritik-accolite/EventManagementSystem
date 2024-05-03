@@ -1,16 +1,20 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterLink, Router } from '@angular/router';
+import { RouterLink, Router, RouterOutlet } from '@angular/router';
 import { UserdataService } from '../../userdata.service';
+import { AngularFontAwesomeComponent } from 'angular-font-awesome';
+import { FormsModule } from '@angular/forms';
+
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [RouterLink, CommonModule],
+  imports: [RouterLink, CommonModule ],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css'
 })
 export class NavbarComponent implements OnInit {
   isLoggedIn: boolean = false;
+  searchQuery: string = '';
 
   constructor(private userDataService: UserdataService, private router: Router) { }
 
@@ -39,5 +43,14 @@ export class NavbarComponent implements OnInit {
   //     // On successful logout, navigate to the login page
   //     this.router.navigate(['/login']);
   //   });
-  // }
+  // }  searchQuery: string = '';
+
+
+
+  search() {
+    // Perform search action with the searchQuery value
+    console.log('Search query:', this.searchQuery);
+    // You can call a service method here to perform the actual search
+  }
+
 }

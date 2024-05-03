@@ -8,6 +8,8 @@ import { RegisterComponent } from './pages/register/register.component';
 import { LoginComponent } from './pages/login/login.component';
 import { EventbookingComponent } from './pages/eventbooking/eventbooking.component';
 import { NavbarComponent } from './pages/navbar/navbar.component';
+import { UserprofileComponent } from './pages/userprofile/userprofile.component';
+import { SidebarComponent } from './pages/sidebar/sidebar.component';
 
 export const routes: Routes = [
     {
@@ -18,10 +20,6 @@ export const routes: Routes = [
     {
         path:'Home',
         component:HomeComponent
-    },
-    {
-        path:'mybookings',
-        component:MybookingsComponent
     },
     {
         path:'new-event',
@@ -37,7 +35,11 @@ export const routes: Routes = [
     },
     {
         path:'user-dash',
-        component:UserdashComponent
+        component:UserdashComponent,
+        children: [
+            { path: 'user-profile', component: UserprofileComponent },
+            { path:'mybookings', component:MybookingsComponent },
+          ]
     },
     {
         path:'register',
@@ -50,6 +52,10 @@ export const routes: Routes = [
     {
         path:'navbar',
         component:NavbarComponent
+    },
+    {
+        path:'sidebar',
+        component:SidebarComponent
     }
 ];
 

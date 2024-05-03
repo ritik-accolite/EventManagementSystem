@@ -18,6 +18,7 @@ import { Router, RouterLink } from '@angular/router';
 
 export class RegisterComponent implements OnInit {
   userDataForm!: FormGroup;
+form: any;
 
   constructor(
     private fb: FormBuilder,

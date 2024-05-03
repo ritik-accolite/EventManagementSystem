@@ -10,6 +10,10 @@ export class UserdataService {
   private registerUrl = 'http://localhost:5299/api/Account';
   loginEvent: EventEmitter<boolean> = new EventEmitter<boolean>();
 
+  private eventsUrl = 'http://localhost:5299/api/Event';
+
+  private profileUrl = 'http://localhost:5299/api/Person';
+
   constructor(private http: HttpClient) { }
 
   registerUser(userdata: any): Observable<any> {
@@ -24,5 +28,13 @@ export class UserdataService {
   
   logout(): Observable<any> {
     return this.http.post<any>(`${this.registerUrl}/logout`, {});
+  }
+
+  getEvents(): Observable<any[]> {
+    return this.http.get<any[]>(this.eventsUrl);
+  }
+
+  getProfile(): Observable<any[]> {
+    return this.http.get<any[]>(this.profileUrl);
   }
 }

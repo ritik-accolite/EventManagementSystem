@@ -1,6 +1,7 @@
 import { NgFor, NgIf } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { UserdataService } from '../../userdata.service';
 
 @Component({
   selector: 'app-eventlist',
@@ -12,17 +13,24 @@ import { Component, OnInit } from '@angular/core';
 export class EventlistComponent implements OnInit{
   title = 'ems-client';
   events: any[] = [];
+  organizer: any[] = [];
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient , private userdataservice: UserdataService) { }
 
   ngOnInit(): void {
     this.fetchEvents();
   }
 
+
   fetchEvents(): void {
-    this.http.get<any[]>('http://localhost:5299/weatherforecast')
-      .subscribe(data => {
-        this.events = data;
-      });
+    this.userdataservice.getEvents()
+      .subscribe(
+        (response : any ) => { // change any here !!
+          this.events = response.allEvents; 
+          console.log('Events fetched successfully:', this.events);
+        },
+        error => console.error('Error fetching events: ', error)
+      );
   }
-}
+  }
+

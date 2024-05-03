@@ -49,9 +49,9 @@ a:link {
 body {
     background-color: #f8f9fa;
     padding-top: 50px;
+    position: fixed;
 }
 .main{
-    background-image: url(../../../assets/img/userdash_back.jpg);
     height: 600px;
     background-position: center;
     background-repeat: no-repeat;
@@ -62,21 +62,25 @@ body {
     float: right;
 }
 
-.sidebar {
+/* .sidebar {
     height: 100%;
     width: 250px;
     position: absolute;
     top: 0;
     left: 0;
-    background-color: #dce9f5;
+    background-color: #f9c806;
     z-index: 1000;
-    margin-top: 5.5%;
+    margin-top: 5.4%;
     padding-left: 2%;
     color: black;
+    padding: 2px;
+    border: 1px solid;
+    border-color: rgb(85, 75, 30);
 }
-
 .nav-item {
     padding: 8px 0;
+    padding-left: 2%;
+    font-size: larger;
 }
 
 .nav-link {
@@ -86,10 +90,9 @@ body {
 }
 
 .nav-link:hover {
-    background-color: #e9ecef;
+    background-color: #cfad3c;
 }
-
-
+ */
 .content {
     margin-left: 250px;
     padding: 20px;
