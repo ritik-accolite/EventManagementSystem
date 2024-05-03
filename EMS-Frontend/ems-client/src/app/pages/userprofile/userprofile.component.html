@@ -1,1 +1,58 @@
-<p>userprofile works!</p>
+<div *ngIf="profiles && profiles.length > 0">
+    <h2>Profile</h2>
+    <div class="row">
+      <div class="col-md-4" *ngFor="let profile1 of profiles">
+        <div class="card mb-4">
+          <div class="card-body">
+            <h5 class="card-title">User Profile   <i class="fa fa-pencil" aria-hidden="true" style="float: right;"></i></h5>
+            <p class="card-text">Name: {{ profile1.firstName }} {{ profile1.lastName }}</p>
+            <p class="card-text">Phone Number: {{ profile1.phoneNumber }}</p>
+            <p class="card-text">Email: {{ profile1.userName }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="!profiles || profiles.length === 0">
+    No events found.
+  </div>
+  
+  
+   <!-- <div *ngIf="profiles && profiles.length > 0">
+    <h2>Profile</h2>
+    <div class="row">
+      <div class="col-md-4" *ngFor="let profile1 of profiles">
+        <div class="card mb-4">
+          <div class="card-body">
+            <h5 class="card-title">User Profile
+              <i class="fa fa-pencil" aria-hidden="true" style="float: right; cursor: pointer;" (click)="toggleEditMode(profile1)"></i>
+            </h5>
+            <div *ngIf="!profile1.editMode">
+              <p class="card-text">Name: {{ profile1.firstName }} {{ profile1.lastName }}</p>
+              <p class="card-text">Phone Number: {{ profile1.phoneNumber }}</p>
+              <p class="card-text">Email: {{ profile1.userName }}</p>
+            </div>
+            <div *ngIf="profile1.editMode">
+              <div class="mb-3">
+                <label for="firstName">First Name:</label>
+                <input type="text" class="form-control" id="firstName" [(ngModel)]="profile1.firstName" name="firstName">
+              </div>
+              <div class="mb-3">
+                <label for="lastName">Last Name:</label>
+                <input type="text" class="form-control" id="lastName" [(ngModel)]="profile1.lastName" name="lastName">
+              </div>
+              <div class="mb-3">
+                <label for="phoneNumber">Phone Number:</label>
+                <input type="text" class="form-control" id="phoneNumber" [(ngModel)]="profile1.phoneNumber" name="phoneNumber">
+              </div>
+              <button class="btn btn-primary" (click)="updateProfile(profile1)">Save</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="!profiles || profiles.length === 0">
+    No profiles found.
+  </div>
+   -->

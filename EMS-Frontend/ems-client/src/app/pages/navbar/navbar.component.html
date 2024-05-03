@@ -1,8 +1,17 @@
 <nav class="navbar navbar-expand-lg navbar-white myNav">
     <div class="container">
-        <a class="navbar-brand" routerLink="/index.html">
+        <p style="font-family: cursive; color: azure; font-size: larger;">EventHub</p>
+        <!-- <a class="navbar-brand" routerLink="/index.html">
             <img src="../assets/Images/EventHub1.PNG" alt="eventpic" class="d-inline-block align-text-top" width="100px" height="40px"/>
-        </a>
+        </a> -->
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" routerLink="/Home">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">About</a>
+            </li>
+        </ul>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
             data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
             aria-label="Toggle navigation">
@@ -11,10 +20,10 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             </ul>
-            <div class="search-container">
-                <form>
+            <div class="ml-50">
+                <form (ngSubmit)="search()" class="form-inline my-2 my-lg-0">
                   <input type="text" placeholder="Search.." name="search">
-                  <button type="submit"><i class="fa fa-search"></i></button>
+                  <span><i class="fa fa-search"></i></span>
                 </form>
               </div>
             <form class="d-flex"> 

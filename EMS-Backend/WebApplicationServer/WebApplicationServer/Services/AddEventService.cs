@@ -16,14 +16,62 @@ namespace WebApplicationServer.Services
             _context = context;
         }
 
+        //public async Task<GetAllEventResponseViewModel> GetAllEvents()
+        //{
+        //    GetAllEventResponseViewModel response = new GetAllEventResponseViewModel();
+        //    response.Status = 200;
+        //    response.Message = "All Events Fetched";
+        //    response.AllEvents = await _context.Events.ToListAsync();
+        //    return response;
+        //}
+
+
         public async Task<GetAllEventResponseViewModel> GetAllEvents()
         {
-            GetAllEventResponseViewModel response = new GetAllEventResponseViewModel();
-            response.Status = 200;
-            response.Message = "All Events Fetched";
-            response.AllEvents = await _context.Events.ToListAsync();
+            var response = new GetAllEventResponseViewModel();
+            try
+            {
+                response.Status = 200;
+                response.Message = "All Events Fetched";
+                response.AllEvents = await _context.Events
+                    .Include(e => e.Organizer)
+                    .Select(e => new EventViewModel
+                    {
+                        EventId = e.EventId,
+                        EventName = e.EventName,
+                        EventCategory = e.EventCategory,
+                        Description = e.Description,
+                        ChiefGuest = e.ChiefGuest,
+                        EventDate = e.EventDate,
+                        EventTime = e.Event_Time,
+                        EventLocation = e.EventLocation,
+                        TicketPrice = e.TicketPrice,
+                        Capacity = e.Capacity,
+                        BannerImage = e.BannerImage,
+                        EventOrganizerId = e.EventOrganizerId,
+                        OrganizerFirstName = e.Organizer.FirstName,
+                        OrganizerLastName = e.Organizer.LastName
+                    })
+                    .ToListAsync();
+            }
+            catch
+            {
+                response.Status = 500;
+                response.Message = "Internal server error";
+                response.AllEvents = null;
+            }
             return response;
         }
+
+
+
+
+
+
+
+
+
+
 
 
         public async Task<GetEVentByIdResposeViewModel> GetEventById(int EventId)

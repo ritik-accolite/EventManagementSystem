@@ -1,11 +1,10 @@
-﻿namespace WebApplicationServer.Models.ResponseModels
+﻿using WebApplicationServer.Models.ViewModels;
+namespace WebApplicationServer.Models.ResponseModels
 {
     public class GetAllEventResponseViewModel
     {
-            public int Status { get; set; }
-
-            public string Message { get; set; }
-
-            public List<Event>? AllEvents { get; set; }
-}
+        public int Status { get; set; }
+        public string Message { get; set; }
+        public List<EventViewModel> AllEvents { get; set; }
+    }
 }

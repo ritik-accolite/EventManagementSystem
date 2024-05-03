@@ -28,13 +28,33 @@ namespace WebApplicationServer.Controllers
             _userManager = userManager;
         }
 
-        [HttpGet]
-        public async Task<GetAllEventResponseViewModel> GetAllEvents()
-        {
-            var events = await _addEventService.GetAllEvents();
-            return events;
-        }
+        //[HttpGet]
+        //public async Task<GetAllEventResponseViewModel> GetAllEvents()
+        //{
+        //    var events = await _addEventService.GetAllEvents();
+        //    return events;
+        //}
 
+
+
+        [HttpGet]
+        public async Task<ActionResult<GetAllEventResponseViewModel>> GetAllEvents()
+        {
+            try
+            {
+                var events = await _addEventService.GetAllEvents();
+                return Ok(events);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new GetAllEventResponseViewModel
+                {
+                    Status = 500,
+                    Message = $"An error occurred: {ex.Message}",
+                    AllEvents = null
+                });
+            }
+        }
 
         [HttpGet("{EventId:int}")]
         public async Task<GetEVentByIdResposeViewModel> GetEventById(int EventId)

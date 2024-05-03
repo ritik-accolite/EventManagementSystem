@@ -62,7 +62,7 @@ body {
     float: right;
 }
 
-.sidebar {
+/* .sidebar {
     height: 100%;
     width: 250px;
     position: absolute;
@@ -92,7 +92,7 @@ body {
 .nav-link:hover {
     background-color: #cfad3c;
 }
-
+ */
 .content {
     margin-left: 250px;
     padding: 20px;
