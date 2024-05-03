@@ -1,3 +1,104 @@
+<section class="h-100 gradient-form" style="background-color: #eee;">
+    <div class="container py-5 h-100">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col-xl-10">
+          <div class="card rounded-3 text-black">
+            <div class="row g-0">
+              <div class="col-lg-6">
+                <div class="card-body p-md-3 mx-md-4">
+  
+                    <div class="text-center">
+                        <img src="../../../assets/img/eventhubLogo/Logo Files/For Web/svg/Color logo with background.svg" alt=""
+                        width="200" height="35">
+                        <h3 class="mt-3 mb-5     pb-1">Register</h3>
+                      </div>
+
+                  <form [formGroup]="userDataForm" (ngSubmit)="onSubmit()">  
+                    <div data-mdb-input-init class="form-outline mb-4">
+                      <input type="text" id="form2Example11" class="form-control"
+                        placeholder="First Name" name="firstname" formControlName="firstname" required />
+                        <div *ngIf="userDataForm.controls['firstname'].invalid && userDataForm.controls['firstname'].touched" class="text-danger">
+                          <small *ngIf="userDataForm.controls['firstname'].errors?.['required']">First Name is required.</small>
+                        </div>
+                      
+                    </div>
+                    <div data-mdb-input-init class="form-outline mb-4">
+                        <input type="text" id="form2Example12" class="form-control"
+                          placeholder="Last Name" name="lastname" formControlName="lastname" required />
+                          <div *ngIf="userDataForm.controls['lastname'].invalid && userDataForm.controls['lastname'].touched" class="text-danger">
+                            <small *ngIf="userDataForm.controls['lastname'].errors?.['required']">Last Name is required.</small>
+                          </div>
+                      </div>
+  
+                      <div data-mdb-input-init class="form-outline mb-4">
+                        <input type="email" id="form2Example13" class="form-control"
+                          placeholder="Email " name="email"  formControlName="email" required />
+                          <div *ngIf="userDataForm.controls['email'].invalid && userDataForm.controls['email'].touched" class="text-danger">
+                            <small *ngIf="userDataForm.get('email')?.errors?.['email']">Invalid email format.</small>
+                            <small *ngIf="userDataForm.controls['email'].errors?.['required']">Email is required</small>
+                          </div>
+                      </div>
+                    <div data-mdb-input-init class="form-outline mb-4">
+                      <input placeholder="Please Enter Password" type="password" id="form2Example22" name="password" class="form-control" formControlName="password" required />
+                      <div *ngIf="userDataForm.get('password')?.invalid && (userDataForm.get('password')?.dirty || userDataForm.get('password')?.touched)"
+                      class="text-danger">
+                      <small *ngIf="userDataForm.get('password')?.errors?.['required']">Password is required.</small>
+                      <small *ngIf="userDataForm.get('password')?.errors?.['minlength']">Password must be at least 6 characters long.</small>
+                      <small *ngIf="userDataForm.get('password')?.errors?.['pattern']">Password must contain at least one lowercase letter, one uppercase letter, one digit, and one special character.</small>
+                    </div>
+                    </div>
+
+                    <div data-mdb-input-init class="form-outline mb-4">
+                        <input placeholder="Phone Number" type="tel" id="form2Example23" name="phonenumber" class="form-control" formControlName="phonenumber" required />
+                        <div *ngIf="userDataForm.controls['phonenumber'].invalid && userDataForm.controls['phonenumber'].touched" class="text-danger">
+                          <small *ngIf="userDataForm.controls['phonenumber'].errors?.['required']">Phone Number is required.</small>
+                          <small *ngIf="userDataForm.controls['phonenumber'].errors?.['pattern']">Phone Number can only contain digits.</small>
+                          <small *ngIf="userDataForm.controls['phonenumber'].errors?.['minlength']">Phone Number should have 10 digits.</small>
+                        </div>
+                    </div>
+
+                    <div data-mdb-input-init class="form-outline mb-4">
+                        <select placeholder="Role" class="form-select" id="role" formControlName="role">
+                            <option value="" disabled selected hidden>Role</option>
+                            <option value="User">User</option>
+                            <option value="Admin">Admin</option>
+                            <option value="Organizer">Organizer</option>
+                        </select>
+                        <div *ngIf="userDataForm.controls['role'].invalid && userDataForm.controls['role'].touched" class="text-danger">
+                          <small *ngIf="userDataForm.controls['role'].errors?.['required']">Role is required.</small>
+                      </div>
+                    </div>
+  
+                    <div class="text-center pt-1 mb-3 pb-1">
+                      <button data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3" type="submit">Register</button>
+                    </div>
+  
+                    <div class="d-flex align-items-center justify-content-center pb-4">
+                        <p class="mb-0 me-2">Already have an account?</p>
+                      <a routerLink="/login" data-mdb-button-init data-mdb-ripple-init class="btn btn-outline-danger">Login</a>
+                    </div>
+  
+                  </form>
+  
+                </div>
+              </div>
+              <div class="col-lg-6 d-flex align-items-center gradient-custom-2">
+                <div class="text-white px-3 py-4 p-md-5 mx-md-4">
+                  <h4 class="mb-4">We are more than just a company</h4>
+                  <p class="small mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+                    exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+<!-- 
 <div class="main">
     <div class="container">
         <form [formGroup]="userDataForm" (ngSubmit)="onSubmit()">
@@ -35,4 +136,4 @@
         </form>
     </div>
 </div>
-
+ -->
