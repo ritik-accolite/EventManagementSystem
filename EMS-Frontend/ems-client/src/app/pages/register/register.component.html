@@ -44,7 +44,6 @@
                       class="text-danger">
                       <small *ngIf="userDataForm.get('password')?.errors?.['required']">Password is required.</small>
                       <small *ngIf="userDataForm.get('password')?.errors?.['minlength']">Password must be at least 6 characters long.</small>
-                      <small *ngIf="userDataForm.get('password')?.errors?.['pattern']">Password must contain at least one lowercase letter, one uppercase letter, one digit, and one special character.</small>
                     </div>
                     </div>
 
@@ -52,8 +51,8 @@
                         <input placeholder="Phone Number" type="tel" id="form2Example23" name="phonenumber" class="form-control" formControlName="phonenumber" required />
                         <div *ngIf="userDataForm.controls['phonenumber'].invalid && userDataForm.controls['phonenumber'].touched" class="text-danger">
                           <small *ngIf="userDataForm.controls['phonenumber'].errors?.['required']">Phone Number is required.</small>
-                          <small *ngIf="userDataForm.controls['phonenumber'].errors?.['pattern']">Phone Number can only contain digits.</small>
-                          <small *ngIf="userDataForm.controls['phonenumber'].errors?.['minlength']">Phone Number should have 10 digits.</small>
+                          <!-- <small *ngIf="userDataForm.controls['phonenumber'].errors?.['pattern']">Phone Number can only contain digits.</small> -->
+                          <!-- <small *ngIf="userDataForm.controls['phonenumber'].errors?.['minlength']">Phone Number should have 10 digits.</small> -->
                         </div>
                     </div>
 

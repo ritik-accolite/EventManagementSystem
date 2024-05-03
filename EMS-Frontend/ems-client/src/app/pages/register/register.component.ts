@@ -30,13 +30,14 @@ export class RegisterComponent implements OnInit {
       firstname: ['', Validators.required],
       lastname: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(6), Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*])(?=.*[0-9]).{6,}$/)]],
-      phonenumber: ['', Validators.required, Validators.minLength(10), Validators.pattern('^[0-9]*$'), Validators.maxLength(10)],
+      password: ['', [Validators.required, Validators.minLength(6)]],
+      phonenumber: ['', Validators.required],
       role: ['', Validators.required]
     });
   }
   onSubmit() {
-    if (this.userDataForm && this.userDataForm.valid) {
+    if (this.userDataForm.valid) {
+      console.log("Inside")
       this.userDataService.registerUser(this.userDataForm.value).subscribe(
         response => {
           this.router.navigate(['/login']);
