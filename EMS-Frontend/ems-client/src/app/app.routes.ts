@@ -10,6 +10,7 @@ import { EventbookingComponent } from './pages/eventbooking/eventbooking.compone
 import { NavbarComponent } from './pages/navbar/navbar.component';
 import { UserprofileComponent } from './pages/userprofile/userprofile.component';
 import { SidebarComponent } from './pages/sidebar/sidebar.component';
+import { MyeventsComponent } from './pages/myevents/myevents.component';
 
 export const routes: Routes = [
     {
@@ -56,6 +57,10 @@ export const routes: Routes = [
     {
         path:'sidebar',
         component:SidebarComponent
+    },
+    {
+        path:'my-events',
+        component:MyeventsComponent
     }
 ];
 

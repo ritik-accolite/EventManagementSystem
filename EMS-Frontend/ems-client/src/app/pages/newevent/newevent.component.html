@@ -1,4 +1,4 @@
-<div class="main">
+<!-- <div class="main">
     <div class="container">
         <form>
             <h1>Create Event</h1>
@@ -41,4 +41,81 @@
                 <button type="submit" class="btn btn-primary">Sign Up</button>
         </form>
     </div>
-</div>
+</div> -->
+
+<!-- <form [formGroup]="eventForm" (ngSubmit)="onSubmit()" class="mt-4">
+    <div class="form-group">
+      <label for="name">Event Name:</label>
+      <input type="text" id="name" formControlName="name" class="form-control">
+    </div>
+    <div class="form-group">
+      <label for="date">Date:</label>
+      <input type="date" id="date" formControlName="date" class="form-control">
+    </div>
+    <div class="form-group">
+      <label for="location">Location:</label>
+      <input type="text" id="location" formControlName="location" class="form-control">
+    </div>
+    <div class="form-group">
+      <label for="description">Description:</label>
+      <textarea id="description" formControlName="description" class="form-control"></textarea>
+    </div>
+    <button type="submit" [disabled]="!eventForm.valid" class="btn btn-primary">Create Event</button>
+  </form> -->
+  
+  <form [formGroup]="eventForm" (ngSubmit)="onSubmit()" class="mt-4">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="name">Event Name:</label>
+            <input type="text" id="name" formControlName="eventName" class="form-control">
+          </div>
+          <div class="form-group">
+            <label for="date">Date:</label>
+            <input type="date" id="date" formControlName="eventDate" class="form-control">
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="location">Location:</label>
+            <input type="text" id="location" formControlName="eventLocation" class="form-control">
+          </div>
+          <div class="form-group">
+            <label for="description">Description:</label>
+            <textarea id="description" formControlName="description" class="form-control"></textarea>
+          </div>
+          <div class="form-group">
+            <label for="description">Category:</label>
+            <textarea id="description" formControlName="eventCategory" class="form-control"></textarea>
+          </div>
+          <div class="form-group">
+            <label for="description">Chief Guest:</label>
+            <textarea id="description" formControlName="chiefGuest" class="form-control"></textarea>
+          </div>
+          <div class="form-group">
+            <label for="description">Time:</label>
+            <textarea id="description" formControlName="event_Time" class="form-control"></textarea>
+          </div>
+          <div class="form-group">
+            <label for="description">Ticket Price:</label>
+            <textarea id="description" formControlName="ticketPrice" class="form-control"></textarea>
+          </div>
+          <div class="form-group">
+            <label for="description">Capacity:</label>
+            <textarea id="description" formControlName="capacity" class="form-control"></textarea>
+          </div>
+          <div class="form-group">
+            <label for="description">Banner Image:</label>
+            <textarea id="description" formControlName="bannerImage" class="form-control"></textarea>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <button type="submit" [disabled]="!eventForm.valid" class="btn btn-primary">Create Event</button>
+        </div>
+      </div>
+    </div>
+  </form>
+  
