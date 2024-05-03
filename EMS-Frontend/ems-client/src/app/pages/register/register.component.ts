@@ -18,7 +18,7 @@ import { Router, RouterLink } from '@angular/router';
 
 export class RegisterComponent implements OnInit {
   userDataForm!: FormGroup;
-form: any;
+  form: any;
 
   constructor(
     private fb: FormBuilder,
@@ -32,9 +32,21 @@ form: any;
       lastname: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
+      confirmPassword: ['', [Validators.required, Validators.minLength(6), this.passwordMatchValidator]],
       phonenumber: ['', Validators.required],
       role: ['', Validators.required]
     });
+  }
+
+  passwordMatchValidator(group: FormGroup) {
+    const password = group.get('password')?.value;
+    const confirmPassword = group.get('confirmPassword')?.value;
+
+    if (password === confirmPassword) {
+      return null; // Passwords match, return null (no error)
+    } else {
+      return { mismatch: true }; // Passwords don't match, return error
+    }
   }
   onSubmit() {
     if (this.userDataForm.valid) {

@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink, Router, RouterOutlet } from '@angular/router';
 import { UserdataService } from '../../userdata.service';
-import { AngularFontAwesomeComponent } from 'angular-font-awesome';
 import { FormsModule } from '@angular/forms';
 
 @Component({

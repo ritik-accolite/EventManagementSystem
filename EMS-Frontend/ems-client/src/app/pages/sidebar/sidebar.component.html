@@ -1,3 +1,34 @@
+<aside>
+  <!-- <p> Menu </p> -->
+  <a routerLink="/new-event">
+    <i  class="fa fa-user-o" aria-hidden="true"></i>
+    Create Event
+  </a>
+  <a (click)="onTabClick('mybookings')">
+    <i class="fa fa-laptop" aria-hidden="true"></i>
+    My Events
+    <!-- My bookings for user -->
+  </a>
+  <a (click)="onTabClick('user-profile')">
+    <i class="fa fa-clone" aria-hidden="true"></i>
+    Profile
+  </a>
+  <a >
+    <i class="fa fa-star-o" aria-hidden="true"></i>
+    Generate Event Report
+  </a>
+  <a >
+    <i class="fa fa-trash-o" aria-hidden="true"></i>
+    Track Event Tickets
+  </a>
+</aside>
+
+<!-- <div class="social">
+  <a href="https://www.linkedin.com/in/florin-cornea-b5118057/" target="_blank">
+    <i class="fa fa-linkedin"></i>
+  </a>
+</div> -->
+   <!-- /#wrapper -->
 <!-- <div class="sidebar">
     <ul>
       <button><li (click)="onTabClick('user-profile')">Profile</li></button>
@@ -14,10 +45,10 @@
     </ul>
   </div> -->
   
-  <div class="sidebar">
+  <!-- <div class="sidebar">
     <ul class="nav flex-column">
       <li class="nav-item" (click)="onTabClick('user-profile')">Profile</li>
       <li class="nav-item" (click)="onTabClick('mybookings')">My Bookings</li>
     </ul>
   </div>
-  
+   -->

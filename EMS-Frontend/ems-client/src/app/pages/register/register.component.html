@@ -48,6 +48,16 @@
                     </div>
 
                     <div data-mdb-input-init class="form-outline mb-4">
+                      <input placeholder="Please Confirm Password" type="password" id="form2Example23" name="confirmPassword" class="form-control" formControlName="confirmPassword" required />
+                      <div *ngIf="userDataForm.get('confirmPassword')?.invalid && (userDataForm.get('confirmPassword')?.dirty || userDataForm.get('confirmPassword')?.touched)"
+                      class="text-danger">
+                      <small *ngIf="userDataForm.get('confirmPassword')?.errors?.['required']">Password is required.</small>
+                      <small *ngIf="userDataForm.get('confirmPassword')?.errors?.['minlength']">Password must be at least 6 characters long.</small>
+                      <small *ngIf="userDataForm.get('confirmPassword')?.errors?.['passwordMatchValidator']">Password doesn't match.</small>
+                    </div>
+                    </div>
+
+                    <div data-mdb-input-init class="form-outline mb-4">
                         <input placeholder="Phone Number" type="tel" id="form2Example23" name="phonenumber" class="form-control" formControlName="phonenumber" required />
                         <div *ngIf="userDataForm.controls['phonenumber'].invalid && userDataForm.controls['phonenumber'].touched" class="text-danger">
                           <small *ngIf="userDataForm.controls['phonenumber'].errors?.['required']">Phone Number is required.</small>
