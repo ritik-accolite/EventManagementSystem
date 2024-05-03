@@ -48,7 +48,7 @@ builder.Services.AddIdentityApiEndpoints<Person>().AddEntityFrameworkStores<Appl
 builder.Services.AddScoped<IAddEventService, AddEventService>();
 builder.Services.AddScoped<IAddBookedEventService, AddBookedEventService>();
 builder.Services.AddScoped<IGetAllPerson,GetAllPerson>();
-
+builder.Services.AddScoped<ISendRegisterSuccessMailService, SendRegisterMailService>();
 
 builder.Services.AddIdentityCore<Person>(options =>
 {

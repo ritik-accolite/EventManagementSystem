@@ -6,6 +6,6 @@ namespace WebApplicationServer.Models.ResponseModels
     {
         public int Status { get; set; }
         public string Message { get; set; }
-        public List<EventViewModel> AllEvents { get; set; }
+        public List<EventViewModel>? AllEvents { get; set; }
     }
 }
