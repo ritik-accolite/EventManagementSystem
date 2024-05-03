@@ -35,54 +35,110 @@ namespace WebApplicationServer.Services
             return response;
         }
 
+public async Task<ResponseViewModel> BookTickets(AddBookedEventViewModel addBookedEvent)
+    {
+        ResponseViewModel response = new ResponseViewModel();
 
-
-        public async Task<ResponseViewModel> BookTickets(AddBookedEventViewModel addBookedEvent)
+        try
         {
-            ResponseViewModel response = new ResponseViewModel();
+            // Check if the user has already booked tickets for the same event
+            var existingBooking = await _context.BookedEvents
+                .FirstOrDefaultAsync(be => be.EventId == addBookedEvent.EventId && be.UserId == addBookedEvent.UserId);
 
-            try
+            if (existingBooking != null)
             {
-                var eventEntity = await _context.Events.FindAsync(addBookedEvent.EventId);
-                if (eventEntity == null)
-                {
-                    response.Status = 404;
-                    response.Message = "Event not found";
-                    return response;
-                }
-
-                if (eventEntity.Capacity < addBookedEvent.NumberOfTickets)
-                {
-                    response.Status = 400;
-                    response.Message = "Not enough tickets available for this event";
-                    return response;
-                }
-
-                var bookedEvent = new BookedEvent
-                {
-                    EventId = addBookedEvent.EventId,
-                    EventOrganizerId = eventEntity.EventOrganizerId,
-                    UserId = addBookedEvent.UserId,
-                    BookingDate = DateTime.Now,
-                    NumberOfTickets = addBookedEvent.NumberOfTickets
-                };
-                _context.BookedEvents.Add(bookedEvent);
-                eventEntity.Capacity -= addBookedEvent.NumberOfTickets;
-                await _context.SaveChangesAsync();
-
-                response.Status = 200;
-                response.Message = "Event booked successfully";
-            }
-            catch (Exception ex)
-            {
-                response.Status = 500;
-                response.Message = $"Error booking event: {ex.Message}";
+                response.Status = 400;
+                response.Message = "You have already booked tickets for this event";
+                return response;
             }
 
-            return response;
+            var eventEntity = await _context.Events.FindAsync(addBookedEvent.EventId);
+            if (eventEntity == null)
+            {
+                response.Status = 404;
+                response.Message = "Event not found";
+                return response;
+            }
+
+            if (eventEntity.Capacity < addBookedEvent.NumberOfTickets)
+            {
+                response.Status = 400;
+                response.Message = "Not enough tickets available for this event";
+                return response;
+            }
+
+            var bookedEvent = new BookedEvent
+            {
+                EventId = addBookedEvent.EventId,
+                EventOrganizerId = eventEntity.EventOrganizerId,
+                UserId = addBookedEvent.UserId,
+                BookingDate = DateTime.Now,
+                NumberOfTickets = addBookedEvent.NumberOfTickets
+            };
+            _context.BookedEvents.Add(bookedEvent);
+            eventEntity.Capacity -= addBookedEvent.NumberOfTickets;
+            await _context.SaveChangesAsync();
+
+            response.Status = 200;
+            response.Message = "Event booked successfully";
+        }
+        catch (Exception ex)
+        {
+            response.Status = 500;
+            response.Message = $"Error booking event: {ex.Message}";
         }
 
-        public async Task<ResponseViewModel> UnbookEvent(int bookingId)
+        return response;
+    }
+
+
+
+    //public async Task<ResponseViewModel> BookTickets(AddBookedEventViewModel addBookedEvent)
+    //{
+    //    ResponseViewModel response = new ResponseViewModel();
+
+    //    try
+    //    {
+    //        var eventEntity = await _context.Events.FindAsync(addBookedEvent.EventId);
+    //        if (eventEntity == null)
+    //        {
+    //            response.Status = 404;
+    //            response.Message = "Event not found";
+    //            return response;
+    //        }
+
+    //        if (eventEntity.Capacity < addBookedEvent.NumberOfTickets)
+    //        {
+    //            response.Status = 400;
+    //            response.Message = "Not enough tickets available for this event";
+    //            return response;
+    //        }
+
+    //        var bookedEvent = new BookedEvent
+    //        {
+    //            EventId = addBookedEvent.EventId,
+    //            EventOrganizerId = eventEntity.EventOrganizerId,
+    //            UserId = addBookedEvent.UserId,
+    //            BookingDate = DateTime.Now,
+    //            NumberOfTickets = addBookedEvent.NumberOfTickets
+    //        };
+    //        _context.BookedEvents.Add(bookedEvent);
+    //        eventEntity.Capacity -= addBookedEvent.NumberOfTickets;
+    //        await _context.SaveChangesAsync();
+
+    //        response.Status = 200;
+    //        response.Message = "Event booked successfully";
+    //    }
+    //    catch (Exception ex)
+    //    {
+    //        response.Status = 500;
+    //        response.Message = $"Error booking event: {ex.Message}";
+    //    }
+
+    //    return response;
+    //}
+
+    public async Task<ResponseViewModel> UnbookEvent(int bookingId)
         {
             ResponseViewModel response = new ResponseViewModel();
 
