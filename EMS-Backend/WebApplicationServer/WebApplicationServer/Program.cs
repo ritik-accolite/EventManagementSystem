@@ -1,3 +1,5 @@
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
@@ -34,6 +36,16 @@ builder.Services.AddCors(options =>
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+
+
+ 
+//NEW ADDED ------------------------------
+builder.Services.Configure<IdentityOptions>(
+    opts => opts.SignIn.RequireConfirmedEmail = true
+);
+
+
+
 // Create a SqlConnection object using the connection string
 //using var conn = new SqlConnection(builder.Configuration.GetConnectionString("AZURE_SQL_CONNECTIONSTRING"));
 //conn.Open(); // Open the connection
@@ -65,6 +77,8 @@ builder.Services.AddIdentityCore<Person>(options =>
 
 })
 .AddEntityFrameworkStores<ApplicationDbContext>();
+
+
 
 var app = builder.Build();
 app.UseCors("AllowOrigin");

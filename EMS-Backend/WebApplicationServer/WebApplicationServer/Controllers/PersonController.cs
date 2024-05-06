@@ -53,14 +53,6 @@ namespace WebApplicationServer.Controllers
         {
             ResponseViewModel response;
             var user = await _userManager.GetUserAsync(User);
-            //if (user == null || user.Role != "Organizer")
-            //{
-            //    response = new ResponseViewModel();
-            //    response.Status = 401;
-            //    response.Message = "You are either not loggedIn or You are not Orgainser.";
-            //    return response;
-            //}
-
             response = await _getAllPerson.DeletePerson(Id);
             return response;
         }
@@ -80,15 +72,6 @@ namespace WebApplicationServer.Controllers
                 response.Message = "Please provide valid Person details.";
                 return response;
             }
-
-            //var user = await _userManager.GetUserAsync(User);
-            //if (user == null || user.Role != "Organizer")
-            //{
-            //    response = new ResponseViewModel();
-            //    response.Status = 401;
-            //    response.Message = "You are either not logged in or not an organizer.";
-            //    return response;
-            //}
 
             response = await _getAllPerson.UpdatePerson(id, updatePerson);
             return response;

@@ -139,33 +139,14 @@ namespace WebApplicationServer.Controllers
         }
 
 
-        [HttpGet("GetEventsByCategory")]
-        public async Task<GetEventByAppliedFilterResponseViewModel> GetEventsByCategory(string category)
-        {
-            var events = await _addEventService.GetEventsByCategory(category);
-            return events;
-
-        }
-
-
-        [HttpGet("GetEventsByLocation")]
-        public async Task<GetEventByAppliedFilterResponseViewModel> GetEventsByLocation(string location)
-        {
-            var events = await _addEventService.GetEventsByLocation(location);
-            return events;
-        }
-
-
-
-
-        //[Authorize(Roles = "Organizer")]
-        [HttpGet("trackTicketDetails/{eventId}")]
-        public async Task<IActionResult> TrackTicketDetails(int eventId)
-        {
-            var organizerId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            var ticketDetails = await _addEventService.GetTicketDetailsForOrganizer(eventId, organizerId);
-            return Ok(ticketDetails);
-        }
+        ////[Authorize(Roles = "Organizer")]
+        //[HttpGet("trackTicketDetails/{eventId}")]
+        //public async Task<IActionResult> TrackTicketDetails(int eventId)
+        //{
+        //    var organizerId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+        //    var ticketDetails = await _addEventService.GetTicketDetailsForOrganizer(eventId, organizerId);
+        //    return Ok(ticketDetails);
+        //}
 
 
 
