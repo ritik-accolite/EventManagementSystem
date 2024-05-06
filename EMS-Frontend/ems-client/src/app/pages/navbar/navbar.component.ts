@@ -27,6 +27,7 @@ export class NavbarComponent implements OnInit {
     // Call the logout method which returns an Observable
     this.userDataService.logout().subscribe(
       (response: any) => {
+        localStorage.removeItem("jwt");
         console.log('Logout successful:', response.message); // Print the response data
         this.isLoggedIn = !this.isLoggedIn;
         this.router.navigate(['/login']);

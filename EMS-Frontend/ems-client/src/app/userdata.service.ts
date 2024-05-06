@@ -23,7 +23,7 @@ export class UserdataService {
   }
 
   loginUser(userdata: any): Observable<any> {
-    this.loginEvent.emit(true); 
+    // this.loginEvent.emit(true); 
     return this.http.post(`${this.registerUrl}/login`,userdata);
   }
 

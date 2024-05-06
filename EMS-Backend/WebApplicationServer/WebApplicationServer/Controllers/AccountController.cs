@@ -3,7 +3,12 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
 using WebApplicationServer.Models;
+using WebApplicationServer.Models.ResponseModels;
 using WebApplicationServer.Models.ViewModels;
 using WebApplicationServer.Services;
 using WebApplicationServer.Services.IService;
@@ -86,10 +91,11 @@ namespace WebApplicationServer.Controllers
 
 
         [HttpPost("login")]
-        public async Task<ResponseViewModel> LoginPerson(LoginViewModel login)
+        public async Task<AuthenticatedLoginResponseViewModel> LoginPerson(LoginViewModel login)
         {
             string message = "";
-            ResponseViewModel response = new ResponseViewModel();
+            string token = string.Empty;
+            AuthenticatedLoginResponseViewModel response = new AuthenticatedLoginResponseViewModel();
 
             try
             {
@@ -108,7 +114,7 @@ namespace WebApplicationServer.Controllers
                     return response;
                 }
 
-                string path = Path.GetFullPath("C:\\Users\\ajay.k_int1595\\Desktop\\Ems-Project\\EventManagementSystem\\EMS-Backend\\WebApplicationServer\\WebApplicationServer\\HtmlTemplate\\LoginSuccessfull.html");
+               /* string path = Path.GetFullPath("C:\\Users\\ajay.k_int1595\\Desktop\\Ems-Project\\EventManagementSystem\\EMS-Backend\\WebApplicationServer\\WebApplicationServer\\HtmlTemplate\\LoginSuccessfull.html");
                 string htmlString = System.IO.File.ReadAllText(path);
                 htmlString = htmlString.Replace("{{title}}", "Login Successfull");
                 htmlString = htmlString.Replace("{{Username}}",login.Email);
@@ -120,8 +126,28 @@ namespace WebApplicationServer.Controllers
                     response.Status = 500;
                     response.Message = "Failed to send Login email";
                     return response;
-                }
+                }*/
                 message = "Login Successfully";
+                // jwt logic for Role Based
+                string role = person.Role;
+
+                var claims = new List<Claim>
+                {
+                    new Claim(ClaimTypes.Name, person.UserName),
+                    new Claim(ClaimTypes.Role, role)
+                };
+
+                var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("JlVhjeoTKfL8JgQ0Xg2m3BxAP34f5S9tTmN7Gc1A8Zq"));
+                var signinCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
+                var tokeOptions = new JwtSecurityToken(
+                    issuer: "https://localhost:5299",
+                    audience: "https://localhost:5299",
+                    claims: claims,
+                    expires: DateTime.Now.AddMinutes(5),
+                    signingCredentials: signinCredentials
+                );
+                token = new JwtSecurityTokenHandler().WriteToken(tokeOptions);
+                
             }
             catch (Exception ex)
             {
@@ -131,6 +157,7 @@ namespace WebApplicationServer.Controllers
             }
             response.Status = 200;
             response.Message = "Successfully Logged In";
+            response.Token = token;
             return response;
         }
 
