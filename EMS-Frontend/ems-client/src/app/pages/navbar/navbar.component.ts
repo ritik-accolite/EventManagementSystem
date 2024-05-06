@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink, Router, RouterOutlet } from '@angular/router';
 import { UserdataService } from '../../userdata.service';
-import { AngularFontAwesomeComponent } from 'angular-font-awesome';
 import { FormsModule } from '@angular/forms';
 
 @Component({
@@ -28,6 +27,7 @@ export class NavbarComponent implements OnInit {
     // Call the logout method which returns an Observable
     this.userDataService.logout().subscribe(
       (response: any) => {
+        localStorage.removeItem("jwt");
         console.log('Logout successful:', response.message); // Print the response data
         this.isLoggedIn = !this.isLoggedIn;
         this.router.navigate(['/login']);

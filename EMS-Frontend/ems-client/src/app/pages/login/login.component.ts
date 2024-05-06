@@ -15,7 +15,7 @@ export class LoginComponent {
 
   username: string = '';
   password: string = '';
-
+  invalidLogin: boolean = true;
   constructor(private http: HttpClient,
     private userDataService: UserdataService,
     private router:Router
@@ -32,6 +32,10 @@ export class LoginComponent {
     this.userDataService.loginUser(credentials)
       .subscribe(
         (response: any) => {
+          const token = response.token;
+          localStorage.setItem("jwt", token); 
+          this.invalidLogin = false; 
+          this.userDataService.loginEvent.emit(true); 
           this.router.navigate(['/Home']);
           console.log('Login successful:', response);
         },

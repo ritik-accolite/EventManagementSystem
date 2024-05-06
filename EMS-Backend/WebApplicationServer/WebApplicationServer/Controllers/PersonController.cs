@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Identity;
 using WebApplicationServer.Services.IService;
 using WebApplicationServer.Services;
 using WebApplicationServer.Models.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 
 namespace WebApplicationServer.Controllers
 {
@@ -31,7 +32,7 @@ namespace WebApplicationServer.Controllers
             _userManager = userManager;
         }
 
-        [HttpGet]
+        [HttpGet, Authorize(Roles = "Organizer")]
         public async Task<GetAllPersonResponseViewModel> GetAllPersons()
         {
             var persons = await _getAllPerson.GetAllPersons();

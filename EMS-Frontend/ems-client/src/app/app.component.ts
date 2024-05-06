@@ -14,7 +14,9 @@ import { FooterComponent } from './pages/footer/footer.component';
     templateUrl: './app.component.html',
     styleUrl: './app.component.css',
     providers: [NavbarComponent, HomeComponent, FooterComponent],
-    imports: [RouterOutlet, FormsModule, HttpClientModule, CommonModule, RouterModule, RouterLink, RouterLinkActive, NavbarComponent, FooterComponent]
+    imports: [RouterOutlet, FormsModule, HttpClientModule, CommonModule,
+              RouterModule, RouterLink, RouterLinkActive, NavbarComponent,
+              FooterComponent]
 })
 export class AppComponent { //implements OnInit{
   // title = 'ems-client';

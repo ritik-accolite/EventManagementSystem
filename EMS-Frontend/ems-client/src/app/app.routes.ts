@@ -10,6 +10,8 @@ import { EventbookingComponent } from './pages/eventbooking/eventbooking.compone
 import { NavbarComponent } from './pages/navbar/navbar.component';
 import { UserprofileComponent } from './pages/userprofile/userprofile.component';
 import { SidebarComponent } from './pages/sidebar/sidebar.component';
+import { MyeventsComponent } from './pages/myevents/myevents.component';
+import { AuthGuard } from './guards/auth.guard';
 
 export const routes: Routes = [
     {
@@ -23,11 +25,13 @@ export const routes: Routes = [
     },
     {
         path:'new-event',
-        component:NeweventComponent
+        component:NeweventComponent,
+        canActivate: [AuthGuard]
     },
     {
         path:'event-bookings',
-        component:EventbookingComponent
+        component:EventbookingComponent,
+        canActivate: [AuthGuard]
     },
     {
         path:'event-list',
@@ -40,6 +44,7 @@ export const routes: Routes = [
             { path: 'user-profile', component: UserprofileComponent },
             { path:'mybookings', component:MybookingsComponent },
           ]
+        , canActivate: [AuthGuard]
     },
     {
         path:'register',
@@ -55,7 +60,13 @@ export const routes: Routes = [
     },
     {
         path:'sidebar',
-        component:SidebarComponent
+        component:SidebarComponent,
+        canActivate: [AuthGuard]
+    },
+    {
+        path:'my-events',
+        component:MyeventsComponent,
+        canActivate: [AuthGuard]
     }
 ];
 
