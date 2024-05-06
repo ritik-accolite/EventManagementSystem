@@ -1,5 +1,6 @@
 ﻿using System.Net;
 using System.Net.Mail;
+using System.Reflection.Metadata.Ecma335;
 using WebApplicationServer.Models.ViewModels;
 using WebApplicationServer.Services.IService;
 
@@ -39,20 +40,20 @@ namespace WebApplicationServer.Services
         //        SmtpClient smtpClient = new SmtpClient(getRegisterSuccessMailViewModel.SmtpServer)
         //        {
         //            Port = getRegisterSuccessMailViewModel.Port,
-        //            Credentials = new NetworkCredential(getRegisterSuccessMailViewModel.From,getRegisterSuccessMailViewModel.SecretKey),
+        //            Credentials = new NetworkCredential(getRegisterSuccessMailViewModel.From, getRegisterSuccessMailViewModel.SecretKey),
         //            EnableSsl = getRegisterSuccessMailViewModel.EnableSSL
         //        };
 
         //        await smtpClient.SendMailAsync(mailMessage);
         //        status = true;
         //    }
-        //    catch(Exception) { 
+        //    catch (Exception)
+        //    {
 
         //        status = false;
         //    }
         //    return status;
         //}
-
 
 
         public async Task<bool> SendRegisterSuccessMailAsync(string email, string Subject, string message)
@@ -92,8 +93,5 @@ namespace WebApplicationServer.Services
             }
             return status;
         }
-
-
-
     }
 }
