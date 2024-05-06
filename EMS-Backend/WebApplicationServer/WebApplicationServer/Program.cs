@@ -1,24 +1,23 @@
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
+using System;
+using System.Text;
 using WebApplicationServer.Data;
 using WebApplicationServer.Models;
 using WebApplicationServer.Services;
 using WebApplicationServer.Services.IService;
 
-
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
 builder.Services.AddControllers();
 builder.Services.AddAuthorization();
-
 
 // Register CORS services
 builder.Services.AddCors(options =>
@@ -30,26 +29,41 @@ builder.Services.AddCors(options =>
             //builder.WithOrigins("http://localhost:4200").AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin();
         });
 });
-// for testing , sql 
+
+// Configure DbContext
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-// Create a SqlConnection object using the connection string
-//using var conn = new SqlConnection(builder.Configuration.GetConnectionString("AZURE_SQL_CONNECTIONSTRING"));
-//conn.Open(); // Open the connection
-// Configure DbContextOptionsBuilder to use the SqlConnection
-//builder.Services.AddDbContext<DbContext>(options =>
-//{
-//    options.UseSqlServer(conn);
-//});
+// Configure Authentication
+builder.Services.AddAuthentication(opt =>
+{
+    opt.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    opt.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+})
+.AddJwtBearer(options =>
+{
+    options.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidateLifetime = true,
+        ValidateIssuerSigningKey = true,
+        ValidIssuer = "https://localhost:5299",
+        ValidAudience = "https://localhost:5299",
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("JlVhjeoTKfL8JgQ0Xg2m3BxAP34f5S9tTmN7Gc1A8Zq")) // add this in .env file
+    };
+});
 
+// Add Identity services
 builder.Services.AddIdentityApiEndpoints<Person>().AddEntityFrameworkStores<ApplicationDbContext>();
 
+// Add scoped services
 builder.Services.AddScoped<IAddEventService, AddEventService>();
 builder.Services.AddScoped<IAddBookedEventService, AddBookedEventService>();
-builder.Services.AddScoped<IGetAllPerson,GetAllPerson>();
+builder.Services.AddScoped<IGetAllPerson, GetAllPerson>();
 builder.Services.AddScoped<ISendRegisterSuccessMailService, SendRegisterMailService>();
 
+// Configure Identity Core
 builder.Services.AddIdentityCore<Person>(options =>
 {
     options.SignIn.RequireConfirmedAccount = true;
@@ -67,7 +81,6 @@ builder.Services.AddIdentityCore<Person>(options =>
 .AddEntityFrameworkStores<ApplicationDbContext>();
 
 var app = builder.Build();
-app.UseCors("AllowOrigin");
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -78,16 +91,15 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.UseAuthorization();
-app.MapIdentityApi<Person>();
-
-
-// Uncomment this for access through 1 origin only
 app.UseRouting();
+
+app.UseAuthentication();
+app.UseAuthorization();
+
+app.UseCors("AllowOrigin");
+
 app.MapControllerRoute(
     name: default,
-    pattern: "{controller=Person}/{action = GetPerson}");
+    pattern: "{controller=Person}/{action=GetPerson}");
 
 app.Run();
-
-
