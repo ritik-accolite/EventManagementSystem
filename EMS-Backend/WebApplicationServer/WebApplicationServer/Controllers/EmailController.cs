@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
 using WebApplicationServer.Data;
 using WebApplicationServer.Models;
 using WebApplicationServer.Models.ViewModels;
@@ -14,19 +15,17 @@ namespace WebApplicationServer.Controllers
     public class EmailController : ControllerBase
     {
         private readonly IAddBookedEventService _addBookedEventService;
-        private readonly UserManager<Person> _userManager;
+
         private readonly ISendRegisterSuccessMailService _sendRegisterSuccessMailService;
         private readonly ApplicationDbContext _context;
 
 
-        public EmailController(UserManager<Person> userManager, IAddBookedEventService addBookedEventService, ISendRegisterSuccessMailService sendRegisterSuccessMailService, ApplicationDbContext context)
+        public EmailController(IAddBookedEventService addBookedEventService, ISendRegisterSuccessMailService sendRegisterSuccessMailService, ApplicationDbContext context)
         {
             _addBookedEventService = addBookedEventService;
-            _userManager = userManager;
             _sendRegisterSuccessMailService = sendRegisterSuccessMailService;
             _context = context;
         }
-
 
 
         [HttpPost("SendEmailNotification")]
@@ -35,8 +34,11 @@ namespace WebApplicationServer.Controllers
             ResponseViewModel response = new ResponseViewModel();
             try
             {
-                var organizer = await _userManager.GetUserAsync(User);
-                if (organizer == null || organizer.Role != "Organizer")
+                //var organizer = await _userManager.GetUserAsync(User);
+                var organizer = User.FindFirstValue(ClaimTypes.Name);
+                var role = User.FindFirstValue(ClaimTypes.Role);
+
+                if (organizer == null || role != "Organizer")
                 {
                     //response = new ResponseViewModel();
                     response.Status = 401;
