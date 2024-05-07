@@ -215,6 +215,30 @@ namespace WebApplicationServer.Services
             return response;
         }
 
+
+
+
+        public async Task<List<OrganizerCreatedEventViewModel>> GetOrganizerCreatedEvents(string organizerId)
+        {
+            return await _context.Events
+                .Where(e => e.EventOrganizerId == organizerId)
+                .Select(e => new OrganizerCreatedEventViewModel
+                {
+                    EventId = e.EventId,
+                    EventName = e.EventName,
+                    EventCategory = e.EventCategory,
+                    EventDescription = e.Description,
+                    ChiefGuest = e.ChiefGuest,
+                    EventDate = e.EventDate,
+                    Event_Time = e.Event_Time,
+                    EventLocation = e.EventLocation,
+                    TicketPrice = e.TicketPrice,
+                    Capacity = e.Capacity,
+                    BannerImage = e.BannerImage
+                })
+                .ToListAsync();
+        }
+
         public async Task<List<TicketDetailsViewModel>> GetTicketDetailsForOrganizer(int eventId, string organizerId)
         {
             //var eventDetails = await _context.Events

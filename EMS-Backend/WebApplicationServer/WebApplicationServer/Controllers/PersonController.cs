@@ -53,12 +53,10 @@ namespace WebApplicationServer.Controllers
         public async Task<ResponseViewModel> DeletePerson(string Id)
         {
             ResponseViewModel response;
-            var user = await _userManager.GetUserAsync(User);
+            //var user = await _userManager.GetUserAsync(User);
             response = await _getAllPerson.DeletePerson(Id);
             return response;
         }
-
-
 
 
         [HttpPut("updatePerson/{id}")]

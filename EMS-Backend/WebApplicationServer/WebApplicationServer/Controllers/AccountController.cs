@@ -57,7 +57,8 @@ namespace WebApplicationServer.Controllers
                     Role = person.Role,
                     PhoneNumber = person.PhoneNumber,
                     UserName = person.Email,
-                    Password = person.Password
+                    Password = person.Password,
+                    //TwoFactorEnabled = true
                 };
 
                 result = await _userManager.CreateAsync(user, person.Password);
@@ -70,7 +71,6 @@ namespace WebApplicationServer.Controllers
                 message = "Registered Successfully";
                 var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                 var confirmationLink = Url.Action(nameof(ConfirmEmail), "Account", new { token, email = user.Email });
-                //bool ConfirmEmailMail = await _sendRegisterSuccessMailService.SendRegisterSuccessMailAsync(user.Email, "Email Confirmation Link", confirmationLink!);
              
                 string path = Path.GetFullPath("C:\\Users\\ajay.k_int1595\\Desktop\\Ems-Project\\EventManagementSystem\\EMS-Backend\\WebApplicationServer\\WebApplicationServer\\HtmlTemplate\\RegisterSuccessfull.html");
                 string htmlString = System.IO.File.ReadAllText(path);
@@ -102,7 +102,6 @@ namespace WebApplicationServer.Controllers
             return response;
         }
 
-
         [HttpPost("login")]
         public async Task<AuthenticatedLoginResponseViewModel> LoginPerson(LoginViewModel login)
         {
@@ -113,55 +112,68 @@ namespace WebApplicationServer.Controllers
             try
             {
                 Person person = await _userManager.FindByEmailAsync(login.Email);
+                //if (person == null || !person.EmailConfirmed)
+                //{
+                //    //person.EmailConfirmed = true;
+                //    response.Status = 403;
+                //    response.Message = "User Not Found or Email is not Confirmed";
+                //    return response;
+                //}
+
                 if (person != null && !person.EmailConfirmed)
                 {
                     person.EmailConfirmed = true;
+
                 }
                 //bool IsEmailConfirmed = await _userManager.IsEmailConfirmedAsync(person.Email);
 
+
                 var result = await _signInManager.PasswordSignInAsync(person, login.Password, true, false);
 
-                if (!result.Succeeded)
-                {                    
-                    response.Status = 403;
-                    response.Message = "Unauthorised Access";
-                    return response;
-                }
+                    if (!result.Succeeded)
+                    {
+                        response.Status = 403;
+                        response.Message = "Unauthorised Access";
+                        return response;
+                    }
 
-               /* string path = Path.GetFullPath("C:\\Users\\ajay.k_int1595\\Desktop\\Ems-Project\\EventManagementSystem\\EMS-Backend\\WebApplicationServer\\WebApplicationServer\\HtmlTemplate\\LoginSuccessfull.html");
-                string htmlString = System.IO.File.ReadAllText(path);
-                htmlString = htmlString.Replace("{{title}}", "Login Successfull");
-                htmlString = htmlString.Replace("{{Username}}",login.Email);
-                bool emailSent = await _sendRegisterSuccessMailService.SendRegisterSuccessMailAsync(login.Email, "Successful log on to EventHub", htmlString);
+                    string path = Path.GetFullPath("C:\\Users\\ajay.k_int1595\\Desktop\\Ems-Project\\EventManagementSystem\\EMS-Backend\\WebApplicationServer\\WebApplicationServer\\HtmlTemplate\\LoginSuccessfull.html");
+                    string htmlString = System.IO.File.ReadAllText(path);
+                    htmlString = htmlString.Replace("{{title}}", "Login Successfull");
+                    htmlString = htmlString.Replace("{{Username}}", login.Email);
+                    bool emailSent = await _sendRegisterSuccessMailService.SendRegisterSuccessMailAsync(login.Email, "Successful log on to EventHub", htmlString);
 
-                if (!emailSent)
-                {
-                    // Handle email sending failure
-                    response.Status = 500;
-                    response.Message = "Failed to send Login email";
-                    return response;
-                }*/
-                message = "Login Successfully";
-                // jwt logic for Role Based
-                string role = person.Role;
+                    if (!emailSent)
+                    {
+                        // Handle email sending failure
+                        response.Status = 500;
+                        response.Message = "Failed to send Login email";
+                        return response;
+                    }
+                    message = "Login Successfully";
 
-                var claims = new List<Claim>
-                {
-                    new Claim(ClaimTypes.Name, person.UserName),
-                    new Claim(ClaimTypes.Role, role)
-                };
+                    // jwt logic for Role Based
+                    string role = person.Role;
+
+                    var claims = new List<Claim>
+                    {
+                        new Claim(ClaimTypes.Name, person.UserName),
+                        new Claim(ClaimTypes.Role, role)
+                    };
+
+                    claims.Add(new Claim(type: "Id", value: (person.Id)));
 
                 var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("JlVhjeoTKfL8JgQ0Xg2m3BxAP34f5S9tTmN7Gc1A8Zq"));
-                var signinCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
-                var tokeOptions = new JwtSecurityToken(
-                    issuer: "https://localhost:5299",
-                    audience: "https://localhost:5299",
-                    claims: claims,
-                    expires: DateTime.Now.AddMinutes(5),
-                    signingCredentials: signinCredentials
-                );
-                token = new JwtSecurityTokenHandler().WriteToken(tokeOptions);
-                
+                    var signinCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
+                    var tokeOptions = new JwtSecurityToken(
+                        issuer: "https://localhost:5299",
+                        audience: "https://localhost:5299",
+                        claims: claims,
+                        expires: DateTime.Now.AddMinutes(5),
+                        signingCredentials: signinCredentials
+                    );
+                    token = new JwtSecurityTokenHandler().WriteToken(tokeOptions);   
+
             }
             catch (Exception ex)
             {
@@ -174,6 +186,7 @@ namespace WebApplicationServer.Controllers
             response.Token = token;
             return response;
         }
+
 
 
         [HttpPost("logout")]

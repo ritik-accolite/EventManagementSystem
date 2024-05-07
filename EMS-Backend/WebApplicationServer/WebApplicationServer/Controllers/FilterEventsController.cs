@@ -12,12 +12,12 @@ namespace WebApplicationServer.Controllers
     public class FilterEventsController : ControllerBase
     {
         private readonly IAddEventService _addEventService;
-        private readonly UserManager<Person> _userManager;
 
-        public FilterEventsController(UserManager<Person> userManager, IAddEventService addEventService)
+
+        public FilterEventsController(IAddEventService addEventService)
         {
             _addEventService = addEventService;
-            _userManager = userManager;
+  
         }
 
         [HttpGet("GetEventsByCategory")]
