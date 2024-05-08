@@ -57,15 +57,14 @@ namespace WebApplicationServer.Controllers
                     Role = person.Role,
                     PhoneNumber = person.PhoneNumber,
                     UserName = person.Email,
-                    Password = person.Password,
-                    //TwoFactorEnabled = true
+                    Password = person.Password                    
                 };
 
                 result = await _userManager.CreateAsync(user, person.Password);
                 if (!result.Succeeded)
                 {
                     response.Status = 403;
-                    response.Message = "User Failed To Create Register";
+                    response.Message = "Failed To Create Account";
                     return response;
                 }
                 message = "Registered Successfully";
@@ -78,7 +77,7 @@ namespace WebApplicationServer.Controllers
                 htmlString = htmlString.Replace("{{Username}}", user.Email);
                 htmlString = htmlString.Replace("{{ConfirmationLink}}", Url.Action(nameof(ConfirmEmail), "Account", new { token, email = user.Email }));
                 htmlString = htmlString.Replace("{{url}}", "https://localhost:5299/api/Account/login");
-                bool emailSent = await _sendRegisterSuccessMailService.SendRegisterSuccessMailAsync(user.Email, "Account Created Successfully.Please Confirm Your Account Before Login", htmlString);
+                bool emailSent = await _sendRegisterSuccessMailService.SendRegisterSuccessMailAsync(user.Email, "Account Created Successfully", htmlString);
 
                 if (!emailSent)
                 {

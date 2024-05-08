@@ -29,8 +29,9 @@ namespace WebApplicationServer.Controllers
         [HttpGet("trackTicketDetails/{eventId}")]
         public async Task<IActionResult> TrackTicketDetails(int eventId)
         {
-            var organizerId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            //var organizerId = User.FindFirstValue("Id");
+            //var organizerId = User.FindFirstValue(ClaimTypes.Name);
+
+            var organizerId = User.FindFirstValue("Id");
 
             var ticketDetails = await _addEventService.GetTicketDetailsForOrganizer(eventId, organizerId);
             return Ok(ticketDetails);

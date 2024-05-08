@@ -170,5 +170,35 @@ namespace WebApplicationServer.Controllers
             var events = await _addEventService.GetOrganizerCreatedEvents(organizerId);
             return Ok(events);
         }
+
+        [HttpGet("eventCategories")]
+        public async Task<IActionResult> GetUniqueEventCategories()
+        {
+            var eventCategories = await _addEventService.GetUniqueEventCategories();
+            return Ok(eventCategories);
+        }
+
+
+
+
+        [HttpGet("pastEvents")]
+        public async Task<IActionResult> GetPastEvents()
+        {
+            var pastEvents = await _addEventService.GetPastEvents();
+            return Ok(pastEvents);
+        }
+
+
+        [HttpGet("upcomingEvents")]
+        public async Task<IActionResult> GetUpcomingEvents()
+        {
+            var upcomingEvents = await _addEventService.GetUpcomingEvents();
+            return Ok(upcomingEvents);
+        }
     }
 }
+
+
+
+
+
