@@ -82,7 +82,7 @@ namespace WebApplicationServer.Controllers
 
 
             var organizer = User.FindFirstValue(ClaimTypes.Name);
-            var role = User.FindFirstValue(ClaimTypes.Role);
+            var role = User.FindFirstValue("Role");
             var Id = User.FindFirstValue("Id");
             //var user = await _userManager.GetUserAsync(User);
             if (organizer == null || role != "Organizer")
@@ -161,7 +161,7 @@ namespace WebApplicationServer.Controllers
         //}
 
 
-        [Authorize(Roles = "Organizer")]
+        [Authorize]
         [HttpGet]
         [Route("myevents")]
         public async Task<IActionResult> GetOrganizerCreatedEvents()

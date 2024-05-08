@@ -136,7 +136,7 @@ namespace WebApplicationServer.Controllers
                         return response;
                     }
 
-                    string path = Path.GetFullPath("C:\\Users\\ajay.k_int1595\\Desktop\\Ems-Project\\EventManagementSystem\\EMS-Backend\\WebApplicationServer\\WebApplicationServer\\HtmlTemplate\\LoginSuccessfull.html");
+/*                    string path = Path.GetFullPath("C:\\Users\\ajay.k_int1595\\Desktop\\Ems-Project\\EventManagementSystem\\EMS-Backend\\WebApplicationServer\\WebApplicationServer\\HtmlTemplate\\LoginSuccessfull.html");
                     string htmlString = System.IO.File.ReadAllText(path);
                     htmlString = htmlString.Replace("{{title}}", "Login Successfull");
                     htmlString = htmlString.Replace("{{Username}}", login.Email);
@@ -148,7 +148,7 @@ namespace WebApplicationServer.Controllers
                         response.Status = 500;
                         response.Message = "Failed to send Login email";
                         return response;
-                    }
+                    }*/
                     message = "Login Successfully";
 
                     // jwt logic for Role Based

@@ -1,44 +1,32 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { UserdataService } from '../../userdata.service';
+import { NgFor } from '@angular/common';
 
 @Component({
   selector: 'app-myevents',
   standalone: true,
-  imports: [],
+  imports: [NgFor],
   templateUrl: './myevents.component.html',
   styleUrl: './myevents.component.css'
 })
-export class MyeventsComponent { // implements OnInit{
-  // events: any[] =[];
-  // filteredEvents: any[] = [];
-  // organizers: any[] = [];
-  // selectedOrganizerId: string = '';
+export class MyeventsComponent implements OnInit { 
+  events: any[] = [];
+  constructor(private userdataservice: UserdataService){}
 
-  // constructor(private userdataservice: UserdataService) {}
+  //getOrganizerEvents
+  ngOnInit(): void {
+    this.fetchEvents();
+  }
 
-  // ngOnInit(): void {
-  //     this.fetchEvents();
-  //     this.fetchOrganizers();
-  // }
 
-  // fetchEvents() {
-  //   this.userdataservice.getEvents().subscribe((events: any[]) => {
-  //     this.events = events;
-  //     this.filteredEvents();
-  //   });
-  // }
-
-  // fetchOrganizers() {
-  //   this.userdataservice.getOrganizers().subscribe((organizers: any[]) => {
-  //     this.organizers = organizers;
-  //   });
-  // }
-
-  // fetchEvents() {
-  //   if (this.selectedOrganizerId) {
-  //     this.filteredEvents = this.filter(events => event.organizerId === this.selectedOrganizerId);
-  //   } else {
-  //     this.filteredEvents = this.events;
-  //   }
-  // }
+  fetchEvents(): void {
+    this.userdataservice.getOrganizerEvents()
+      .subscribe(
+        (response : any ) => { // change any here !!
+          this.events = response;
+          console.log('Events fetched successfully 123:', this.events);
+        },
+        error => console.error('Error fetching events: ', error)
+      );
+  }
 }

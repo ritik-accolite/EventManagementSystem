@@ -24,8 +24,8 @@ export class SidebarComponent {
   onTabClick(tabRoute: string) {
     if (tabRoute === 'user-profile') {
       this.router.navigate(['user-dash', 'user-profile']);
-    } else if (tabRoute === 'mybookings') {
-      this.router.navigate(['user-dash','mybookings']);
+    } else if (tabRoute === 'myevents') {
+      this.router.navigate(['user-dash','app-myevents']);
     } else if (tabRoute === 'new-event')  {
       this.router.navigate(['user-dash', 'new-event'])
     }
