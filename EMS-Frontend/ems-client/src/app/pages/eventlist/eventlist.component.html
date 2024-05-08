@@ -6,11 +6,11 @@
     <div class="col-md-4 carousel-item" *ngFor="let event of events; let i = index" [class.active]="i === 0">
       <div class="card mb-4 card-hover  ">
         <div class="row g-0">
-           <!-- Image -->
+           
            <a class="col-lg-8 col-md-12 col-12 bg-cover img-left-rounded" style="background-image: url(https://media.istockphoto.com/id/1308964737/photo/business-professionals-applauding-at-a-seminar.jpg?s=1024x1024&w=is&k=20&c=rYvGtD2ObnDHrlwj-D4xa-UDppemHJWjXkbrHiU1IrI=);">
            <img src="https://media.istockphoto.com/id/1308964737/photo/business-professionals-applauding-at-a-seminar.jpg?s=1024x1024&w=is&k=20&c=rYvGtD2ObnDHrlwj-D4xa-UDppemHJWjXkbrHiU1IrI=" class="img-fluid d-lg-none invisible" alt=""></a>
            <div class="col-lg-4 col-md-12 col-12">
-              <!-- Card Body -->
+              
               <div class="card-body">
                  <a class="badge bg-warning mb-3">{{ event.eventCategory }}</a>
                  <h1 class="mb-4"> 
@@ -18,15 +18,12 @@
                  </h1>
                  <h5>{{ event.description }}
                  </h5>
-                 <!-- Media Content -->
                  <div class="row align-items-center g-0 mt-7">
                     <div class="col lh-1 ">
                        <h5 class="mb-1">Chief Guest: {{ event.chiefGuest }}</h5>
                        <h5 class="fs-6 mb-0">Event Date: {{ event.eventDate }}</h5>
                     </div>
-                    <!-- <div class="col-auto">
-                       <h5 class="fs-6 mb-0">Event Time: {{ event.event_Time }}</h5>
-                    </div> -->
+
                  </div>
               </div>
            </div>
