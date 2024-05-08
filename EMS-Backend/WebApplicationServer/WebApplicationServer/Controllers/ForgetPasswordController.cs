@@ -40,7 +40,7 @@ namespace WebApplicationServer.Controllers
             var user = await _context.Users.FirstOrDefaultAsync(a => a.Email == email);
             //var Id = User.FindFirstValue("Id");
 
-
+            
             ResponseViewModel response = new ResponseViewModel();
 
             if (user == null)
@@ -51,24 +51,28 @@ namespace WebApplicationServer.Controllers
             }
 
             var tokenByte = RandomNumberGenerator.GetBytes(64);
-            var emailtoken = Convert.ToBase64String(tokenByte);
-            user.ResetPasswordToken = emailtoken;
-            user.ResetPasswordExpiry = DateTime.Now.AddMinutes(15);
+            var emailToken = Convert.ToBase64String(tokenByte);
+            user.ResetPasswordToken = emailToken;
+            user.ResetPasswordExpiry = DateTime.Now.AddMinutes(30);
 
 
-            //string path = Path.GetFullPath("C:\\Users\\ajay.k_int1595\\Desktop\\Ems-Project\\EventManagementSystem\\EMS-Backend\\WebApplicationServer\\WebApplicationServer\\HtmlTemplate\\RegisterSuccessfull.html");
-            //string htmlString = System.IO.File.ReadAllText(path);
-            //htmlString = htmlString.Replace("{{title}}", "Registration Confirmation");
-            //htmlString = htmlString.Replace("{{Username}}", user.Email);
-            //htmlString = htmlString.Replace("{{ConfirmationLink}}", Url.Action(nameof(ConfirmEmail), "Account", new { token, email = user.Email }));
-            //htmlString = htmlString.Replace("{{url}}", "https://localhost:5299/api/Account/login");
-            bool emailSent = await _sendRegisterSuccessMailService.SendRegisterSuccessMailAsync(user.Email, "Reset Password Mail", emailtoken);
+            string path = Path.GetFullPath("C:\\Users\\ajay.k_int1595\\Desktop\\Ems-Project\\EventManagementSystem\\EMS-Backend\\WebApplicationServer\\WebApplicationServer\\HtmlTemplate\\ResetPasswordToken.html");
+            string htmlString = System.IO.File.ReadAllText(path);
+            htmlString = htmlString.Replace("{{emailtoken}}", emailToken);
+            htmlString = htmlString.Replace("{{firstname}}",user.FirstName);
+            htmlString = htmlString.Replace("{{lastname}}", user.LastName);
+            htmlString = htmlString.Replace("{{title}}", "Reset Password");
+            htmlString = htmlString.Replace("{{Username}}", user.Email);
+            //htmlString = htmlString.Replace("{{firstName}}", user.FirstName);
+            //htmlString = htmlString.Replace("{{lastName}}", user.LastName);
+           
+            bool emailSent = await _sendRegisterSuccessMailService.SendRegisterSuccessMailAsync(user.Email, "Reset Password Mail", htmlString);
 
             if (!emailSent)
             {
                 // Handle email sending failure
                 response.Status = 500;
-                response.Message = "Failed to send registration email";
+                response.Message = "Failed to send reset password Token";
                 return response;
             }
 
