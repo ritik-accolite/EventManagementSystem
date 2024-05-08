@@ -21,7 +21,10 @@ export const routes: Routes = [
     },
     {
         path:'Home',
-        component:HomeComponent
+        component:HomeComponent,
+        children: [
+            { path: 'event-list', component: EventlistComponent }
+          ]
     },
     {
         path:'new-event',
@@ -43,6 +46,7 @@ export const routes: Routes = [
         children: [
             { path: 'user-profile', component: UserprofileComponent },
             { path:'mybookings', component:MybookingsComponent },
+            { path: 'new-event', component: NeweventComponent}
           ]
         , canActivate: [AuthGuard]
     },

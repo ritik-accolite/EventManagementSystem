@@ -35,8 +35,11 @@ export class UserdataService {
     return this.http.get<any[]>(this.eventsUrl);
   }
 
-  getProfile(): Observable<any[]> {
-    return this.http.get<any[]>(this.profileUrl);
+  editProfile(personId: string, formData:any): Observable<any> {
+    return this.http.put(`${this.profileUrl}/updatePerson/${personId}`, formData);
+  }
+  getProfile(personId: string): Observable<any[]> {
+    return this.http.get<any>(`${this.profileUrl}/${personId}`);
   }
 
   createEvent(eventdata: any): Observable<any> {
