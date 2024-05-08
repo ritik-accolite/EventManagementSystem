@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -32,7 +33,17 @@ builder.Services.AddCors(options =>
 
 // Configure DbContext
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+
+
+ 
+//NEW ADDED ------------------------------
+builder.Services.Configure<IdentityOptions>(
+    opts => opts.SignIn.RequireConfirmedEmail = true
+);
+
+
 
 // Configure Authentication
 builder.Services.AddAuthentication(opt =>
@@ -79,6 +90,8 @@ builder.Services.AddIdentityCore<Person>(options =>
 
 })
 .AddEntityFrameworkStores<ApplicationDbContext>();
+
+
 
 var app = builder.Build();
 

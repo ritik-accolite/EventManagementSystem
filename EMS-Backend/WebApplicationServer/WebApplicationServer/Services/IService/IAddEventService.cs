@@ -20,5 +20,12 @@ namespace WebApplicationServer.Services.IService
         public Task<GetEventByAppliedFilterResponseViewModel>? GetEventsByLocation(string location);
 
         public Task<List<TicketDetailsViewModel>> GetTicketDetailsForOrganizer(int eventId, string organizerId);
+
+        public Task<List<OrganizerCreatedEventViewModel>> GetOrganizerCreatedEvents(string organizerId);
+
+        public Task<IEnumerable<string>> GetUniqueEventCategories();
+
+        public Task<IEnumerable<EventViewModel>> GetPastEvents();
+        public Task<IEnumerable<EventViewModel>> GetUpcomingEvents();
     }
 }

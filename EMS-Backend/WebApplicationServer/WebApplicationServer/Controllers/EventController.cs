@@ -29,12 +29,11 @@ namespace WebApplicationServer.Controllers
         private string connectionString = "Server=tcp:ems-server.database.windows.net,1433;Initial Catalog=emsdatabase;Persist Security Info=False;User ID=ajaykarode;Password=Emspassword@123;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
 
         private readonly IAddEventService _addEventService;
-        private readonly UserManager<Person> _userManager;
 
-        public EventController(UserManager<Person> userManager, IAddEventService addEventService)
+        public EventController(IAddEventService addEventService)
         {
             _addEventService = addEventService;
-            _userManager = userManager;
+       
         }
 
 
@@ -80,15 +79,20 @@ namespace WebApplicationServer.Controllers
                 response.Message = "Please Enter all the details.";
                 return response;
             }
-            var user = await _userManager.GetUserAsync(User);
-            if (user == null || user.Role != "Organizer")
+
+
+            var organizer = User.FindFirstValue(ClaimTypes.Name);
+            var role = User.FindFirstValue(ClaimTypes.Role);
+            var Id = User.FindFirstValue("Id");
+            //var user = await _userManager.GetUserAsync(User);
+            if (organizer == null || role != "Organizer")
             {
                 response = new ResponseViewModel();
                 response.Status = 401;
                 response.Message = "You are either not loggedIn or You are not Orgainser.";
                 return response;
             }
-            response = await _addEventService.AddEvent(addEvent, user.Id);
+            response = await _addEventService.AddEvent(addEvent, Id);
 
             return response;
         }
@@ -98,8 +102,12 @@ namespace WebApplicationServer.Controllers
         public async Task<ResponseViewModel> DeleteEvent(int EventId)
         {
             ResponseViewModel response;
-            var user = await _userManager.GetUserAsync(User);
-            if (user == null || user.Role != "Organizer")
+
+            var organizer = User.FindFirstValue(ClaimTypes.Name);
+            var role = User.FindFirstValue(ClaimTypes.Role);
+
+            //var user = await _userManager.GetUserAsync(User);
+            if (organizer == null || role != "Organizer")
             {
                 response = new ResponseViewModel();
                 response.Status = 401;
@@ -125,8 +133,12 @@ namespace WebApplicationServer.Controllers
                 return response;
             }
 
-            var user = await _userManager.GetUserAsync(User);
-            if (user == null || user.Role != "Organizer")
+            var organizer = User.FindFirstValue(ClaimTypes.Name);
+            var role = User.FindFirstValue(ClaimTypes.Role);
+            var Id = User.FindFirstValue("Id");
+
+            //var user = await _userManager.GetUserAsync(User);
+            if (organizer == null || role != "Organizer")
             {
                 response = new ResponseViewModel();
                 response.Status = 401;
@@ -134,46 +146,59 @@ namespace WebApplicationServer.Controllers
                 return response;
             }
 
-            response = await _addEventService.UpdateEvent(id, updateEvent, user.Id);
+            response = await _addEventService.UpdateEvent(id, updateEvent, Id);
             return response;
         }
 
 
-        [HttpGet("GetEventsByCategory")]
-        public async Task<GetEventByAppliedFilterResponseViewModel> GetEventsByCategory(string category)
-        {
-            var events = await _addEventService.GetEventsByCategory(category);
-            return events;
+        ////[Authorize(Roles = "Organizer")]
+        //[HttpGet("trackTicketDetails/{eventId}")]
+        //public async Task<IActionResult> TrackTicketDetails(int eventId)
+        //{
+        //    var organizerId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+        //    var ticketDetails = await _addEventService.GetTicketDetailsForOrganizer(eventId, organizerId);
+        //    return Ok(ticketDetails);
+        //}
 
+
+        [Authorize(Roles = "Organizer")]
+        [HttpGet]
+        [Route("myevents")]
+        public async Task<IActionResult> GetOrganizerCreatedEvents()
+        {
+            var organizerId = User.FindFirst("id")?.Value; // Assuming the organizer's ID is stored in a claim named "id"
+            var events = await _addEventService.GetOrganizerCreatedEvents(organizerId);
+            return Ok(events);
+        }
+
+        [HttpGet("eventCategories")]
+        public async Task<IActionResult> GetUniqueEventCategories()
+        {
+            var eventCategories = await _addEventService.GetUniqueEventCategories();
+            return Ok(eventCategories);
         }
 
 
-        [HttpGet("GetEventsByLocation")]
-        public async Task<GetEventByAppliedFilterResponseViewModel> GetEventsByLocation(string location)
+
+
+        [HttpGet("pastEvents")]
+        public async Task<IActionResult> GetPastEvents()
         {
-            var events = await _addEventService.GetEventsByLocation(location);
-            return events;
+            var pastEvents = await _addEventService.GetPastEvents();
+            return Ok(pastEvents);
         }
 
 
-
-
-        //[Authorize(Roles = "Organizer")]
-        [HttpGet("trackTicketDetails/{eventId}")]
-        public async Task<IActionResult> TrackTicketDetails(int eventId)
+        [HttpGet("upcomingEvents")]
+        public async Task<IActionResult> GetUpcomingEvents()
         {
-            var organizerId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            var ticketDetails = await _addEventService.GetTicketDetailsForOrganizer(eventId, organizerId);
-            return Ok(ticketDetails);
+            var upcomingEvents = await _addEventService.GetUpcomingEvents();
+            return Ok(upcomingEvents);
         }
-
-
-
-
-
-
-
-
-
     }
 }
+
+
+
+
+

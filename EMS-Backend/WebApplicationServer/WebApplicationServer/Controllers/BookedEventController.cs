@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
 using WebApplicationServer.Data;
 using WebApplicationServer.Models;
 using WebApplicationServer.Models.ResponseModels;
@@ -20,15 +21,13 @@ namespace WebApplicationServer.Controllers
         private string connectionString = "Server=tcp:ems-server.database.windows.net,1433;Initial Catalog=emsdatabase;Persist Security Info=False;User ID=ajaykarode;Password=Emspassword@123;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
 
         private readonly IAddBookedEventService _addBookedEventService;
-        private readonly UserManager<Person> _userManager;
         private readonly ISendRegisterSuccessMailService _sendRegisterSuccessMailService;
         private readonly ApplicationDbContext _context;
 
 
-        public BookedEventController(UserManager<Person> userManager, IAddBookedEventService addBookedEventService, ISendRegisterSuccessMailService sendRegisterSuccessMailService, ApplicationDbContext context)
+        public BookedEventController(IAddBookedEventService addBookedEventService, ISendRegisterSuccessMailService sendRegisterSuccessMailService, ApplicationDbContext context)
         {
             _addBookedEventService = addBookedEventService;
-            _userManager = userManager;
             _sendRegisterSuccessMailService = sendRegisterSuccessMailService;
             _context = context;
         }
@@ -44,8 +43,14 @@ namespace WebApplicationServer.Controllers
                 response.Message = "Something Went Wrong. Unable to get booked Events.";
                 return response;
             }
-            var user = await _userManager.GetUserAsync(User);
-            if (user == null || user.Role == "User")
+
+    
+            var user = User.FindFirstValue(ClaimTypes.Name);
+            var role = User.FindFirstValue(ClaimTypes.Role);
+
+            //var user = await _userManager.(User);
+            //var user = 
+            if (user == null || role == "User")
             {
                 response = new GetAllBookedEventResposeViewModel();
                 response.Status = 401;
@@ -88,8 +93,11 @@ namespace WebApplicationServer.Controllers
                 response.Message = "Please Enter all the details.";
                 return response;
             }
-            var user = await _userManager.GetUserAsync(User);
-            if (user == null || user.Role == "Organizer")
+
+            var user = User.FindFirstValue(ClaimTypes.Name);
+            var role = User.FindFirstValue(ClaimTypes.Role);
+            //var user = await _userManager.GetUserAsync(User);
+            if (user == null || role == "Organizer")
             {
                 response = new ResponseViewModel();
                 response.Status = 401;
@@ -107,7 +115,9 @@ namespace WebApplicationServer.Controllers
         public async Task<GetAllBookedEventsWithDetailsResponseViewModel> GetBookedEventsByUser()
         {
             GetAllBookedEventsWithDetailsResponseViewModel response;
-            var user = await _userManager.GetUserAsync(User);
+            //var user = await _userManager.GetUserAsync(User);
+            var user = User.FindFirstValue(ClaimTypes.Name);
+
             if (user == null)
             {
                 response = new GetAllBookedEventsWithDetailsResponseViewModel();
@@ -116,7 +126,8 @@ namespace WebApplicationServer.Controllers
                 return response;
             }
 
-            var bookedEvents = await _addBookedEventService.GetBookedEventsWithDetailsByUser(user.Id);
+            var id = User.FindFirstValue("Id");
+            var bookedEvents = await _addBookedEventService.GetBookedEventsWithDetailsByUser(id);
             response = new GetAllBookedEventsWithDetailsResponseViewModel
             {
                 Status = 200,
@@ -176,8 +187,11 @@ namespace WebApplicationServer.Controllers
                 response.Message = "Please enter all the details.";
                 return response;
             }
-            var user = await _userManager.GetUserAsync(User);
-            if (user == null || user.Role == "Organizer")
+
+            var user = User.FindFirstValue(ClaimTypes.Name);
+            var role = User.FindFirstValue(ClaimTypes.Role);
+            //var user = await _userManager.GetUserAsync(User);
+            if (user == null || role == "Organizer")
             {
                 response = new ResponseViewModel();
                 response.Status = 401;
@@ -205,63 +219,6 @@ namespace WebApplicationServer.Controllers
             var eventTicketStatus = await _addBookedEventService.GetEventTicketStatus(organizerId);
             return Ok(eventTicketStatus);
         }
-
-
-
-
-        [HttpPost("SendEmailNotification")]
-        public async Task<ResponseViewModel> SendEmailNotification(int eventId)
-        {
-            ResponseViewModel response = new ResponseViewModel();
-            try
-            {
-                var organizer = await _userManager.GetUserAsync(User);
-                if (organizer == null || organizer.Role != "Organizer")
-                {
-                    //response = new ResponseViewModel();
-                    response.Status = 401;
-                    response.Message = "You are either not logged in or you are not a Organizer.";
-                    return response;
-                }
-
-                // Get the list of users who have booked the event
-                var bookedUsers = await _context.BookedEvents
-                    .Where(be => be.EventId == eventId)
-                    .Select(be => be.User.Email)
-                    .ToListAsync();
-
-                // Send email notification to each booked user
-                foreach (var email in bookedUsers)
-                {
-                    bool emailSent = await _sendRegisterSuccessMailService.SendRegisterSuccessMailAsync(email, "Event booking", "congrats you have an upcoming event");
-                    if (!emailSent)
-                    {
-                        // Handle email sending failure for individual users
-                        // You can choose to continue sending emails or break the loop
-                        //response = new ResponseViewModel();
-                        response.Status = 500;
-                        response.Message = "Failed to send Mail";
-                        return response;
-                    }
-                }
-
-                response.Status = 200;
-                response.Message = "Email notification sent successfully to all booked users";
-                return response;
-
-                //return Ok("Email notification sent successfully to all booked users.");
-            }
-            catch (Exception ex)
-            {
-                response.Status = 400;
-                response.Message = "something went wrong" + ex.Message;
-                return response;
-                //return StatusCode(500, $"An error occurred: {ex.Message}");
-            }
-        }
-
-
-
 
 
 

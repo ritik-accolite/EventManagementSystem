@@ -1,19 +1,38 @@
-﻿
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+
+    <link href="https://fonts.googleapis.com/css2?family=Briem+Hand&family=Sedan+SC&display=swap"
+          rel="stylesheet" />
     <title>{{title}}</title>
+
     <style>
         body {
-            font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
             background-color: #f4f4f4;
         }
 
+        .briem-hand-font {
+            font-family: "Briem Hand", cursive;
+            font-optical-sizing: auto;
+            font-weight: 300;
+            font-style: normal;
+        }
+
+        .sedan-sc-regular {
+            font-family: 'Sedan SC', serif !important;
+            font-weight: 400;
+            font-style: normal;
+        }
+
         .container {
+
+            background-image: linear-gradient(120deg, #f6d365 0%, #fda085 100%);
+
             max-width: 600px;
             margin: 20px auto;
             padding: 20px;
@@ -28,36 +47,55 @@
         }
 
         p {
-            color: #666;
+            color: rgb(77, 64, 64);
             font-size: 16px;
             line-height: 1.6;
             margin-bottom: 20px;
         }
 
-        .btn {
-            display: inline-block;
-            background-color: #007bff;
-            color: #fff;
-            text-decoration: none;
-            padding: 10px 20px;
-            border-radius: 5px;
+        .container {
+            text-align: center;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 10px;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h2>Registration Confirmation</h2>
-        <p>Dear {{Username}},</p>
-        <p>Your account has been successfully created. Welcome to our platform!</p>
-        <p>Thank you for choosing us.</p>
-        <div>
-            <!--click here to login <a href="{{url}}">Login</a>-->
-            <p style="text-align: center;"> click here to Login <a href="{{url}}" class="btn">Login</a></p>
+        <h2 class="briem-hand-font">Registration Confirmation</h2>
+        <p class="briem-hand-font">Dear {{Username}}</p>
+        <p class="briem-hand-font">
+            Your account has been successfully Registered. Welcome to our platform!
+        </p>
+        <p class="briem-hand-font">Thank you for choosing us.</p>
+
+        <div class="button-container">
+            <div>Please Verify Your Account Before Login :</div>
+            <div>
+                <button><a class="briem-hand-font" href="http://localhost:5299{{ConfirmationLink}}">Verify</a></button>
+            </div>
         </div>
-        <p>If you have any questions or need assistance, feel free to contact us on 1800329432.</p>
-        <p>Best regards,<br> EventHub</p>
+
+        <div class="button-container">
+            <div>click here to Login :</div>
+            <div>
+               <a class="briem-hand-font" href="{{url}}">Login</a>            
+        </div>
+
+
+        </div>
+        <p class="briem-hand-font">
+            If you have any questions or need assistance, feel free to contact us on
+            1800329432.
+        </p>
+        <p class="briem-hand-font">
+            Regards<br />
+            EventHub Team
+        </p>
     </div>
 </body>
 </html>
-
-

@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Azure;
+using Microsoft.EntityFrameworkCore;
 using WebApplicationServer.Data;
 using WebApplicationServer.Models;
 using WebApplicationServer.Models.ResponseModels;
@@ -215,6 +216,30 @@ namespace WebApplicationServer.Services
             return response;
         }
 
+
+
+
+        public async Task<List<OrganizerCreatedEventViewModel>> GetOrganizerCreatedEvents(string organizerId)
+        {
+            return await _context.Events
+                .Where(e => e.EventOrganizerId == organizerId)
+                .Select(e => new OrganizerCreatedEventViewModel
+                {
+                    EventId = e.EventId,
+                    EventName = e.EventName,
+                    EventCategory = e.EventCategory,
+                    EventDescription = e.Description,
+                    ChiefGuest = e.ChiefGuest,
+                    EventDate = e.EventDate,
+                    Event_Time = e.Event_Time,
+                    EventLocation = e.EventLocation,
+                    TicketPrice = e.TicketPrice,
+                    Capacity = e.Capacity,
+                    BannerImage = e.BannerImage
+                })
+                .ToListAsync();
+        }
+
         public async Task<List<TicketDetailsViewModel>> GetTicketDetailsForOrganizer(int eventId, string organizerId)
         {
             //var eventDetails = await _context.Events
@@ -250,6 +275,86 @@ namespace WebApplicationServer.Services
 
             return ticketDetails;
         }
+
+
+        public async Task<IEnumerable<string>> GetUniqueEventCategories()
+        {
+            var uniqueCategories = await _context.Events
+                .Select(e => e.EventCategory)
+                .Distinct()
+                .ToListAsync();
+
+            return uniqueCategories;
+        }
+
+
+
+        public async Task<IEnumerable<EventViewModel>> GetPastEvents()
+        {
+
+
+            //response.AllEvents = await _context.Events
+            //       .Include(e => e.Organizer)
+            //       .Select(e => new EventViewModel
+
+
+
+
+
+           var currentDate = DateTime.Today;
+            var pastEvents = await _context.Events
+                .Include(e => e.Organizer)
+                .Where(e => e.EventDate < currentDate)        
+                .Select(e => new EventViewModel
+                {
+                    EventId = e.EventId,
+                    EventName = e.EventName,
+                    EventCategory = e.EventCategory,
+                    Description = e.Description,
+                    ChiefGuest = e.ChiefGuest,
+                    EventDate = e.EventDate,
+                    EventTime = e.Event_Time,
+                    EventLocation = e.EventLocation,
+                    TicketPrice = e.TicketPrice,
+                    Capacity = e.Capacity,
+                    BannerImage = e.BannerImage,
+                    EventOrganizerId = e.EventOrganizerId,
+                    OrganizerFirstName = e.Organizer.FirstName,
+                    OrganizerLastName = e.Organizer.LastName
+                })
+                .ToListAsync();
+
+            return pastEvents;
+        }
+
+        public async Task<IEnumerable<EventViewModel>> GetUpcomingEvents()
+        {
+            var currentDate = DateTime.Today;
+            var upcomingEvents = await _context.Events
+                .Include(e => e.Organizer)
+                .Where(e => e.EventDate >= currentDate)
+                .Select(e => new EventViewModel
+                {
+                    EventId = e.EventId,
+                    EventName = e.EventName,
+                    EventCategory = e.EventCategory,
+                    Description = e.Description,
+                    ChiefGuest = e.ChiefGuest,
+                    EventDate = e.EventDate,
+                    EventTime = e.Event_Time,
+                    EventLocation = e.EventLocation,
+                    TicketPrice = e.TicketPrice,
+                    Capacity = e.Capacity,
+                    BannerImage = e.BannerImage,
+                    EventOrganizerId = e.EventOrganizerId,
+                    OrganizerFirstName = e.Organizer.FirstName,
+                    OrganizerLastName = e.Organizer.LastName
+                })
+                .ToListAsync();
+
+            return upcomingEvents;
+        }
+
     }
 }
 

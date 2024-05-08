@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authentication;
+﻿using Azure;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -35,10 +36,17 @@ namespace WebApplicationServer.Controllers
         [HttpPost("register")]
         public async Task<ResponseViewModel> RegisterPerson(RegisterViewModel person)
         {
-
             string message = "";
             ResponseViewModel response = new ResponseViewModel();
             IdentityResult result = new();
+
+            var userExist = await _userManager.FindByEmailAsync(person.Email);
+            if (userExist != null)
+            {
+                response.Status = 403;
+                response.Message = "User Already Exist";
+                return response;
+            }
             try
             {
                 var user = new Person()
@@ -49,24 +57,27 @@ namespace WebApplicationServer.Controllers
                     Role = person.Role,
                     PhoneNumber = person.PhoneNumber,
                     UserName = person.Email,
-                    Password = person.Password
+                    Password = person.Password                    
                 };
 
                 result = await _userManager.CreateAsync(user, person.Password);
                 if (!result.Succeeded)
                 {
                     response.Status = 403;
-                    response.Message = "Unauthorised Access";
+                    response.Message = "Failed To Create Account";
                     return response;
                 }
-
+                message = "Registered Successfully";
+                var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+                var confirmationLink = Url.Action(nameof(ConfirmEmail), "Account", new { token, email = user.Email });
+             
                 string path = Path.GetFullPath("C:\\Users\\ajay.k_int1595\\Desktop\\Ems-Project\\EventManagementSystem\\EMS-Backend\\WebApplicationServer\\WebApplicationServer\\HtmlTemplate\\RegisterSuccessfull.html");
                 string htmlString = System.IO.File.ReadAllText(path);
                 htmlString = htmlString.Replace("{{title}}", "Registration Confirmation");
                 htmlString = htmlString.Replace("{{Username}}", user.Email);
+                htmlString = htmlString.Replace("{{ConfirmationLink}}", Url.Action(nameof(ConfirmEmail), "Account", new { token, email = user.Email }));
                 htmlString = htmlString.Replace("{{url}}", "https://localhost:5299/api/Account/login");
                 bool emailSent = await _sendRegisterSuccessMailService.SendRegisterSuccessMailAsync(user.Email, "Account Created Successfully", htmlString);
-
 
                 if (!emailSent)
                 {
@@ -75,7 +86,8 @@ namespace WebApplicationServer.Controllers
                     response.Message = "Failed to send registration email";
                     return response;
                 }
-                message = "Registered Successfully";
+
+                //Add token to verify email
             }
             catch (Exception ex)
             {
@@ -83,12 +95,11 @@ namespace WebApplicationServer.Controllers
                 response.Message = ex.Message;
                 return response;
             }
+
             response.Status = 200;
             response.Message = "Successfully Registered";
             return response;
         }
-
-
 
         [HttpPost("login")]
         public async Task<AuthenticatedLoginResponseViewModel> LoginPerson(LoginViewModel login)
@@ -100,36 +111,48 @@ namespace WebApplicationServer.Controllers
             try
             {
                 Person person = await _userManager.FindByEmailAsync(login.Email);
+                //if (person == null || !person.EmailConfirmed)
+                //{
+                //    //person.EmailConfirmed = true;
+                //    response.Status = 403;
+                //    response.Message = "User Not Found or Email is not Confirmed";
+                //    return response;
+                //}
+
                 if (person != null && !person.EmailConfirmed)
                 {
                     person.EmailConfirmed = true;
+
                 }
+                //bool IsEmailConfirmed = await _userManager.IsEmailConfirmedAsync(person.Email);
+
 
                 var result = await _signInManager.PasswordSignInAsync(person, login.Password, true, false);
 
-                if (!result.Succeeded)
-                {                    
-                    response.Status = 403;
-                    response.Message = "Unauthorised Access";
-                    return response;
-                }
+                    if (!result.Succeeded)
+                    {
+                        response.Status = 403;
+                        response.Message = "Unauthorised Access";
+                        return response;
+                    }
 
-               /* string path = Path.GetFullPath("C:\\Users\\ajay.k_int1595\\Desktop\\Ems-Project\\EventManagementSystem\\EMS-Backend\\WebApplicationServer\\WebApplicationServer\\HtmlTemplate\\LoginSuccessfull.html");
-                string htmlString = System.IO.File.ReadAllText(path);
-                htmlString = htmlString.Replace("{{title}}", "Login Successfull");
-                htmlString = htmlString.Replace("{{Username}}",login.Email);
-                bool emailSent = await _sendRegisterSuccessMailService.SendRegisterSuccessMailAsync(login.Email, "Successful log on to EventHub", htmlString);
+                    string path = Path.GetFullPath("C:\\Users\\ajay.k_int1595\\Desktop\\Ems-Project\\EventManagementSystem\\EMS-Backend\\WebApplicationServer\\WebApplicationServer\\HtmlTemplate\\LoginSuccessfull.html");
+                    string htmlString = System.IO.File.ReadAllText(path);
+                    htmlString = htmlString.Replace("{{title}}", "Login Successfull");
+                    htmlString = htmlString.Replace("{{Username}}", login.Email);
+                    bool emailSent = await _sendRegisterSuccessMailService.SendRegisterSuccessMailAsync(login.Email, "Successful log on to EventHub", htmlString);
 
-                if (!emailSent)
-                {
-                    // Handle email sending failure
-                    response.Status = 500;
-                    response.Message = "Failed to send Login email";
-                    return response;
-                }*/
-                message = "Login Successfully";
-                // jwt logic for Role Based
-                string role = person.Role;
+                    if (!emailSent)
+                    {
+                        // Handle email sending failure
+                        response.Status = 500;
+                        response.Message = "Failed to send Login email";
+                        return response;
+                    }
+                    message = "Login Successfully";
+
+                    // jwt logic for Role Based
+                    string role = person.Role;
 
                 var claims = new List<Claim>
                 {
@@ -140,16 +163,16 @@ namespace WebApplicationServer.Controllers
 
 
                 var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("JlVhjeoTKfL8JgQ0Xg2m3BxAP34f5S9tTmN7Gc1A8Zq"));
-                var signinCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
-                var tokeOptions = new JwtSecurityToken(
-                    issuer: "https://localhost:5299",
-                    audience: "https://localhost:5299",
-                    claims: claims,
-                    expires: DateTime.Now.AddMinutes(5),
-                    signingCredentials: signinCredentials
-                );
-                token = new JwtSecurityTokenHandler().WriteToken(tokeOptions);
-                
+                    var signinCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
+                    var tokeOptions = new JwtSecurityToken(
+                        issuer: "https://localhost:5299",
+                        audience: "https://localhost:5299",
+                        claims: claims,
+                        expires: DateTime.Now.AddMinutes(5),
+                        signingCredentials: signinCredentials
+                    );
+                    token = new JwtSecurityTokenHandler().WriteToken(tokeOptions);   
+
             }
             catch (Exception ex)
             {
@@ -162,6 +185,7 @@ namespace WebApplicationServer.Controllers
             response.Token = token;
             return response;
         }
+
 
 
         [HttpPost("logout")]
@@ -183,93 +207,143 @@ namespace WebApplicationServer.Controllers
                 return response;
             }
         }
+        [HttpGet("ConfirmEmail")]
 
-
-
-        [HttpPost("ChangeEmail")]
-        public async Task<ResponseViewModel> ChangeEmail(ChangeEmailViewModel model)
+        public async Task<ResponseViewModel> ConfirmEmail(string token, string email)
         {
             ResponseViewModel response = new ResponseViewModel();
-            if (ModelState.IsValid)
+
+            var user = await _userManager.FindByEmailAsync(email);
+            if (user != null)
             {
-                var user = await _userManager.GetUserAsync(User);
-
-                var email = await _userManager.GetEmailAsync(user);
-                if (model.EmailConfirmed != email)
-                {
-                    user.Email = model.EmailConfirmed;
-                    var setUserNameResult = await _userManager.SetUserNameAsync(user, user.Email);
-                    if (!setUserNameResult.Succeeded)
-                    {
-                        response.Status = 400;
-                        response.Message = "Email Not Updated";
-                        return response;
-                    }
-                    await _signInManager.RefreshSignInAsync(user);
-                    response.Status = 200;
-                    response.Message = "Email changed Successfully";
-
-
-                    string path = Path.GetFullPath("C:\\Users\\ajay.k_int1595\\Desktop\\Ems-Project\\EventManagementSystem\\EMS-Backend\\WebApplicationServer\\WebApplicationServer\\HtmlTemplate\\ChangeEmail.html");
-                    string htmlString = System.IO.File.ReadAllText(path);
-                    //htmlString = htmlString.Replace("{{title}}", "Email Changed Successfull");
-                    //htmlString = htmlString.Replace("{{Username}}", model.Email);
-                    bool emailSent = await _sendRegisterSuccessMailService.SendRegisterSuccessMailAsync(model.Email, "Email Updated Successfully", htmlString);
-
-                    if (!emailSent)
-                    {
-                        // Handle email sending failure
-                        response.Status = 500;
-                        response.Message = "Failed to send  Update Email mail";
-                        return response;
-                    }
-                    return response;
-                }
-            }
-            response.Status = 403;
-            response.Message = "Something went wrong";
-            return response;
-        }
-
-        [HttpPost("ChangePassword")]
-        public async Task<ResponseViewModel> ChangePassword(ChangePasswordViewModel model)
-        {
-            ResponseViewModel response = new ResponseViewModel();
-            if (ModelState.IsValid)
-            {
-                var user = await _userManager.GetUserAsync(User);
-                var result = await _userManager.ChangePasswordAsync(user, model.CurrentPassword, model.NewPassword);
-
+                var result = await _userManager.ConfirmEmailAsync(user, token);
                 if (result.Succeeded)
                 {
-                    string path = Path.GetFullPath("C:\\Users\\ajay.k_int1595\\Desktop\\Ems-Project\\EventManagementSystem\\EMS-Backend\\WebApplicationServer\\WebApplicationServer\\HtmlTemplate\\ChangePassword.html");
-                    string htmlString = System.IO.File.ReadAllText(path);
-                    bool emailSent = await _sendRegisterSuccessMailService.SendRegisterSuccessMailAsync(user.Email, "Password Updated Successfully", htmlString);
-
-                    if (!emailSent)
-                    {
-                        // Handle email sending failure
-                        response.Status = 500;
-                        response.Message = "Failed to send Mail";
-                        return response;
-                    }
-                    await _signInManager.RefreshSignInAsync(user);
                     response.Status = 200;
-                    response.Message = "Password changed Successfully";
-                    return response;
-                }
-                else
-                {
-                    response.Status = 400;
-                    response.Message = "Password Not Updated";
+                    response.Message = "Email Verified Successfully. Email Sent Successfully";
                     return response;
                 }
             }
-            response.Status = 403;
-            response.Message = "Something went wrong";
-            return response;
-        }
 
+            response.Status = 400;
+            response.Message = "User Does Not Exist. Something went Wrong. Email Not Sent";
+            return response;
+
+        }
 
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//[HttpPost("ChangeEmail")]
+//public async Task<ResponseViewModel> ChangeEmail(ChangeEmailViewModel model)
+//{
+//    ResponseViewModel response = new ResponseViewModel();
+//    if (ModelState.IsValid)
+//    {
+//        var user = await _userManager.GetUserAsync(User);
+
+//        var email = await _userManager.GetEmailAsync(user);
+//        if (model.EmailConfirmed != email)
+//        {
+//            user.Email = model.EmailConfirmed;
+//            var setUserNameResult = await _userManager.SetUserNameAsync(user, user.Email);
+//            if (!setUserNameResult.Succeeded)
+//            {
+//                response.Status = 400;
+//                response.Message = "Email Not Updated";
+//                return response;
+//            }
+//            await _signInManager.RefreshSignInAsync(user);
+//            response.Status = 200;
+//            response.Message = "Email changed Successfully";
+
+
+//            string path = Path.GetFullPath("C:\\Users\\ajay.k_int1595\\Desktop\\Ems-Project\\EventManagementSystem\\EMS-Backend\\WebApplicationServer\\WebApplicationServer\\HtmlTemplate\\ChangeEmail.html");
+//            string htmlString = System.IO.File.ReadAllText(path);
+//            //htmlString = htmlString.Replace("{{title}}", "Email Changed Successfull");
+//            //htmlString = htmlString.Replace("{{Username}}", model.Email);
+//            bool emailSent = await _sendRegisterSuccessMailService.SendRegisterSuccessMailAsync(model.Email, "Email Updated Successfully", htmlString);
+
+//            if (!emailSent)
+//            {
+//                // Handle email sending failure
+//                response.Status = 500;
+//                response.Message = "Failed to send  Update Email mail";
+//                return response;
+//            }
+//            return response;
+//        }
+//    }
+//    response.Status = 403;
+//    response.Message = "Something went wrong";
+//    return response;
+//}
+
+//[HttpPost("ChangePassword")]
+//public async Task<ResponseViewModel> ChangePassword(ChangePasswordViewModel model)
+//{
+//    ResponseViewModel response = new ResponseViewModel();
+//    if (ModelState.IsValid)
+//    {
+//        var user = await _userManager.GetUserAsync(User);
+//        var result = await _userManager.ChangePasswordAsync(user, model.CurrentPassword, model.NewPassword);
+
+//        if (result.Succeeded)
+//        {
+//            string path = Path.GetFullPath("C:\\Users\\ajay.k_int1595\\Desktop\\Ems-Project\\EventManagementSystem\\EMS-Backend\\WebApplicationServer\\WebApplicationServer\\HtmlTemplate\\ChangePassword.html");
+//            string htmlString = System.IO.File.ReadAllText(path);
+//            bool emailSent = await _sendRegisterSuccessMailService.SendRegisterSuccessMailAsync(user.Email, "Password Updated Successfully", htmlString);
+
+//            if (!emailSent)
+//            {
+//                // Handle email sending failure
+//                response.Status = 500;
+//                response.Message = "Failed to send Mail";
+//                return response;
+//            }
+//            await _signInManager.RefreshSignInAsync(user);
+//            response.Status = 200;
+//            response.Message = "Password changed Successfully";
+//            return response;
+//        }
+//        else
+//        {
+//            response.Status = 400;
+//            response.Message = "Password Not Updated";
+//            return response;
+//        }
+//    }
+//    response.Status = 403;
+//    response.Message = "Something went wrong";
+//    return response;
+//}
