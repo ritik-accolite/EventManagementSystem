@@ -133,9 +133,11 @@ namespace WebApplicationServer.Controllers
 
                 var claims = new List<Claim>
                 {
-                    new Claim(ClaimTypes.Name, person.UserName),
-                    new Claim(ClaimTypes.Role, role)
+                    new Claim(ClaimTypes.Name, person.UserName)
                 };
+                claims.Add(new Claim(type: "Role", value: person.Role));
+                claims.Add(new Claim(type: "Id", value: person.Id));
+
 
                 var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("JlVhjeoTKfL8JgQ0Xg2m3BxAP34f5S9tTmN7Gc1A8Zq"));
                 var signinCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);

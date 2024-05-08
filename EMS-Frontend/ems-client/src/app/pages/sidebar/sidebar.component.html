@@ -1,6 +1,6 @@
-<aside>
+<aside *ngIf="role === 'Organizer'; else otherContent">
   <!-- <p> Menu </p> -->
-  <a routerLink="/new-event">
+  <a (click)="onTabClick('new-event')">
     <i  class="fa fa-user-o" aria-hidden="true"></i>
     Create Event
   </a>
@@ -22,6 +22,32 @@
     Track Event Tickets
   </a>
 </aside>
+<ng-template #otherContent>
+  <aside>
+    <!-- <p> Menu </p> -->
+    <a routerLink="/new-event">
+      <i  class="fa fa-user-o" aria-hidden="true"></i>
+      My Booked Events
+    </a>
+    <a (click)="onTabClick('mybookings')">
+      <i class="fa fa-laptop" aria-hidden="true"></i>
+      Profile
+      <!-- My bookings for user -->
+    </a>
+    <a (click)="onTabClick('user-profile')">
+      <i class="fa fa-clone" aria-hidden="true"></i>
+      User func
+    </a>
+    <a >
+      <i class="fa fa-star-o" aria-hidden="true"></i>
+      USer func 2
+    </a>
+    <a >
+      <i class="fa fa-trash-o" aria-hidden="true"></i>
+      Track Event Tickets
+    </a>
+  </aside>
+</ng-template>
 
 <!-- <div class="social">
   <a href="https://www.linkedin.com/in/florin-cornea-b5118057/" target="_blank">

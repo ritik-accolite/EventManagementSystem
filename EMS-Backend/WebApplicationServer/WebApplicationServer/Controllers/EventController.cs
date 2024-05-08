@@ -38,7 +38,7 @@ namespace WebApplicationServer.Controllers
         }
 
 
-        [HttpGet, Authorize]
+        [HttpGet]
         public async Task<ActionResult<GetAllEventResponseViewModel>> GetAllEvents()
         {
             try
