@@ -1,16 +1,18 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators , ReactiveFormsModule} from '@angular/forms';
 import { UserdataService } from '../../userdata.service';
+import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-newevent',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, NgIf],
   templateUrl: './newevent.component.html',
   styleUrl: './newevent.component.css'
 })
 export class NeweventComponent {
   eventForm: FormGroup;
+  showSuccessMessage: boolean = false;
 
   constructor(private fb: FormBuilder, private userdataservice: UserdataService) {
     this.eventForm = this.fb.group({
@@ -31,6 +33,9 @@ export class NeweventComponent {
       this.userdataservice.createEvent(this.eventForm.value).subscribe(
         (response) => {
           console.log('Event created successfully:', response);
+          this.showSuccessMessage = true;
+          // this.router.navigate(['/user-dash']);
+          
         },
         (error) => {
           console.error('Error creating event:', error);
