@@ -1,5 +1,5 @@
 import { EventEmitter, Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -15,6 +15,10 @@ export class UserdataService {
   private profileUrl = 'http://localhost:5299/api/Person';
 
   private createEventUrl = 'http://localhost:5299/api/Event';
+
+  private bookEventUrl = 'http://localhost:5299/api/BookedEvent/BookEvent';
+
+  private eventsBookedByUserUrl = 'http://localhost:5299/api/BookedEvent/GetBookedEventsByUser';
 
   private getOrganizerCreatedEventUrl = 'http://localhost:5299/api/Event/myevents';
 
@@ -49,5 +53,13 @@ export class UserdataService {
 
   createEvent(eventdata: any): Observable<any> {
     return this.http.post(`${this.createEventUrl}/addEvent`,eventdata);
+  }
+
+  bookEvent(userdata: any): Observable<any> {
+    return this.http.post(`${this.bookEventUrl}`,userdata);
+  }
+
+  getUserEvents(): Observable<any> {
+    return this.http.get<any[]>(this.eventsBookedByUserUrl);
   }
 }
