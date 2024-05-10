@@ -1,5 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Azure;
+using Microsoft.EntityFrameworkCore;
 using WebApplicationServer.Data;
+using WebApplicationServer.Models;
 using WebApplicationServer.Models.ResponseModels;
 using WebApplicationServer.Models.ViewModels;
 using WebApplicationServer.Services.IService;
@@ -21,7 +23,7 @@ namespace WebApplicationServer.Services
         {
             GetAllPersonResponseViewModel response = new GetAllPersonResponseViewModel();
             response.Status = 200;
-            response.Message = "All Events Fetched";
+            response.Message = "All Persons Fetched";
             response.AllPersons= await _context.Users.ToListAsync();
             return response;
         }
@@ -34,6 +36,35 @@ namespace WebApplicationServer.Services
             response.GetPersonById = await _context.Users.FindAsync(Id);
             return response;
         }
+
+        public async Task<List<GetAllPersonByAdminViewModel>> GetPersonByRole(string role)
+        {
+
+            var allperson = await _context.Users.Where(e => e.Role == role)
+                .Select(e => new GetAllPersonByAdminViewModel
+                {
+                    FirstName = e.FirstName,
+                    LastName = e.LastName,
+                    Email = e.Email,
+                    Role = e.Role,
+                    PhoneNumber = e.PhoneNumber,
+                    IsBlocked = e.IsBlocked
+
+                }).ToListAsync();
+
+            return allperson;
+            //var allperson = await _context.Users.Where(e => e.Role == role).ToListAsync();
+            //return allperson;
+
+            //GetAllPersonResponseViewModel response = new GetAllPersonResponseViewModel();
+            //response.Status = 200;
+            //response.Message = "All Persons Fetched";
+            //response.AllPersons = await _context.Users.Where(e => e.Role == role).ToListAsync();
+            //return response;
+        }
+
+    
+
 
 
         public async Task<ResponseViewModel> DeletePerson(string Id)
@@ -79,19 +110,10 @@ namespace WebApplicationServer.Services
                     return response;
                 }
 
-                //if (personToUpdate.EventOrganizerId != userId)
-                //{
-                //    response.Status = 403;
-                //    response.Message = "You are not authorized to update this event";
-                //    return response;
-                //}
-
                 // Update event properties
                 personToUpdate.FirstName = updatePerson.FirstName;
                 personToUpdate.LastName = updatePerson.LastName;
                 personToUpdate.PhoneNumber = updatePerson.PhoneNumber;
-                //personToUpdate.Email = updatePerson.Email;
-                
 
                 await _context.SaveChangesAsync();
 
@@ -105,6 +127,68 @@ namespace WebApplicationServer.Services
             }
 
             return response;
+        }
+
+
+
+        public async Task<ResponseViewModel> BlockPerson(string personId)
+        {
+            ResponseViewModel response = new ResponseViewModel();
+            try
+            {
+                var person = await _context.Users.FindAsync(personId);
+
+            if (person == null)
+            {
+                response.Status = 400;
+                response.Message = $"Person with ID '{personId}' not found.";
+                return response;
+            }
+
+            person.IsBlocked = true;
+            
+                await _context.SaveChangesAsync();
+
+                response.Status = 200;
+                response.Message = $"Person with ID '{personId}' has been blocked successfully.";
+                return response;        
+            }
+            catch (Exception ex)
+            {
+                response.Status = 200;
+                response.Message = $"Failed to block person with ID '{personId}'. Error: {ex.Message}";
+                return response;
+            }
+        }
+
+        public async Task<ResponseViewModel> UnBlockPerson(string personId)
+        {
+            ResponseViewModel response = new ResponseViewModel();
+            try
+            {
+                var person = await _context.Users.FindAsync(personId);
+
+            if (person == null)
+            {
+                response.Status = 400;
+                response.Message = $"Person with ID '{personId}' not found.";
+            }
+
+            person.IsBlocked = false;
+         
+            
+                await _context.SaveChangesAsync();
+
+                response.Status = 200;
+                response.Message = $"Person with ID '{personId}' has been unblocked successfully.";
+                return response;
+            }
+            catch (Exception ex)
+            {
+                response.Status = 200;
+                response.Message = $"Failed to block person with ID '{personId}'. Error: {ex.Message}";
+                return response;
+            }
         }
     }
 }

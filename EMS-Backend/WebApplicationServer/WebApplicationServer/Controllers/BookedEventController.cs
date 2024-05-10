@@ -35,37 +35,37 @@ namespace WebApplicationServer.Controllers
         [HttpGet]
         public async Task<GetAllBookedEventResposeViewModel> GetAllBookedEvents()
         {
-            GetAllBookedEventResposeViewModel response;
+            GetAllBookedEventResposeViewModel response = new GetAllBookedEventResposeViewModel();
+
             if (!ModelState.IsValid)
             {
-                response = new GetAllBookedEventResposeViewModel();
                 response.Status = 422;
                 response.Message = "Something Went Wrong. Unable to get booked Events.";
                 return response;
             }
-
-    
-            var user = User.FindFirstValue(ClaimTypes.Name);
-            var role = User.FindFirstValue(ClaimTypes.Role);
-
+            //var role = User.FindFirstValue(ClaimTypes.Role);
             //var user = await _userManager.(User);
-            //var user = 
+
+
+            var user = User.FindFirstValue(ClaimTypes.Name);
+            var role = User.FindFirstValue("Role");
+
             if (user == null || role == "User")
             {
-                response = new GetAllBookedEventResposeViewModel();
                 response.Status = 401;
                 response.Message = "You are either not logged in or you are not a Organizer.";
                 return response;
             }
             try
             {
-                //var response = await _addBookedEventService.BookTickets(addBookedEvent);
-                response = await _addBookedEventService.GetAllBookedEvents();
+                response.Status = 200;
+                response.Message = "All Events Fetched Successfully";
+                response.AllBookedEvents = await _addBookedEventService.GetAllBookedEvents();
                 return response;
+
             }
             catch (Exception ex)
             {
-                response = new GetAllBookedEventResposeViewModel();
                 response.Status = 500;
                 response.Message = ex.Message;
                 return response;
@@ -76,8 +76,12 @@ namespace WebApplicationServer.Controllers
         [HttpGet("{BookingId:int}")]
         public async Task<GetBookedEventByIdResponseViewModel> GetBookedEventsById(int BookingId)
         {
-            var events = await _addBookedEventService.GetBookedEventsById(BookingId);
-            return events;
+            GetBookedEventByIdResponseViewModel response = new GetBookedEventByIdResponseViewModel();
+
+            response.Status = 200;
+            response.Message = "Booked Event Fetched Successfully";
+            response.GetBookedEventById = await _addBookedEventService.GetBookedEventsById(BookingId);
+            return response;
 
         }
 
@@ -85,21 +89,22 @@ namespace WebApplicationServer.Controllers
         [HttpDelete("unbookEvent/{bookingId}")]
         public async Task<ResponseViewModel> UnbookEvent(int bookingId)
         {
-            ResponseViewModel response;
+            ResponseViewModel response = new ResponseViewModel();
             if (!ModelState.IsValid)
             {
-                response = new ResponseViewModel();
                 response.Status = 422;
                 response.Message = "Please Enter all the details.";
                 return response;
             }
 
-            var user = User.FindFirstValue(ClaimTypes.Name);
-            var role = User.FindFirstValue(ClaimTypes.Role);
+            var user = User.FindFirstValue(ClaimTypes.Name);           
+            var role = User.FindFirstValue("Role");
+
+            //var role = User.FindFirstValue(ClaimTypes.Role);
             //var user = await _userManager.GetUserAsync(User);
+
             if (user == null || role == "Organizer")
             {
-                response = new ResponseViewModel();
                 response.Status = 401;
                 response.Message = "You are either not loggedIn or You are not User.";
                 return response;
@@ -189,7 +194,8 @@ namespace WebApplicationServer.Controllers
             }
 
             var user = User.FindFirstValue(ClaimTypes.Name);
-            var role = User.FindFirstValue(ClaimTypes.Role);
+            //var role = User.FindFirstValue(ClaimTypes.Role);
+            var role = User.FindFirstValue("Role");
             //var user = await _userManager.GetUserAsync(User);
             if (user == null || role == "Organizer")
             {
@@ -219,10 +225,6 @@ namespace WebApplicationServer.Controllers
             var eventTicketStatus = await _addBookedEventService.GetEventTicketStatus(organizerId);
             return Ok(eventTicketStatus);
         }
-
-
-
-
     }
 }
 
