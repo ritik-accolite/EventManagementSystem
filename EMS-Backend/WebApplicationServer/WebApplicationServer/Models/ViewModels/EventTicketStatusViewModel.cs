@@ -13,6 +13,7 @@
 
         public class EventStatus
         {
+            public int eventId { get; set; }
             public string EventName { get; set; }
             public int TotalTicketsSold { get; set; }
             public int TotalTicketsLeft { get; set; }

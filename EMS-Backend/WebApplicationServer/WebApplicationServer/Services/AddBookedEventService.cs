@@ -217,6 +217,7 @@ public async Task<ResponseViewModel> BookTickets(AddBookedEventViewModel addBook
             {
                 var eventStatus = new EventTicketStatusViewModel.EventStatus
                 {
+                    eventId = @event.EventId,
                     EventName = @event.EventName,
                     TotalTicketsSold = 0,
                     TotalTicketsLeft = @event.Capacity,
