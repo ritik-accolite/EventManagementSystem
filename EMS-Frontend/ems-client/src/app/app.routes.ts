@@ -35,11 +35,6 @@ export const routes: Routes = [
         canActivate: [AuthGuard]
     },
     {
-        path:'event-bookings',
-        component:EventbookingComponent,
-        canActivate: [AuthGuard]
-    },
-    {
         path:'event-list',
         component:EventlistComponent
     },
@@ -51,6 +46,15 @@ export const routes: Routes = [
             { path:'mybookings', component:MybookingsComponent },
             { path: 'new-event', component: NeweventComponent},
             { path: 'app-myevents', component: MyeventsComponent},
+            { path:'event-bookings', component:EventbookingComponent},
+            { path:'event-list', component:EventlistComponent,
+            },
+            { path:'event-list',
+                children: 
+                [
+                    { path:'event-bookings', component:EventbookingComponent}
+                ]
+            },
             { path: '**', component: OrganizerstatComponent }
           ]
         , canActivate: [AuthGuard]

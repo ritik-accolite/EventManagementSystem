@@ -28,8 +28,10 @@ export class SidebarComponent {
       this.router.navigate(['user-dash','app-myevents']);
     } else if (tabRoute === 'new-event')  {
       this.router.navigate(['user-dash', 'new-event'])
-    } else if (tabRoute === 'event-bookings') {
-      this.router.navigate(['user-dash','event-bookings'])
+    } else if (tabRoute === 'event-list') {
+      this.router.navigate(['user-dash','event-list'])
+    } else if (tabRoute === 'mybookings') {
+      this.router.navigate(['user-dash','mybookings'])
     }
   }
 }

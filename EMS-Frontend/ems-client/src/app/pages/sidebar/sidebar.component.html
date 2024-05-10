@@ -25,9 +25,9 @@
 <ng-template #otherContent>
   <aside>
     <!-- <p> Menu </p> -->
-    <a routerLink="/new-event">
+    <a (click)="onTabClick('event-list')">
       <i  class="fa fa-user-o" aria-hidden="true"></i>
-      My Booked Events
+     Book Event
     </a>
     <a (click)="onTabClick('mybookings')">
       <i class="fa fa-laptop" aria-hidden="true"></i>
