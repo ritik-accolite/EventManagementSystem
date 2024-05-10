@@ -1,5 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using System.Collections.Generic;
+
 
 namespace WebApplicationServer.Models
 {
@@ -49,6 +51,5 @@ namespace WebApplicationServer.Models
 
         [ForeignKey("EventOrganizerId")]
         public Person? Organizer { get; set; }
-
     }
 }

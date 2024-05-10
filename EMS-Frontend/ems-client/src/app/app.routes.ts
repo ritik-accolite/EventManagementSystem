@@ -12,6 +12,9 @@ import { UserprofileComponent } from './pages/userprofile/userprofile.component'
 import { SidebarComponent } from './pages/sidebar/sidebar.component';
 import { MyeventsComponent } from './pages/myevents/myevents.component';
 import { AuthGuard } from './guards/auth.guard';
+import { AboutusComponent } from './pages/aboutus/aboutus.component';
+import { ContactusComponent } from './pages/contactus/contactus.component';
+import { OrganizerstatComponent } from './pages/organizerstat/organizerstat.component';
 
 export const routes: Routes = [
     {
@@ -52,6 +55,7 @@ export const routes: Routes = [
                     { path:'event-bookings', component:EventbookingComponent}
                 ]
             },
+            { path: '**', component: OrganizerstatComponent }
           ]
         , canActivate: [AuthGuard]
     },
@@ -76,6 +80,14 @@ export const routes: Routes = [
         path:'my-events',
         component:MyeventsComponent,
         canActivate: [AuthGuard]
+    },
+    {
+        path:'aboutus',
+        component:AboutusComponent
+    },
+    {
+        path:'contactus',
+        component: ContactusComponent
     }
 ];
 

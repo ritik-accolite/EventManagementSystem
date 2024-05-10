@@ -15,7 +15,12 @@ namespace WebApplicationServer.Data
         public DbSet<Event> Events { get; set; }
 
         public DbSet<BookedEvent> BookedEvents { get; set; }
-        
+
+        public DbSet<Review> Reviews { get; set; }
+
+       
+
+
 
     }
 }

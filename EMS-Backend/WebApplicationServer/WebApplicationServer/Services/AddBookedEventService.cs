@@ -15,24 +15,18 @@ namespace WebApplicationServer.Services
         public AddBookedEventService(ApplicationDbContext context)
         {
             _context = context;
-        }   
-        public async Task<GetAllBookedEventResposeViewModel> GetAllBookedEvents()
-        {
-            GetAllBookedEventResposeViewModel response = new GetAllBookedEventResposeViewModel();
-            response.Status = 200;
-            response.Message = "All Booked Events Fetched";
-            response.AllBookedEvents = await _context.BookedEvents.ToListAsync();
-            return response;
         }
 
-
-        public async Task<GetBookedEventByIdResponseViewModel> GetBookedEventsById(int BookingId)
+        public async Task<List<BookedEvent>> GetAllBookedEvents()
         {
-            GetBookedEventByIdResponseViewModel response = new GetBookedEventByIdResponseViewModel();
-            response.Status = 200;
-            response.Message = "All Events Fetched";
-            response.GetBookedEventById = await _context.BookedEvents.FindAsync(BookingId);
-            return response;
+            var bookedEvents = await _context.BookedEvents.ToListAsync();
+            return bookedEvents;
+        }
+
+        public async Task<BookedEvent> GetBookedEventsById(int BookingId)
+        {          
+            var bookedEvent = await _context.BookedEvents.FindAsync(BookingId);
+            return bookedEvent;
         }
 
 public async Task<ResponseViewModel> BookTickets(AddBookedEventViewModel addBookedEvent)
@@ -75,6 +69,14 @@ public async Task<ResponseViewModel> BookTickets(AddBookedEventViewModel addBook
                 BookingDate = DateTime.Now,
                 NumberOfTickets = addBookedEvent.NumberOfTickets
             };
+
+            if(bookedEvent.NumberOfTickets > 5)
+            {
+                    response.Status = 400;
+                    response.Message = "You cannot Book more than 5 tickets.";
+                    return response;
+            }
+
             _context.BookedEvents.Add(bookedEvent);
             eventEntity.Capacity -= addBookedEvent.NumberOfTickets;
             await _context.SaveChangesAsync();
@@ -197,7 +199,9 @@ public async Task<ResponseViewModel> BookTickets(AddBookedEventViewModel addBook
                     UserName = be.User.UserName,
                     TicketPrice = be.Event.TicketPrice,
                     EventTime = be.Event.Event_Time,
-                    EventOrganizerName = be.Event.Organizer.UserName
+                    EventOrganizerName = be.Event.Organizer.UserName,
+                    NumberOfTickets = be.NumberOfTickets,
+                    TotalPrice = be.NumberOfTickets * be.Event.TicketPrice
                 })
                 .ToListAsync();
 
@@ -217,6 +221,7 @@ public async Task<ResponseViewModel> BookTickets(AddBookedEventViewModel addBook
             {
                 var eventStatus = new EventTicketStatusViewModel.EventStatus
                 {
+                    eventId = @event.EventId,
                     EventName = @event.EventName,
                     TotalTicketsSold = 0,
                     TotalTicketsLeft = @event.Capacity,

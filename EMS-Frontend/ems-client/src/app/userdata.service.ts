@@ -26,6 +26,8 @@ export class UserdataService {
 
   private getOrganizerCreatedEventUrl = 'http://localhost:5299/api/Event/myevents';
 
+  private getOrganiserEventTicketDetailsUrl = 'http://localhost:5299/api/BookedEvent/tracktickets';
+
   constructor(private http: HttpClient) { }
 
   registerUser(userdata: any): Observable<any> {
@@ -46,6 +48,10 @@ export class UserdataService {
   }
   getOrganizerEvents(): Observable<any[]> {
     return this.http.get<any[]>(this.getOrganizerCreatedEventUrl);
+  }
+
+  getOrganizerEventTicketDetails(organizerId: string): Observable<any[]> {
+    return this.http.get<any[]>(`${this.getOrganiserEventTicketDetailsUrl}/${organizerId}`);
   }
 
   editProfile(personId: string, formData:any): Observable<any> {

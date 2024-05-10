@@ -8,9 +8,16 @@ namespace WebApplicationServer.Services.IService
         public Task<GetAllPersonResponseViewModel> GetAllPersons();
 
         public Task<GetPersonByIdResponseViewModel> GetPersonById(string id);
+
+        //public Task<GetAllPersonResponseViewModel> GetPersonByRole(string role);
+        //public Task<List<GetAllPersonResponseViewModel>> GetPersonByRole(string role);
+        public Task<List<GetAllPersonByAdminViewModel>> GetPersonByRole(string role);
         public Task<ResponseViewModel> DeletePerson(string id);
 
         public Task<ResponseViewModel> UpdatePerson(string id, UpdatePersonViewModel updatePerson);
+
+        public Task<ResponseViewModel> BlockPerson(string personId);
+        public Task<ResponseViewModel> UnBlockPerson(string personId);
     }
 }
 
