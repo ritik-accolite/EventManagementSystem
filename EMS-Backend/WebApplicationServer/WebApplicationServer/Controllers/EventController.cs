@@ -96,6 +96,7 @@ namespace WebApplicationServer.Controllers
                     response.Message = "Please Enter all the details.";
                     return response;
                 }
+                
 
                 var organizer = User.FindFirstValue(ClaimTypes.Name);
                 var Id = User.FindFirstValue("Id");
@@ -254,6 +255,7 @@ namespace WebApplicationServer.Controllers
         //}
 
 
+        [Authorize]
         [Authorize]
         [HttpGet]
         [Route("myevents")]

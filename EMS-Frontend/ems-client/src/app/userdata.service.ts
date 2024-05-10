@@ -1,5 +1,5 @@
 import { EventEmitter, Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -15,6 +15,14 @@ export class UserdataService {
   private profileUrl = 'http://localhost:5299/api/Person';
 
   private createEventUrl = 'http://localhost:5299/api/Event';
+
+  private bookEventUrl = 'http://localhost:5299/api/BookedEvent/BookEvent';
+
+  private eventsBookedByUserUrl = 'http://localhost:5299/api/BookedEvent/GetBookedEventsByUser';
+
+  private getOrganizerCreatedEventUrl = 'http://localhost:5299/api/Event/myevents';
+
+  private getOrganiserEventTicketDetailsUrl = 'http://localhost:5299/api/BookedEvent/tracktickets';
 
   constructor(private http: HttpClient) { }
 
@@ -34,12 +42,30 @@ export class UserdataService {
   getEvents(): Observable<any[]> {
     return this.http.get<any[]>(this.eventsUrl);
   }
+  getOrganizerEvents(): Observable<any[]> {
+    return this.http.get<any[]>(this.getOrganizerCreatedEventUrl);
+  }
 
-  getProfile(): Observable<any[]> {
-    return this.http.get<any[]>(this.profileUrl);
+  getOrganizerEventTicketDetails(organizerId: string): Observable<any[]> {
+    return this.http.get<any[]>(`${this.getOrganiserEventTicketDetailsUrl}/${organizerId}`);
+  }
+
+  editProfile(personId: string, formData:any): Observable<any> {
+    return this.http.put(`${this.profileUrl}/updatePerson/${personId}`, formData);
+  }
+  getProfile(personId: string): Observable<any[]> {
+    return this.http.get<any>(`${this.profileUrl}/${personId}`);
   }
 
   createEvent(eventdata: any): Observable<any> {
     return this.http.post(`${this.createEventUrl}/addEvent`,eventdata);
+  }
+
+  bookEvent(userdata: any): Observable<any> {
+    return this.http.post(`${this.bookEventUrl}`,userdata);
+  }
+
+  getUserEvents(): Observable<any> {
+    return this.http.get<any[]>(this.eventsBookedByUserUrl);
   }
 }

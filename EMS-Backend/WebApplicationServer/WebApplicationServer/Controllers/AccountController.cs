@@ -143,31 +143,31 @@ namespace WebApplicationServer.Controllers
                         return response;
                     }
 
-                    string path = Path.GetFullPath("C:\\Users\\ajay.k_int1595\\Desktop\\Ems-Project\\EventManagementSystem\\EMS-Backend\\WebApplicationServer\\WebApplicationServer\\HtmlTemplate\\LoginSuccessfull.html");
+/*                    string path = Path.GetFullPath("C:\\Users\\ajay.k_int1595\\Desktop\\Ems-Project\\EventManagementSystem\\EMS-Backend\\WebApplicationServer\\WebApplicationServer\\HtmlTemplate\\LoginSuccessfull.html");
                     string htmlString = System.IO.File.ReadAllText(path);
                     htmlString = htmlString.Replace("{{title}}", "Login Successfull");
                     htmlString = htmlString.Replace("{{Username}}", login.Email);
                     //bool emailSent = await _sendRegisterSuccessMailService.SendRegisterSuccessMailAsync(login.Email, "Successful log on to EventHub", htmlString);
 
-                    //if (!emailSent)
-                    //{
-                    //    // Handle email sending failure
-                    //    response.Status = 500;
-                    //    response.Message = "Failed to send Login email";
-                    //    return response;
-                    //}
+                    if (!emailSent)
+                    {
+                        // Handle email sending failure
+                        response.Status = 500;
+                        response.Message = "Failed to send Login email";
+                        return response;
+                    }*/
                     message = "Login Successfully";
 
                     // jwt logic for Role Based
                     string role = person.Role;
 
-                    var claims = new List<Claim>
-                    {
-                        new Claim(ClaimTypes.Name, person.UserName),
-                        //new Claim(ClaimTypes.Role, role)
-                    };
-                claims.Add(new Claim(type: "Role", value: (person.Role)));
-                claims.Add(new Claim(type: "Id", value: (person.Id)));
+                var claims = new List<Claim>
+                {
+                    new Claim(ClaimTypes.Name, person.UserName)
+                };
+                claims.Add(new Claim(type: "Role", value: person.Role));
+                claims.Add(new Claim(type: "Id", value: person.Id));
+
 
                 var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("JlVhjeoTKfL8JgQ0Xg2m3BxAP34f5S9tTmN7Gc1A8Zq"));
                     var signinCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
