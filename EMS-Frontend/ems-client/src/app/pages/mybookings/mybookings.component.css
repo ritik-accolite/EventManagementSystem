@@ -1,0 +1,28 @@
+.booked-events-container {
+    background: linear-gradient(30deg, #ee7724, #dd3675);
+    padding: 20px;
+  }
+  
+  .card {
+    background-color: #fff;
+    border-radius: 15px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .card-title {
+    color: #dd3675;
+  }
+  
+  .card-body {
+    padding: 20px;
+  }
+  
+  .card-body ul {
+    padding: 0;
+  }
+  
+  .card-body ul li {
+    margin-bottom: 10px;
+    color: #333;
+  }
+  
