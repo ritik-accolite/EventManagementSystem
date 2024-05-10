@@ -10,8 +10,8 @@
             <div class="nav-menu">
                 <nav class="mainmenu mobile-menu">
                     <ul>
-                        <li class="active"><a >Home</a></li>
-                        <li><a >About</a></li>
+                        <li routerLink="/user-dash"><a >Home</a></li>
+                        <li><a routerLink="/aboutus">About</a></li>
                         <li><a >Events</a>
                             <ul class="dropdown">
                                 <li><a >Event1</a></li>
@@ -20,7 +20,7 @@
                                 <li><a >Event4</a></li>
                             </ul>
                         </li>
-                        <li><a href="./contact.html">Contact Us</a></li>
+                        <li><a routerLink="/contactus">Contact Us</a></li>
                     </ul>
                 </nav>
                 <a *ngIf="!isLoggedIn" routerLink="/login" class="primary-btn top-btn mx-2">Login</a>
