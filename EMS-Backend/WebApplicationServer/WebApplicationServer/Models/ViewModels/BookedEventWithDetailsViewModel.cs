@@ -12,5 +12,7 @@ namespace WebApplicationServer.Models.ViewModels
         public decimal TicketPrice { get; set; }
         public string EventTime { get; set; }
         public string EventOrganizerName { get; set; }
+        public int NumberOfTickets { get; set; } // Number of tickets booked by the user
+        public decimal TotalPrice { get; set; }
     }
 }

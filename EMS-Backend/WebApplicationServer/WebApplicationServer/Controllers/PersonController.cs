@@ -14,6 +14,7 @@ using WebApplicationServer.Services.IService;
 using WebApplicationServer.Services;
 using WebApplicationServer.Models.ViewModels;
 using Microsoft.AspNetCore.Authorization;
+using Azure;
 
 namespace WebApplicationServer.Controllers
 {
@@ -32,7 +33,7 @@ namespace WebApplicationServer.Controllers
             _userManager = userManager;
         }
 
-        [HttpGet, Authorize(Roles = "Organizer")]
+        [HttpGet, Authorize]
         public async Task<GetAllPersonResponseViewModel> GetAllPersons()
         {
             var persons = await _getAllPerson.GetAllPersons();
@@ -45,6 +46,19 @@ namespace WebApplicationServer.Controllers
             var person = await _getAllPerson.GetPersonById(Id);
             return person;
 
+        }
+
+
+
+        //THIS API IS ONLY FOR ADMIN
+        [HttpGet("getpersonbyrole")]
+        public async Task<GetAllPersonByAdminResponseViewModel> GetPersonByRole(string role)
+        {
+            GetAllPersonByAdminResponseViewModel response = new GetAllPersonByAdminResponseViewModel();
+            response.Status = 200;
+            response.Message = "All Person Fetched Successfully";
+            response.AllPersons = (await _getAllPerson.GetPersonByRole(role)).ToList();
+            return response;
         }
 
 
@@ -76,6 +90,34 @@ namespace WebApplicationServer.Controllers
             return response;
         }
 
+
+        [HttpPost("blockperson")]
+        //[Authorize(Roles = "Admin,SuperAdmin")]
+        public async Task<ResponseViewModel> BlockPerson(string personId)
+        {
+            ResponseViewModel response = new ResponseViewModel();
+            response = await _getAllPerson.BlockPerson(personId);
+
+            response.Status = 200;
+            response.Message = "Person Blocked Successfully";
+            return response;
+
+        }
+
+
+        [HttpPost("unblockperson")]
+        //[Authorize(Roles = "Admin,SuperAdmin")]
+        public async Task<ResponseViewModel> UnblockPerson(string personId)
+        {
+            ResponseViewModel response = new ResponseViewModel();
+
+            response = await _getAllPerson.UnBlockPerson(personId);
+
+            response.Status = 200;
+            response.Message = "Person UnBlocked Successfully";
+            return response;
+
+        }
 
     }
 }

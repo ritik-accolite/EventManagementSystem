@@ -40,14 +40,3 @@ namespace WebApplicationServer.Controllers
 }
 
 
-
-
-
-
-
-
-
-
-//var organizerId = User.FindFirstValue("organizerId");
-//var organizerId = User.FindFirstValue("organizerId");
-//var organizerId = User.FindFirstValue("Id");

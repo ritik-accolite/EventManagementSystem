@@ -77,15 +77,15 @@ namespace WebApplicationServer.Controllers
                 htmlString = htmlString.Replace("{{Username}}", user.Email);
                 htmlString = htmlString.Replace("{{ConfirmationLink}}", Url.Action(nameof(ConfirmEmail), "Account", new { token, email = user.Email }));
                 htmlString = htmlString.Replace("{{url}}", "https://localhost:5299/api/Account/login");
-                bool emailSent = await _sendRegisterSuccessMailService.SendRegisterSuccessMailAsync(user.Email, "Account Created Successfully", htmlString);
+                //bool emailSent = await _sendRegisterSuccessMailService.SendRegisterSuccessMailAsync(user.Email, "Account Created Successfully", htmlString);
 
-                if (!emailSent)
-                {
-                    // Handle email sending failure
-                    response.Status = 500;
-                    response.Message = "Failed to send registration email";
-                    return response;
-                }
+                //if (!emailSent)
+                //{
+                //    // Handle email sending failure
+                //    response.Status = 500;
+                //    response.Message = "Failed to send registration email";
+                //    return response;
+                //}
 
                 //Add token to verify email
             }
@@ -124,7 +124,14 @@ namespace WebApplicationServer.Controllers
                     person.EmailConfirmed = true;
 
                 }
-                //bool IsEmailConfirmed = await _userManager.IsEmailConfirmedAsync(person.Email);
+
+                if (person.IsBlocked)
+                {
+                    response.Status = 403;
+                    response.Message = "You cannot login.You have been blocked by Admin";
+                    return response;
+
+                }
 
 
                 var result = await _signInManager.PasswordSignInAsync(person, login.Password, true, false);
@@ -140,7 +147,7 @@ namespace WebApplicationServer.Controllers
                     string htmlString = System.IO.File.ReadAllText(path);
                     htmlString = htmlString.Replace("{{title}}", "Login Successfull");
                     htmlString = htmlString.Replace("{{Username}}", login.Email);
-                    bool emailSent = await _sendRegisterSuccessMailService.SendRegisterSuccessMailAsync(login.Email, "Successful log on to EventHub", htmlString);
+                    //bool emailSent = await _sendRegisterSuccessMailService.SendRegisterSuccessMailAsync(login.Email, "Successful log on to EventHub", htmlString);
 
                     if (!emailSent)
                     {
@@ -220,7 +227,7 @@ namespace WebApplicationServer.Controllers
                 if (result.Succeeded)
                 {
                     response.Status = 200;
-                    response.Message = "Email Verified Successfully. Email Sent Successfully";
+                    response.Message = "Email Sent Successfully";
                     return response;
                 }
             }

@@ -2,28 +2,28 @@
 
 #nullable disable
 
-namespace WebApplicationServer.Data
+namespace WebApplicationServer.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class addednumberofticketscolumnonbookedeventtable : Migration
+    public partial class _002 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AddColumn<int>(
-                name: "NumberOfTickets",
-                table: "BookedEvents",
-                type: "int",
+            migrationBuilder.AddColumn<bool>(
+                name: "IsBlocked",
+                table: "AspNetUsers",
+                type: "bit",
                 nullable: false,
-                defaultValue: 0);
+                defaultValue: false);
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropColumn(
-                name: "NumberOfTickets",
-                table: "BookedEvents");
+                name: "IsBlocked",
+                table: "AspNetUsers");
         }
     }
 }

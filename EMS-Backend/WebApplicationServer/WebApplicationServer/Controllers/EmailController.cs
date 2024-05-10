@@ -36,7 +36,8 @@ namespace WebApplicationServer.Controllers
             {
                 //var organizer = await _userManager.GetUserAsync(User);
                 var organizer = User.FindFirstValue(ClaimTypes.Name);
-                var role = User.FindFirstValue(ClaimTypes.Role);
+                //var role = User.FindFirstValue(ClaimTypes.Role);
+                var role = User.FindFirstValue("Role");
 
                 if (organizer == null || role != "Organizer")
                 {
