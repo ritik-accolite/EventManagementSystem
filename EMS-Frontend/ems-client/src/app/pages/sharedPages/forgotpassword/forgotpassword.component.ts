@@ -25,8 +25,6 @@ export class ForgotpasswordComponent {
    ) {}
 
   submitEmailForm() {
-    // Submit email form logic here
-    // For demo purposes, just toggle the visibility of the forms
     this.showPasswordForm = true;
     this.userDataService.generateForgotEmailToken(this.email)
       .subscribe(
@@ -57,10 +55,5 @@ export class ForgotpasswordComponent {
         console.error('PAssword not sent: ', error);
       }
       );
-
-    console.log('Email Token:', this.emailToken);
-    console.log('New Password:', this.newPassword);
-    console.log('Confirm Password:', this.confirmPassword);
-    // After handling password reset, you may want to navigate to a different page or show a success message
   }
 }
