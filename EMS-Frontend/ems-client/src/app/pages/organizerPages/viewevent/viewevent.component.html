@@ -1,0 +1,66 @@
+<div class="container">
+    <h1>Event Details</h1>
+    <div *ngIf="eventDetails">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">{{ eventDetails.eventName }}
+            <span class="event-status" [class.done]="isEventDone()" [class.upcoming]="!isEventDone()">{{ isEventDone() ? 'Done' : 'Upcoming' }}</span></h5>
+    
+          <p class="card-text">Category: {{ eventDetails.eventCategory }}</p>
+          <p class="card-text">Description: {{ eventDetails.description }}</p>
+          <p class="card-text">Chief Guest: {{ eventDetails.chiefGuest }}</p>
+          <p class="card-text">Date: {{ eventDetails.eventDate }}</p>
+          <p class="card-text">Time: {{ eventDetails.eventTime }}</p>
+          <p class="card-text">Location: {{ eventDetails.eventLocation }}</p>
+          <p class="card-text">Ticket Price: ₹{{ eventDetails.ticketPrice }}</p>
+          <p class="card-text">Seats Left: {{ eventDetails.capacity }}</p>
+          <p class="card-text">Total Revenue: ₹{{ calculateTotalRevenue() }}</p>
+          <!-- <img class="card-img-top" src="{{ eventDetails.bannerImage }}" alt="Banner Image"> -->
+          <button class="btn btn-primary" (click)="showEmailForm()">Send Mail to Users</button>
+        </div>
+      </div>
+      <div *ngIf="showForm">
+        <form (submit)="sendEmail()">
+            <button type="button" class="close" aria-label="Close" (click)="hideEmailForm()">
+                <span aria-hidden="true">&times;</span>
+              </button>
+          <div class="form-group">
+            <label for="subject">Subject:</label>
+            <input type="text" class="form-control" id="subject" [(ngModel)]="emailSubject" name="subject">
+          </div>
+          <div class="form-group">
+            <label for="message">Message:</label>
+            <textarea class="form-control" id="message" rows="5" [(ngModel)]="emailMessage" name="message"></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary">Send</button>
+        </form>
+      </div>
+      <h2>Booked Users</h2>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>User ID</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone Number</th>
+            <th>No. of Tickets</th>
+            <th>Total Price</th>
+          </tr>
+        </thead>
+        <tbody>
+          <ng-container *ngFor="let user of displayedUsers">
+            <tr *ngIf="user">
+              <td>{{ user.userId }}</td>
+              <td>{{ user.firstName }} {{ user.lastName }}</td>
+              <td>{{ user.email }}</td>
+              <td>{{ user.phoneNumber }}</td>
+              <td>{{ user.numberOfTickets }}</td>
+              <td>${{ user.totalPrice }}</td>
+            </tr>
+          </ng-container>
+        </tbody>
+      </table>
+      <button class="btn btn-warning" (click)="loadMoreUsers()" [disabled]="allUsersLoaded">Load More Users</button>
+    </div>
+  </div>
+  

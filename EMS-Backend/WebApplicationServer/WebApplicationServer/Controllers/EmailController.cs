@@ -28,16 +28,16 @@ namespace WebApplicationServer.Controllers
         }
 
 
-        [HttpPost("SendEmailNotification")]
-        public async Task<ResponseViewModel> SendEmailNotification(int eventId)
+        [HttpPost("SendEmailNotification/{eventId}")]
+        public async Task<ResponseViewModel> SendEmailNotification(int eventId, SendEmailViewModel sendEmailViewModel)
         {
             ResponseViewModel response = new ResponseViewModel();
             try
             {
                 //var organizer = await _userManager.GetUserAsync(User);
                 var organizer = User.FindFirstValue(ClaimTypes.Name);
-                //var role = User.FindFirstValue(ClaimTypes.Role);
                 var role = User.FindFirstValue("Role");
+                //var role = User.FindFirstValue(ClaimTypes.Role);
 
                 if (organizer == null || role != "Organizer")
                 {
@@ -56,7 +56,7 @@ namespace WebApplicationServer.Controllers
                 // Send email notification to each booked user
                 foreach (var email in bookedUsers)
                 {
-                    bool emailSent = await _sendRegisterSuccessMailService.SendRegisterSuccessMailAsync(email, "Event booking", "congrats you have an upcoming event");
+                    bool emailSent = await _sendRegisterSuccessMailService.SendRegisterSuccessMailAsync(email, sendEmailViewModel.Subject, sendEmailViewModel.Message);
                     if (!emailSent)
                     {
                         // Handle email sending failure for individual users

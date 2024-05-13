@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UserdataService } from '../../userdata.service';
 import { NgFor, DatePipe } from '@angular/common';
 import { JwtDecodeService } from '../../services/jwtDecode.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-organizerstat',
@@ -20,7 +21,9 @@ export class OrganizerstatComponent implements OnInit {
   totalRevenue: number = 0;
   totalAttendees: number = 0;
   
-  constructor(private userdataservice: UserdataService, private jwtDecodeService : JwtDecodeService){}
+  constructor(private userdataservice: UserdataService,
+              private jwtDecodeService : JwtDecodeService,
+              private router : Router){}
 
   ngOnInit(): void {
     this.fetchEvents();
@@ -50,7 +53,10 @@ export class OrganizerstatComponent implements OnInit {
         error => console.error('Error fetching events: ', error)
       );
   }
-
+  viewEvent(eventId: number) {
+    this.userdataservice.eventId = eventId;
+    this.router.navigate(['user-dash','app-viewevent']);
+  }
   mergeEventData(): void {
     // Check if both events and tickets are fetched
     if (this.events.length > 0 && this.trackEventTicket.length > 0) {

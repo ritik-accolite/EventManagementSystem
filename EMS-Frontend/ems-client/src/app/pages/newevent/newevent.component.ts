@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators , ReactiveFormsModule} from '@angular/forms';
 import { UserdataService } from '../../userdata.service';
 import { NgIf } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-newevent',
@@ -14,10 +15,12 @@ export class NeweventComponent {
   eventForm: FormGroup;
   showSuccessMessage: boolean = false;
 
-  constructor(private fb: FormBuilder, private userdataservice: UserdataService) {
+  constructor(private fb: FormBuilder,
+              private userdataservice: UserdataService,
+              private router : Router) {
     this.eventForm = this.fb.group({
       eventName: ['', Validators.required],
-      eventDate: ['', Validators.required],
+      eventDate: ['', [Validators.required, this.futureDateValidator()]],
       eventLocation: ['', Validators.required],
       description: [''],
       eventCategory: ['', Validators.required],
@@ -34,14 +37,23 @@ export class NeweventComponent {
         (response) => {
           console.log('Event created successfully:', response);
           this.showSuccessMessage = true;
-          // this.router.navigate(['/user-dash']);
-          
+          setTimeout(() => {
+            this.router.navigate(['user-dash','app-myevents']);          
+          }, 2000);
         },
         (error) => {
           console.error('Error creating event:', error);
         }
       );
     }
+  }
+
+  futureDateValidator() {
+    return (control: any) => {
+      const currentDate = new Date();
+      const selectedDate = new Date(control.value);
+      return selectedDate >= currentDate ? null : { futureDate: true };
+    };
   }
 
 }

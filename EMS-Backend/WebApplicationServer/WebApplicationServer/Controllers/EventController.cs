@@ -32,7 +32,7 @@ namespace WebApplicationServer.Controllers
         public EventController(IAddEventService addEventService)
         {
             _addEventService = addEventService;
-       
+
         }
 
 
@@ -84,7 +84,7 @@ namespace WebApplicationServer.Controllers
         [Route("addEvent")]
         public async Task<ResponseViewModel> AddEvent(AddEventViewModel addEvent)
         {
-            
+
             ResponseViewModel response;
  
             try
@@ -150,7 +150,6 @@ namespace WebApplicationServer.Controllers
             try
             {
                 var organizer = User.FindFirstValue(ClaimTypes.Name);
-                //var role = User.FindFirstValue(ClaimTypes.Role);
                 var role = User.FindFirstValue("Role");
 
                 //var user = await _userManager.GetUserAsync(User);
@@ -167,7 +166,6 @@ namespace WebApplicationServer.Controllers
             }
             catch (Exception ex)
             {
-                // Log the exception or handle it appropriately
                 response = new ResponseViewModel();
                 response.Status = 500; // Internal Server Error
                 response.Message = $"Error deleting event: {ex.Message}";
@@ -176,36 +174,9 @@ namespace WebApplicationServer.Controllers
         }
 
 
-        [HttpPut("updateEvent/{id}")]
-        public async Task<ResponseViewModel> UpdateEvent(int id, UpdateEventViewModel updateEvent, string userId)
+        [HttpPut("updateEvent/{eventId}")]
+        public async Task<ResponseViewModel> UpdateEvent(int eventId, UpdateEventViewModel updateEvent)
         {
-            //ResponseViewModel response;
-
-            //if (!ModelState.IsValid)
-            //{
-            //    response = new ResponseViewModel();
-            //    response.Status = 422;
-            //    response.Message = "Please provide valid event details.";
-            //    return response;
-            //}
-
-            //var organizer = User.FindFirstValue(ClaimTypes.Name);
-            ////var role = User.FindFirstValue(ClaimTypes.Role);
-            //var role = User.FindFirstValue("Role");
-            //var Id = User.FindFirstValue("Id");
-
-            //if (organizer == null || role != "Organizer")
-            //{
-            //    response = new ResponseViewModel();
-            //    response.Status = 401;
-            //    response.Message = "You are either not logged in or not an organizer.";
-            //    return response;
-            //}
-
-            //response = await _addEventService.UpdateEvent(id, updateEvent, Id);
-            //return response;
-
-
             ResponseViewModel response;
 
             try
@@ -218,10 +189,9 @@ namespace WebApplicationServer.Controllers
                     return response;
                 }
 
-                var organizer = User.FindFirstValue(ClaimTypes.Name);
-                //var role = User.FindFirstValue(ClaimTypes.Role);
-                var role = User.FindFirstValue("Role");
-                var Id = User.FindFirstValue("Id");
+            var organizer = User.FindFirstValue(ClaimTypes.Name);
+            var role = User.FindFirstValue("Role");
+            var organizerId = User.FindFirstValue("Id");
 
                 if (organizer == null || role != "Organizer")
                 {
@@ -231,17 +201,8 @@ namespace WebApplicationServer.Controllers
                     return response;
                 }
 
-                response = await _addEventService.UpdateEvent(id, updateEvent, Id);
-                return response;
-            }
-            catch (Exception ex)
-            {
-                // Log the exception or handle it appropriately
-                response = new ResponseViewModel();
-                response.Status = 500; // Internal Server Error
-                response.Message = $"Error updating event: {ex.Message}";
-                return response;
-            }
+            response = await _addEventService.UpdateEvent(eventId, updateEvent, organizerId);
+            return response;
         }
 
 

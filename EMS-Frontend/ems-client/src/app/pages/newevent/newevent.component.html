@@ -13,6 +13,9 @@
           <div class="form-group mt-3">
             <label for="date">Date:</label>
             <input type="date" id="date" formControlName="eventDate" class="form-control">
+            <div *ngIf="eventForm.controls['eventDate'].errors && eventForm.controls['eventDate'].errors['futureDate']" class="alert alert-danger mt-2">
+              Event date should be at least the next date.
+            </div>
           </div>
           <div class="form-group mt-3">
             <label for="description">Description:</label>

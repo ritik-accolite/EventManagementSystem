@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserdataService } from '../../userdata.service';
 import { NgFor } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-myevents',
@@ -11,14 +12,22 @@ import { NgFor } from '@angular/common';
 })
 export class MyeventsComponent implements OnInit { 
   events: any[] = [];
-  constructor(private userdataservice: UserdataService){}
+  constructor(private userdataservice: UserdataService, private router: Router   ){}
 
   //getOrganizerEvents
   ngOnInit(): void {
     this.fetchEvents();
   }
 
-
+  editEvent(eventId: number) {
+    this.userdataservice.eventId = eventId;
+    this.router.navigate(['user-dash','app-editevent']);
+  }
+  viewEvent(eventId: number) {
+    this.userdataservice.eventId = eventId;
+    this.router.navigate(['user-dash','app-viewevent']);
+  }
+  
   fetchEvents(): void {
     this.userdataservice.getOrganizerEvents()
       .subscribe(

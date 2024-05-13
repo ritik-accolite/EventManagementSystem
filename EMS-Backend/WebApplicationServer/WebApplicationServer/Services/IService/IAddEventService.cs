@@ -34,5 +34,7 @@ namespace WebApplicationServer.Services.IService
 
         //public Task<GetUpcomingEventsResponseViewModel> GetUpcomingEvents();
         public Task<IEnumerable<EventViewModel>> GetUpcomingEvents();
+
+        public Task<EventDetailsWithUserViewModel> GetEventDetails(int eventId);
     }
 }

@@ -15,6 +15,8 @@ import { AuthGuard } from './guards/auth.guard';
 import { AboutusComponent } from './pages/aboutus/aboutus.component';
 import { ContactusComponent } from './pages/contactus/contactus.component';
 import { OrganizerstatComponent } from './pages/organizerstat/organizerstat.component';
+import { EditeventComponent } from './pages/organizerPages/editevent/editevent.component';
+import { VieweventComponent } from './pages/organizerPages/viewevent/viewevent.component';
 
 export const routes: Routes = [
     {
@@ -46,6 +48,8 @@ export const routes: Routes = [
             { path:'mybookings', component:MybookingsComponent },
             { path: 'new-event', component: NeweventComponent},
             { path: 'app-myevents', component: MyeventsComponent},
+            { path: 'app-viewevent', component : VieweventComponent},
+            { path: 'app-editevent', component: EditeventComponent },
             { path:'event-bookings', component:EventbookingComponent},
             { path:'event-list', component:EventlistComponent,
             },

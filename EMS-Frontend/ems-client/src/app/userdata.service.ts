@@ -6,8 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class UserdataService {
-
-  eventId: number = 0;
+  eventId : number = 0;
   organizerId: string ='';
   ticketPrice: number = 0;
 
@@ -18,7 +17,7 @@ export class UserdataService {
 
   private profileUrl = 'http://localhost:5299/api/Person';
 
-  private createEventUrl = 'http://localhost:5299/api/Event';
+  private createEventUrl = 'http://localhost:5299/api/Event/addEvent';
 
   private bookEventUrl = 'http://localhost:5299/api/BookedEvent/BookEvent';
 
@@ -27,6 +26,12 @@ export class UserdataService {
   private getOrganizerCreatedEventUrl = 'http://localhost:5299/api/Event/myevents';
 
   private getOrganiserEventTicketDetailsUrl = 'http://localhost:5299/api/BookedEvent/tracktickets';
+
+  private updateEventUrl = 'http://localhost:5299/api/Event/updateEvent';
+  
+  private getTicketDetailsUrl = 'http://localhost:5299/api/Event/eventuserdetails';
+
+  private sendEmailNotificationsUrl = 'http://localhost:5299/api/Email/SendEmailNotification';
 
   constructor(private http: HttpClient) { }
 
@@ -62,7 +67,22 @@ export class UserdataService {
   }
 
   createEvent(eventdata: any): Observable<any> {
-    return this.http.post(`${this.createEventUrl}/addEvent`,eventdata);
+    return this.http.post(`${this.createEventUrl}`,eventdata);
+  }
+  updateEvent(eventId: number, eventdata: any): Observable<any> {
+    return this.http.put(`${this.updateEventUrl}/${eventId}`, eventdata);
+  }
+
+  deleteEvent(eventId:number): Observable<any> {
+    return this.http.delete(`${this.createEventUrl}/${eventId}`);
+  }
+
+  trackTicketDetails(eventId: number): Observable<any>{
+    return this.http.get(`${this.getTicketDetailsUrl}/${eventId}`);
+  }
+
+  sendEmailNotifications(eventId: number, emailData: any): Observable<any> {
+    return this.http.post(`${this.sendEmailNotificationsUrl}/${eventId}`,emailData);
   }
 
   bookEvent(userdata: any): Observable<any> {
@@ -71,5 +91,8 @@ export class UserdataService {
 
   getUserEvents(): Observable<any> {
     return this.http.get<any[]>(this.eventsBookedByUserUrl);
+  }
+  getEventDetails(eventId : number): Observable<any> {
+    return this.http.get<any[]>(`${this.eventsUrl}/${eventId}`);
   }
 }

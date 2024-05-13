@@ -341,6 +341,46 @@ namespace WebApplicationServer.Services
                 .ToListAsync();
             return upcomingEvents;
         }
+
+        public async Task<EventDetailsWithUserViewModel> GetEventDetails(int eventId)
+        {
+            var eventDetails = await _context.Events.FindAsync(eventId);
+            if (eventDetails == null)
+            {
+                return null;
+            }
+            var bookedUsers = await _context.BookedEvents
+              .Include(be => be.User)
+              .Where(be => be.EventId == eventId)
+              .Select(be => new BookedUserViewModel
+              {
+                  UserId = be.UserId,
+                  FirstName = be.User.FirstName,
+                  LastName = be.User.LastName,
+                  Email = be.User.Email,
+                  PhoneNumber = be.User.PhoneNumber,
+                  NumberOfTickets = be.NumberOfTickets,
+                  TotalPrice = be.NumberOfTickets * eventDetails.TicketPrice
+              })
+              .ToListAsync();
+            var EventDetailsWithUserViewModel = new EventDetailsWithUserViewModel
+            {
+                EventId = eventDetails.EventId,
+                EventName = eventDetails.EventName,
+                EventCategory = eventDetails.EventCategory,
+                Description = eventDetails.Description,
+                ChiefGuest = eventDetails.ChiefGuest,
+                EventDate = eventDetails.EventDate,
+                EventTime = eventDetails.Event_Time,
+                EventLocation = eventDetails.EventLocation,
+                TicketPrice = eventDetails.TicketPrice,
+                Capacity = eventDetails.Capacity,
+                BannerImage = eventDetails.BannerImage,
+                BookedUsers = bookedUsers
+            };
+            return EventDetailsWithUserViewModel;
+        }
+
     }
 }
 

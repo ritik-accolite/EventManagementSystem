@@ -59,7 +59,7 @@
 								<th class="text-right">Venue</th>
 							</tr>
 						</thead>
-						<tr *ngFor="let event of filteredEvents">
+						<tr *ngFor="let event of filteredEvents" (click)="viewEvent(event.eventId)">
 							<td>
 								<p>{{ event.eventName }}</p>
 								<p></p>
