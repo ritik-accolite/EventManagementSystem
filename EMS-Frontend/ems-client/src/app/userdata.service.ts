@@ -7,8 +7,6 @@ import { Observable } from 'rxjs';
 })
 export class UserdataService {
   eventId : number = 0;
-
-  eventId: number = 0;
   organizerId: string ='';
   ticketPrice: number = 0;
 
