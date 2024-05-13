@@ -17,6 +17,7 @@ import { ContactusComponent } from './pages/contactus/contactus.component';
 import { OrganizerstatComponent } from './pages/organizerstat/organizerstat.component';
 import { EditeventComponent } from './pages/organizerPages/editevent/editevent.component';
 import { VieweventComponent } from './pages/organizerPages/viewevent/viewevent.component';
+import { ForgotpasswordComponent } from './pages/sharedPages/forgotpassword/forgotpassword.component';
 
 export const routes: Routes = [
     {
@@ -70,6 +71,10 @@ export const routes: Routes = [
     {
         path:'login',
         component:LoginComponent
+    },
+    {
+        path:'forgot-password',
+        component:ForgotpasswordComponent
     },
     {
         path:'navbar',

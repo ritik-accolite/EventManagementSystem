@@ -37,7 +37,7 @@ namespace WebApplicationServer.Controllers
         [HttpPost("send-reset-password-token-email/{email}")]
         public async Task<ResponseViewModel> SendMail(string email)
         {
-            var user = await _context.Users.FirstOrDefaultAsync(a => a.Email == email);
+            var user = await _context.Users.FirstOrDefaultAsync(a => a.UserName == email);
             //var Id = User.FindFirstValue("Id");
 
             
@@ -59,13 +59,13 @@ namespace WebApplicationServer.Controllers
             string path = Path.GetFullPath("C:\\Users\\ajay.k_int1595\\Desktop\\Ems-Project\\EventManagementSystem\\EMS-Backend\\WebApplicationServer\\WebApplicationServer\\HtmlTemplate\\ResetPasswordToken.html");
             string htmlString = System.IO.File.ReadAllText(path);
             htmlString = htmlString.Replace("{{emailtoken}}", emailToken);
-            htmlString = htmlString.Replace("{{firstname}}",user.FirstName);
+            htmlString = htmlString.Replace("{{firstname}}", user.FirstName);
             htmlString = htmlString.Replace("{{lastname}}", user.LastName);
             htmlString = htmlString.Replace("{{title}}", "Reset Password");
             htmlString = htmlString.Replace("{{Username}}", user.Email);
             //htmlString = htmlString.Replace("{{firstName}}", user.FirstName);
             //htmlString = htmlString.Replace("{{lastName}}", user.LastName);
-           
+
             bool emailSent = await _sendRegisterSuccessMailService.SendRegisterSuccessMailAsync(user.Email, "Reset Password Mail", htmlString);
 
             if (!emailSent)

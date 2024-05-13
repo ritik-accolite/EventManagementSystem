@@ -33,6 +33,9 @@ export class UserdataService {
 
   private sendEmailNotificationsUrl = 'http://localhost:5299/api/Email/SendEmailNotification';
 
+  private generateForgotEmailTokenUrl = 'http://localhost:5299/api/ForgetPassword/send-reset-password-token-email';
+
+  private resetPasswordUrl = 'http://localhost:5299/api/ForgetPassword/forget-password';
   constructor(private http: HttpClient) { }
 
   registerUser(userdata: any): Observable<any> {
@@ -46,6 +49,14 @@ export class UserdataService {
 
   logout(): Observable<any> {
     return this.http.post<any>(`${this.registerUrl}/logout`, {});
+  }
+
+  generateForgotEmailToken(email: string): Observable<any> {
+    return this.http.post<any>(`${this.generateForgotEmailTokenUrl}/${email}`,{});
+  }
+
+  resetPassword(resetForm: any): Observable<any> {
+    return this.http.post<any>(`${this.resetPasswordUrl}`,resetForm);
   }
 
   getEvents(): Observable<any[]> {
