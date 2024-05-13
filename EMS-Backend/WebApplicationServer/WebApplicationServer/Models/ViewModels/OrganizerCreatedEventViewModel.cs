@@ -13,7 +13,5 @@
         public decimal TicketPrice { get; set; }
         public int Capacity { get; set; }
         public string BannerImage { get; set; }
-
-
     }
 }

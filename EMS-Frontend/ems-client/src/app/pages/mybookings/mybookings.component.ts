@@ -2,7 +2,6 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { UserdataService } from '../../userdata.service';
 import { NgFor, NgIf } from '@angular/common';
-import { JwtDecodeService } from '../../services/jwtDecode.service';
 
 @Component({
   selector: 'app-mybookings',
@@ -25,8 +24,8 @@ export class MybookingsComponent implements OnInit{
     
     this.userdataservice.getUserEvents()
       .subscribe((response : any) => {
-        this.bookedEvents  = response;
-        console.log('Booked events fetched:', this.bookedEvents);
+        this.bookedEvents  = response.bookedEvents;
+        console.log('Booked events fetched 123:', this.bookedEvents);
       },
     error => console.error('Error fetching booked events :', error));
   }

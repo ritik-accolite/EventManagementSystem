@@ -22,6 +22,7 @@
                     <div class="col lh-1 ">
                        <h5 class="mb-1">Chief Guest: {{ event.chiefGuest }}</h5>
                        <h5 class="fs-6 mb-0">Event Date: {{ event.eventDate }}</h5>
+                       <a routerLink="event-bookings"><button (click)="bookEvent(event.eventId, event.eventOrganizerId , event.ticketPrice)"><h5 class="fs-6 mb-0">Book Now</h5></button></a>
                     </div>
 
                  </div>

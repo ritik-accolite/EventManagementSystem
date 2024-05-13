@@ -1,4 +1,5 @@
-﻿using WebApplicationServer.Models.ResponseModels;
+﻿using WebApplicationServer.Models;
+using WebApplicationServer.Models.ResponseModels;
 using WebApplicationServer.Models.ViewModels;
 
 namespace WebApplicationServer.Services.IService
@@ -7,9 +8,12 @@ namespace WebApplicationServer.Services.IService
     {
         //public Task<ResponseViewModel> AddBookedEvent(AddBookedEventViewModel addBookedEvent, string Id);
 
-        public Task<GetAllBookedEventResposeViewModel> GetAllBookedEvents();
+        //public Task<GetAllBookedEventResposeViewModel> GetAllBookedEvents();
+        public Task<List<BookedEvent>> GetAllBookedEvents();
 
-        public Task<GetBookedEventByIdResponseViewModel> GetBookedEventsById(int id);
+        //public Task<GetBookedEventByIdResponseViewModel> GetBookedEventsById(int id);
+        public Task<BookedEvent> GetBookedEventsById(int BookingId);
+
 
         //public Task<ResponseViewModel> DeleteBookedEvent(int id);
 

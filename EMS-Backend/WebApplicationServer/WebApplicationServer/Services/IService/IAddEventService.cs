@@ -9,7 +9,9 @@ namespace WebApplicationServer.Services.IService
     {
         public Task<ResponseViewModel> AddEvent(AddEventViewModel addEvent, string Id);
 
-        public Task<GetAllEventResponseViewModel> GetAllEvents();
+        //public Task<GetAllEventResponseViewModel> GetAllEvents();
+
+        public Task<List<EventViewModel>> GetAllEvents();
 
         public Task<GetEVentByIdResposeViewModel> GetEventById(int id);
 
@@ -21,11 +23,16 @@ namespace WebApplicationServer.Services.IService
 
         public Task<List<TicketDetailsViewModel>> GetTicketDetailsForOrganizer(int eventId, string organizerId);
 
+        //public Task<List<OrganizerCreatedEventViewModel>> GetOrganizerCreatedEvents(string organizerId);
         public Task<List<OrganizerCreatedEventViewModel>> GetOrganizerCreatedEvents(string organizerId);
+        public Task<List<string>> GetUniqueEventCategories();
 
-        public Task<IEnumerable<string>> GetUniqueEventCategories();
+        //public Task<GetPastEventsResponseViewModel> GetPastEvents();
 
         public Task<IEnumerable<EventViewModel>> GetPastEvents();
+
+
+        //public Task<GetUpcomingEventsResponseViewModel> GetUpcomingEvents();
         public Task<IEnumerable<EventViewModel>> GetUpcomingEvents();
 
         public Task<EventDetailsWithUserViewModel> GetEventDetails(int eventId);

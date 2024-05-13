@@ -1,12 +1,39 @@
-<div *ngIf="bookedEvents && bookedEvents.length > 0">
-    <h2>Booked Events</h2>
-    <ul>
-      <li *ngFor="let event of bookedEvents">
-        {{ event.eventName }} - {{ event.eventDate }}
-      </li>
-    </ul>
+<!-- <div *ngIf="bookedEvents && bookedEvents.length > 0" class="booked-events-container">
+  <h2>Booked Events</h2>
+  <ul class="event-list">
+    <li *ngFor="let event of bookedEvents" class="event-item">
+      <ul>
+        <li><strong>Event Name:</strong> {{ event.eventName }}</li>
+        <li><strong>Event Date:</strong> {{ event.eventDate }}</li>
+        <li><strong>Event Location:</strong> {{ event.eventLocation }}</li>
+        <li><strong>Event Time:</strong> {{ event.eventTime }}</li>
+        <li><strong>Ticket Price:</strong> {{ event.ticketPrice }}</li>
+      </ul>
+    </li>
+  </ul>
+</div>
+<div *ngIf="!bookedEvents || bookedEvents.length === 0">
+  <p>No events booked.</p>
+</div> -->
+
+<div *ngIf="bookedEvents && bookedEvents.length > 0" class="booked-events-container">
+  <h2>Booked Events</h2>
+  <div class="row">
+    <div *ngFor="let event of bookedEvents" class="col-md-4">
+      <div class="card mb-3">
+        <div class="card-body">
+          <h5 class="card-title">{{ event.eventName }}</h5>
+          <ul class="list-unstyled">
+            <li><strong>Event Date:</strong> {{ event.eventDate }}</li>
+            <li><strong>Event Location:</strong> {{ event.eventLocation }}</li>
+            <li><strong>Event Time:</strong> {{ event.eventTime }}</li>
+            <li><strong>Ticket Price:</strong> {{ event.ticketPrice }}</li>
+          </ul>
+        </div>
+      </div>
+    </div>
   </div>
-  <div *ngIf="!bookedEvents || bookedEvents.length === 0">
-    <p>No events booked.</p>
-  </div>
-  
+</div>
+<div *ngIf="!bookedEvents || bookedEvents.length === 0">
+  <p>No events booked.</p>
+</div>

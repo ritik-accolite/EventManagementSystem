@@ -1,5 +1,6 @@
 ﻿using Azure;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 using WebApplicationServer.Data;
 using WebApplicationServer.Models;
 using WebApplicationServer.Models.ResponseModels;
@@ -17,26 +18,10 @@ namespace WebApplicationServer.Services
             _context = context;
         }
 
-        //public async Task<GetAllEventResponseViewModel> GetAllEvents()
-        //{
-        //    GetAllEventResponseViewModel response = new GetAllEventResponseViewModel();
-        //    response.Status = 200;
-        //    response.Message = "All Events Fetched";
-        //    response.AllEvents = await _context.Events.ToListAsync();
-        //    return response;
-        //}
 
-
-
-        public async Task<GetAllEventResponseViewModel> GetAllEvents()
+        public async Task<List<EventViewModel>> GetAllEvents()
         {
-            var response = new GetAllEventResponseViewModel();
-
-            try
-            {
-                response.Status = 200;
-                response.Message = "All Events Fetched";
-                response.AllEvents = await _context.Events
+                var events = await _context.Events
                     .Include(e => e.Organizer)
                     .Select(e => new EventViewModel
                     {
@@ -56,27 +41,9 @@ namespace WebApplicationServer.Services
                         OrganizerLastName = e.Organizer.LastName
                     })
                     .ToListAsync();
-            }
-            catch
-            {
-                response.Status = 500;
-                response.Message = "Internal server error";
-                response.AllEvents = null;
-            }
 
-            return response;
+                return events;
         }
-
-
-
-
-
-
-
-
-
-
-
 
         public async Task<GetEVentByIdResposeViewModel> GetEventById(int EventId)
         {
@@ -86,6 +53,8 @@ namespace WebApplicationServer.Services
             response.GetEventById = await _context.Events.FindAsync(EventId);
             return response;
         }
+
+
 
         public async Task<ResponseViewModel> AddEvent(AddEventViewModel addEvent, string Id)
         {
@@ -221,7 +190,7 @@ namespace WebApplicationServer.Services
 
         public async Task<List<OrganizerCreatedEventViewModel>> GetOrganizerCreatedEvents(string organizerId)
         {
-            return await _context.Events
+            var events = await _context.Events
                 .Where(e => e.EventOrganizerId == organizerId)
                 .Select(e => new OrganizerCreatedEventViewModel
                 {
@@ -238,7 +207,37 @@ namespace WebApplicationServer.Services
                     BannerImage = e.BannerImage
                 })
                 .ToListAsync();
+
+            return events;
         }
+
+        //public async Task<List<OrganizerCreatedEventViewModel>> GetOrganizerCreatedEvents(string organizerId)
+        //{
+        //    return await _context.Events
+        //        .Where(e => e.EventOrganizerId == organizerId)
+        //        .Select(e => new OrganizerCreatedEventViewModel
+        //        {
+        //            EventId = e.EventId,
+        //            EventName = e.EventName,
+        //            EventCategory = e.EventCategory,
+        //            EventDescription = e.Description,
+        //            ChiefGuest = e.ChiefGuest,
+        //            EventDate = e.EventDate,
+        //            Event_Time = e.Event_Time,
+        //            EventLocation = e.EventLocation,
+        //            TicketPrice = e.TicketPrice,
+        //            Capacity = e.Capacity,
+        //            BannerImage = e.BannerImage
+        //        })
+        //        .ToListAsync();
+        //}
+
+
+
+
+
+
+
 
         public async Task<List<TicketDetailsViewModel>> GetTicketDetailsForOrganizer(int eventId, string organizerId)
         {
@@ -277,61 +276,50 @@ namespace WebApplicationServer.Services
         }
 
 
-        public async Task<IEnumerable<string>> GetUniqueEventCategories()
+        public async Task<List<string>> GetUniqueEventCategories()
         {
-            var uniqueCategories = await _context.Events
-                .Select(e => e.EventCategory)
-                .Distinct()
-                .ToListAsync();
+            //var response = new GetAllCategoriesResponseViewModel();
 
-            return uniqueCategories;
+            List<string> eventCategories = await _context.Events.Select(e => e.EventCategory).Distinct().ToListAsync();
+            return eventCategories;
+
         }
 
-
+        //public async Task<GetPastEventsResponseViewModel> GetPastEvents()
 
         public async Task<IEnumerable<EventViewModel>> GetPastEvents()
         {
+            //GetPastEventsResponseViewModel response = new GetPastEventsResponseViewModel();
+           
+                var currentDate = DateTime.Today;
+                var upcomingEvents = await _context.Events
+               .Where(e => e.EventDate < currentDate)
+               .Select(e => new EventViewModel
+               {
+                   EventId = e.EventId,
+                   EventName = e.EventName,
+                   EventCategory = e.EventCategory,
+                   Description = e.Description,
+                   ChiefGuest = e.ChiefGuest,
+                   EventDate = e.EventDate,
+                   EventTime = e.Event_Time,
+                   EventLocation = e.EventLocation,
+                   TicketPrice = e.TicketPrice,
+                   Capacity = e.Capacity,
+                   BannerImage = e.BannerImage,
+                   EventOrganizerId = e.EventOrganizerId,
+                   OrganizerFirstName = e.Organizer.FirstName,
+                   OrganizerLastName = e.Organizer.LastName
+               })
+               .ToListAsync();
 
-
-            //response.AllEvents = await _context.Events
-            //       .Include(e => e.Organizer)
-            //       .Select(e => new EventViewModel
-
-
-
-
-
-           var currentDate = DateTime.Today;
-            var pastEvents = await _context.Events
-                .Include(e => e.Organizer)
-                .Where(e => e.EventDate < currentDate)        
-                .Select(e => new EventViewModel
-                {
-                    EventId = e.EventId,
-                    EventName = e.EventName,
-                    EventCategory = e.EventCategory,
-                    Description = e.Description,
-                    ChiefGuest = e.ChiefGuest,
-                    EventDate = e.EventDate,
-                    EventTime = e.Event_Time,
-                    EventLocation = e.EventLocation,
-                    TicketPrice = e.TicketPrice,
-                    Capacity = e.Capacity,
-                    BannerImage = e.BannerImage,
-                    EventOrganizerId = e.EventOrganizerId,
-                    OrganizerFirstName = e.Organizer.FirstName,
-                    OrganizerLastName = e.Organizer.LastName
-                })
-                .ToListAsync();
-
-            return pastEvents;
+                return upcomingEvents;
         }
 
         public async Task<IEnumerable<EventViewModel>> GetUpcomingEvents()
         {
             var currentDate = DateTime.Today;
             var upcomingEvents = await _context.Events
-                .Include(e => e.Organizer)
                 .Where(e => e.EventDate >= currentDate)
                 .Select(e => new EventViewModel
                 {
@@ -351,7 +339,6 @@ namespace WebApplicationServer.Services
                     OrganizerLastName = e.Organizer.LastName
                 })
                 .ToListAsync();
-
             return upcomingEvents;
         }
 
@@ -396,6 +383,5 @@ namespace WebApplicationServer.Services
 
     }
 }
-
 
 

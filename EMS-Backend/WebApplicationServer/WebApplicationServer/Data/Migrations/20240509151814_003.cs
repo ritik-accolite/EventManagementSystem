@@ -2,10 +2,10 @@
 
 #nullable disable
 
-namespace WebApplicationServer.Data
+namespace WebApplicationServer.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class second : Migration
+    public partial class _003 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

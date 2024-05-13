@@ -73,6 +73,7 @@ builder.Services.AddScoped<IAddEventService, AddEventService>();
 builder.Services.AddScoped<IAddBookedEventService, AddBookedEventService>();
 builder.Services.AddScoped<IGetAllPerson, GetAllPerson>();
 builder.Services.AddScoped<ISendRegisterSuccessMailService, SendRegisterMailService>();
+builder.Services.AddScoped<IEventReviewService, EventReviewService>();
 
 // Configure Identity Core
 builder.Services.AddIdentityCore<Person>(options =>
