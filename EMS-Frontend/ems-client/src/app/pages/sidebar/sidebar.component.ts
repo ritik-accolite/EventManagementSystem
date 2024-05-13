@@ -31,5 +31,8 @@ export class SidebarComponent {
     } else if (tabRoute === 'event-bookings') {
       this.router.navigate(['user-dash','event-bookings'])
     }
+    else if (tabRoute === 'organizer-stat') {
+      this.router.navigate(['user-dash','app-organizerstat'])
+    }
   }
 }

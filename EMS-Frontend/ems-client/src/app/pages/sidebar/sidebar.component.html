@@ -1,5 +1,9 @@
 <aside *ngIf="role === 'Organizer'; else otherContent">
   <!-- <p> Menu </p> -->
+  <a (click)="onTabClick('organizer-stat')">
+    <i class="fa fa-star-o" aria-hidden="true"></i>
+    Dashboard
+  </a>
   <a (click)="onTabClick('new-event')">
     <i  class="fa fa-user-o" aria-hidden="true"></i>
     Create Event
@@ -12,10 +16,6 @@
   <a (click)="onTabClick('user-profile')">
     <i class="fa fa-clone" aria-hidden="true"></i>
     Profile
-  </a>
-  <a >
-    <i class="fa fa-star-o" aria-hidden="true"></i>
-    Generate Event Report
   </a>
   <a >
     <i class="fa fa-trash-o" aria-hidden="true"></i>
@@ -52,33 +52,3 @@
     </a>
   </aside>
 </ng-template>
-
-<!-- <div class="social">
-  <a href="https://www.linkedin.com/in/florin-cornea-b5118057/" target="_blank">
-    <i class="fa fa-linkedin"></i>
-  </a>
-</div> -->
-   <!-- /#wrapper -->
-<!-- <div class="sidebar">
-    <ul>
-      <button><li (click)="onTabClick('user-profile')">Profile</li></button>
-    <button><li (click)="onTabClick('Home')">Home</li></button>
-    </ul>
-  </div> -->
-
-  <!-- <div class="sidebar">
-    <ul class="nav flex-column">
-      <li class="nav-item" (click)="onTabClick('user-profile')">Profile
-      </li>
-      <li class="nav-item" (click)="onTabClick('mybookings')">My Bookings
-      </li>
-    </ul>
-  </div> -->
-  
-  <!-- <div class="sidebar">
-    <ul class="nav flex-column">
-      <li class="nav-item" (click)="onTabClick('user-profile')">Profile</li>
-      <li class="nav-item" (click)="onTabClick('mybookings')">My Bookings</li>
-    </ul>
-  </div>
-   -->

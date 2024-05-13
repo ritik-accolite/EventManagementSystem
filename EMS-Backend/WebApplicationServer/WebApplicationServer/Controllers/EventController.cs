@@ -33,7 +33,7 @@ namespace WebApplicationServer.Controllers
         public EventController(IAddEventService addEventService)
         {
             _addEventService = addEventService;
-       
+
         }
 
 
@@ -70,7 +70,7 @@ namespace WebApplicationServer.Controllers
         [Route("addEvent")]
         public async Task<ResponseViewModel> AddEvent(AddEventViewModel addEvent)
         {
-            
+
             ResponseViewModel response;
             if (!ModelState.IsValid)
             {
@@ -104,7 +104,7 @@ namespace WebApplicationServer.Controllers
             ResponseViewModel response;
 
             var organizer = User.FindFirstValue(ClaimTypes.Name);
-            var role = User.FindFirstValue(ClaimTypes.Role);
+            var role = User.FindFirstValue("Role");
 
             //var user = await _userManager.GetUserAsync(User);
             if (organizer == null || role != "Organizer")
@@ -120,8 +120,8 @@ namespace WebApplicationServer.Controllers
         }
 
 
-        [HttpPut("updateEvent/{id}")]
-        public async Task<ResponseViewModel> UpdateEvent(int id, UpdateEventViewModel updateEvent, string userId)
+        [HttpPut("updateEvent/{eventId}")]
+        public async Task<ResponseViewModel> UpdateEvent(int eventId, UpdateEventViewModel updateEvent)
         {
             ResponseViewModel response;
 
@@ -134,8 +134,8 @@ namespace WebApplicationServer.Controllers
             }
 
             var organizer = User.FindFirstValue(ClaimTypes.Name);
-            var role = User.FindFirstValue(ClaimTypes.Role);
-            var Id = User.FindFirstValue("Id");
+            var role = User.FindFirstValue("Role");
+            var organizerId = User.FindFirstValue("Id");
 
             //var user = await _userManager.GetUserAsync(User);
             if (organizer == null || role != "Organizer")
@@ -146,20 +146,31 @@ namespace WebApplicationServer.Controllers
                 return response;
             }
 
-            response = await _addEventService.UpdateEvent(id, updateEvent, Id);
+            response = await _addEventService.UpdateEvent(eventId, updateEvent, organizerId);
             return response;
         }
 
 
-        ////[Authorize(Roles = "Organizer")]
-        //[HttpGet("trackTicketDetails/{eventId}")]
-        //public async Task<IActionResult> TrackTicketDetails(int eventId)
-        //{
-        //    var organizerId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-        //    var ticketDetails = await _addEventService.GetTicketDetailsForOrganizer(eventId, organizerId);
-        //    return Ok(ticketDetails);
-        //}
+        /*[Authorize(Roles = "Organizer")]*/
+        /*        [HttpGet("trackTicketDetails/{eventId}")]
+                public async Task<IActionResult> TrackTicketDetails(int eventId)
+                {
+                    var organizerId = User.FindFirstValue("Id");
+                    var role = User.FindFirstValue("Role");
+                    var ticketDetails = await _addEventService.GetTicketDetailsForOrganizer(eventId, organizerId);
+                    return Ok(ticketDetails);
+                }*/
 
+        [HttpGet("eventuserdetails/{eventId}")]
+        public async Task<ActionResult<EventDetailsWithUserViewModel>> GetEventDetails(int eventId)
+        {
+            var eventDetails = await _addEventService.GetEventDetails(eventId);
+            if (eventDetails == null)
+            {
+                return NotFound();
+            }
+            return Ok(eventDetails);
+        }
 
         [Authorize]
         [HttpGet]

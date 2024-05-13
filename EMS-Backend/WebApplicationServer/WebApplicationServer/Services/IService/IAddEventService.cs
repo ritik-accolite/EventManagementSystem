@@ -27,5 +27,7 @@ namespace WebApplicationServer.Services.IService
 
         public Task<IEnumerable<EventViewModel>> GetPastEvents();
         public Task<IEnumerable<EventViewModel>> GetUpcomingEvents();
+
+        public Task<EventDetailsWithUserViewModel> GetEventDetails(int eventId);
     }
 }
