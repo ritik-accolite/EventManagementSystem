@@ -51,7 +51,7 @@ namespace WebApplicationServer.Controllers
 
 
         //THIS API IS ONLY FOR ADMIN
-        [HttpGet("getpersonbyrole")]
+        [HttpGet("getpersonbyrole/{role}")]
         public async Task<GetAllPersonByAdminResponseViewModel> GetPersonByRole(string role)
         {
             GetAllPersonByAdminResponseViewModel response = new GetAllPersonByAdminResponseViewModel();

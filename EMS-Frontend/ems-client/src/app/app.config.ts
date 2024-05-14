@@ -4,7 +4,7 @@ import { JwtModule } from "@auth0/angular-jwt";
 import { routes } from './app.routes';
 import { provideClientHydration } from '@angular/platform-browser';
 import { provideHttpClient, withFetch, withInterceptors } from '@angular/common/http';
-import { tokenInterceptor } from './services/token.interceptor';
+import { tokenInterceptor } from './services/tokenInterceptorService/token.interceptor';
 
 export function tokenGetter() { 
   return localStorage?.getItem("jwt"); 

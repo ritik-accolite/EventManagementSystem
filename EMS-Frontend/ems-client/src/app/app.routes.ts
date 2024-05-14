@@ -1,23 +1,27 @@
 import { Routes } from '@angular/router';
-import { HomeComponent } from './pages/home/home.component';
+import { HomeComponent } from './pages/sharedPages/home/home.component';
 import { MybookingsComponent } from './pages/mybookings/mybookings.component';
-import { NeweventComponent } from './pages/newevent/newevent.component';
-import { EventlistComponent } from './pages/eventlist/eventlist.component';
-import { UserdashComponent } from './pages/userdash/userdash.component';
-import { RegisterComponent } from './pages/register/register.component';
-import { LoginComponent } from './pages/login/login.component';
+import { NeweventComponent } from './pages/organizerPages/newevent/newevent.component';
+import { EventlistComponent } from './pages/sharedPages/eventlist/eventlist.component';
+import { CommondashComponent } from './pages/sharedPages/commondash/commondash.component';
+import { RegisterComponent } from './pages/sharedPages/register/register.component';
+import { LoginComponent } from './pages/sharedPages/login/login.component';
 import { EventbookingComponent } from './pages/eventbooking/eventbooking.component';
-import { NavbarComponent } from './pages/navbar/navbar.component';
-import { UserprofileComponent } from './pages/userprofile/userprofile.component';
-import { SidebarComponent } from './pages/sidebar/sidebar.component';
-import { MyeventsComponent } from './pages/myevents/myevents.component';
+import { NavbarComponent } from './pages/sharedPages/navbar/navbar.component';
+import { UserprofileComponent } from './pages/sharedPages/userprofile/userprofile.component';
+import { SidebarComponent } from './pages/sharedPages/sidebar/sidebar.component';
+import { MyeventsComponent } from './pages/organizerPages/myevents/myevents.component';
 import { AuthGuard } from './guards/auth.guard';
-import { AboutusComponent } from './pages/aboutus/aboutus.component';
-import { ContactusComponent } from './pages/contactus/contactus.component';
-import { OrganizerstatComponent } from './pages/organizerstat/organizerstat.component';
+import { AboutusComponent } from './pages/sharedPages/aboutus/aboutus.component';
+import { ContactusComponent } from './pages/sharedPages/contactus/contactus.component';
+import { OrganizerstatComponent } from './pages/organizerPages/organizerstat/organizerstat.component';
 import { EditeventComponent } from './pages/organizerPages/editevent/editevent.component';
 import { VieweventComponent } from './pages/organizerPages/viewevent/viewevent.component';
 import { ForgotpasswordComponent } from './pages/sharedPages/forgotpassword/forgotpassword.component';
+import { AdmindashComponent } from './pages/adminPages/admindash/admindash.component';
+import { TrackeventComponent } from './pages/adminPages/trackevent/trackevent.component';
+import { TrackorgainzersComponent } from './pages/adminPages/trackorgainzers/trackorgainzers.component';
+import { ReportedissuesComponent } from './pages/adminPages/reportedissues/reportedissues.component';
 
 export const routes: Routes = [
     {
@@ -42,8 +46,19 @@ export const routes: Routes = [
         component:EventlistComponent
     },
     {
+        path: 'admin-dash',
+        component : AdmindashComponent,
+        children : [
+            {path: 'user-profile', component : UserprofileComponent},
+            {path: 'track-event', component : TrackeventComponent},
+            {path: 'track-organizer', component : TrackorgainzersComponent},
+            {path: 'issues', component : ReportedissuesComponent},
+        ],
+        canActivate : [AuthGuard]
+    },
+    {
         path:'user-dash',
-        component:UserdashComponent,
+        component:CommondashComponent,
         children: [
             { path: 'user-profile', component: UserprofileComponent },
             { path:'mybookings', component:MybookingsComponent },

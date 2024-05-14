@@ -1,5 +1,5 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { UserdataService } from '../../../userdata.service';
+import { UserdataService } from '../../../services/userDataService/userdata.service';
 import { NgClass, NgFor, NgIf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 

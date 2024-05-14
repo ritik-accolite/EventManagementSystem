@@ -319,5 +319,15 @@ namespace WebApplicationServer.Controllers
 
                 return response;
             }
-        }
+            [HttpGet("eventuserdetails/{eventId}")]
+            public async Task<ActionResult<EventDetailsWithUserViewModel>> GetEventDetails(int eventId)
+            {
+                var eventDetails = await _addEventService.GetEventDetails(eventId);
+                if (eventDetails == null)
+                {
+                    return NotFound();
+                }
+                return Ok(eventDetails);
+            }
+    }
     }

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { UserdataService } from '../../userdata.service';
-import { JwtDecodeService } from '../../services/jwtDecode.service';
+import { UserdataService } from '../../services/userDataService/userdata.service';
+import { JwtDecodeService } from '../../services/jwtDecodeService/jwtDecode.service';
 import { ActivatedRoute , Router } from '@angular/router';
 import { CommonModule, NgIf } from '@angular/common';
 
