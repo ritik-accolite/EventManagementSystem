@@ -71,12 +71,12 @@ namespace WebApplicationServer.Controllers
                 var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                 var confirmationLink = Url.Action(nameof(ConfirmEmail), "Account", new { token, email = user.Email });
              
-                string path = Path.GetFullPath("C:\\Users\\ajay.k_int1595\\Desktop\\Ems-Project\\EventManagementSystem\\EMS-Backend\\WebApplicationServer\\WebApplicationServer\\HtmlTemplate\\RegisterSuccessfull.html");
+                /*string path = Path.GetFullPath("C:\\Users\\ajay.k_int1595\\Desktop\\Ems-Project\\EventManagementSystem\\EMS-Backend\\WebApplicationServer\\WebApplicationServer\\HtmlTemplate\\RegisterSuccessfull.html");
                 string htmlString = System.IO.File.ReadAllText(path);
                 htmlString = htmlString.Replace("{{title}}", "Registration Confirmation");
                 htmlString = htmlString.Replace("{{Username}}", user.Email);
                 htmlString = htmlString.Replace("{{ConfirmationLink}}", Url.Action(nameof(ConfirmEmail), "Account", new { token, email = user.Email }));
-                htmlString = htmlString.Replace("{{url}}", "https://localhost:5299/api/Account/login");
+                htmlString = htmlString.Replace("{{url}}", "https://localhost:5299/api/Account/login");*/
                 //bool emailSent = await _sendRegisterSuccessMailService.SendRegisterSuccessMailAsync(user.Email, "Account Created Successfully", htmlString);
 
                 //if (!emailSent)
@@ -111,13 +111,13 @@ namespace WebApplicationServer.Controllers
             try
             {
                 Person person = await _userManager.FindByEmailAsync(login.Email);
-                //if (person == null || !person.EmailConfirmed)
-                //{
-                //    //person.EmailConfirmed = true;
-                //    response.Status = 403;
-                //    response.Message = "User Not Found or Email is not Confirmed";
-                //    return response;
-                //}
+/*                if (person == null || !person.EmailConfirmed)
+                {
+                    //person.EmailConfirmed = true;
+                    response.Status = 403;
+                    response.Message = "User Not Found or Email is not Confirmed";
+                    return response;
+                }*/
 
                 if (person != null && !person.EmailConfirmed)
                 {

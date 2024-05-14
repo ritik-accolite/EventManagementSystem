@@ -43,6 +43,7 @@ namespace WebApplicationServer.Services
             var allperson = await _context.Users.Where(e => e.Role == role)
                 .Select(e => new GetAllPersonByAdminViewModel
                 {
+                    Id = e.Id,
                     FirstName = e.FirstName,
                     LastName = e.LastName,
                     Email = e.Email,

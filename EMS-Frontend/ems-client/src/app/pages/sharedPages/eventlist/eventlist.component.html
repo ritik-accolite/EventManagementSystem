@@ -1,0 +1,120 @@
+<div *ngIf="events && events.length > 0" id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+  <ol class="carousel-indicators">
+    <li *ngFor="let event of events; let i = index" data-target="#carouselExampleIndicators" [attr.data-slide-to]="i" [class.active]="i === 0"></li>
+  </ol>
+  <div class="carousel-inner">
+    <div class="col-md-4 carousel-item" *ngFor="let event of events; let i = index" [class.active]="i === 0">
+      <div class="card mb-4 card-hover  ">
+        <div class="row g-0">
+           
+           <a class="col-lg-8 col-md-12 col-12 bg-cover img-left-rounded" style="background-image: url(https://media.istockphoto.com/id/1308964737/photo/business-professionals-applauding-at-a-seminar.jpg?s=1024x1024&w=is&k=20&c=rYvGtD2ObnDHrlwj-D4xa-UDppemHJWjXkbrHiU1IrI=);">
+           <img src="https://media.istockphoto.com/id/1308964737/photo/business-professionals-applauding-at-a-seminar.jpg?s=1024x1024&w=is&k=20&c=rYvGtD2ObnDHrlwj-D4xa-UDppemHJWjXkbrHiU1IrI=" class="img-fluid d-lg-none invisible" alt=""></a>
+           <div class="col-lg-4 col-md-12 col-12">
+              
+              <div class="card-body">
+                 <a class="badge bg-warning mb-3">{{ event.eventCategory }}</a>
+                 <h1 class="mb-4"> 
+                  {{ event.eventName }}
+                 </h1>
+                 <h5>{{ event.description }}
+                 </h5>
+                 <div class="row align-items-center g-0 mt-7">
+                    <div class="col lh-1 ">
+                       <h5 class="mb-1">Chief Guest: {{ event.chiefGuest }}</h5>
+                       <h5 class="fs-6 mb-0">Event Date: {{ event.eventDate }}</h5>
+                       <a routerLink="event-bookings"><button (click)="bookEvent(event.eventId, event.eventOrganizerId , event.ticketPrice)"><h5 class="fs-6 mb-0">Book Now</h5></button></a>
+                    </div>
+
+                 </div>
+              </div>
+           </div>
+          </div>
+        </div>
+    </div>
+  </div>
+  <a class="carousel-control-prev"  role="button" data-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="carousel-control-next" role="button" data-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </a>
+</div>
+
+<div *ngIf="events && events.length > 0" class="row">
+  <div class="col-lg-12">
+      <div class="schedule-tab"> 
+           <!-- <ul class="nav nav-tabs" role="tablist">
+              <li class="nav-item">
+                  <a class="nav-link active" data-toggle="tab"  role="tab"
+                      aria-selected="true">
+                      <h3>Sports</h3>
+                  </a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link" data-toggle="tab"  role="tab" aria-selected="false">
+                      <h3>Business</h3>
+                  </a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link" data-toggle="tab" role="tab" aria-selected="false">
+                      <h3>Music</h3>
+                  </a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link" data-toggle="tab"  role="tab" aria-selected="false">
+                      <h3>Comedy</h3>
+                  </a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link" data-toggle="tab"  role="tab" aria-selected="false">
+                      <h3>Dance</h3>
+                  </a>
+              </li>
+          </ul>  -->
+           <div class="tab-content">
+              <div class="tab-pane active" id="tabs-1" role="tabpanel">
+                  <div *ngFor="let event of events; let i = index" [class.active]="i === 0" class="st-content">
+                      <div class="container">
+                          <div class="row">
+                              <div class="col-lg-2">
+                                  <div class="sc-pic">
+                                      <img src="https://themewagon.github.io/manup/img/schedule/schedule-1.jpg"
+                                          alt="">
+                                  </div>
+                              </div>
+                              <div class="col-lg-4">
+                                  <div class="sc-text">
+                                      <h4>{{ event.eventName }}</h4>
+                                      <ul>
+                                          <li><i class="fa fa-user"></i>Chief Guest: {{ event.chiefGuest }}</li>
+                                          <li><i class="fa fa-envelope"></i> Event Date: {{ event.eventDate }}
+                                          </li>
+                                      </ul>
+                                  </div>
+                              </div>
+                              <div class="col-lg-4">
+                                  <ul class="sc-widget">
+                                      <li><i class="fa fa-clock-o"></i> {{event.eventTime}}</li>
+                                      <li><i class="fa fa-map-marker"></i> {{event.eventLocation}}
+                                      </li>
+                                  </ul>
+                              </div>
+                              <div class="col-lg-2">
+                                  <div class="book-div">
+                                      <button class="primary-btn">Book Now</button>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
+
+<div *ngIf="!events || events.length === 0">
+  No events found.
+</div>

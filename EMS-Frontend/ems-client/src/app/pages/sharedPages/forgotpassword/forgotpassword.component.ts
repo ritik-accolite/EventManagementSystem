@@ -1,7 +1,7 @@
 import { NgIf } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { UserdataService } from '../../../userdata.service';
+import { UserdataService } from '../../../services/userDataService/userdata.service';
 import { Router } from '@angular/router';
 import { response } from 'express';
 import { error } from 'console';
