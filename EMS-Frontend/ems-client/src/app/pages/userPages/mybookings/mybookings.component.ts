@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { UserdataService } from '../../../services/userDataService/userdata.service';
 import { NgFor, NgIf } from '@angular/common';
-import { JwtDecodeService } from '../../services/jwtDecodeService/jwtDecode.service';
+import { JwtDecodeService } from '../../../services/jwtDecodeService/jwtDecode.service';
 import { Router } from '@angular/router';
 
 @Component({
