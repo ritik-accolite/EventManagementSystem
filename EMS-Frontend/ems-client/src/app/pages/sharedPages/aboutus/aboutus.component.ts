@@ -9,31 +9,20 @@ import { Component } from '@angular/core';
 })
 export class AboutusComponent {
   
-  constructor() {
-    this.init();
+  showNext():void{
+    console.log('inside');
+    let next = document.querySelector('.next') as HTMLElement;
+    next.addEventListener("click", () => { let items = document.querySelectorAll(".item");
+    let slider = document.querySelector(".slide") as HTMLElement; slider.appendChild(items[0]);
+    }); 
+   }
+
+ showPrev() : void {
+  console.log('hi');
+   let prev = document.querySelector('.prev') as HTMLElement;
+    prev.addEventListener('click', function(){ let items = document.querySelectorAll('.item'); 
+   let doc = document.querySelector('.slide') as HTMLElement;
+   doc.prepend(items[items.length - 1]); // here the length of items = 6
+  });
   }
-
-  private init(): void {
-    const next: HTMLButtonElement | null = document.querySelector('.next');
-    const prev: HTMLButtonElement | null = document.querySelector('.prev');
-
-    if (next && prev) {
-      next.addEventListener('click', () => {
-        const items: NodeListOf<HTMLElement> = document.querySelectorAll('.item');
-        const slide: HTMLElement | null = document.querySelector('.slide');
-        if (slide) {
-          slide.appendChild(items[0]);
-        }
-      });
-
-      prev.addEventListener('click', () => {
-        const items: NodeListOf<HTMLElement> = document.querySelectorAll('.item');
-        const slide: HTMLElement | null = document.querySelector('.slide');
-        if (slide) {
-          slide.prepend(items[items.length - 1]);
-        }
-      });
-    }
-  }
-
 }
