@@ -1,21 +1,33 @@
 import { Component, OnInit } from '@angular/core';
 import { UserdataService } from '../../../services/userDataService/userdata.service';
-import { NgFor } from '@angular/common';
-import { Router } from '@angular/router';
+import { NgFor, NgIf } from '@angular/common';
+import { ActivatedRoute, Router } from '@angular/router';
+import { JwtDecodeService } from '../../../services/jwtDecodeService/jwtDecode.service';
 
 @Component({
   selector: 'app-myevents',
   standalone: true,
-  imports: [NgFor],
+  imports: [NgFor, NgIf],
   templateUrl: './myevents.component.html',
   styleUrl: './myevents.component.css'
 })
 export class MyeventsComponent implements OnInit { 
   events: any[] = [];
-  constructor(private userdataservice: UserdataService, private router: Router   ){}
+  role : string = '';
+  organizerId : string = '';
+  constructor(private userdataservice: UserdataService,
+              private router: Router,
+              private jwtDecodeService : JwtDecodeService,
+              private route : ActivatedRoute   ){}
 
   //getOrganizerEvents
   ngOnInit(): void {
+    this.role = this.jwtDecodeService.role;
+    this.route.params.subscribe(params => {
+    this.organizerId = this.jwtDecodeService.organizerId;
+      // Now you can use this.organizerId as needed
+      console.log('Organizer ID:', this.organizerId);
+    });
     this.fetchEvents();
   }
 
@@ -29,6 +41,19 @@ export class MyeventsComponent implements OnInit {
   }
   
   fetchEvents(): void {
+    if(this.organizerId!=''){
+
+      this.userdataservice.getOrganizerEventsById(this.organizerId)
+      .subscribe(
+        (response : any ) => { // change any here !!
+          this.events = response.allEvents;
+          console.log('Events fetched successfully 123:', this.events);
+        },
+        error => console.error('Error fetching events: ', error)
+      );
+    }
+    else 
+    {
     this.userdataservice.getOrganizerEvents()
       .subscribe(
         (response : any ) => { // change any here !!
@@ -37,5 +62,6 @@ export class MyeventsComponent implements OnInit {
         },
         error => console.error('Error fetching events: ', error)
       );
+    }  
   }
 }

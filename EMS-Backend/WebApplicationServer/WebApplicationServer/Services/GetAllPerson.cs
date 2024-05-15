@@ -156,7 +156,7 @@ namespace WebApplicationServer.Services
             }
             catch (Exception ex)
             {
-                response.Status = 200;
+                response.Status = 500;
                 response.Message = $"Failed to block person with ID '{personId}'. Error: {ex.Message}";
                 return response;
             }
@@ -186,7 +186,7 @@ namespace WebApplicationServer.Services
             }
             catch (Exception ex)
             {
-                response.Status = 200;
+                response.Status = 500;
                 response.Message = $"Failed to block person with ID '{personId}'. Error: {ex.Message}";
                 return response;
             }

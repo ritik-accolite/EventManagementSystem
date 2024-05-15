@@ -3,8 +3,8 @@
 <table class="table">
   <thead>
     <tr>
-      <th>Organizer Name</th>
       <th>Event ID</th>
+      <th>Organizer Name</th>
       <th>EventName</th>
       <th>Date</th>
       <th>Time</th>
@@ -14,10 +14,10 @@
   </thead>
   <tbody>
     <ng-container *ngFor="let event of events">
-      <tr *ngIf="event">
+      <tr *ngIf="event" (click)="onSelectEvent(event.eventId)">
 
-        <td>{{ event.organizerFirstName }} {{ event.organizerLastName }}</td>
         <td>{{ event.eventId }}</td>
+        <td>{{ event.organizerFirstName }} {{ event.organizerLastName }}</td>
         <td>{{ event.eventName }} || {{ event.eventCategory }}</td>
         <td>{{ event.eventDate }}</td>
         <td>{{ event.eventTime }}</td>

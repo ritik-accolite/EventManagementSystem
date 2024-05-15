@@ -8,11 +8,14 @@ body{
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #f1f1f1;
+    
+    overflow: hidden;
+}
+.new{
     overflow: hidden;
 }
 .about{
-    background: url(../../../../assets/img/aboutus/party.jpg) no-repeat left;
+    background: url(party.jpg) no-repeat left;
     background-size: 100%;
     background-color: #fdfdfd;
     overflow: hidden;
@@ -22,37 +25,42 @@ body{
     width: 55%;
     float: right;
     background-color: #fdfdfd;
-    padding: 140px;
+    padding: 80px;
+    margin-right: 30px;
+    border-radius: 10px;
     box-shadow: 10px 10px 8px rgba(0,0,0,0.3);
 }
 .inner-section h1{
     margin-bottom: 30px;
     font-size: 30px;
     font-weight: 900;
+    font-style: italic;
 }
 .text{
-    font-size: 13px;
+    font-size: 14px;
     color: #545454;
     line-height: 30px;
     text-align: justify;
     margin-bottom: 40px;
+    font-style: italic;
 }
 .skills button{
     font-size: 22px;
     text-align: center;
     letter-spacing: 2px;
     border: none;
-    border-radius: 20px;
-    padding: 8px;
+    border-radius: 10px;
+    padding: 8px 4px;
     width: 200px;
-    background-color: #00999c;
-    color: white;
+    color: #ecf5f5;
+    background : linear-gradient( to right, #ee8425 0%, #f9488b 100%),linear-gradient( to right,#ee8425 0%,#f9488b 100%);
     cursor: pointer;
 }
 .skills button:hover{
     transition: 1s;
-    background-color: #ecf5f5;
-    color: #00999c;
+    background: #ecf5f5;
+    color: #ec733b;
+    border: 1px solid #545454;
 }
 @media screen and (max-width:1200px){
     .inner-section{
@@ -62,19 +70,20 @@ body{
 @media screen and (max-width:1000px){
     .about{
         background-size: 100%;
-        padding: 100px 40px;
+        padding: 100px 100px;
     }
     .inner-section{
         width: 100%;
     }
 }
 
-@media screen and (max-width:600px){
+@media screen and (max-width:700px){
     .about{
-        padding: 0;
+        padding: 100px 100px;
     }
     .inner-section{
-        padding: 60px;
+        padding: 20px;
+        overflow-y: hidden;
     }
     .skills button{
         font-size: 19px;
@@ -82,20 +91,25 @@ body{
         width: 160px;
     }
 }
-.container{
-    margin: auto; /* Center horizontally */
-    margin-top: 50vh; /* Center vertically */
-    transform: translateY(-50%);
-    width: 1000px;
+
+
+.container {
+    margin : 50px auto;
     height: 600px;
-    background: #f5f5f5;
-    box-shadow: 0 30px 50px #dbdbdb;
+    width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
+    position: relative;
+    
+    overflow: hidden;
+   
+    
+    
+    
 }
 
-.container .slide .item{
+.container .item {
     width: 200px;
     height: 300px;
     position: absolute;
@@ -103,14 +117,14 @@ body{
     transform: translate(0, -50%);
     border-radius: 20px;
     box-shadow: 0 30px 50px #505050;
-    background-position: 50% 50%;
+    background-position: center;
     background-size: cover;
     display: inline-block;
     transition: 0.5s;
 }
 
-.slide .item:nth-child(1),
-.slide .item:nth-child(2){
+.container .item:nth-child(1),
+.container .item:nth-child(2) {
     top: 0;
     left: 0;
     transform: translate(0, 0);
@@ -119,102 +133,89 @@ body{
     height: 100%;
 }
 
-
-.slide .item:nth-child(3){
-    left: 50%;
-}
-.slide .item:nth-child(4){
-    left: calc(50% + 220px);
-}
-.slide .item:nth-child(5){
-    left: calc(50% + 440px);
+.container .item:nth-child(3) {
+    left: 60%;
 }
 
-/* here n = 0, 1, 2, 3,... */
-.slide .item:nth-child(n + 6){
-    left: calc(50% + 660px);
-    opacity: 0;
+.container .item:nth-child(4) {
+    left: calc(60% + 220px);
 }
 
+.container .item:nth-child(5) {
+    left: calc(60% + 440px);
+}
 
+.container .item:nth-child(n + 6) {
+    left: calc(60% + 660px);
+}
 
-.item .content{
+.container .content {
     position: absolute;
     top: 50%;
     left: 100px;
     width: 300px;
     text-align: left;
-    color: #eee;
+    color: white;
     transform: translate(0, -50%);
-    font-family: system-ui;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     display: none;
 }
 
-
-.slide .item:nth-child(2) .content{
+.container .item:nth-child(2) .content {
     display: block;
 }
 
-
-.content .name{
-    font-size: 40px;
+.container .content .name {
+    font-size: 2.5rem;
     text-transform: uppercase;
     font-weight: bold;
     opacity: 0;
-    animation: animate 1s ease-in-out 1 forwards;
+    animation: anime 1s ease-in-out 1 forwards;
 }
 
-.content .des{
-    margin-top: 10px;
-    margin-bottom: 20px;
+.container .content .desc {
     opacity: 0;
-    animation: animate 1s ease-in-out 0.3s 1 forwards;
+    animation: anime 1s ease-in-out 0.3s 1 forwards;
 }
 
-.content button{
+.container .content button {
     padding: 10px 20px;
-    border: none;
+    border: 0;
     cursor: pointer;
+    border-radius: 3px;
     opacity: 0;
-    animation: animate 1s ease-in-out 0.6s 1 forwards;
+    animation: anime 1s ease-in-out 0.6s 1 forwards;
+    margin-top: 5px;
 }
 
-
-@keyframes animate {
-    from{
+@keyframes anime {
+    0% {
         opacity: 0;
         transform: translate(0, 100px);
-        filter: blur(33px);
+        filter: blur(30px);
     }
 
-    to{
+    100% {
         opacity: 1;
-        transform: translate(0);
-        filter: blur(0);
+        transform: translate(0, 0px);
+        filter: blur(0px);
     }
 }
 
 
-
-.button{
-    width: 100%;
-    text-align: center;
+.btns {
     position: absolute;
+    text-align: center;
+    width: 100%;
     bottom: 20px;
 }
 
-.button button{
+.btns button {
     width: 40px;
     height: 35px;
     border-radius: 8px;
-    border: none;
+    border: 0;
     cursor: pointer;
     margin: 0 5px;
-    border: 1px solid #000;
-    transition: 0.3s;
-}
-
-.button button:hover{
-    background: #ababab;
-    color: #fff;
+    transition: 0.2s;
 }

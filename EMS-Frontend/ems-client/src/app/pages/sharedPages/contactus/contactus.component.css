@@ -12,8 +12,8 @@ body{
 }
 .contact-bg{
     /* width: 100%; */
-    height: 40vh;
-    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.8)), url(../../../../assets/img/contactus/contact-bg.jpg);
+    height: auto;
+    background: linear-gradient(rgba(185, 182, 182, 0.5), rgba(252, 251, 251, 1)), url(contact-bg.jpg);
     background-position: 50% 100%;
     background-repeat: no-repeat;
     background-attachment: fixed;
@@ -23,6 +23,7 @@ body{
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    width: 100%;
 }
 .contact-bg h3{
     font-size: 1.3rem;
@@ -33,6 +34,9 @@ body{
     text-transform: uppercase;
     padding: 0.4rem 0;
     letter-spacing: 4px;
+}
+.contact-bg text{
+    color: #fff !important;
 }
 .line div{
     margin: 0 0.2rem;
@@ -57,7 +61,13 @@ body{
 .text{
     font-weight: 300;
     opacity: 0.9;
+    font-style: italic;
+    color: #000;
 
+}
+h2{
+    font-size: 18px;
+    color:#000
 }
 .contact-bg .text{
     margin: 1.6rem 0;
@@ -201,63 +211,70 @@ body{
 
 .cards-container {
     display: flex;
-    justify-content: space-between; /* Adjust as needed */
-    gap: 20px; /* Adjust the space between cards */
-    flex-wrap: wrap; /* Allow cards to wrap to the next line if needed */
-    align-items: flex-start; /* Align cards to the start of the container */
-    padding: 20px; /* Add padding around the container */
-    background-color: #f0f0f0; /* Add a background color for visibility */
-    border-radius: 10px; /* Add rounded corners for aesthetic */
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* Add a subtle shadow for depth */
- }
- 
- .wrapper {
-    flex: 0 1 calc(33.333% - 20px); /* Set flexible width for responsive layout */
-    max-width: calc(33.333% - 20px); /* Adjust as needed */
-    height: 100px; /* Set smaller card height */
-    overflow: hidden; /* Hide overflowing content */
-    border-radius: 10px; /* Add rounded corners to cards */
-    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1); /* Add shadow for depth */
- }
- 
- .wrapper:hover {
-    transform: translateY(-5px); /* Add subtle hover effect */
- }
- 
- .wrapper .card {
-    height: 100%; /* Make card content fill the entire card */
-    border-radius: 10px; /* Add rounded corners to card content */
- }
- 
- .wrapper .card img {
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    padding: 40px 20px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.wrapper {
+    flex: 0 1 calc(33.333% - 20px);
+    max-width: calc(33.333% - 20px);
+    height: auto;
+    overflow: hidden;
+    border-radius: 10px;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+}
+@media (max-width: 414px) { /* iPhone XR viewport width is 414px */
+    .cards-container {
+        flex-direction: row; /* Stack cards vertically on smaller screens */
+        align-items: center; /* Center cards horizontally */
+    }
+
+    .wrapper {
+        flex: 0 1 calc(100% - 20px); /* Take up full width */
+        max-width: calc(100% - 20px); /* Take up full width */
+        margin-bottom: 20px; /* Add space between stacked cards */
+    }
+}
+
+
+.wrapper .card {
+    height: auto;
+    border-radius: 10px;
+}
+
+.wrapper .card img {
     height: 100%;
     width: 100%;
     object-fit: cover;
-    border-radius: 10px; /* Add rounded corners to images */
- }
- 
- .wrapper .back-face {
-    padding: 10px; /* Add padding for card content */
- }
- 
- .wrapper .back-face .title {
-    font-size: 20px; /* Adjust title font size */
-    font-weight: 600; /* Adjust title font weight */
-    margin-bottom: 10px; /* Add space below title */
- }
- 
- .wrapper .back-face p {
-    font-size: 14px; /* Adjust paragraph font size */
-    line-height: 1.4; /* Adjust paragraph line height */
-    margin-bottom: 10px; /* Add space below paragraph */
- }
- 
- .wrapper .back-face ul {
+    border-radius: 10px;
+}
+
+.wrapper .back-face {
+    padding: 10px;
+}
+
+.wrapper .back-face .title {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.wrapper .back-face p {
+    font-size: 14px;
+    line-height: 1.4;
+    margin-bottom: 10px;
+}
+
+.wrapper .back-face ul {
     display: flex;
-    justify-content: center; /* Center social media icons */
- }
- 
- .wrapper .back-face ul a {
+    justify-content: center;
+}
+
+.wrapper .back-face ul a {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -265,23 +282,19 @@ body{
     width: 30px;
     margin: 0 5px;
     border-radius: 50%;
-    background-color: #1cc7d0; /* Add background color to social media icons */
-    color: #fff; /* Set icon color */
-    font-size: 16px; /* Adjust icon font size */
-    transition: background-color 0.3s ease; /* Add transition for hover effect */
- }
+    background-color: #1cc7d0;
+    color: #fff;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
  
  .wrapper .back-face ul a:hover {
     background-color: #0a8791; /* Change background color on hover */
  }
  
 
-*{
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: 'Poppins', sans-serif;
-}
+
 html,body{
   display: grid;
   height: 100%;
@@ -294,17 +307,18 @@ html,body{
   background: #1cc7d0;
 }
 .wrapper{
-  height: 400px;
-  width: 320px;
-  position: relative;
-  transform-style: preserve-3d;
- perspective: 1000px;
+
+    height: 320px;
+    width: 220px;
+    position: relative;
+    transform-style: preserve-3d;
+    perspective: 1000px;
 }
 .wrapper .card{
   position: absolute;
   height: 100%;
   width: 100%;
-  padding: 5px;
+  padding: 10px;
   background: #fff;
   border-radius: 10px;
   transform: translateY(0deg);
@@ -313,6 +327,18 @@ html,body{
   box-shadow: 0px 10px 15px rgba(0,0,0,0.1);
   transition: transform 0.7s cubic-bezier(0.4,0.2,0.2,1);
 }
+.wrapper .card:hover{
+    box-shadow: 0 0 10px 0 #e45757;
+    animation: glow 1.5s 2  alternate;
+  }
+  @keyframes glow {
+      from {
+        box-shadow: 0 0 10px 0 #FC427B;
+      }
+      to {
+        box-shadow: 0 0 20px 10px #FC427B;
+      }
+    }
 .wrapper:hover > .front-face{
   transform: rotateY(-180deg);
 }
@@ -367,3 +393,14 @@ html,body{
   border-color: #1cc7d0;
   background: linear-gradient(375deg, transparent, transparent);
 }
+.locate-caption{
+    margin: 10px auto;
+    text-align: center;
+}
+.map{
+    margin : 0px 20px 20px 20px;
+    width: auto;
+    height: auto;
+    border: 2px solid rgb(214, 57, 106);
+}
+
