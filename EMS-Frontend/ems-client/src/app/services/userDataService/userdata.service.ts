@@ -1,5 +1,5 @@
 import { EventEmitter, Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -46,6 +46,8 @@ export class UserdataService {
   private getEventsByCategoryUrl = 'http://localhost:5299/api/FilterEvents/GetEventsByCategory';
 
   private getEventsByLocationUrl = 'http://localhost:5299/api/FilterEvents/GetEventsByLocation';
+
+  private getEticketUrl = 'http://localhost:5299/api/SendETickets/generateticket';
 
   constructor(private http: HttpClient) { }
 
@@ -131,5 +133,11 @@ export class UserdataService {
 
   getEventsByLocation(selectedLocation: any): Observable<any> {
     return this.http.get<any[]>(`${this.getEventsByLocationUrl}/${selectedLocation}`);
+  }
+
+  getEticket(bookingId: number): Observable<Blob> {
+    return this.http.get(`${this.getEticketUrl}/${bookingId}`, {
+      responseType: 'blob'
+    });
   }
 }

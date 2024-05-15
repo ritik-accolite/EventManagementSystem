@@ -24,6 +24,7 @@ import { TrackorgainzersComponent } from './pages/adminPages/trackorgainzers/tra
 import { ReportedissuesComponent } from './pages/adminPages/reportedissues/reportedissues.component';
 import { EventbycategoryComponent } from './pages/userPages/eventbycategory/eventbycategory.component';
 import { EventbylocationComponent } from './pages/userPages/eventbylocation/eventbylocation.component';
+import { ReviewComponent } from './pages/userPages/review/review.component';
 
 export const routes: Routes = [
     {
@@ -63,7 +64,12 @@ export const routes: Routes = [
         component:CommondashComponent,
         children: [
             { path: 'user-profile', component: UserprofileComponent },
-            { path:'mybookings', component:MybookingsComponent },
+            { path:'mybookings', component:MybookingsComponent,
+                children:
+                [
+                    { path:'review', component:ReviewComponent}
+                ]
+             },
             { path: 'new-event', component: NeweventComponent},
             { path: 'app-myevents', component: MyeventsComponent},
             { path: 'app-viewevent', component : VieweventComponent},

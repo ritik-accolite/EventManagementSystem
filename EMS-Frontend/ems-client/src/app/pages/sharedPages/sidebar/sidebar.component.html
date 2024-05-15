@@ -24,6 +24,10 @@
 <ng-template #userContent>
   <aside *ngIf="role === 'User'; else adminContent">
     <!-- User Menu -->
+    <a (click)="onTabClick('user-stat')">
+      <i class="fa fa-star-o" aria-hidden="true"></i>
+      Dashboard
+    </a>
     <a (click)="onTabClick('event-list')">
       <i class="fa fa-user-o" aria-hidden="true"></i>
       Book Event
@@ -32,17 +36,9 @@
       <i class="fa fa-laptop" aria-hidden="true"></i>
       My Bookings
     </a>
-    <a (click)="onTabClick('event-bookings')">
-      <i class="fa fa-laptop" aria-hidden="true"></i>
-      Book Event
-    </a>
     <a (click)="onTabClick('user-profile')">
       <i class="fa fa-clone" aria-hidden="true"></i>
       Profile
-    </a>
-    <a>
-      <i class="fa fa-star-o" aria-hidden="true"></i>
-      User func 2
     </a>
     <a>
       <i class="fa fa-trash-o" aria-hidden="true"></i>
