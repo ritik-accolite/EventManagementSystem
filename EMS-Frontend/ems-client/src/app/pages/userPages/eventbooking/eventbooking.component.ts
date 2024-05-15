@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { UserdataService } from '../../services/userDataService/userdata.service';
-import { JwtDecodeService } from '../../services/jwtDecodeService/jwtDecode.service';
+import { UserdataService } from '../../../services/userDataService/userdata.service';
+import { JwtDecodeService } from '../../../services/jwtDecodeService/jwtDecode.service';
 import { ActivatedRoute , Router } from '@angular/router';
 import { CommonModule, NgIf } from '@angular/common';
 
@@ -49,8 +49,8 @@ export class EventbookingComponent implements OnInit {
       const formData = {
         ...this.bookEventForm.value,
         eventId: this.eventId,
-        organizerId: this.organizerId,
-        id: this.id
+        EventOrganizerId: this.organizerId,
+        UserId: this.id
       };
 
       this.userdataservice.bookEvent(formData).subscribe(

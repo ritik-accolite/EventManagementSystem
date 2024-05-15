@@ -1,12 +1,12 @@
 import { Routes } from '@angular/router';
 import { HomeComponent } from './pages/sharedPages/home/home.component';
-import { MybookingsComponent } from './pages/mybookings/mybookings.component';
+import { MybookingsComponent } from './pages/userPages/mybookings/mybookings.component';
 import { NeweventComponent } from './pages/organizerPages/newevent/newevent.component';
 import { EventlistComponent } from './pages/sharedPages/eventlist/eventlist.component';
 import { CommondashComponent } from './pages/sharedPages/commondash/commondash.component';
 import { RegisterComponent } from './pages/sharedPages/register/register.component';
 import { LoginComponent } from './pages/sharedPages/login/login.component';
-import { EventbookingComponent } from './pages/eventbooking/eventbooking.component';
+import { EventbookingComponent } from './pages/userPages/eventbooking/eventbooking.component';
 import { NavbarComponent } from './pages/sharedPages/navbar/navbar.component';
 import { UserprofileComponent } from './pages/sharedPages/userprofile/userprofile.component';
 import { SidebarComponent } from './pages/sharedPages/sidebar/sidebar.component';
@@ -22,6 +22,8 @@ import { AdmindashComponent } from './pages/adminPages/admindash/admindash.compo
 import { TrackeventComponent } from './pages/adminPages/trackevent/trackevent.component';
 import { TrackorgainzersComponent } from './pages/adminPages/trackorgainzers/trackorgainzers.component';
 import { ReportedissuesComponent } from './pages/adminPages/reportedissues/reportedissues.component';
+import { EventbycategoryComponent } from './pages/userPages/eventbycategory/eventbycategory.component';
+import { EventbylocationComponent } from './pages/userPages/eventbylocation/eventbylocation.component';
 
 export const routes: Routes = [
     {
