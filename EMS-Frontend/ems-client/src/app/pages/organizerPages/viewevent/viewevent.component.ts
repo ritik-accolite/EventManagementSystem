@@ -2,6 +2,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { UserdataService } from '../../../services/userDataService/userdata.service';
 import { NgClass, NgFor, NgIf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { JwtDecodeService } from '../../../services/jwtDecodeService/jwtDecode.service';
 
 @Component({
   selector: 'app-viewevent',
@@ -13,6 +14,7 @@ import { FormsModule } from '@angular/forms';
 export class VieweventComponent implements OnInit{
   @ViewChild('scrollContainer') scrollContainer: ElementRef | undefined;
   eventId : number = 0;
+  role : string = '';
   eventDetails : any;
   displayedUsers: any = []; // Users to be displayed
   allUsers: any = []; // All users
@@ -24,10 +26,13 @@ export class VieweventComponent implements OnInit{
   emailMessage: string = '';
   emailResponse: string = '';
 
-  constructor(private userdataService : UserdataService) {}
+  constructor(private userdataService : UserdataService,
+              private jwtdecodeservice : JwtDecodeService
+  ) {}
 
   ngOnInit(): void {
     this.eventId = this.userdataService.eventId;
+    this.role = this.jwtdecodeservice.role;
     if (this.eventId) {
       this.userdataService.trackTicketDetails(this.eventId).subscribe(
         (eventDetails: any) => {

@@ -27,6 +27,8 @@ export class UserdataService {
 
   private eventsBookedByUserUrl = 'http://localhost:5299/api/BookedEvent/GetBookedEventsByUser';
 
+  private eventsBookedByUserIdUrl = 'http://localhost:5299/api/BookedEvent/GetBookedEventsByUserId';
+
   private getOrganizerCreatedEventUrl = 'http://localhost:5299/api/Event/myevents';
 
   private getOrganiserEventTicketDetailsUrl = 'http://localhost:5299/api/BookedEvent/tracktickets';
@@ -47,6 +49,10 @@ export class UserdataService {
 
   private getEventsByLocationUrl = 'http://localhost:5299/api/FilterEvents/GetEventsByLocation';
 
+
+  private blockPersonByIdUrl = 'http://localhost:5299/api/Person/blockperson';
+
+  private unBlockPersonByIdUrl = 'http://localhost:5299/api/Person/unblockperson';
   constructor(private http: HttpClient) { }
 
   registerUser(userdata: any): Observable<any> {
@@ -75,6 +81,10 @@ export class UserdataService {
   }
   getOrganizerEvents(): Observable<any[]> {
     return this.http.get<any[]>(this.getOrganizerCreatedEventUrl);
+  }
+
+  getOrganizerEventsById(organizerId : string): Observable<any[]> {
+    return this.http.get<any[]>(`${this.getOrganizerCreatedEventUrl}/${organizerId}`);
   }
 
   getOrganizerEventTicketDetails(organizerId: string): Observable<any[]> {
@@ -114,6 +124,9 @@ export class UserdataService {
   getUserEvents(): Observable<any> {
     return this.http.get<any[]>(this.eventsBookedByUserUrl);
   }
+  getUserEventsId(userId : string): Observable<any> {
+    return this.http.get<any[]>(`${this.eventsBookedByUserIdUrl}/${userId}`);
+  }
   getEventDetails(eventId : number): Observable<any> {
     return this.http.get<any[]>(`${this.eventsUrl}/${eventId}`);
   }
@@ -131,5 +144,12 @@ export class UserdataService {
 
   getEventsByLocation(selectedLocation: any): Observable<any> {
     return this.http.get<any[]>(`${this.getEventsByLocationUrl}/${selectedLocation}`);
+  }
+
+  blockPersonbyId(personId : string): Observable<any> {
+    return this.http.post<any[]>(`${this.blockPersonByIdUrl}/${personId}`,{});
+  }
+  unBlockPersonbyId(personId : string): Observable<any> {
+    return this.http.post<any[]>(`${this.unBlockPersonByIdUrl}/${personId}`,{});
   }
 }

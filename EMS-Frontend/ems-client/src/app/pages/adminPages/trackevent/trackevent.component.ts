@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { UserdataService } from '../../../services/userDataService/userdata.service';
 import { NgFor, NgIf } from '@angular/common';
+import { JwtDecodeService } from '../../../services/jwtDecodeService/jwtDecode.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-trackevent',
@@ -11,7 +13,9 @@ import { NgFor, NgIf } from '@angular/common';
 })
 export class TrackeventComponent {
   events : any [] = [];
-  constructor(private userdataservice : UserdataService) {}
+  constructor(private userdataservice : UserdataService,
+              private router : Router
+  ) {}
 
   ngOnInit(): void {
     this.fetchEvents(); 
@@ -26,6 +30,10 @@ export class TrackeventComponent {
         },
         error => console.error('Error fetching events: ', error)
       );
+  }
+  onSelectEvent(eventId : number): void{
+    this.userdataservice.eventId = eventId;
+    this.router.navigate(['user-dash','app-viewevent']);
   }
 
 }
