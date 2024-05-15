@@ -3,18 +3,26 @@ import { Router, RouterLink } from '@angular/router';
 import { NeweventComponent } from '../../organizerPages/newevent/newevent.component';
 import { JwtDecodeService } from '../../../services/jwtDecodeService/jwtDecode.service';
 import { CommonModule } from '@angular/common';
+import { FormsModule} from '@angular/forms';
+import { UserdataService } from '../../../services/userDataService/userdata.service';
 
 @Component({
   selector: 'app-sidebar',
   standalone: true,
-  imports: [NeweventComponent, RouterLink, CommonModule],
+  imports: [NeweventComponent, RouterLink, CommonModule , FormsModule],
   templateUrl: './sidebar.component.html',
   styleUrl: './sidebar.component.css'
 })
 export class SidebarComponent {
   role : string = '';
+  showDropdown1 = false;
+  allEventCategory: string[] = [];
+  selectedCategory: string = '';
+  showDropdown2 = false;
+
   constructor(private router: Router,
-              private jwtDecodeService : JwtDecodeService
+              private jwtDecodeService : JwtDecodeService,
+              private userdataservice :  UserdataService
   ) {}
 
   ngOnInit(): void{
@@ -22,6 +30,7 @@ export class SidebarComponent {
     if (this.role === null) {
       this.router.navigate(['/login']);
     }
+    this.fetchEventCategories();
   }
 
   onTabClick(tabRoute: string) {
@@ -49,4 +58,35 @@ export class SidebarComponent {
       this.router.navigate(['admin-dash','issues'])
     }
   }
+
+  toggleDropdown() {
+    this.showDropdown1 = !this.showDropdown1;
+    this.showDropdown2 = !this.showDropdown2;
+  }
+
+
+  fetchEventCategories() {
+    this.userdataservice.getEventCategories().subscribe(
+      (response: any) => {
+        this.allEventCategory = response.allEventCategory;
+      },
+      (error: any) => {
+        console.error('Error fetching event categories:', error);
+      }
+    );
+  }
+
+
+  applyFilter(selectedCategory: string) {
+    this.userdataservice.selectedCategory = selectedCategory;
+    console.log(selectedCategory);
+    this.router.navigate(['user-dash' , 'event-by-category']);
+  }
+
+  applyFilter1(selectedLocation: string) {
+    this.userdataservice.selectedCategory = selectedLocation;
+    console.log(selectedLocation);
+    this.router.navigate(['user-dash' , 'event-by-location']);
+  }
+
 }
