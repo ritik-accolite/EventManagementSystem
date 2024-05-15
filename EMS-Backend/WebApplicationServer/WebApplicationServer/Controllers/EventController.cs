@@ -213,7 +213,7 @@ namespace WebApplicationServer.Controllers
         //}
 
 
-        [Authorize]
+        
             [Authorize]
             [HttpGet]
             [Route("myevents")]
@@ -247,8 +247,30 @@ namespace WebApplicationServer.Controllers
                 return response;
             }
 
+        [Authorize]
+        [HttpGet]
+        [Route("myevents/{organizerId}")]
+        public async Task<OrganizerCreatedEventResponseViewModel> GetOrganizerCreatedEventsById(string organizerId)
+        {
+            OrganizerCreatedEventResponseViewModel response = new OrganizerCreatedEventResponseViewModel();
+            try
+            {
+                response.Status = 200;
+                response.Message = "All Events Fetched";
+                response.AllEvents = await _addEventService.GetOrganizerCreatedEvents(organizerId);
+            }
+            catch (Exception ex)
+            {
+                response.Status = 500; // Internal Server Error
+                response.Message = $"Error fetching organizer created events: {ex.Message}";
+                response.AllEvents = new List<OrganizerCreatedEventViewModel>(); // Empty list
+            }
 
-            [HttpGet("eventCategories")]
+            return response;
+        }
+
+
+        [HttpGet("eventCategories")]
             public async Task<GetAllCategoriesResponseViewModel> GetUniqueEventCategories()
             {
                 GetAllCategoriesResponseViewModel response = new GetAllCategoriesResponseViewModel();

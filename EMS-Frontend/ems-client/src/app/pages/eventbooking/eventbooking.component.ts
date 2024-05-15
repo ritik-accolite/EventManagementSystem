@@ -49,8 +49,8 @@ export class EventbookingComponent implements OnInit {
       const formData = {
         ...this.bookEventForm.value,
         eventId: this.eventId,
-        organizerId: this.organizerId,
-        id: this.id
+        eventOrganizerId: this.organizerId,
+        UserId: this.id
       };
 
       this.userdataservice.bookEvent(formData).subscribe(

@@ -53,6 +53,7 @@ export const routes: Routes = [
             {path: 'track-event', component : TrackeventComponent},
             {path: 'track-organizer', component : TrackorgainzersComponent},
             {path: 'issues', component : ReportedissuesComponent},
+            {path: 'app-myevents', component: MyeventsComponent},
         ],
         canActivate : [AuthGuard]
     },

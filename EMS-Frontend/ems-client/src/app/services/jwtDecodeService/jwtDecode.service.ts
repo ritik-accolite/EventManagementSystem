@@ -18,6 +18,8 @@ export class JwtDecodeService {
 
   id : string = '';
   role : string = '';
+  organizerId : string = '';
+  userId : string = '';
   constructor() { }
   
   decodeToken(token: string): DecodedToken | null {
