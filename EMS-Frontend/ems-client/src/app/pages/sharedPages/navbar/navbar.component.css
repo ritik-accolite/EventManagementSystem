@@ -14,6 +14,7 @@
 	padding-bottom: 37px;
 }
 
+
 .logo a {
 	display: inline-block;
 }
@@ -22,9 +23,14 @@
 	float: right;
 }
 
+
 .nav-menu .mainmenu {
 	display: inline-block;
+    justify-content: space-around;
+    background-color: #fff;
 }
+
+
 
 .nav-menu .mainmenu ul li {
 	display: inline-block;
@@ -64,7 +70,7 @@
 }
 
 .nav-menu .mainmenu ul li .dropdown li a:hover {
-	color: #f44949;
+    color:#F44949
 }
 
 .nav-menu .mainmenu ul li .dropdown li a:after {
@@ -82,7 +88,7 @@
 .nav-menu .mainmenu ul li:hover .dropdown {
 	opacity: 1;
 	visibility: visible;
-	top: 100px;
+	top: 80px;
 }
 
 .nav-menu .mainmenu ul li a {
@@ -93,6 +99,7 @@
 	padding: 42px 0;
 	position: relative;
 	display: inline-block;
+    text-decoration: none;
 }
 
 .nav-menu .mainmenu ul li a:after {
@@ -111,10 +118,17 @@
 
 .nav-menu .primary-btn.top-btn {
 	margin: 27px 0;
+    border: none;
+    display: block;
 }
 
 .slicknav_menu {
 	display: none;
+}
+.toggle-button {
+    margin-top: 25px;
+    margin-right: 18px;
+    position: relative;
 }
 
 
@@ -173,6 +187,8 @@
 
 .modal-button:hover {
     background-color: #0056b3;
+    transform: translateY(-5px);
+    filter: drop-shadow(5px 6px 7px rgb(192, 24, 24));
 } 
 
 .modal-a {
@@ -210,6 +226,9 @@ input[type="text"] {
 .search-icon:hover {
     color: #333;
 }
+.new-btn{
+    padding: 10px 20px !important;
+}
 
 
 /* .search-container button {
@@ -228,6 +247,8 @@ input[type="text"] {
 
 .modal-a:hover {
     text-decoration: underline;
+    transform: translateY(-5px);
+    filter: drop-shadow(5px 6px 7px rgb(192, 24, 24));
 }
 
 a:link {

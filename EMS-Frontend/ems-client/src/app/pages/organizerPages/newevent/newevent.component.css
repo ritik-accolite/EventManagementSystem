@@ -8,3 +8,101 @@
     /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
     background: linear-gradient(to right, #ee7724, #d8363a, #dd3675, #b44593);
     }
+    .abcd{
+        background: #ffdbe2; /* Set background gradient */
+        
+      }
+      .p{
+        background-color: #d8363a;
+      }
+      .gradient-custom-2 {
+          /* fallback for old browsers */
+          background: #fccb90;
+          
+          /* Chrome 10-25, Safari 5.1-6 */
+          background: -webkit-linear-gradient(to right, #ee7724, #d8363a, #dd3675, #b44593);
+          
+          /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+          background: linear-gradient(to right, #ee7724, #d8363a, #dd3675, #b44593);
+          }
+          .container {
+        background: #ffdbe2; /* Set background gradient */
+        padding: 20px;
+        border-radius: 10px;
+        max-width: 100%; /* Set max-width */
+        margin: 0 auto; /* Center container */
+        display: flex; /* Use flexbox */
+        flex-wrap: wrap; /* Enable wrapping */
+        justify-content: center;
+        font-family: Arial, sans-serif; 
+        font-style: italic; /* Align items horizontally in the center */
+        
+      }
+      
+      .form-group {
+        display: inline-block; /* Display each input field horizontally */
+        width: 100%; /* Set width to control spacing */
+        margin: 5px; /* Add margin for spacing */
+      }
+      
+            
+            h4 {
+              color: #333; /* Set text color */
+              transition: color 0.3s ease; /* Add transition animation */
+            }
+            
+            .form-group label {
+              color: #333; /* Set label color */
+            }
+            
+            .form-control {
+              border: 1px solid #ddd; /* Set border color */
+              border-radius: 5px; /* Set border radius */
+              width: 100%; /* Set width to 100% */
+              box-sizing: border-box; /* Include padding and border in width */
+              transition: border-color 0.3s ease; /* Add transition animation */
+            }
+            
+            .form-control:focus {
+              border-color: #d8363a; /* Set border color on focus */
+              box-shadow: 0 0 5px rgba(216, 54, 58, 0.5); /* Add box shadow on focus */
+            }
+            
+            .btn-primary {
+              background: linear-gradient(to right, #ee7724, #d8363a, #dd3675, #b44593); /* Set background gradient */
+              border: none; /* Remove border */
+              color: #fff; /* Set button text color */
+              border-radius: 25px; /* Add border radius */
+              padding: 10px 20px; /* Add padding */
+              cursor: pointer; /* Change cursor on hover */
+              transition: background-color 0.3s ease, transform 0.3s ease; /* Add transition animation */
+            }
+            
+            .btn-primary:hover {
+              transform: scale(1.05); /* Add scaling effect on hover */
+            }
+            
+            
+            @media screen and (min-width: 576px) {
+              .form-group {
+                width: 50%; /* Set width to 50% on screens wider than 576px */
+                float: left; /* Float elements side by side */
+                box-sizing: border-box; /* Include padding and border in width */
+                padding: 0 10px; /* Add padding */
+                transition: width 0.3s ease; /* Add transition animation */
+              }
+            
+              .form-group:last-child {
+                float: right; /* Float last form group to right */
+              }
+            
+              .btn-primary {
+                width: auto; /* Set button width to auto */
+              }
+            }
+            
+            @media screen and (max-width: 576px) {
+              .form-group {
+                width: 100%; /* Set width to 100% on screens smaller than 576px */
+              }
+            }   

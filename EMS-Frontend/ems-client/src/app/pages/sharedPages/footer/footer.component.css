@@ -4,8 +4,8 @@
 
 .footer-section {
 	background: #171822;
-	padding-top: 14px;
-	position: relative;
+	padding-top: 2px;
+	padding-bottom: 5px;
 }
 
 .partner-logo {
@@ -26,10 +26,16 @@
 
 .footer-text {
 	text-align: center;
+	padding-top: 60px;
 }
 
 .footer-text .ft-logo {
 	margin-bottom: 20px;
+}
+.ft-logo:hover{
+	color: linear-gradient(120deg, #ee8425 0%, #f9488b 100%), linear-gradient(120deg, #ee8425 0%, #f9488b 100%);
+    transform: translateY(-5px);
+    filter: drop-shadow(5px 6px 7px rgb(192, 24, 24));
 }
 
 .footer-text .ft-logo a {
@@ -52,15 +58,20 @@
 
 .footer-text ul li a {
 	font-size: 18px;
-	color: #a0a1b5;
+	color: #f1f2f5;
 	display: inline-block;
 	-webkit-transition: all 0.3s;
 	-o-transition: all 0.3s;
 	transition: all 0.3s;
+	text-decoration: none;
 }
 
 .footer-text ul li a:hover {
-	color: #f44949;
+	
+    transform: translateY(-5px);
+    filter: drop-shadow(5px 6px 7px rgb(185, 5, 5));
+	color:#f1f1f7
+
 }
 
 .footer-text .copyright-text {
@@ -78,7 +89,9 @@
 }
 
 .footer-text .copyright-text a:hover {
-	color: #f44949;
+	background-image: linear-gradient(120deg, #ee8425 0%, #f9488b 100%), linear-gradient(120deg, #ee8425 0%, #f9488b 100%);
+    transform: translateY(-5px);
+    filter: drop-shadow(5px 6px 7px rgb(192, 24, 24));
 }
 
 .footer-text .ft-social a {
