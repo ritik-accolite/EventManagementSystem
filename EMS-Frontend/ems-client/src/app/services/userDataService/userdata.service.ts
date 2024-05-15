@@ -1,5 +1,5 @@
 import { EventEmitter, Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -49,6 +49,7 @@ export class UserdataService {
 
   private getEventsByLocationUrl = 'http://localhost:5299/api/FilterEvents/GetEventsByLocation';
 
+  private getEticketUrl = 'http://localhost:5299/api/SendETickets/generateticket';
 
   private blockPersonByIdUrl = 'http://localhost:5299/api/Person/blockperson';
 
@@ -151,5 +152,11 @@ export class UserdataService {
   }
   unBlockPersonbyId(personId : string): Observable<any> {
     return this.http.post<any[]>(`${this.unBlockPersonByIdUrl}/${personId}`,{});
+  }
+
+  getEticket(bookingId: number): Observable<Blob> {
+    return this.http.get(`${this.getEticketUrl}/${bookingId}`, {
+      responseType: 'blob'
+    });
   }
 }
