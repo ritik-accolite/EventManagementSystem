@@ -9,6 +9,8 @@ export class UserdataService {
   eventId : number = 0;
   organizerId: string ='';
   ticketPrice: number = 0;
+  selectedCategory: string = '';
+  selectedLocation: string = '';
 
   private registerUrl = 'http://localhost:5299/api/Account';
   loginEvent: EventEmitter<boolean> = new EventEmitter<boolean>();
@@ -38,6 +40,13 @@ export class UserdataService {
   private generateForgotEmailTokenUrl = 'http://localhost:5299/api/ForgetPassword/send-reset-password-token-email';
 
   private resetPasswordUrl = 'http://localhost:5299/api/ForgetPassword/forget-password';
+
+  private getEventCategoriesUrl = 'http://localhost:5299/api/Event/eventCategories';
+
+  private getEventsByCategoryUrl = 'http://localhost:5299/api/FilterEvents/GetEventsByCategory';
+
+  private getEventsByLocationUrl = 'http://localhost:5299/api/FilterEvents/GetEventsByLocation';
+
   constructor(private http: HttpClient) { }
 
   registerUser(userdata: any): Observable<any> {
@@ -110,5 +119,17 @@ export class UserdataService {
   }
   getPersonByRole(role : string): Observable<any> {
     return this.http.get<any[]>(`${this.getPersonByRoleUrl}/${role}`);
+  }
+
+  getEventCategories(): Observable<any> {
+    return this.http.get<any[]>(this.getEventCategoriesUrl);
+  }
+
+  getEventsByCategory(selectedCategory: any): Observable<any> {
+    return this.http.get<any[]>(`${this.getEventsByCategoryUrl}/${selectedCategory}`);
+  }
+
+  getEventsByLocation(selectedLocation: any): Observable<any> {
+    return this.http.get<any[]>(`${this.getEventsByLocationUrl}/${selectedLocation}`);
   }
 }
