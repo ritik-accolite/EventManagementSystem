@@ -1,0 +1,60 @@
+
+<div class="container-fluid">
+	<div class="row">
+		<main role="main" >
+			<div class="projects mb-4">
+				<div class="projects-inner">
+					<header class="projects-header">
+						<div class="buttons">
+						  <button (click)="selectedCategory = 'Upcoming'">Upcoming Events</button>
+						  <button (click)="selectedCategory = 'Previous'">Previous Events</button>
+						  <button (click)="selectedCategory = 'All'">All Events</button>
+						</div>
+						<div class="title">{{selectedCategory}} Events</div>
+						<div class="count">| {{ filteredEvents.length }} Events</div>
+					  </header>
+					<table class="projects-table">
+						<thead>
+							<tr>
+								<th>Event</th>
+								<th>Event Date</th>
+								<th>Leader/ Cheif Guest</th>
+								<th>Total Revenue</th>
+								<th>Seats Left</th>
+								<th class="text-right">Venue</th>
+							</tr>
+						</thead>
+						<tr *ngFor="let event of filteredEvents">
+							<td>
+								<p>{{ event.eventName }}</p>
+								<p></p>
+							</td>
+							<td>
+								<p>{{ event.eventDate | date: 'yyyy-MM-dd' }}</p>
+                                
+							</td>
+							<td class="member">
+								<figure><img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/584938/people_8.png" /></figure>
+								<div class="member-info">
+									<p>{{ event.chiefGuest }}</p>
+									<p></p>
+								</div>
+							</td>
+							<td>
+								<p>₹{{ event.ticketPrice * event.totalTicketsSold}}</p>
+								<p></p>
+							</td>
+							<td class="status">
+								<span class="status-text status-orange">{{ event.totalTicketsLeft }}</span>
+							</td>
+							<td>
+                            <p>{{ event.eventLocation }}</p>
+                            <p></p>
+							</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+		</main>
+	</div>
+</div>

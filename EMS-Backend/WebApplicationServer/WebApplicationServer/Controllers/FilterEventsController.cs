@@ -20,7 +20,7 @@ namespace WebApplicationServer.Controllers
   
         }
 
-        [HttpGet("GetEventsByCategory")]
+        [HttpGet("GetEventsByCategory/{category}")]
         public async Task<GetEventByAppliedFilterResponseViewModel> GetEventsByCategory(string category)
         {
             var events = await _addEventService.GetEventsByCategory(category);
@@ -28,7 +28,7 @@ namespace WebApplicationServer.Controllers
 
         }
 
-        [HttpGet("GetEventsByLocation")]
+        [HttpGet("GetEventsByLocation/{location}")]
         public async Task<GetEventByAppliedFilterResponseViewModel> GetEventsByLocation(string location)
         {
             var events = await _addEventService.GetEventsByLocation(location);

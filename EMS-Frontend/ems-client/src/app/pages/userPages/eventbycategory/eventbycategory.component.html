@@ -1,0 +1,18 @@
+<div *ngIf="events && events.length > 0">
+    <h3>Events:</h3>
+    <div *ngFor="let event of events">
+    <ul>
+      <li *ngFor="let event of events">{{ event.eventName }}</li>
+      <a class="badge bg-warning mb-3">{{ event.eventCategory }}</a>
+    <h1 class="mb-4"> 
+     {{ event.eventName }}
+    </h1>
+    <h5>{{ event.description }}
+    </h5>
+       <div class="col lh-1 ">
+          <h5 class="mb-1">Chief Guest: {{ event.chiefGuest }}</h5>
+          <h5 class="fs-6 mb-0">Event Date: {{ event.eventDate }}</h5>
+       </div>
+    </ul>
+  </div>
+</div>
