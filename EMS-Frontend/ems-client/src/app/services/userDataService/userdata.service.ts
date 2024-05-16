@@ -57,6 +57,11 @@ export class UserdataService {
 
   private addReviewUrl = 'http://localhost:5299/events/reviews';
 
+
+  private getAllReviewUrl ='http://localhost:5299/admin/allreviews';
+
+  private getAllReviewByEventIdUrl ='http://localhost:5299/reviews';
+
   constructor(private http: HttpClient) { }
 
   registerUser(userdata: any): Observable<any> {
@@ -166,4 +171,12 @@ export class UserdataService {
   addReview(userdata: any): Observable<any>{
     return this.http.post(`${this.addReviewUrl}/${this.eventId}`,userdata);
   }
+
+  getAllReviews(): Observable<any> {
+    return this.http.get<any>(this.getAllReviewUrl);
+  }
+  getAllReviewsByEventId(eventId : number): Observable<any> {
+    return this.http.get<any>(`${this.getAllReviewByEventIdUrl}/${eventId}`);
+  }
+
 }

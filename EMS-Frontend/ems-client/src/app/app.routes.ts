@@ -25,6 +25,7 @@ import { ReportedissuesComponent } from './pages/adminPages/reportedissues/repor
 import { EventbycategoryComponent } from './pages/userPages/eventbycategory/eventbycategory.component';
 import { EventbylocationComponent } from './pages/userPages/eventbylocation/eventbylocation.component';
 import { ReviewComponent } from './pages/userPages/review/review.component';
+import { EventreviewComponent } from './pages/organizerPages/eventreview/eventreview.component';
 
 export const routes: Routes = [
     {
@@ -75,6 +76,7 @@ export const routes: Routes = [
             { path: 'new-event', component: NeweventComponent},
             { path: 'app-myevents', component: MyeventsComponent},
             { path: 'app-viewevent', component : VieweventComponent},
+            { path: 'app-eventreview', component : EventreviewComponent},
             { path: 'app-editevent', component: EditeventComponent },
             { path:'event-bookings', component:EventbookingComponent},
             { path:'event-list', component:EventlistComponent },

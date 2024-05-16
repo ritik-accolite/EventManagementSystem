@@ -41,7 +41,7 @@ namespace WebApplicationServer.Controllers
             return response;
         }
         [HttpPost("events/reviews/{eventId}")]
-        [Authorize]
+        //[Authorize]
         public async Task<ResponseViewModel> AddReview(int eventId, [FromBody] ReviewViewModel reviewRequest)
         {
             ResponseViewModel response = new ResponseViewModel();
@@ -80,7 +80,7 @@ namespace WebApplicationServer.Controllers
             return response;
         }
         //GetReviewByEventId
-        [HttpGet("admin/reviewsbyeventid")]
+        [HttpGet("reviews/{eventid}")]
         public async Task<GetAllReviewResponseViewModel> GetReviewByEventId(int eventid)
         {
             GetAllReviewResponseViewModel response = new GetAllReviewResponseViewModel();
