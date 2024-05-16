@@ -54,6 +54,11 @@ export class UserdataService {
   private blockPersonByIdUrl = 'http://localhost:5299/api/Person/blockperson';
 
   private unBlockPersonByIdUrl = 'http://localhost:5299/api/Person/unblockperson';
+
+  private getAllReviewUrl ='http://localhost:5299/admin/allreviews';
+
+  private getAllReviewByEventIdUrl ='http://localhost:5299/reviews';
+
   constructor(private http: HttpClient) { }
 
   registerUser(userdata: any): Observable<any> {
@@ -159,4 +164,12 @@ export class UserdataService {
       responseType: 'blob'
     });
   }
+
+  getAllReviews(): Observable<any> {
+    return this.http.get<any>(this.getAllReviewUrl);
+  }
+  getAllReviewsByEventId(eventId : number): Observable<any> {
+    return this.http.get<any>(`${this.getAllReviewByEventIdUrl}/${eventId}`);
+  }
+
 }
