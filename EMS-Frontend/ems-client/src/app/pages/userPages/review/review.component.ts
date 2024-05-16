@@ -37,16 +37,17 @@ export class ReviewComponent implements OnInit{
     if (this.reviewForm.valid) {
       const formData = {
         ...this.reviewForm.value,
-        EventId: this.eventId,
+        eventId: this.eventId,
         UserId: this.id
       };
 
-      this.userdataservice.review(formData).subscribe(
+      this.userdataservice.addReview(formData).subscribe(
         (response) => {
           this.status = response.status;
           if (this.status === 200) {
             console.log('Review added successfully : ',response.message);
           }
+          console.log(response);
         },
         (error) => {
           console.error('Error adding event',error);

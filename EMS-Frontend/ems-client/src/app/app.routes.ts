@@ -65,10 +65,11 @@ export const routes: Routes = [
         component:CommondashComponent,
         children: [
             { path: 'user-profile', component: UserprofileComponent },
-            { path:'mybookings', component:MybookingsComponent,
+            { path:'mybookings', component:MybookingsComponent },
+            { path:'mybookings', 
                 children:
                 [
-                    { path:'review', component:ReviewComponent}
+                    { path:'review', component: ReviewComponent}
                 ]
              },
             { path: 'new-event', component: NeweventComponent},
@@ -76,8 +77,7 @@ export const routes: Routes = [
             { path: 'app-viewevent', component : VieweventComponent},
             { path: 'app-editevent', component: EditeventComponent },
             { path:'event-bookings', component:EventbookingComponent},
-            { path:'event-list', component:EventlistComponent,
-            },
+            { path:'event-list', component:EventlistComponent },
             { path:'event-list',
                 children: 
                 [
