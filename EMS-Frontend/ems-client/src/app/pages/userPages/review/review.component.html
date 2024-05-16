@@ -1,1 +1,12 @@
-<p>review works!</p>
+<form [formGroup]="reviewForm" (ngSubmit)="onSubmit()">
+    <label for="Description">Description:</label>
+    <textarea id="Description" formControlName="Description" rows="4"></textarea><br>
+
+    <label for="Rating">Rating (1-5):</label>
+    <input type="number" id="Rating" formControlName="Rating" min="1" max="5" /><br>
+
+    <label for="IsReported">Reported:</label>
+    <input type="checkbox" id="IsReported" formControlName="IsReported" /><br>
+
+    <button type="submit">Submit Review</button>
+</form>

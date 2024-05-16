@@ -55,6 +55,9 @@ export class UserdataService {
 
   private unBlockPersonByIdUrl = 'http://localhost:5299/api/Person/unblockperson';
 
+  private addReviewUrl = 'http://localhost:5299/events/reviews';
+
+
   private getAllReviewUrl ='http://localhost:5299/admin/allreviews';
 
   private getAllReviewByEventIdUrl ='http://localhost:5299/reviews';
@@ -163,6 +166,10 @@ export class UserdataService {
     return this.http.get(`${this.getEticketUrl}/${bookingId}`, {
       responseType: 'blob'
     });
+  }
+
+  addReview(userdata: any): Observable<any>{
+    return this.http.post(`${this.addReviewUrl}/${this.eventId}`,userdata);
   }
 
   getAllReviews(): Observable<any> {
