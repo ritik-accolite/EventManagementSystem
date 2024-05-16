@@ -3,12 +3,12 @@ import { Component, OnInit } from '@angular/core';
 import { UserdataService } from '../../../services/userDataService/userdata.service';
 import { NgFor, NgIf } from '@angular/common';
 import { JwtDecodeService } from '../../../services/jwtDecodeService/jwtDecode.service';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-mybookings',
   standalone: true,
-  imports: [NgIf , NgFor],
+  imports: [NgIf , NgFor, RouterLink],
   templateUrl: './mybookings.component.html',
   styleUrl: './mybookings.component.css'
 })
@@ -64,7 +64,7 @@ export class MybookingsComponent implements OnInit{
 
   addReview(eventId: number): void{
     this.userdataservice.eventId = eventId;
-    this.router.navigate(['review']);
+    console.log(eventId);
   }
 
 }
