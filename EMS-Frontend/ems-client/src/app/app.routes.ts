@@ -12,6 +12,7 @@ import { UserprofileComponent } from './pages/sharedPages/userprofile/userprofil
 import { SidebarComponent } from './pages/sharedPages/sidebar/sidebar.component';
 import { MyeventsComponent } from './pages/organizerPages/myevents/myevents.component';
 import { AuthGuard } from './guards/auth.guard';
+import { ChildAuthGuard } from './guards/child-auth.guard';
 import { AboutusComponent } from './pages/sharedPages/aboutus/aboutus.component';
 import { ContactusComponent } from './pages/sharedPages/contactus/contactus.component';
 import { OrganizerstatComponent } from './pages/organizerPages/organizerstat/organizerstat.component';
@@ -52,18 +53,21 @@ export const routes: Routes = [
     {
         path: 'admin-dash',
         component : AdmindashComponent,
+        canActivate : [AuthGuard],
+        canActivateChild: [ChildAuthGuard],
         children : [
             {path: 'user-profile', component : UserprofileComponent},
             {path: 'track-event', component : TrackeventComponent},
             {path: 'track-organizer', component : TrackorgainzersComponent},
             {path: 'issues', component : ReportedissuesComponent},
             {path: 'app-myevents', component: MyeventsComponent},
-        ],
-        canActivate : [AuthGuard]
+        ]
     },
     {
         path:'user-dash',
         component:CommondashComponent,
+        canActivate: [AuthGuard],
+        canActivateChild: [ChildAuthGuard],
         children: [
             { path: 'user-profile', component: UserprofileComponent },
             { path:'mybookings', component:MybookingsComponent },
@@ -90,7 +94,6 @@ export const routes: Routes = [
             { path: 'event-by-location', component:EventbylocationComponent},
             { path: '**', component: OrganizerstatComponent }
           ]
-        , canActivate: [AuthGuard]
     },
     {
         path:'register',

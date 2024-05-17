@@ -37,14 +37,12 @@ export class LoginComponent {
           const token = response.token;
           localStorage.setItem("jwt", token); 
           const decodedToken = this.jwtDecodeService.decodeToken(token);
-          console.log('Decoded Token:', decodedToken);
           this.invalidLogin = false; 
           this.userDataService.loginEvent.emit(true);
           this.router.navigate(['/user-dash']);
-          console.log('Login successful:', response);
-          const role = this.jwtDecodeService.role;    
-          // Redirect user based on role
+          const role = this.jwtDecodeService.role;
           this.redirectUser(role);
+          this.userDataService.roleEvent.emit(role);
         },
         (error: any) => {
           console.error('Login failed:', error);
@@ -64,7 +62,6 @@ export class LoginComponent {
         this.router.navigate(['/admin-dash']);
         break;
       default:
-        // Handle other roles or invalid roles here
         break;
     }
   }
