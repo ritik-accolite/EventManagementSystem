@@ -6,18 +6,19 @@
       <div class="alert alert-success" role="alert" *ngIf="showSuccessMessage">
         Event successfully created!
       </div>
-      <div class="row justify-content-center mt-2">
-        <div class="col-md-6 col-6">
-          <div class="form-group">
+      
+      <div class="d-flex justify-content-between mt-2 custom-label">
+        <div class="col-md-8 col-6">
+          <div class="form-group mt-3 col-6">
             <label for="name">Event Name:</label>
             <input type="text" id="name" formControlName="eventName" class="form-control">
           </div>
           <div class="form-group mt-3 col-6">
             <label for="date">Date:</label>
             <input type="date" id="date" formControlName="eventDate" class="form-control">
-            <div *ngIf="eventForm.controls['eventDate'].errors && eventForm.controls['eventDate'].errors['futureDate']" class="alert alert-danger mt-2">
+            <div *ngIf="eventForm.controls['eventDate'].errors && eventForm.controls['eventDate'].errors['futureDate']" class="alert alert-danger mt-2 custom-alert">
               Event date should be at least the next date.
-            </div>
+          </div>
           </div>
           <div class="form-group mt-3 col-6">
             <label for="description">Description:</label>
@@ -27,13 +28,10 @@
             <label for="description">Category:</label>
             <input id="description" formControlName="eventCategory" class="form-control">
           </div>
-          <div class="form-group mt-3 col-6">
-            <label for="description">Chief Guest:</label>
-            <input id="description" formControlName="chiefGuest" class="form-control">
-          </div>
+          
         </div>
-        <div class="col-md-6 col-6">
-          <div class="form-group">
+        <div class="col-md-8 col-6">
+          <div class="form-group mt-3 col-6">
             <label for="location">Location:</label>
             <input type="text" id="location" formControlName="eventLocation" class="form-control">
           </div>
@@ -52,6 +50,10 @@
           <div class="form-group mt-3 col-6">
             <label for="description">Banner Image:</label>
             <input id="description" formControlName="bannerImage" class="form-control">
+          </div>
+          <div class="form-group mt-3 col-6">
+            <label for="description">Chief Guest:</label>
+            <input id="description" formControlName="chiefGuest" class="form-control">
           </div>
         </div>
       </div>

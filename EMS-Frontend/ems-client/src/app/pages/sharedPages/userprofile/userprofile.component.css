@@ -167,7 +167,7 @@
   margin-left: 20px;
 }
 .abc{
-  background: #ffdbe2;
+  background: url(https://images.unsplash.com/photo-1549249061-0433f0b4bdb0?q=80&w=1374&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D);
   padding: 20px;
   border-radius: 10px;
   max-width: 100%; /* Set max-width */
@@ -179,4 +179,19 @@
   font-style: italic;
   overflow: hidden;
   box-shadow: #333;
+}
+.custom-label {
+  /* Example styling */
+  font-family: 'Arial', sans-serif;
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: #0a0101;
+  /* Add more styles as needed */
+}
+
+@media (max-width: 576px) {
+  /* Adjustments for smaller screens */
+  .custom-label {
+    font-size: 1rem; /* Adjust font size for smaller screens */
+  }
 }
