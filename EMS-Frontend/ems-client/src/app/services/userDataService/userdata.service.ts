@@ -12,8 +12,9 @@ export class UserdataService {
   selectedCategory: string = '';
   selectedLocation: string = '';
 
+  loginEvent: EventEmitter<boolean> = new EventEmitter<boolean>(); 
+  roleEvent: EventEmitter<string> = new EventEmitter<string>(); 
   private registerUrl = 'http://localhost:5299/api/Account';
-  loginEvent: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   private eventsUrl = 'http://localhost:5299/api/Event';
 
@@ -56,7 +57,6 @@ export class UserdataService {
   private unBlockPersonByIdUrl = 'http://localhost:5299/api/Person/unblockperson';
 
   private addReviewUrl = 'http://localhost:5299/events/reviews';
-
 
   private getAllReviewUrl ='http://localhost:5299/admin/allreviews';
 

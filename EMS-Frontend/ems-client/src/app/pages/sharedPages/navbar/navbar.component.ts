@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink, Router, RouterOutlet } from '@angular/router';
 import { UserdataService } from '../../../services/userDataService/userdata.service';
-import { FormsModule } from '@angular/forms';
 import { JwtDecodeService } from '../../../services/jwtDecodeService/jwtDecode.service';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Component({
   selector: 'app-navbar',
@@ -13,20 +13,46 @@ import { JwtDecodeService } from '../../../services/jwtDecodeService/jwtDecode.s
   styleUrl: './navbar.component.css'
 })
 export class NavbarComponent implements OnInit {
+  role : any;
   isLoggedIn: boolean = false;
   searchQuery: string = '';
-  dashboardLink: string = '/user-dash'; 
+  dashboardLink: string = '/Home'; 
 
   constructor(private userDataService: UserdataService,
               private jwtDecodeService : JwtDecodeService,
-              private router: Router) { }
+              private router: Router,
+              private jwtHelper: JwtHelperService) { }
 
   ngOnInit(): void {
-    this.userDataService.loginEvent.subscribe((loggedIn: boolean) => {
-      this.isLoggedIn = loggedIn; // Update isLoggedIn state upon login event
-      const role = this.jwtDecodeService.role;
-      this.setDashboardLink(role);
-    });
+      this.role = localStorage.getItem('Role');
+      console.log('Role while loading: ', this.role);
+      if (this.role === null) {
+        this.router.navigate(['/login']);
+        this.isLoggedIn = false;
+      }
+      else{
+      this.isLoggedIn = true;
+      }
+
+      this.userDataService.loginEvent.subscribe((LoggedIn) =>{
+        this.isLoggedIn =  LoggedIn;
+      })
+      console.log('login stat :', this.isLoggedIn);
+      this.userDataService.roleEvent.subscribe((role) =>{
+        this.setDashboardLink(role);
+      })
+  }
+  loggedInFunc() : boolean{
+
+    try{
+    if (localStorage.getItem('jwt') && !this.jwtHelper.isTokenExpired(localStorage.getItem('jwt'))){
+      return true;
+    }
+    return false;
+    }
+    catch{
+    return false;
+    }
   }
 
   logout(): void {
@@ -34,8 +60,9 @@ export class NavbarComponent implements OnInit {
     this.userDataService.logout().subscribe(
       (response: any) => {
         localStorage.removeItem("jwt");
+        localStorage.removeItem('Role');
         console.log('Logout successful:', response.message); // Print the response data
-        this.isLoggedIn = !this.isLoggedIn;
+        this.isLoggedIn = false;
         this.router.navigate(['/login']);
 
       },
@@ -54,18 +81,16 @@ export class NavbarComponent implements OnInit {
         this.dashboardLink = '/user-dash';
         break;
       case 'Admin':
-        this.dashboardLink = '/admin-dash';
+        this.dashboardLink = '/admin-dash/track-event';
         break;
       default:
-        this.dashboardLink = '/user-dash'; // Default to user dashboard
+        this.dashboardLink = '/Home';
         break;
     }
   }
 
   search() {
-    // Perform search action with the searchQuery value
     console.log('Search query:', this.searchQuery);
-    // You can call a service method here to perform the actual search
   }
 
 }

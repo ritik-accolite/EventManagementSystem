@@ -12,6 +12,7 @@ import { Router } from '@angular/router';
   styleUrl: './organizerstat.component.scss'
 })
 export class OrganizerstatComponent implements OnInit { 
+  loginUserId : any;
   events: any[] = [];
   trackEventTicket: any[] = [];
   previousEvents: any[] = [];
@@ -36,7 +37,8 @@ export class OrganizerstatComponent implements OnInit {
           this.events = response.allEvents;
           console.log(this.events);
           this.totalEvents = this.events.length;
-          this.fetchTicketsTrack(this.jwtDecodeService.id);
+          this.loginUserId = localStorage.getItem('LoginUserId');
+          this.fetchTicketsTrack(this.loginUserId);
           this.mergeEventData();
 
         },
