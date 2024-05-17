@@ -28,12 +28,14 @@
             <li><strong>Event Location:</strong> {{ event.eventLocation }}</li>
             <li><strong>Event Time:</strong> {{ event.eventTime }}</li>
             <li><strong>Ticket Price:</strong> {{ event.ticketPrice }}</li>
+            <button [routerLink]="['review']" (click)="addReview(event.eventId)"><h5 class="fs-6 mb-0">Add Review</h5></button>
+            <button (click)="eTicket(event.bookingId)"><h5 class="fs-6 mb-0">Download E Ticket</h5></button>
           </ul>
         </div>
       </div>
     </div>
   </div>
 </div>
-<div *ngIf="!bookedEvents || bookedEvents.length === 0">
+<div *ngIf="!bookedEvents || bookedEvents.length === 0"> 
   <p>No events booked.</p>
 </div>

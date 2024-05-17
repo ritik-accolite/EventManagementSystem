@@ -91,21 +91,21 @@ namespace WebApplicationServer.Controllers
         }
 
 
-        [HttpPost("blockperson")]
+        [HttpPost("blockperson/{personId}")]
         //[Authorize(Roles = "Admin,SuperAdmin")]
         public async Task<ResponseViewModel> BlockPerson(string personId)
         {
             ResponseViewModel response = new ResponseViewModel();
             response = await _getAllPerson.BlockPerson(personId);
 
-            response.Status = 200;
-            response.Message = "Person Blocked Successfully";
+/*            response.Status = 200;
+            response.Message = "Person Blocked Successfully";*/
             return response;
 
         }
 
 
-        [HttpPost("unblockperson")]
+        [HttpPost("unblockperson/{personId}")]
         //[Authorize(Roles = "Admin,SuperAdmin")]
         public async Task<ResponseViewModel> UnblockPerson(string personId)
         {
@@ -113,8 +113,8 @@ namespace WebApplicationServer.Controllers
 
             response = await _getAllPerson.UnBlockPerson(personId);
 
-            response.Status = 200;
-            response.Message = "Person UnBlocked Successfully";
+/*            response.Status = 200;
+            response.Message = "Person UnBlocked Successfully";*/
             return response;
 
         }

@@ -18,6 +18,8 @@ export class JwtDecodeService {
 
   id : string = '';
   role : string = '';
+  organizerId : string = '';
+  userId : string = '';
   constructor() { }
   
   decodeToken(token: string): DecodedToken | null {
@@ -26,6 +28,8 @@ export class JwtDecodeService {
       const decodedToken = jwtDecode(token) as DecodedToken;
       this.role = decodedToken['Role'];
       this.id = decodedToken['Id'];
+      localStorage.setItem('Role',`${this.role}`);
+      localStorage.setItem('LoginUserId',`${this.id}`);
       return decodedToken;
     } catch (error) {
       console.error('Error decoding token:', error);

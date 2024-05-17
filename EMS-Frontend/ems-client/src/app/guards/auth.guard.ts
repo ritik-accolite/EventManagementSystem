@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { error } from 'console';
 
 @Injectable({
   providedIn: 'root'
@@ -20,6 +21,7 @@ export class AuthGuard implements CanActivate  {
     return false;
   }
   catch(e){
+    console.log('error auth guard', e);
     return false;
   }
   }

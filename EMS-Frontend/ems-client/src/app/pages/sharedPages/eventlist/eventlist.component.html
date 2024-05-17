@@ -103,7 +103,7 @@
                               </div>
                               <div class="col-lg-2">
                                   <div class="book-div">
-                                      <button class="primary-btn">Book Now</button>
+                                    <a routerLink="event-bookings"><button class="primary-btn" (click)="bookEvent(event.eventId, event.eventOrganizerId , event.ticketPrice)"><h5 class="fs-6 mb-0">Book Now</h5></button></a>
                                   </div>
                               </div>
                           </div>

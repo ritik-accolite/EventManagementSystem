@@ -14,7 +14,7 @@ import { UserdataService } from '../../../services/userDataService/userdata.serv
   styleUrl: './sidebar.component.css'
 })
 export class SidebarComponent {
-  role : string = '';
+  role : any;
   showDropdown1 = false;
   allEventCategory: string[] = [];
   selectedCategory: string = '';
@@ -26,7 +26,9 @@ export class SidebarComponent {
   ) {}
 
   ngOnInit(): void{
-    this.role = this.jwtDecodeService.role;
+    // this.role = this.jwtDecodeService.role;
+    this.role = localStorage.getItem('Role');
+    console.log('Role while loading: ', this.role);
     if (this.role === null) {
       this.router.navigate(['/login']);
     }
@@ -56,6 +58,8 @@ export class SidebarComponent {
       this.router.navigate(['admin-dash','track-organizer'])
     } else if (tabRoute === 'issues') {
       this.router.navigate(['admin-dash','issues'])
+    } else if (tabRoute === 'user-stat') {
+      this.router.navigate(['user-dash','user-stat'])
     }
   }
 

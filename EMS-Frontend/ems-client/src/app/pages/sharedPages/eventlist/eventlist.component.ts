@@ -1,6 +1,6 @@
 import { NgFor, NgIf } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component , OnInit } from '@angular/core';
 import { UserdataService } from '../../../services/userDataService/userdata.service';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 

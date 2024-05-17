@@ -1,30 +1,30 @@
 <div class="container">
-    <div class="mb-3">
-        <button class="btn btn-primary" (click)="fetchPersons('Organizer')">Show Organizers</button>
-        <button class="btn btn-primary" (click)="fetchPersons('User')">Show Users</button>
-    </div>
-    <h2>All {{ listTitle }}</h2>
-    <table class="table">
-      <thead>
-        <tr>
-          <th>{{ listTitle }} ID</th>
-          <th>{{ listTitle }} Name</th>
-          <th>Email</th>
-          <th>Phone</th>
-          <th>Action</th>
+  <div class="mb-3">
+      <button class="btn btn-primary" (click)="fetchPersons('Organizer')">Show Organizers</button>
+      <button class="btn btn-primary" (click)="fetchPersons('User')">Show Users</button>
+  </div>
+  <h2>All {{ listTitle }}</h2>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>{{ listTitle }} ID</th>
+        <th>{{ listTitle }} Name</th>
+        <th>Email</th>
+        <th>Phone</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let person of organizers" (click)="redirectToViewEvent(person.id, listTitle)">
+          <td>{{ person.id }}</td>
+          <td>{{ person.firstName }} {{ person.lastName }}</td>
+          <td>{{ person.email }}</td>
+          <td>{{ person.phoneNumber }}</td>
+          <td> 
+            <button class="btn btn-danger" *ngIf="!person.isBlocked" (click)="blockUser(person.id)">Block</button>
+            <button class="btn btn-success" *ngIf="person.isBlocked" (click)="unBlockUser(person.id)">Unblock</button>
+          </td>
         </tr>
-      </thead>
-      <tbody>
-        <ng-container *ngFor="let organizer of organizers">
-          <tr *ngIf="organizer">
-    
-            <td>{{ organizer.id }}</td>
-            <td>{{ organizer.firstName }} {{ organizer.lastName }}</td>
-            <td>{{ organizer.email }}</td>
-            <td>{{ organizer.phoneNumber }}</td>
-            <td> <button class="btn btn-danger"> Block</button></td>
-          </tr>
-        </ng-container>
-      </tbody>
-    </table>
-    </div>
+    </tbody>
+  </table>
+</div>

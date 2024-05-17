@@ -51,7 +51,7 @@ export class EditeventComponent implements OnInit {
     if (this.eventForm.valid) {
       // Send a POST request with edited form data to update event details
       this.userdataService.updateEvent(this.eventId, this.eventForm.value).subscribe((response: any) => {
-        this.router.navigate(['user-dash','/app-myevents']);
+        this.router.navigate(['user-dash','app-myevents']);
       });
     }
   }

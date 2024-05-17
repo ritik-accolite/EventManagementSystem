@@ -5,7 +5,8 @@
         <div class="card-body">
           <h5 class="card-title">{{ eventDetails.eventName }}
             <span class="event-status" [class.done]="isEventDone()" [class.upcoming]="!isEventDone()">{{ isEventDone() ? 'Done' : 'Upcoming' }}</span></h5>
-    
+            <button *ngIf="isEventDone()" class="btn btn-success" (click)="navigateToReview(eventDetails.eventId)">See Reviews</button>
+
           <p class="card-text">Category: {{ eventDetails.eventCategory }}</p>
           <p class="card-text">Description: {{ eventDetails.description }}</p>
           <p class="card-text">Chief Guest: {{ eventDetails.chiefGuest }}</p>
@@ -16,7 +17,8 @@
           <p class="card-text">Seats Left: {{ eventDetails.capacity }}</p>
           <p class="card-text">Total Revenue: ₹{{ calculateTotalRevenue() }}</p>
           <!-- <img class="card-img-top" src="{{ eventDetails.bannerImage }}" alt="Banner Image"> -->
-          <button class="btn btn-primary" (click)="showEmailForm()">Send Mail to Users</button>
+          <button *ngIf="role === 'organizer'" class="btn btn-primary" (click)="showEmailForm()">Send Mail to Users</button>
+
         </div>
       </div>
       <div *ngIf="showForm">

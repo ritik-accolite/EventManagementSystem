@@ -1,5 +1,5 @@
 import { EventEmitter, Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -12,8 +12,9 @@ export class UserdataService {
   selectedCategory: string = '';
   selectedLocation: string = '';
 
+  loginEvent: EventEmitter<boolean> = new EventEmitter<boolean>(); 
+  roleEvent: EventEmitter<string> = new EventEmitter<string>(); 
   private registerUrl = 'http://localhost:5299/api/Account';
-  loginEvent: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   private eventsUrl = 'http://localhost:5299/api/Event';
 
@@ -26,6 +27,8 @@ export class UserdataService {
   private bookEventUrl = 'http://localhost:5299/api/BookedEvent/BookEvent';
 
   private eventsBookedByUserUrl = 'http://localhost:5299/api/BookedEvent/GetBookedEventsByUser';
+
+  private eventsBookedByUserIdUrl = 'http://localhost:5299/api/BookedEvent/GetBookedEventsByUserId';
 
   private getOrganizerCreatedEventUrl = 'http://localhost:5299/api/Event/myevents';
 
@@ -43,9 +46,23 @@ export class UserdataService {
 
   private getEventCategoriesUrl = 'http://localhost:5299/api/Event/eventCategories';
 
+  private getEventLocationsUrl = '';
+
   private getEventsByCategoryUrl = 'http://localhost:5299/api/FilterEvents/GetEventsByCategory';
 
   private getEventsByLocationUrl = 'http://localhost:5299/api/FilterEvents/GetEventsByLocation';
+
+  private getEticketUrl = 'http://localhost:5299/api/SendETickets/generateticket';
+
+  private blockPersonByIdUrl = 'http://localhost:5299/api/Person/blockperson';
+
+  private unBlockPersonByIdUrl = 'http://localhost:5299/api/Person/unblockperson';
+
+  private addReviewUrl = 'http://localhost:5299/events/reviews';
+
+  private getAllReviewUrl ='http://localhost:5299/admin/allreviews';
+
+  private getAllReviewByEventIdUrl ='http://localhost:5299/reviews';
 
   constructor(private http: HttpClient) { }
 
@@ -75,6 +92,10 @@ export class UserdataService {
   }
   getOrganizerEvents(): Observable<any[]> {
     return this.http.get<any[]>(this.getOrganizerCreatedEventUrl);
+  }
+
+  getOrganizerEventsById(organizerId : string): Observable<any[]> {
+    return this.http.get<any[]>(`${this.getOrganizerCreatedEventUrl}/${organizerId}`);
   }
 
   getOrganizerEventTicketDetails(organizerId: string): Observable<any[]> {
@@ -114,6 +135,9 @@ export class UserdataService {
   getUserEvents(): Observable<any> {
     return this.http.get<any[]>(this.eventsBookedByUserUrl);
   }
+  getUserEventsId(userId : string): Observable<any> {
+    return this.http.get<any[]>(`${this.eventsBookedByUserIdUrl}/${userId}`);
+  }
   getEventDetails(eventId : number): Observable<any> {
     return this.http.get<any[]>(`${this.eventsUrl}/${eventId}`);
   }
@@ -125,6 +149,10 @@ export class UserdataService {
     return this.http.get<any[]>(this.getEventCategoriesUrl);
   }
 
+  getEventLocations(): Observable<any> {
+    return this.http.get<any[]>(this.getEventLocationsUrl);
+  }
+
   getEventsByCategory(selectedCategory: any): Observable<any> {
     return this.http.get<any[]>(`${this.getEventsByCategoryUrl}/${selectedCategory}`);
   }
@@ -132,4 +160,29 @@ export class UserdataService {
   getEventsByLocation(selectedLocation: any): Observable<any> {
     return this.http.get<any[]>(`${this.getEventsByLocationUrl}/${selectedLocation}`);
   }
+
+  blockPersonbyId(personId : string): Observable<any> {
+    return this.http.post<any[]>(`${this.blockPersonByIdUrl}/${personId}`,{});
+  }
+  unBlockPersonbyId(personId : string): Observable<any> {
+    return this.http.post<any[]>(`${this.unBlockPersonByIdUrl}/${personId}`,{});
+  }
+
+  getEticket(bookingId: number): Observable<Blob> {
+    return this.http.get(`${this.getEticketUrl}/${bookingId}`, {
+      responseType: 'blob'
+    });
+  }
+
+  addReview(userdata: any): Observable<any>{
+    return this.http.post(`${this.addReviewUrl}/${this.eventId}`,userdata);
+  }
+
+  getAllReviews(): Observable<any> {
+    return this.http.get<any>(this.getAllReviewUrl);
+  }
+  getAllReviewsByEventId(eventId : number): Observable<any> {
+    return this.http.get<any>(`${this.getAllReviewByEventIdUrl}/${eventId}`);
+  }
+
 }
