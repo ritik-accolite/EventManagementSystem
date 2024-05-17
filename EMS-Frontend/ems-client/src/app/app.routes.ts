@@ -27,6 +27,7 @@ import { EventbycategoryComponent } from './pages/userPages/eventbycategory/even
 import { EventbylocationComponent } from './pages/userPages/eventbylocation/eventbylocation.component';
 import { ReviewComponent } from './pages/userPages/review/review.component';
 import { EventreviewComponent } from './pages/organizerPages/eventreview/eventreview.component';
+import { UserstatComponent } from './pages/userPages/userstat/userstat.component';
 
 export const routes: Routes = [
     {
@@ -70,6 +71,14 @@ export const routes: Routes = [
         canActivateChild: [ChildAuthGuard],
         children: [
             { path: 'user-profile', component: UserprofileComponent },
+            { path: 'user-stat', component: UserstatComponent },
+            { path: 'user-stat', 
+                children:
+                [
+                    { path:'event-by-category', component: EventbycategoryComponent },
+                    { path:'event-by-location', component: EventbylocationComponent }
+                ]
+            },
             { path:'mybookings', component:MybookingsComponent },
             { path:'mybookings', 
                 children:

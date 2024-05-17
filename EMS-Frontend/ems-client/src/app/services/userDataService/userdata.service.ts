@@ -46,6 +46,8 @@ export class UserdataService {
 
   private getEventCategoriesUrl = 'http://localhost:5299/api/Event/eventCategories';
 
+  private getEventLocationsUrl = '';
+
   private getEventsByCategoryUrl = 'http://localhost:5299/api/FilterEvents/GetEventsByCategory';
 
   private getEventsByLocationUrl = 'http://localhost:5299/api/FilterEvents/GetEventsByLocation';
@@ -145,6 +147,10 @@ export class UserdataService {
 
   getEventCategories(): Observable<any> {
     return this.http.get<any[]>(this.getEventCategoriesUrl);
+  }
+
+  getEventLocations(): Observable<any> {
+    return this.http.get<any[]>(this.getEventLocationsUrl);
   }
 
   getEventsByCategory(selectedCategory: any): Observable<any> {
