@@ -1,16 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { UserdataService } from '../../../services/userDataService/userdata.service';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { NgFor, NgIf } from '@angular/common';
 
 @Component({
-  selector: 'app-reportedissues',
-  standalone : true,
-  imports : [FormsModule, NgFor, NgIf],
-  templateUrl: './reportedissues.component.html',
-  styleUrls: ['./reportedissues.component.css']
+  selector: 'app-eventreview',
+  standalone: true,
+  imports: [FormsModule, NgIf, NgFor],
+  templateUrl: './eventreview.component.html',
+  styleUrl: './eventreview.component.css'
 })
-export class ReportedissuesComponent implements OnInit {
+export class EventreviewComponent {
   reviews: any[] =[];
   filteredReviews: any[] =[];
   showReported: boolean = false;
@@ -25,7 +25,9 @@ export class ReportedissuesComponent implements OnInit {
   }
 
   loadReviews() {
-    this.userdataService.getAllReviews().subscribe(data => {
+
+    this.userdataService.getAllReviewsByEventId(this.userdataService.eventId)
+      .subscribe(data => {
       this.reviews = data.allReviews;
       console.log('all reviews', this.reviews);
       this.filteredReviews = [...this.reviews];

@@ -32,7 +32,8 @@ namespace WebApplicationServer.Services
         {
             ResponseViewModel response = new ResponseViewModel();
             var eventDetails = await _context.Events.FindAsync(eventId);
-            if (eventDetails == null || eventDetails.EventDate > DateTime.Now)
+            //if (eventDetails == null || eventDetails.EventDate > DateTime.Now)
+            if (eventDetails == null)
             {
                 response.Status = 400;
                 response.Message = "Event either does not exist or has not occurred yet.";

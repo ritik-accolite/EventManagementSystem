@@ -3,6 +3,7 @@ import { UserdataService } from '../../../services/userDataService/userdata.serv
 import { NgClass, NgFor, NgIf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { JwtDecodeService } from '../../../services/jwtDecodeService/jwtDecode.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-viewevent',
@@ -27,7 +28,8 @@ export class VieweventComponent implements OnInit{
   emailResponse: string = '';
 
   constructor(private userdataService : UserdataService,
-              private jwtdecodeservice : JwtDecodeService
+              private jwtdecodeservice : JwtDecodeService,
+              private router : Router
   ) {}
 
   ngOnInit(): void {
@@ -104,5 +106,10 @@ export class VieweventComponent implements OnInit{
       }, error => {
         console.error(error);
       });
+  }
+
+  navigateToReview(eventId : number){
+    this.userdataService.eventId = eventId;
+    this.router.navigate(['user-dash','app-eventreview']);
   }
 }

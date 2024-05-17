@@ -12,8 +12,9 @@ export class UserdataService {
   selectedCategory: string = '';
   selectedLocation: string = '';
 
+  loginEvent: EventEmitter<boolean> = new EventEmitter<boolean>(); 
+  roleEvent: EventEmitter<string> = new EventEmitter<string>(); 
   private registerUrl = 'http://localhost:5299/api/Account';
-  loginEvent: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   private eventsUrl = 'http://localhost:5299/api/Event';
 
@@ -58,6 +59,10 @@ export class UserdataService {
   private unBlockPersonByIdUrl = 'http://localhost:5299/api/Person/unblockperson';
 
   private addReviewUrl = 'http://localhost:5299/events/reviews';
+
+  private getAllReviewUrl ='http://localhost:5299/admin/allreviews';
+
+  private getAllReviewByEventIdUrl ='http://localhost:5299/reviews';
 
   constructor(private http: HttpClient) { }
 
@@ -172,4 +177,12 @@ export class UserdataService {
   addReview(userdata: any): Observable<any>{
     return this.http.post(`${this.addReviewUrl}/${this.eventId}`,userdata);
   }
+
+  getAllReviews(): Observable<any> {
+    return this.http.get<any>(this.getAllReviewUrl);
+  }
+  getAllReviewsByEventId(eventId : number): Observable<any> {
+    return this.http.get<any>(`${this.getAllReviewByEventIdUrl}/${eventId}`);
+  }
+
 }

@@ -12,6 +12,7 @@ import { UserprofileComponent } from './pages/sharedPages/userprofile/userprofil
 import { SidebarComponent } from './pages/sharedPages/sidebar/sidebar.component';
 import { MyeventsComponent } from './pages/organizerPages/myevents/myevents.component';
 import { AuthGuard } from './guards/auth.guard';
+import { ChildAuthGuard } from './guards/child-auth.guard';
 import { AboutusComponent } from './pages/sharedPages/aboutus/aboutus.component';
 import { ContactusComponent } from './pages/sharedPages/contactus/contactus.component';
 import { OrganizerstatComponent } from './pages/organizerPages/organizerstat/organizerstat.component';
@@ -25,6 +26,7 @@ import { ReportedissuesComponent } from './pages/adminPages/reportedissues/repor
 import { EventbycategoryComponent } from './pages/userPages/eventbycategory/eventbycategory.component';
 import { EventbylocationComponent } from './pages/userPages/eventbylocation/eventbylocation.component';
 import { ReviewComponent } from './pages/userPages/review/review.component';
+import { EventreviewComponent } from './pages/organizerPages/eventreview/eventreview.component';
 import { UserstatComponent } from './pages/userPages/userstat/userstat.component';
 
 export const routes: Routes = [
@@ -52,18 +54,21 @@ export const routes: Routes = [
     {
         path: 'admin-dash',
         component : AdmindashComponent,
+        canActivate : [AuthGuard],
+        canActivateChild: [ChildAuthGuard],
         children : [
             {path: 'user-profile', component : UserprofileComponent},
             {path: 'track-event', component : TrackeventComponent},
             {path: 'track-organizer', component : TrackorgainzersComponent},
             {path: 'issues', component : ReportedissuesComponent},
             {path: 'app-myevents', component: MyeventsComponent},
-        ],
-        canActivate : [AuthGuard]
+        ]
     },
     {
         path:'user-dash',
         component:CommondashComponent,
+        canActivate: [AuthGuard],
+        canActivateChild: [ChildAuthGuard],
         children: [
             { path: 'user-profile', component: UserprofileComponent },
             { path: 'user-stat', component: UserstatComponent },
@@ -84,6 +89,7 @@ export const routes: Routes = [
             { path: 'new-event', component: NeweventComponent},
             { path: 'app-myevents', component: MyeventsComponent},
             { path: 'app-viewevent', component : VieweventComponent},
+            { path: 'app-eventreview', component : EventreviewComponent},
             { path: 'app-editevent', component: EditeventComponent },
             { path:'event-bookings', component:EventbookingComponent},
             { path:'event-list', component:EventlistComponent },
@@ -97,7 +103,6 @@ export const routes: Routes = [
             { path: 'event-by-location', component:EventbylocationComponent},
             { path: '**', component: OrganizerstatComponent }
           ]
-        , canActivate: [AuthGuard]
     },
     {
         path:'register',
