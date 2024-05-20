@@ -27,6 +27,7 @@ import { EventbycategoryComponent } from './pages/userPages/eventbycategory/even
 import { EventbylocationComponent } from './pages/userPages/eventbylocation/eventbylocation.component';
 import { ReviewComponent } from './pages/userPages/review/review.component';
 import { EventreviewComponent } from './pages/organizerPages/eventreview/eventreview.component';
+import { UserstatComponent } from './pages/userPages/userstat/userstat.component';
 
 export const routes: Routes = [
     {
@@ -57,10 +58,25 @@ export const routes: Routes = [
         canActivateChild: [ChildAuthGuard],
         children : [
             {path: 'user-profile', component : UserprofileComponent},
-            {path: 'track-event', component : TrackeventComponent},
             {path: 'track-organizer', component : TrackorgainzersComponent},
             {path: 'issues', component : ReportedissuesComponent},
             {path: 'app-myevents', component: MyeventsComponent},
+            {path: '**', component : TrackeventComponent},
+        ]
+    },
+    {
+        path : 'organizer-dash',
+        component:CommondashComponent,
+        canActivate: [AuthGuard],
+        canActivateChild: [ChildAuthGuard],
+        children: [
+            { path: 'user-profile', component: UserprofileComponent },
+            { path: 'new-event', component: NeweventComponent},
+            { path: 'app-myevents', component: MyeventsComponent},
+            { path: 'app-viewevent', component : VieweventComponent},
+            { path: 'app-editevent', component: EditeventComponent },
+            { path: 'app-eventreview', component : EventreviewComponent},
+            { path: '**', component: OrganizerstatComponent }
         ]
     },
     {
@@ -76,12 +92,7 @@ export const routes: Routes = [
                 [
                     { path:'review', component: ReviewComponent}
                 ]
-             },
-            { path: 'new-event', component: NeweventComponent},
-            { path: 'app-myevents', component: MyeventsComponent},
-            { path: 'app-viewevent', component : VieweventComponent},
-            { path: 'app-eventreview', component : EventreviewComponent},
-            { path: 'app-editevent', component: EditeventComponent },
+            },
             { path:'event-bookings', component:EventbookingComponent},
             { path:'event-list', component:EventlistComponent },
             { path:'event-list',
@@ -92,7 +103,7 @@ export const routes: Routes = [
             },
             { path: 'event-by-category', component:EventbycategoryComponent},
             { path: 'event-by-location', component:EventbylocationComponent},
-            { path: '**', component: OrganizerstatComponent }
+            { path: '**', component : UserstatComponent}
           ]
     },
     {

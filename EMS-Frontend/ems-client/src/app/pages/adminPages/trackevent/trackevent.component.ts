@@ -33,7 +33,7 @@ export class TrackeventComponent {
   }
   onSelectEvent(eventId : number): void{
     this.userdataservice.eventId = eventId;
-    this.router.navigate(['user-dash','app-viewevent']);
+    this.router.navigate(['organizer-dash','app-viewevent']);
   }
 
 }
