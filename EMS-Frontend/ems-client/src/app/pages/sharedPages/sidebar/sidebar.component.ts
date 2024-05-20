@@ -19,6 +19,7 @@ export class SidebarComponent {
   allEventCategory: string[] = [];
   selectedCategory: string = '';
   showDropdown2 = false;
+  toggleBar = false;
 
   constructor(private router: Router,
               private jwtDecodeService : JwtDecodeService,
@@ -33,6 +34,21 @@ export class SidebarComponent {
       this.router.navigate(['/login']);
     }
     this.fetchEventCategories();
+  }
+
+  activateToggle() : void{
+    const doc = document.getElementById('navbarSupportedSideContent') as HTMLElement;
+    if(this.toggleBar === true){
+      doc.style.display = 'block';
+      this.toggleBar = false;
+    }
+
+  }
+
+  deactivateToggle():void{
+    this.toggleBar = true;
+    const doc = document.getElementById('navbarSupportedSideContent') as HTMLElement;
+    doc.style.display = 'none';
   }
 
   onTabClick(tabRoute: string) {

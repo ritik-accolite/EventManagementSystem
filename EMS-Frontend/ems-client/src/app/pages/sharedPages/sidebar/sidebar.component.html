@@ -1,23 +1,29 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<nav class="navbar navbar-expand-lg">
+<button #toggleButton class="navbar-toggler toggle-button" type="button" (click)="activateToggle()" data-bs-toggle="collapse" data-bs-target="#navbarSupportedSideContent" aria-controls="navbarSupportedSideContent" aria-expanded="false" aria-label="Toggle navigation">
+  <span class="navbar-toggler-icon"></span>
+</button>
+<div #navbarContent class="collapse navbar-collapse" id="navbarSupportedSideContent">
 <aside *ngIf="role === 'Organizer'; else userContent">
   <!-- Organizer Menu -->
   <a (click)="onTabClick('organizer-stat')">
-    <i class="fa fa-star-o" aria-hidden="true"></i>
+    <i class="fa-solid fa-right-to-bracket"></i>
     Dashboard
   </a>
   <a (click)="onTabClick('new-event')">
-    <i class="fa fa-user-o" aria-hidden="true"></i>
+    <i class="fa-solid fa-plus"></i>
     Create Event
   </a>
   <a (click)="onTabClick('myevents')">
-    <i class="fa fa-laptop" aria-hidden="true"></i>
+    <i class="fa-regular fa-calendar-days"></i>
     My Events
   </a>
   <a (click)="onTabClick('user-profile')">
-    <i class="fa fa-clone" aria-hidden="true"></i>
+    <i class="fa-regular fa-user"></i>
     Profile
   </a>
   <a>
-    <i class="fa fa-trash-o" aria-hidden="true"></i>
+    <i class="fa-solid fa-ticket"></i>
     Track Event Tickets
   </a>
 </aside>
@@ -85,3 +91,5 @@
     </aside>
   </ng-template>
 </ng-template>
+</div>
+</nav>

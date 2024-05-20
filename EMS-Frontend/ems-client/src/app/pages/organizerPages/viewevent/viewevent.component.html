@@ -3,22 +3,36 @@
     <div *ngIf="eventDetails">
       <div class="card">
         <div class="card-body">
+          <div class="row">
           <h5 class="card-title">{{ eventDetails.eventName }}
             <span class="event-status" [class.done]="isEventDone()" [class.upcoming]="!isEventDone()">{{ isEventDone() ? 'Done' : 'Upcoming' }}</span></h5>
             <button *ngIf="isEventDone()" class="btn btn-success" (click)="navigateToReview(eventDetails.eventId)">See Reviews</button>
-
-          <p class="card-text">Category: {{ eventDetails.eventCategory }}</p>
-          <p class="card-text">Description: {{ eventDetails.description }}</p>
-          <p class="card-text">Chief Guest: {{ eventDetails.chiefGuest }}</p>
-          <p class="card-text">Date: {{ eventDetails.eventDate }}</p>
-          <p class="card-text">Time: {{ eventDetails.eventTime }}</p>
-          <p class="card-text">Location: {{ eventDetails.eventLocation }}</p>
-          <p class="card-text">Ticket Price: ₹{{ eventDetails.ticketPrice }}</p>
-          <p class="card-text">Seats Left: {{ eventDetails.capacity }}</p>
-          <p class="card-text">Total Revenue: ₹{{ calculateTotalRevenue() }}</p>
+          <br>
+          <div class="col-lg-3 col-sm-4 col-5 description">
+          <p class="card-desc">Category:</p>
+          <p class="card-desc">Description:</p>
+          <p class="card-desc">Chief Guest:</p>
+          <p class="card-desc">Date:</p>
+          <p class="card-desc">Time:</p>
+          <p class="card-desc">Location:</p>
+          <p class="card-desc">Ticket Price:</p>
+          <p class="card-desc">Seats Left:</p>
+          <p class="card-desc">Total Revenue:</p>
           <!-- <img class="card-img-top" src="{{ eventDetails.bannerImage }}" alt="Banner Image"> -->
           <button *ngIf="role === 'organizer'" class="btn btn-primary" (click)="showEmailForm()">Send Mail to Users</button>
-
+        </div>
+        <div class="col-lg-9 col-sm-6 col-7 values">
+          <p class="card-text">{{ eventDetails.eventCategory }}</p>
+          <p class="card-text">{{ eventDetails.description }}</p>
+          <p class="card-text">{{ eventDetails.chiefGuest }}</p>
+          <p class="card-text">{{ eventDetails.eventDate }}</p>
+          <p class="card-text">{{ eventDetails.eventTime }}</p>
+          <p class="card-text">{{ eventDetails.eventLocation }}</p>
+          <p class="card-text">₹{{ eventDetails.ticketPrice }}</p>
+          <p class="card-text">{{ eventDetails.capacity }}</p>
+          <p class="card-text">₹{{ calculateTotalRevenue() }}</p>
+        </div>
+        </div>
         </div>
       </div>
       <div *ngIf="showForm">
@@ -36,22 +50,46 @@
           </div>
           <button type="submit" class="btn btn-primary">Send</button>
         </form>
-      </div>
+      </div><br>
       <h2>Booked Users</h2>
+      <!-- <div class="row">
+      <div class="col-4">
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">User ID</th>
+              <th scope="col">Name</th>
+              <th scope="col">Email</th>
+              <th scope="col">Phone Number</th>
+              <th scope="col">No. of Tickets</th>
+              <th scope="col">Total Price</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let user of displayedUsers">
+              <th scope="row">{{ user.userId }}</th>
+              <td>{{ user.firstName }} {{ user.lastName }}</td>
+              <td>{{ user.email }}</td>
+              <td>{{ user.phoneNumber }}</td>
+              <td>{{ user.numberOfTickets }}</td>
+              <td>${{ user.totalPrice }}</td>
+            </tr>
+          </tbody>
+       </table> -->
       <table class="table">
         <thead>
           <tr>
-            <th>User ID</th>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Phone Number</th>
-            <th>No. of Tickets</th>
-            <th>Total Price</th>
+            <th class="scope">User ID</th>
+            <th class="scope">Name</th>
+            <th class="scope">Email</th>
+            <th class="scope">Phone Number</th>
+            <th class="scope">No. of Tickets</th>
+            <th class="scope">Total Price</th>
           </tr>
         </thead>
         <tbody>
           <ng-container *ngFor="let user of displayedUsers">
-            <tr *ngIf="user">
+            <tr *ngIf="user" scope="row">
               <td>{{ user.userId }}</td>
               <td>{{ user.firstName }} {{ user.lastName }}</td>
               <td>{{ user.email }}</td>
@@ -62,7 +100,9 @@
           </ng-container>
         </tbody>
       </table>
-      <button class="btn btn-warning" (click)="loadMoreUsers()" [disabled]="allUsersLoaded">Load More Users</button>
+     <!-- </div>
+    </div> -->
+      <button class="btn btn-warning" style="margin-bottom: 20px;" (click)="loadMoreUsers()" [disabled]="allUsersLoaded">Load More Users</button>
     </div>
   </div>
   

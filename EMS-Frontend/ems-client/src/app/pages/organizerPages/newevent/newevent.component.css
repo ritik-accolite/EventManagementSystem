@@ -1,5 +1,8 @@
 .gradient-custom-2 {
     /* fallback for old browsers */
+    *{
+      overflow-x: hidden;
+    }
     background: linear-gradient(to right, #16A085, #F4D03F, #ff6e7f, #bfe9ff);
     
     /* Chrome 10-25, Safari 5.1-6 */
@@ -21,7 +24,7 @@
           background: linear-gradient(to right, #f1a874, #ebb0b1, #eea6c1, #f89ddd);
           }
           .container {
-        background: url(https://images.unsplash.com/photo-1505744288177-8a097ba01de0?q=80&w=1370&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D); /* Set background gradient */
+            background: url(https://plus.unsplash.com/premium_photo-1700834113131-c587280aa770?q=80&w=1412&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D);
         padding: 20px;
         border-radius: 10px;
         max-width: 100%; /* Set max-width */
@@ -38,6 +41,16 @@
         display: inline-block; /* Display each input field horizontally */
         width: 100%; /* Set width to control spacing */
         margin: 5px;
+
+        input{
+          width : 300px;
+        }
+        @media screen and (max-width: 768px) {
+            input {
+            width: auto;
+            
+          }
+        }
         /* Add margin for spacing */
       }
       
@@ -89,7 +102,7 @@
               }
             
               .form-group:last-child {
-                float: right; /* Float last form group to right */
+                /* float: right; Float last form group to right */
               }
             
               .btn-primary {
@@ -104,8 +117,9 @@
             }
             .sub{
               font-size: large;
-              color: black;
-            }   
+              color: rgb(14, 1, 1);
+            } 
+            
             .body{
               height: 100%;
               width: 100%;
@@ -114,10 +128,16 @@
               font-family: Arial, sans-serif; /* Example font family */
               font-size: 1rem; /* Example font size */
               font-weight: 300; /* Example font weight */
-              color: #8a8a8a; /* Example color */
-              background-color: #f8d7da; /* Example background color */
-              border-color: #f5c6cb; /* Example border color */
+              color: #e70f0f; /* Example color */
+              /* Example border color */
               padding: 10px; /* Example padding */
           }
-          
+          .custom-label {
+            /* Example styling */
+            font-family: 'Arial', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 800;
+            color: #0a0101;
+            /* Add more styles as needed */
+          }
             
