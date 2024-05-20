@@ -86,6 +86,14 @@ export const routes: Routes = [
         canActivateChild: [ChildAuthGuard],
         children: [
             { path: 'user-profile', component: UserprofileComponent },
+            { path: 'user-stat', component: UserstatComponent },
+            { path: 'user-stat', 
+                children:
+                [
+                    { path:'event-by-category', component: EventbycategoryComponent },
+                    { path:'event-by-location', component: EventbylocationComponent }
+                ]
+            },
             { path:'mybookings', component:MybookingsComponent },
             { path:'mybookings', 
                 children:

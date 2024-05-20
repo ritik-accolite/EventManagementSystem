@@ -1,4 +1,4 @@
-<div *ngIf="events && events.length > 0">
+<!-- <div *ngIf="events && events.length > 0">
     <h3>Events:</h3>
     <div *ngFor="let event of events">
     <ul>
@@ -14,5 +14,24 @@
           <h5 class="fs-6 mb-0">Event Date: {{ event.eventDate }}</h5>
        </div>
     </ul>
+  </div>
+</div> -->
+
+<div *ngIf="events && events.length > 0">
+  <h3>Events:</h3>
+  <div *ngFor="let event of events">
+      <div class="card mb-3">
+          <div class="card-body">
+              <h5 class="card-title">{{ event.eventName }}</h5>
+              <a class="badge bg-warning mb-3">{{ event.eventCategory }}</a>
+              <p class="card-text">{{ event.description }}</p>
+              <div class="row">
+                  <div class="col">
+                      <p class="mb-1">Chief Guest: {{ event.chiefGuest }}</p>
+                      <p class="fs-6 mb-0">Event Date: {{ event.eventDate }}</p>
+                  </div>
+              </div>
+          </div>
+      </div>
   </div>
 </div>

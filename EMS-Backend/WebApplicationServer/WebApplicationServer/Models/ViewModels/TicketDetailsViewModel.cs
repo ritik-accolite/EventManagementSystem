@@ -9,6 +9,7 @@
         public DateTime EventDate { get; set; }
         public string EventLocation { get; set; }
         public int TotalTicketsAvailable { get; set; }
+
     }
 
 }

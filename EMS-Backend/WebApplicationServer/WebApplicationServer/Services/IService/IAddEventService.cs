@@ -26,6 +26,7 @@ namespace WebApplicationServer.Services.IService
         //public Task<List<OrganizerCreatedEventViewModel>> GetOrganizerCreatedEvents(string organizerId);
         public Task<List<OrganizerCreatedEventViewModel>> GetOrganizerCreatedEvents(string organizerId);
         public Task<List<string>> GetUniqueEventCategories();
+        public Task<List<string>> GetUniqueEventLocation();
 
         //public Task<GetPastEventsResponseViewModel> GetPastEvents();
 
@@ -36,5 +37,6 @@ namespace WebApplicationServer.Services.IService
         public Task<IEnumerable<EventViewModel>> GetUpcomingEvents();
 
         public Task<EventDetailsWithUserViewModel> GetEventDetails(int eventId);
+
     }
 }

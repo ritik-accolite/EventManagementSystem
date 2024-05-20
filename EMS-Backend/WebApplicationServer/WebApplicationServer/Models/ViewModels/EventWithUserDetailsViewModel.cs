@@ -1,6 +1,6 @@
 ﻿namespace WebApplicationServer.Models.ViewModels
 {
-    public class EventDetailsWithUserViewModel
+    public class EventWithUserDetailsViewModel
     {
         public int EventId { get; set; }
         public string EventName { get; set; }
@@ -13,6 +13,11 @@
         public decimal TicketPrice { get; set; }
         public int Capacity { get; set; }
         public string BannerImage { get; set; }
+        public string EventOrganizerId { get; set; }
+        public string OrganizerFirstName { get; set; }
+        public string OrganizerLastName { get; set; }
+
         public List<BookedUserViewModel> BookedUsers { get; set; }
+
     }
 }
