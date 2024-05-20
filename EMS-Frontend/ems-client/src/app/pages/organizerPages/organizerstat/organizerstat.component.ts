@@ -58,7 +58,7 @@ export class OrganizerstatComponent implements OnInit {
   }
   viewEvent(eventId: number) {
     this.userdataservice.eventId = eventId;
-    this.router.navigate(['user-dash','app-viewevent']);
+    this.router.navigate(['organizer-dash','app-viewevent']);
   }
   mergeEventData(): void {
     // Check if both events and tickets are fetched

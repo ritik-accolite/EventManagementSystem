@@ -53,7 +53,7 @@ export class LoginComponent {
   redirectUser(role: string): void {
     switch (role) {
       case 'Organizer':
-        this.router.navigate(['/user-dash']); // rename user-dash to org-dash
+        this.router.navigate(['/organizer-dash']); // rename user-dash to org-dash
         break;
       case 'User':
         this.router.navigate(['/user-dash']); // new dash for user

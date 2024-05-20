@@ -6,12 +6,15 @@ using Microsoft.EntityFrameworkCore;
 using WebApplicationServer.Data;
 using WebApplicationServer.Models;
 using WebApplicationServer.Models.ResponseModels;
+using WebApplicationServer.Models.ResponseModels;
 using WebApplicationServer.Models.ViewModels;
 using WebApplicationServer.Services.IService;
 namespace WebApplicationServer.Controllers
 {
     public class ReviewController : ControllerBase
     {
+
+
         private readonly ISendRegisterSuccessMailService _sendRegisterSuccessMailService;
         private readonly IEventReviewService _eventReviewService;
         private readonly ApplicationDbContext _context;
@@ -21,11 +24,14 @@ namespace WebApplicationServer.Controllers
             _eventReviewService = eventReviewService;
             _context = context;
         }
+
         //GetAllReviews
+
         [HttpGet("admin/allreviews")]
         public async Task<GetAllReviewResponseViewModel> GetAllReviews()
         {
             GetAllReviewResponseViewModel response = new GetAllReviewResponseViewModel();
+
             try
             {
                 response.Status = 200;
@@ -40,10 +46,12 @@ namespace WebApplicationServer.Controllers
             }
             return response;
         }
-        [HttpPost("events/reviews/{eventId}")]
-        //[Authorize]
+
+        [HttpPost("events/{eventId}/reviews")]
+        [Authorize]
         public async Task<ResponseViewModel> AddReview(int eventId, [FromBody] ReviewViewModel reviewRequest)
         {
+
             ResponseViewModel response = new ResponseViewModel();
             string userId = User.FindFirst("Id").Value;
             try
@@ -51,22 +59,74 @@ namespace WebApplicationServer.Controllers
                 response.Status = 200;
                 response.Message = "Review Added Successfully";
                 response = await _eventReviewService.AddReview(eventId, userId, reviewRequest);
+                
             }
             catch (Exception ex)
             {
+
                 response.Status = 200;
                 response.Message = $"Error adding review: {ex.Message}";
             }
             return response;
+
         }
-        [HttpPost("resolveissue/{userId}")]
-        public async Task<ResponseViewModel> ResolveIssue(string userId)
+
+
+
+        public async Task<ResponseViewModel> DeleteEvent(int id)
+        {
+            ResponseViewModel response = new ResponseViewModel();
+
+            try
+            {
+                var eventToDelete = await _context.Events.FindAsync(id);
+                if (eventToDelete == null)
+                {
+                    response.Status = 404;
+                    response.Message = "Event not found";
+                }
+                else
+                {
+                    _context.Events.Remove(eventToDelete);
+                    await _context.SaveChangesAsync();
+                    response.Status = 200;
+                    response.Message = "Event deleted successfully";
+                }
+            }
+            catch (Exception ex)
+            {
+                response.Status = 500;
+                response.Message = $"Error deleting event: {ex.Message}";
+            }
+            return response;
+        }
+
+
+
+        [HttpPost("resolveissue/{userId}/{reviewId}")]
+
+        public async Task<ResponseViewModel> ResolveIssue(string userId, int reviewId)
         {
             ResponseViewModel response = new ResponseViewModel();
             var user = await _context.Users.FindAsync(userId);
+            var review = await _context.Reviews.FindAsync(reviewId);
+            var reviewid = review.ReviewId;
+            if(reviewid == null || !review.IsReported)
+            {
+                response.Status = 404;
+                response.Message = "Review not found or not reported";
+                return response;
+
+            } 
+
+
+            
+
             if (user != null)
             {
                 bool emailSent = await _sendRegisterSuccessMailService.SendRegisterSuccessMailAsync(user.Email, "Issue Resolved", "Your reported issue has been resolved.");
+
+
                 if (!emailSent)
                 {
                     // Handle email sending failure
@@ -75,15 +135,25 @@ namespace WebApplicationServer.Controllers
                     return response;
                 }
             }
+
+            review.IsReported = false;
+            await _context.SaveChangesAsync();
+
+
+
             response.Status = 200;
-            response.Message = "Email Sent Successfully";
-            return response;
+            response.Message = "Email Sent Successfully and review status updated";
+            return response;  
+            
         }
+
+
         //GetReviewByEventId
-        [HttpGet("reviews/{eventid}")]
+        [HttpGet("admin/reviewsbyeventid")]
         public async Task<GetAllReviewResponseViewModel> GetReviewByEventId(int eventid)
         {
             GetAllReviewResponseViewModel response = new GetAllReviewResponseViewModel();
+
             try
             {
                 response.Status = 200;
@@ -98,5 +168,7 @@ namespace WebApplicationServer.Controllers
             }
             return response;
         }
+
+
     }
 }

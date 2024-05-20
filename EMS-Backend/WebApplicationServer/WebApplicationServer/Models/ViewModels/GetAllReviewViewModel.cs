@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+
 namespace WebApplicationServer.Models.ViewModels
 {
     public class GetAllReviewViewModel
@@ -7,8 +8,9 @@ namespace WebApplicationServer.Models.ViewModels
         public string UserId { get; set; }
         public int EventId { get; set; }
         public string Description { get; set; }
+
         [Range(1, 5)]
         public int Rating { get; set; }
-        public bool IsReported { get; set; } = false;
+        public bool IsReported { get; set; }
     }
 }
