@@ -18,7 +18,6 @@ namespace WebApplicationServer.Models
         [Range(1, 5), Required]
         public int Rating { get; set; } // Rating from 1 to 5
 
-        public bool IsReported { get; set; } = false; // Report issue, default value is false
-
+        public bool IsReported { get; set; }
     }
 }

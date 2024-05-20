@@ -1,7 +1,11 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Azure;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using WebApplicationServer.Data;
 using WebApplicationServer.Models;
+using WebApplicationServer.Models.ResponseModels;
 using WebApplicationServer.Models.ViewModels;
 using WebApplicationServer.Services.IService;
 
@@ -10,46 +14,145 @@ namespace WebApplicationServer.Controllers
     public class ReviewController : ControllerBase
     {
 
-        private readonly IGetAllPerson _getAllPerson;
-        private readonly ISendRegisterSuccessMailService _sendRegisterSuccessMailService;
-        private readonly UserManager<Person> _userManager;
-        private readonly SignInManager<Person> _signInManager;
-        private readonly IEventReviewService _eventReviewService;
 
-        public ReviewController(IEventReviewService eventReviewService, UserManager<Person> userManager, SignInManager<Person> signInManager, IGetAllPerson getAllPerson, ISendRegisterSuccessMailService sendRegisterSuccessMailService)
+        private readonly ISendRegisterSuccessMailService _sendRegisterSuccessMailService;
+        private readonly IEventReviewService _eventReviewService;
+        private readonly ApplicationDbContext _context;
+
+
+        public ReviewController(IEventReviewService eventReviewService, ISendRegisterSuccessMailService sendRegisterSuccessMailService, ApplicationDbContext context)
         {
-            _getAllPerson = getAllPerson;
             _sendRegisterSuccessMailService = sendRegisterSuccessMailService;
-            _userManager = userManager;
-            _signInManager = signInManager;
             _eventReviewService = eventReviewService;
+            _context = context;
         }
 
-        [HttpPost]
-        [Route("events/{eventId}/reviews")]
-        [Authorize]
-        public async Task<IActionResult> AddReview(int eventId, [FromBody] ReviewViewModel reviewRequest)
+        //GetAllReviews
+
+        [HttpGet("admin/allreviews")]
+        public async Task<GetAllReviewResponseViewModel> GetAllReviews()
         {
+            GetAllReviewResponseViewModel response = new GetAllReviewResponseViewModel();
+
+            try
+            {
+                response.Status = 200;
+                response.Message = "All Reviews Fetched";
+                response.AllReviews = await _eventReviewService.GetAllReviews();
+                return response;
+            }
+            catch (Exception ex)
+            {
+                response.Status = 200;
+                response.Message = $"Error Fetching reviews: {ex.Message}";
+            }
+            return response;
+        }
+
+        [HttpPost("events/{eventId}/reviews")]
+        [Authorize]
+        public async Task<ResponseViewModel> AddReview(int eventId, [FromBody] ReviewViewModel reviewRequest)
+        {
+
+            ResponseViewModel response = new ResponseViewModel();
             string userId = User.FindFirst("Id").Value;
 
             try
             {
-                var result = await _eventReviewService.AddReview(eventId, userId, reviewRequest);
+                response.Status = 200;
+                response.Message = "Review Added Successfully";
+                response = await _eventReviewService.AddReview(eventId, userId, reviewRequest);
+                
+            }
+            catch (Exception ex)
+            {
 
-                if (result)
+                response.Status = 200;
+                response.Message = $"Error adding review: {ex.Message}";
+            }
+            return response;
+
+        }
+
+
+
+        public async Task<ResponseViewModel> DeleteEvent(int id)
+        {
+            ResponseViewModel response = new ResponseViewModel();
+
+            try
+            {
+                var eventToDelete = await _context.Events.FindAsync(id);
+                if (eventToDelete == null)
                 {
-                    return Ok(new { Status = 200, Message = "Review added successfully." });
+                    response.Status = 404;
+                    response.Message = "Event not found";
                 }
                 else
                 {
-                    return BadRequest(new { Status = 400, Message = "Failed to add review." });
+                    _context.Events.Remove(eventToDelete);
+                    await _context.SaveChangesAsync();
+                    response.Status = 200;
+                    response.Message = "Event deleted successfully";
                 }
             }
             catch (Exception ex)
             {
-                // Log the exception or handle it appropriately
-                return StatusCode(500, new { Status = 500, Message = $"Error adding review: {ex.Message}" });
+                response.Status = 500;
+                response.Message = $"Error deleting event: {ex.Message}";
             }
+            return response;
         }
+
+        [HttpPost("resolveissue/{userId}")]
+
+        public async Task<ResponseViewModel> ResolveIssue(string userId)
+        {
+            ResponseViewModel response = new ResponseViewModel();
+            var user = await _context.Users.FindAsync(userId);
+            var review = await _context.Reviews.FindAsync(userId);
+
+            if (user != null)
+            {
+                bool emailSent = await _sendRegisterSuccessMailService.SendRegisterSuccessMailAsync(user.Email, "Issue Resolved", "Your reported issue has been resolved.");
+
+
+                if (!emailSent)
+                {
+                    // Handle email sending failure
+                    response.Status = 500;
+                    response.Message = "Failed to send Reported issue email";
+                    return response;
+                }
+            }
+            response.Status = 200;
+            response.Message = "Email Sent Successfully";
+            return response;
+
+        }
+
+
+        //GetReviewByEventId
+        [HttpGet("admin/reviewsbyeventid")]
+        public async Task<GetAllReviewResponseViewModel> GetReviewByEventId(int eventid)
+        {
+            GetAllReviewResponseViewModel response = new GetAllReviewResponseViewModel();
+
+            try
+            {
+                response.Status = 200;
+                response.Message = "All Reviews Fetched";
+                response.AllReviews = await _eventReviewService.GetReviewByEventId(eventid);
+                return response;
+            }
+            catch (Exception ex)
+            {
+                response.Status = 200;
+                response.Message = $"Error Fetching reviews: {ex.Message}";
+            }
+            return response;
+        }
+
+
     }
 }

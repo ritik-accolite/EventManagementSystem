@@ -1,7 +1,7 @@
 ﻿// BookedEventWithDetailsViewModel.cs
 namespace WebApplicationServer.Models.ViewModels
 {
-    public class BookedEventWithDetailsViewModel
+    public class EventDetailsViewModel
     {
         public int BookingId { get; set; }
         public string EventName { get; set; }

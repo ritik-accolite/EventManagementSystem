@@ -285,6 +285,17 @@ namespace WebApplicationServer.Services
 
         }
 
+
+
+        public async Task<List<string>> GetUniqueEventLocation()
+        {
+            //var response = new GetAllCategoriesResponseViewModel();
+
+            List<string> eventLocations = await _context.Events.Select(e => e.EventLocation).Distinct().ToListAsync();
+            return eventLocations;
+
+        }
+
         //public async Task<GetPastEventsResponseViewModel> GetPastEvents()
 
         public async Task<IEnumerable<EventViewModel>> GetPastEvents()
@@ -295,7 +306,7 @@ namespace WebApplicationServer.Services
                 var upcomingEvents = await _context.Events
                .Where(e => e.EventDate < currentDate)
                .Select(e => new EventViewModel
-               {
+               {   
                    EventId = e.EventId,
                    EventName = e.EventName,
                    EventCategory = e.EventCategory,
@@ -315,6 +326,7 @@ namespace WebApplicationServer.Services
 
                 return upcomingEvents;
         }
+
 
         public async Task<IEnumerable<EventViewModel>> GetUpcomingEvents()
         {
@@ -341,7 +353,59 @@ namespace WebApplicationServer.Services
                 .ToListAsync();
             return upcomingEvents;
         }
+
+
+
+
+
+
+
+        public async Task<EventDetailsWithUserViewModel> GetEventDetails(int eventId)
+        {
+            var eventDetails = await _context.Events.FindAsync(eventId);
+            if (eventDetails == null)
+            {
+                return null;
+            }
+
+            var bookedUsers = await _context.BookedEvents
+                .Include(be => be.User)
+                .Where(be => be.EventId == eventId)
+                .Select(be => new BookedUserViewModel
+                {
+                    UserId = be.UserId,
+                    FirstName = be.User.FirstName,
+                    LastName = be.User.LastName,
+                    Email = be.User.Email,
+                    PhoneNumber = be.User.PhoneNumber,
+                    NumberOfTickets = be.NumberOfTickets,
+                    TotalPrice = be.NumberOfTickets * eventDetails.TicketPrice
+                })
+                .ToListAsync();
+
+            var EventDetailsWithUserViewModel = new EventDetailsWithUserViewModel
+            {
+                EventId = eventDetails.EventId,
+                EventName = eventDetails.EventName,
+                EventCategory = eventDetails.EventCategory,
+                Description = eventDetails.Description,
+                ChiefGuest = eventDetails.ChiefGuest,
+                EventDate = eventDetails.EventDate,
+                EventTime = eventDetails.Event_Time,
+                EventLocation = eventDetails.EventLocation,
+                TicketPrice = eventDetails.TicketPrice,
+                Capacity = eventDetails.Capacity,
+                BannerImage = eventDetails.BannerImage,
+                BookedUsers = bookedUsers
+            };
+
+            return EventDetailsWithUserViewModel;
+        }
     }
 }
+
+
+
+
 
 

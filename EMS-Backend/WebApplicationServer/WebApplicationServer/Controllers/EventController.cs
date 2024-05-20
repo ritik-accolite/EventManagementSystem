@@ -37,8 +37,8 @@ namespace WebApplicationServer.Controllers
 
 
 
-        //[HttpGet, Authorize]
-        [HttpGet]
+        //THIS API IS ONLY FOR ADMIN 
+        [HttpGet, Authorize]
         public async Task<GetAllEventResponseViewModel> GetAllEvents()
         {
             GetAllEventResponseViewModel response = new GetAllEventResponseViewModel();
@@ -96,7 +96,6 @@ namespace WebApplicationServer.Controllers
                     response.Message = "Please Enter all the details.";
                     return response;
                 }
-                
 
                 var organizer = User.FindFirstValue(ClaimTypes.Name);
                 var Id = User.FindFirstValue("Id");
@@ -236,9 +235,9 @@ namespace WebApplicationServer.Controllers
             }
             catch (Exception ex)
             {
-                // Log the exception or handle it appropriately
+                
                 response = new ResponseViewModel();
-                response.Status = 500; // Internal Server Error
+                response.Status = 500;
                 response.Message = $"Error updating event: {ex.Message}";
                 return response;
             }
@@ -256,24 +255,14 @@ namespace WebApplicationServer.Controllers
 
 
         [Authorize]
-        [Authorize]
         [HttpGet]
         [Route("myevents")]
         public async Task<OrganizerCreatedEventResponseViewModel> GetOrganizerCreatedEvents()
         {
-            //OrganizerCreatedEventResponseViewModel response = new OrganizerCreatedEventResponseViewModel();
-            //var organizerId = User.FindFirst("id")?.Value; // Assuming the organizer's ID is stored in a claim named "id"
-
-            //response.Status = 200;
-            //response.Message = "All Events Fetched";
-            //response.AllEvents = await _addEventService.GetOrganizerCreatedEvents(organizerId);
-        
-            //return response;
-
             OrganizerCreatedEventResponseViewModel response = new OrganizerCreatedEventResponseViewModel();
             try
             {
-                var organizerId = User.FindFirst("id")?.Value; // Assuming the organizer's ID is stored in a claim named "id"
+                var organizerId = User.FindFirst("id")?.Value;
 
                 response.Status = 200;
                 response.Message = "All Events Fetched";
@@ -281,11 +270,10 @@ namespace WebApplicationServer.Controllers
             }
             catch (Exception ex)
             {
-                response.Status = 500; // Internal Server Error
+                response.Status = 500;
                 response.Message = $"Error fetching organizer created events: {ex.Message}";
-                response.AllEvents = new List<OrganizerCreatedEventViewModel>(); // Empty list
+                response.AllEvents = new List<OrganizerCreatedEventViewModel>();
             }
-
             return response;
         }
 
@@ -294,15 +282,11 @@ namespace WebApplicationServer.Controllers
         public async Task<GetAllCategoriesResponseViewModel> GetUniqueEventCategories()
         {
             GetAllCategoriesResponseViewModel response = new GetAllCategoriesResponseViewModel();
-            //response.Status = 200;
-            //response.Message = "All Categories Fetched";
-            //response.AllEventCategory = await _addEventService.GetUniqueEventCategories();
-            //return response;
 
             try
             {
                 response.Status = 200;
-                response.Message = "All Categories Fetched";
+                response.Message = "All Unique Categories Fetched";
                 response.AllEventCategory = await _addEventService.GetUniqueEventCategories();
             }
             catch (Exception ex)
@@ -311,7 +295,27 @@ namespace WebApplicationServer.Controllers
                 response.Message = $"Error fetching event categories: {ex.Message}";
                 response.AllEventCategory = new List<string>(); // Empty list
             }
+            return response;
+        }
 
+
+        [HttpGet("eventlocation")]
+        public async Task<GetAllCategoriesResponseViewModel> GetUniqueEventLocation()
+        {
+            GetAllCategoriesResponseViewModel response = new GetAllCategoriesResponseViewModel();
+
+            try
+            {
+                response.Status = 200;
+                response.Message = "All Unique Locations Fetched";
+                response.AllEventCategory = await _addEventService.GetUniqueEventLocation();
+            }
+            catch (Exception ex)
+            {
+                response.Status = 500; // Internal Server Error
+                response.Message = $"Error fetching event location: {ex.Message}";
+                response.AllEventCategory = new List<string>(); // Empty list
+            }
             return response;
         }
 
@@ -332,7 +336,6 @@ namespace WebApplicationServer.Controllers
                 response.Message = $"Error fetching past events: {ex.Message}";
                 response.AllEvents = new List<EventViewModel>(); // Empty list
             }
-
             return response;
         }
 
@@ -340,11 +343,6 @@ namespace WebApplicationServer.Controllers
         public async Task<GetUpcomingEventsResponseViewModel> GetUpcomingEvents()
         {
             GetUpcomingEventsResponseViewModel response = new GetUpcomingEventsResponseViewModel();
-
-            //response.Status = 200;
-            //response.Message = "All Upcoming Events Fetched Successfully";
-            //response.AllEvents = (await _addEventService.GetUpcomingEvents()).ToList();
-            //return response;
 
             try
             {
@@ -358,8 +356,44 @@ namespace WebApplicationServer.Controllers
                 response.Message = $"Error fetching upcoming events: {ex.Message}";
                 response.AllEvents = new List<EventViewModel>(); // Empty list
             }
-
             return response;
         }
+
+
+
+
+
+
+        [HttpGet("eventuserdetails/{eventId}")]
+        public async Task<GetEventWithUserListResponseViewModel> GetEventDetails(int eventId)
+        {
+            GetEventWithUserListResponseViewModel response = new GetEventWithUserListResponseViewModel();
+
+            try
+            {
+                response.Status = 200;
+                response.Message = "All Details Fetched Successfully";
+                response.EventwithUser = await _addEventService.GetEventDetails(eventId);
+                
+            }
+            catch (Exception ex)
+            {
+                response.Status = 500; // Internal Server Error
+                response.Message = $"Error fetching events: {ex.Message}";
+                
+            }
+            return response;
+
+
+        }
+
+
+
+
+
+
+
     }
-}
+
+    }
+

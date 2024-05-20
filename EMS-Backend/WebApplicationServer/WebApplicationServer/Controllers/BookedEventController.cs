@@ -78,10 +78,22 @@ namespace WebApplicationServer.Controllers
         {
             GetBookedEventByIdResponseViewModel response = new GetBookedEventByIdResponseViewModel();
 
-            response.Status = 200;
-            response.Message = "Booked Event Fetched Successfully";
-            response.GetBookedEventById = await _addBookedEventService.GetBookedEventsById(BookingId);
+            try
+            {
+                response.Status = 200;
+                response.Message = "Booked Event Fetched Successfully";
+                response.GetBookedEventById = await _addBookedEventService.GetBookedEventsById(BookingId);
+                //return response;
+
+            }
+            catch (Exception ex)
+            {
+                response.Status = 500;
+                response.Message = ex.Message;
+                
+            }
             return response;
+
 
         }
 
@@ -184,10 +196,9 @@ namespace WebApplicationServer.Controllers
         [Route("BookEvent")]
         public async Task<ResponseViewModel> BookTickets(AddBookedEventViewModel addBookedEvent)
         {
-            ResponseViewModel response;
+            ResponseViewModel response = new ResponseViewModel();
             if (!ModelState.IsValid)
             {
-                response = new ResponseViewModel();
                 response.Status = 422;
                 response.Message = "Please enter all the details.";
                 return response;
@@ -206,24 +217,63 @@ namespace WebApplicationServer.Controllers
             }
             try
             {
+                response.Status = 200;
+                response.Message = "Ticket Booked Successfully";
                 response = await _addBookedEventService.BookTickets(addBookedEvent);
-                return response;
+                //return response;
             }
             catch (Exception ex)
             {
                 response = new ResponseViewModel();
                 response.Status = 500;
                 response.Message = ex.Message;
-                return response;
+                //return response;
             }
+            return response;
         }
 
 
         [HttpGet("tracktickets/{organizerId}")]
-        public async Task<IActionResult> GetEventTicketStatus(string organizerId)
+        public async Task<EventTicketStatusResponseViewModel> GetEventTicketStatus(string organizerId)
         {
-            var eventTicketStatus = await _addBookedEventService.GetEventTicketStatus(organizerId);
-            return Ok(eventTicketStatus);
+            EventTicketStatusResponseViewModel response = new EventTicketStatusResponseViewModel();
+            try
+            {
+                response.Status = 200;
+                response.Message = "Ticket Status Fetched Successfully";
+                response.ticketStatus = await _addBookedEventService.GetEventTicketStatus(organizerId);               
+
+            }
+            catch (Exception ex)
+            {
+                response.Status = 500;
+                response.Message = ex.Message;
+                //return response;
+            }
+            return response;
+        }
+
+
+        //ONLY FOR ADMIN ACCESS 
+        [HttpGet("admin/getbookingdetails")]
+       public async Task<GetAllBookedEventByAdminResponseViewModel> GetBookedEventByAdmin()
+        {
+            GetAllBookedEventByAdminResponseViewModel response = new GetAllBookedEventByAdminResponseViewModel();
+
+            try
+            {
+                response.Status = 200;
+                response.Message = "All Booked Events Fetched";
+                response.AllBookedEvents = await _addBookedEventService.GetAllBookedEventsByAdmin();
+                //return response;
+            }
+            catch (Exception ex)
+            {
+                response.Status = 500;
+                response.Message = ex.Message;
+                //return response;
+            }
+            return response; 
         }
     }
 }

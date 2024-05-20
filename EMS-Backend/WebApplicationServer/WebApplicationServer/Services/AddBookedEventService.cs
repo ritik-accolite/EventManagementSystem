@@ -11,7 +11,6 @@ namespace WebApplicationServer.Services
     public class AddBookedEventService : IAddBookedEventService
     {
         private readonly ApplicationDbContext _context;
-
         public AddBookedEventService(ApplicationDbContext context)
         {
             _context = context;
@@ -23,13 +22,33 @@ namespace WebApplicationServer.Services
             return bookedEvents;
         }
 
+        //ONLY ADMIN CAN ACCESS 
+        public async Task<List<GetAllBookedEventByAdminViewModel>> GetAllBookedEventsByAdmin()
+        {
+            var bookedevents = await _context.BookedEvents
+                .Include(be => be.Event)
+                .Select(be => new GetAllBookedEventByAdminViewModel
+                {
+                    BookingId = be.BookingId,
+                    eventid = (int)be.EventId,
+                    userId = be.UserId,
+                    OrganizerId = be.EventOrganizerId,
+                    BookingDate = be.BookingDate,
+                    TicketPrice = be.Event.TicketPrice,
+                    NumberOfTickets = be.NumberOfTickets,
+                    TotalPrice = be.Event.TicketPrice * be.NumberOfTickets
+                }).ToListAsync();
+            return bookedevents;
+        }
+
+
         public async Task<BookedEvent> GetBookedEventsById(int BookingId)
         {          
             var bookedEvent = await _context.BookedEvents.FindAsync(BookingId);
             return bookedEvent;
         }
 
-public async Task<ResponseViewModel> BookTickets(AddBookedEventViewModel addBookedEvent)
+    public async Task<ResponseViewModel> BookTickets(AddBookedEventViewModel addBookedEvent)
     {
         ResponseViewModel response = new ResponseViewModel();
 
@@ -94,52 +113,6 @@ public async Task<ResponseViewModel> BookTickets(AddBookedEventViewModel addBook
     }
 
 
-
-    //public async Task<ResponseViewModel> BookTickets(AddBookedEventViewModel addBookedEvent)
-    //{
-    //    ResponseViewModel response = new ResponseViewModel();
-
-    //    try
-    //    {
-    //        var eventEntity = await _context.Events.FindAsync(addBookedEvent.EventId);
-    //        if (eventEntity == null)
-    //        {
-    //            response.Status = 404;
-    //            response.Message = "Event not found";
-    //            return response;
-    //        }
-
-    //        if (eventEntity.Capacity < addBookedEvent.NumberOfTickets)
-    //        {
-    //            response.Status = 400;
-    //            response.Message = "Not enough tickets available for this event";
-    //            return response;
-    //        }
-
-    //        var bookedEvent = new BookedEvent
-    //        {
-    //            EventId = addBookedEvent.EventId,
-    //            EventOrganizerId = eventEntity.EventOrganizerId,
-    //            UserId = addBookedEvent.UserId,
-    //            BookingDate = DateTime.Now,
-    //            NumberOfTickets = addBookedEvent.NumberOfTickets
-    //        };
-    //        _context.BookedEvents.Add(bookedEvent);
-    //        eventEntity.Capacity -= addBookedEvent.NumberOfTickets;
-    //        await _context.SaveChangesAsync();
-
-    //        response.Status = 200;
-    //        response.Message = "Event booked successfully";
-    //    }
-    //    catch (Exception ex)
-    //    {
-    //        response.Status = 500;
-    //        response.Message = $"Error booking event: {ex.Message}";
-    //    }
-
-    //    return response;
-    //}
-
     public async Task<ResponseViewModel> UnbookEvent(int bookingId)
         {
             ResponseViewModel response = new ResponseViewModel();
@@ -182,14 +155,14 @@ public async Task<ResponseViewModel> BookTickets(AddBookedEventViewModel addBook
         }
 
         //if user want to see events booked by him
-        public async Task<List<BookedEventWithDetailsViewModel>> GetBookedEventsWithDetailsByUser(string userId)
+        public async Task<List<EventDetailsViewModel>> GetBookedEventsWithDetailsByUser(string userId)
         {
             var bookedEvents = await _context.BookedEvents
                 .Where(be => be.UserId == userId)
                 .Include(be => be.Event)
                     .ThenInclude(e => e.Organizer)
                 .Include(be => be.User)
-                .Select(be => new BookedEventWithDetailsViewModel
+                .Select(be => new EventDetailsViewModel
                 {
                     BookingId = be.BookingId,
                     EventName = be.Event.EventName,
