@@ -1,0 +1,38 @@
+<div class="container mt-5">
+    <button class="btn btn-primary mb-3" (click)="toggleReported()">{{buttonText}}</button>
+    <select class="form-select mb-3" [(ngModel)]="selectedRating" (change)="filterByRating()">
+      <option value="">Filter by Rating</option>
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+      <option value="5">5</option>
+    </select>
+    <h3>{{headingText}}</h3>
+    <table class="table" *ngIf="filteredReviews && filteredReviews.length > 0">
+        <thead>
+          <tr>
+            <th>Review ID</th>
+            <th>User ID</th>
+            <th>Event ID</th>
+            <th>Description</th>
+            <th>Rating</th>
+            <th>Is Reported</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let review of filteredReviews">
+            <td>{{ review.reviewId }}</td>
+            <td>{{ review.userId }}</td>
+            <td>{{ review.eventId }}</td>
+            <td>{{ review.description }}</td>
+            <td>{{ review.rating }}</td>
+            <td>{{ review.isReported }}</td>
+          </tr>
+        </tbody>
+      </table>
+      <div *ngIf="filteredReviews && filteredReviews.length === 0">
+        <p>No events to display.</p>
+      </div>
+  </div>
+  

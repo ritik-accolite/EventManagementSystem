@@ -29,7 +29,7 @@ namespace WebApplicationServer.Controllers
 
 
         [HttpPost("SendEmailNotificationToBookedUsers")]
-        public async Task<ResponseViewModel> SendEmailNotification(int eventId)
+        public async Task<ResponseViewModel> SendEmailNotificationToBookedUsers(int eventId)
         {
             ResponseViewModel response = new ResponseViewModel();
             try
@@ -89,8 +89,8 @@ namespace WebApplicationServer.Controllers
 
 
 
-        [HttpPost("SendEmailNotificationUpdated/{eventId}")]
-        public async Task<ResponseViewModel> SendEmailNotificationUpdated(int eventId, SendEmailViewModel sendEmailViewModel)
+        [HttpPost("SendEmailNotification/{eventId}")]
+        public async Task<ResponseViewModel> SendEmailNotification(int eventId, SendEmailViewModel sendEmailViewModel)
         {
             ResponseViewModel response = new ResponseViewModel();
             try

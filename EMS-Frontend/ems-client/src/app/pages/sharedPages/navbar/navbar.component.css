@@ -1,0 +1,272 @@
+.header-section {
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+}
+
+.header-section.header-normal {
+	border-bottom: 1px solid #e5e5e5;
+}
+
+.logo {
+	float: left;
+	padding-top: 36px;
+	padding-bottom: 37px;
+}
+
+
+.logo a {
+	display: inline-block;
+}
+
+.nav-menu {
+	float: right;
+}
+
+
+.nav-menu .mainmenu {
+	display: inline-block;
+    justify-content: space-around;
+    background-color: #fff;
+}
+
+
+
+.nav-menu .mainmenu ul li {
+	display: inline-block;
+	list-style: none;
+	margin-right: 40px;
+	position: relative;
+}
+
+.nav-menu .mainmenu ul li .dropdown {
+	position: absolute;
+	width: 180px;
+	background: #ffffff;
+	z-index: 99;
+	left: 0;
+	top: 130px;
+	opacity: 0;
+	visibility: hidden;
+	-webkit-box-shadow: 4px 13px 30px rgba(0, 0, 0, 0.15);
+	box-shadow: 4px 13px 30px rgba(0, 0, 0, 0.15);
+	-webkit-transition: all 0.3s;
+	-o-transition: all 0.3s;
+	transition: all 0.3s;
+}
+
+.nav-menu .mainmenu ul li .dropdown li {
+	display: block;
+	margin-right: 0;
+}
+
+.nav-menu .mainmenu ul li .dropdown li a {
+	padding: 8px 10px;
+	display: block;
+	-webkit-transition: all 0.3s;
+	-o-transition: all 0.3s;
+	transition: all 0.3s;
+	text-transform: capitalize;
+}
+
+.nav-menu .mainmenu ul li .dropdown li a:hover {
+    color:#F44949
+}
+
+.nav-menu .mainmenu ul li .dropdown li a:after {
+	display: none;
+}
+
+.nav-menu .mainmenu ul li.active a:after {
+	opacity: 1;
+}
+
+.nav-menu .mainmenu ul li:hover>a:after {
+	opacity: 1;
+}
+
+.nav-menu .mainmenu ul li:hover .dropdown {
+	opacity: 1;
+	visibility: visible;
+	top: 80px;
+}
+
+.nav-menu .mainmenu ul li a {
+	font-size: 16px;
+	color: #171822;
+	text-transform: uppercase;
+	font-weight: 600;
+	padding: 42px 0;
+	position: relative;
+	display: inline-block;
+    text-decoration: none;
+}
+
+.nav-menu .mainmenu ul li a:after {
+	position: absolute;
+	left: 0;
+	bottom: 36px;
+	height: 2px;
+	width: 100%;
+	background: #F44949;
+	content: "";
+	opacity: 0;
+	-webkit-transition: all 0.3s;
+	-o-transition: all 0.3s;
+	transition: all 0.3s;
+}
+
+.nav-menu .primary-btn.top-btn {
+	margin: 27px 0;
+    border: none;
+    display: block;
+}
+
+.slicknav_menu {
+	display: none;
+}
+.toggle-button {
+    margin-top: 25px;
+    margin-right: 18px;
+    position: relative;
+}
+
+
+
+/* ------------------------------------------------------------ */
+.myNav {
+    background-color: #32333b !important;
+    z-index: 1100; 
+}
+.login-container {
+    background-color: #f798a5;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    text-align: center;
+    border-radius: 5px;
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.modal-h1 {
+    margin: 0;
+    padding: 10px 0;
+    color: #333;
+}
+
+.modal-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.modal-label {
+    text-align: center;
+    text-decoration: solid;
+    margin: 5px 0;
+    color: #555;
+    margin-bottom: 30px;
+}
+
+.modal-input {
+    padding: 10px;
+    margin: 5px 0;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    margin-bottom: 30px;
+}
+
+.modal-button {
+    background-color: #00ff00;
+    color: #fdf8f8;
+    padding: 10px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    margin-top: 40px;
+} 
+
+.modal-button:hover {
+    background-color: #0056b3;
+    transform: translateY(-5px);
+    filter: drop-shadow(5px 6px 7px rgb(192, 24, 24));
+} 
+
+.modal-a {
+    text-decoration: none;
+    color: #5c82a8;
+    text-decoration-color: antiquewhite;
+}
+
+/* .search-container {
+    float: right;
+  }
+
+.search-container input{
+    border-radius: 25px;
+    border: 2px solid #d5ebb7;
+    text-align: left;
+} */
+
+input[type="text"] {
+    width: 150px;
+    padding: 2px;
+    border-radius: 25px;
+    border: 2px solid #d5ebb7;
+    box-sizing: border-box;
+}
+
+.search-icon {
+    position: relative;
+    top: 5px; 
+    left: -30px; 
+    color: #555;
+    cursor: pointer;
+}
+
+.search-icon:hover {
+    color: #333;
+}
+.new-btn{
+    padding: 10px 20px !important;
+}
+
+
+/* .search-container button {
+    float: right;
+    margin-right: 16px;
+    background: none;
+    font-size: 17px;
+    border: none;
+    cursor: pointer;
+    border-radius: 25px;
+  }
+  
+.search-container button:hover {
+    background: #ccc;
+  } */
+
+.modal-a:hover {
+    text-decoration: underline;
+    transform: translateY(-5px);
+    filter: drop-shadow(5px 6px 7px rgb(192, 24, 24));
+}
+
+a:link {
+    text-decoration: none;
+  }
+  
+  a:visited {
+    text-decoration: none;
+  }
+  
+  a:hover {
+    text-decoration: underline;
+  }
+  
+  a:active {
+    text-decoration: underline;
+  }
+
+a{
+    color: white;
+}

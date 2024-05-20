@@ -1,0 +1,87 @@
+<aside *ngIf="role === 'Organizer'; else userContent">
+  <!-- Organizer Menu -->
+  <a (click)="onTabClick('organizer-stat')">
+    <i class="fa fa-star-o" aria-hidden="true"></i>
+    Dashboard
+  </a>
+  <a (click)="onTabClick('new-event')">
+    <i class="fa fa-user-o" aria-hidden="true"></i>
+    Create Event
+  </a>
+  <a (click)="onTabClick('myevents')">
+    <i class="fa fa-laptop" aria-hidden="true"></i>
+    My Events
+  </a>
+  <a (click)="onTabClick('user-profile')">
+    <i class="fa fa-clone" aria-hidden="true"></i>
+    Profile
+  </a>
+  <a>
+    <i class="fa fa-trash-o" aria-hidden="true"></i>
+    Track Event Tickets
+  </a>
+</aside>
+<ng-template #userContent>
+  <aside *ngIf="role === 'User'; else adminContent">
+    <!-- User Menu -->
+    <a (click)="onTabClick('user-stat')">
+      <i class="fa fa-star-o" aria-hidden="true"></i>
+      Dashboard
+    </a>
+    <a (click)="onTabClick('event-list')">
+      <i class="fa fa-user-o" aria-hidden="true"></i>
+      Book Event
+    </a>
+    <a (click)="onTabClick('mybookings')">
+      <i class="fa fa-laptop" aria-hidden="true"></i>
+      My Bookings
+    </a>
+    <a (click)="onTabClick('user-profile')">
+      <i class="fa fa-clone" aria-hidden="true"></i>
+      Profile
+    </a>
+    <a>
+      <i class="fa fa-trash-o" aria-hidden="true"></i>
+      Track Event Tickets
+    </a>
+    <button (click)="toggleDropdown()">Filter By Category</button>
+  <div class="dropdown-content" *ngIf="showDropdown1">
+    <select [(ngModel)]="selectedCategory" (change)="applyFilter(selectedCategory)">
+      <option value="">Select Category</option>
+      <option *ngFor="let category of allEventCategory" [value]="category">{{ category }}</option>
+    </select>
+  </div> 
+  <button (click)="toggleDropdown()">Filter By Location</button>
+  <div class="dropdown-content" *ngIf="showDropdown2">
+    <select [(ngModel)]="selectedCategory" (change)="applyFilter1(selectedCategory)">
+      <option value="">Select Category</option>
+      <option *ngFor="let category of allEventCategory" [value]="category">{{ category }}</option>
+    </select>
+  </div>
+  </aside>
+  <ng-template #adminContent>
+    <!-- Admin Menu -->
+    <aside *ngIf="role === 'Admin'">
+      <a (click)="onTabClick('track-event')">
+        <i class="fa fa-star-o" aria-hidden="true"></i>
+        Track Events
+      </a>
+      <a (click)="onTabClick('track-organizer')">
+        <i class="fa fa-star-o" aria-hidden="true"></i>
+        Track Organizers
+      </a>
+      <a (click)="onTabClick('track-user')">
+        <i class="fa fa-star-o" aria-hidden="true"></i>
+        Track Users
+      </a>
+      <a (click)="onTabClick('issues')">
+        <i class="fa fa-star-o" aria-hidden="true"></i>
+        Reported Issues
+      </a>
+      <a (click)="onTabClick('organizer-profile')">
+        <i class="fa fa-clone" aria-hidden="true"></i>
+        Profile
+      </a>
+    </aside>
+  </ng-template>
+</ng-template>

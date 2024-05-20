@@ -167,6 +167,7 @@ namespace WebApplicationServer.Services
                     BookingId = be.BookingId,
                     EventName = be.Event.EventName,
                     EventDate = be.Event.EventDate,
+                    EventId = be.Event.EventId,
                     EventLocation = be.Event.EventLocation,
                     BookingDate = be.BookingDate,
                     UserName = be.User.UserName,

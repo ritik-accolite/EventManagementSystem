@@ -1,0 +1,52 @@
+<div class="container-fluid">
+    <div class="row">
+        <main role="main">
+            <div class="projects mb-4">
+                <div class="projects-inner">
+                    <header class="projects-header">
+                        <div class="buttons">
+                            <button class="btn btn-secondary dropdown-toggle" (click)="this.showDropdown1 = !showDropdown1">Filter By Category</button>
+                            <div class="dropdown-content" *ngIf="showDropdown1">
+                                <select class="form-control" [(ngModel)]="selectedCategory" (change)="applyFilter(selectedCategory)">
+                                    <option value="">Select Category</option>
+                                    <option *ngFor="let category of allEventCategory" [value]="category">{{ category }}</option>
+                                </select>
+                            </div>
+                            <button class="btn btn-secondary dropdown-toggle" (click)="toggleDropdown2()">Filter By Location</button>
+                            <div class="dropdown-content" *ngIf="showDropdown2">
+                                <select class="form-control" [(ngModel)]="selectedLocation" (change)="applyFilter1(selectedLocation)">
+                                    <option value="">Select Location</option>
+                                    <option *ngFor="let location of allEventCategory" [value]="location">{{ location }}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="title">{{ selectedCategory || selectedLocation }} Events</div>
+                        <div class="count">| {{ events.length }} Events</div>
+                    </header>
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Event</th>
+                                <th>Event Date</th>
+                                <th>Leader/ Chief Guest</th>
+                                <th>Total Revenue</th>
+                                <th>Seats Left</th>
+                                <th class="text-right">Venue</th>
+                            </tr>
+                        </thead>
+                        <tbody class="table-body">
+                            <tr *ngFor="let event of events">
+                                <td>{{ event.eventName }}</td>
+                                <td>{{ event.eventDate | date: 'yyyy-MM-dd' }}</td>
+                                <td>{{ event.chiefGuest }}</td>
+                                <td>₹{{ event.ticketPrice * event.totalTicketsSold }}</td>
+                                <td>{{ event.totalTicketsLeft }}</td>
+                                <td class="text-right">{{ event.eventLocation }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            </main>
+    </div>
+</div>

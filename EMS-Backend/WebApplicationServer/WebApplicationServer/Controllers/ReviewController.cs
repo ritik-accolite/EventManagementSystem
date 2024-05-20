@@ -6,9 +6,9 @@ using Microsoft.EntityFrameworkCore;
 using WebApplicationServer.Data;
 using WebApplicationServer.Models;
 using WebApplicationServer.Models.ResponseModels;
+using WebApplicationServer.Models.ResponseModels;
 using WebApplicationServer.Models.ViewModels;
 using WebApplicationServer.Services.IService;
-
 namespace WebApplicationServer.Controllers
 {
     public class ReviewController : ControllerBase
@@ -18,8 +18,6 @@ namespace WebApplicationServer.Controllers
         private readonly ISendRegisterSuccessMailService _sendRegisterSuccessMailService;
         private readonly IEventReviewService _eventReviewService;
         private readonly ApplicationDbContext _context;
-
-
         public ReviewController(IEventReviewService eventReviewService, ISendRegisterSuccessMailService sendRegisterSuccessMailService, ApplicationDbContext context)
         {
             _sendRegisterSuccessMailService = sendRegisterSuccessMailService;
@@ -56,7 +54,6 @@ namespace WebApplicationServer.Controllers
 
             ResponseViewModel response = new ResponseViewModel();
             string userId = User.FindFirst("Id").Value;
-
             try
             {
                 response.Status = 200;
@@ -104,13 +101,26 @@ namespace WebApplicationServer.Controllers
             return response;
         }
 
-        [HttpPost("resolveissue/{userId}")]
 
-        public async Task<ResponseViewModel> ResolveIssue(string userId)
+
+        [HttpPost("resolveissue/{userId}/{reviewId}")]
+
+        public async Task<ResponseViewModel> ResolveIssue(string userId, int reviewId)
         {
             ResponseViewModel response = new ResponseViewModel();
             var user = await _context.Users.FindAsync(userId);
-            var review = await _context.Reviews.FindAsync(userId);
+            var review = await _context.Reviews.FindAsync(reviewId);
+            var reviewid = review.ReviewId;
+            if(reviewid == null || !review.IsReported)
+            {
+                response.Status = 404;
+                response.Message = "Review not found or not reported";
+                return response;
+
+            } 
+
+
+            
 
             if (user != null)
             {
@@ -125,10 +135,16 @@ namespace WebApplicationServer.Controllers
                     return response;
                 }
             }
-            response.Status = 200;
-            response.Message = "Email Sent Successfully";
-            return response;
 
+            review.IsReported = false;
+            await _context.SaveChangesAsync();
+
+
+
+            response.Status = 200;
+            response.Message = "Email Sent Successfully and review status updated";
+            return response;  
+            
         }
 
 

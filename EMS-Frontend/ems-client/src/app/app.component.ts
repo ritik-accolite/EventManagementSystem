@@ -3,10 +3,10 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterLink, RouterLinkActive, RouterModule, RouterOutlet } from '@angular/router';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { HomeComponent } from './pages/home/home.component';
+import { HomeComponent } from './pages/sharedPages/home/home.component';
 import { Router } from 'express';
-import { NavbarComponent } from "./pages/navbar/navbar.component";
-import { FooterComponent } from './pages/footer/footer.component';
+import { NavbarComponent } from "./pages/sharedPages/navbar/navbar.component";
+import { FooterComponent } from './pages/sharedPages/footer/footer.component';
 
 @Component({
     selector: 'app-root',

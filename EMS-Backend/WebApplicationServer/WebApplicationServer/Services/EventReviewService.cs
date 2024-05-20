@@ -1,6 +1,4 @@
-﻿
-
-using WebApplicationServer.Data;
+﻿using WebApplicationServer.Data;
 using WebApplicationServer.Models;
 using WebApplicationServer.Services.IService;
 using WebApplicationServer.Models.ViewModels;
@@ -42,7 +40,8 @@ namespace WebApplicationServer.Services
             ResponseViewModel response = new ResponseViewModel();
 
             var eventDetails = await _context.Events.FindAsync(eventId);
-            if (eventDetails == null || eventDetails.EventDate > DateTime.Now)
+            //if (eventDetails == null || eventDetails.EventDate > DateTime.Now)
+            if (eventDetails == null)
             {
                 response.Status = 400;
                 response.Message = "Event either does not exist or has not occurred yet.";
@@ -55,6 +54,7 @@ namespace WebApplicationServer.Services
                 response.Status = 400;
                 response.Message = "User has not booked this event.";
                 return response;
+               
             }
 
             var existingReview = await _context.Reviews.AnyAsync(r => r.EventId == eventId && r.UserId == userId);

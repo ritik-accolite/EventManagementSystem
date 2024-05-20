@@ -38,7 +38,7 @@ namespace WebApplicationServer.Controllers
 
             }
 
-        [HttpGet("generateticket")]
+        [HttpGet("generateticket/{bookingId}")]
         public async Task<IActionResult> GenerateETicket(int bookingId)
             {
             //    var bookedEventDetails = await _context.BookedEvents

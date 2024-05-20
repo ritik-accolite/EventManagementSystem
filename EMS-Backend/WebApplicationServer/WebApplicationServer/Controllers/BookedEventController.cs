@@ -154,6 +154,21 @@ namespace WebApplicationServer.Controllers
             return response;
         }
 
+        [HttpGet("GetBookedEventsByUserId/{userId}")]
+        public async Task<GetAllBookedEventsWithDetailsResponseViewModel> GetBookedEventsByUserId(string userId)
+        {
+            GetAllBookedEventsWithDetailsResponseViewModel response;
+            var id = userId;
+            var bookedEvents = await _addBookedEventService.GetBookedEventsWithDetailsByUser(id);
+            response = new GetAllBookedEventsWithDetailsResponseViewModel
+            {
+                Status = 200,
+                Message = "Booked events fetched successfully",
+                BookedEvents = bookedEvents
+            };
+            return response;
+        }
+
 
 
         //[HttpPost]

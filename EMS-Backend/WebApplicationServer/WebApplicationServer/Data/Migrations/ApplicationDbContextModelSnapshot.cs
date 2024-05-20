@@ -8,7 +8,7 @@ using WebApplicationServer.Data;
 
 #nullable disable
 
-namespace WebApplicationServer.Data.Migrations
+namespace WebApplicationServer.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
     partial class ApplicationDbContextModelSnapshot : ModelSnapshot

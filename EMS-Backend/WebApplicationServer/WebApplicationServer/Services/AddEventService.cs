@@ -354,12 +354,6 @@ namespace WebApplicationServer.Services
             return upcomingEvents;
         }
 
-
-
-
-
-
-
         public async Task<EventDetailsWithUserViewModel> GetEventDetails(int eventId)
         {
             var eventDetails = await _context.Events.FindAsync(eventId);
@@ -367,22 +361,20 @@ namespace WebApplicationServer.Services
             {
                 return null;
             }
-
             var bookedUsers = await _context.BookedEvents
-                .Include(be => be.User)
-                .Where(be => be.EventId == eventId)
-                .Select(be => new BookedUserViewModel
-                {
-                    UserId = be.UserId,
-                    FirstName = be.User.FirstName,
-                    LastName = be.User.LastName,
-                    Email = be.User.Email,
-                    PhoneNumber = be.User.PhoneNumber,
-                    NumberOfTickets = be.NumberOfTickets,
-                    TotalPrice = be.NumberOfTickets * eventDetails.TicketPrice
-                })
-                .ToListAsync();
-
+              .Include(be => be.User)
+              .Where(be => be.EventId == eventId)
+              .Select(be => new BookedUserViewModel
+              {
+                  UserId = be.UserId,
+                  FirstName = be.User.FirstName,
+                  LastName = be.User.LastName,
+                  Email = be.User.Email,
+                  PhoneNumber = be.User.PhoneNumber,
+                  NumberOfTickets = be.NumberOfTickets,
+                  TotalPrice = be.NumberOfTickets * eventDetails.TicketPrice
+              })
+              .ToListAsync();
             var EventDetailsWithUserViewModel = new EventDetailsWithUserViewModel
             {
                 EventId = eventDetails.EventId,
@@ -398,14 +390,10 @@ namespace WebApplicationServer.Services
                 BannerImage = eventDetails.BannerImage,
                 BookedUsers = bookedUsers
             };
-
             return EventDetailsWithUserViewModel;
         }
+
     }
 }
-
-
-
-
 
 
