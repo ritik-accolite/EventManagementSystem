@@ -38,8 +38,13 @@ namespace WebApplicationServer.Models.ViewModels
         [Required]
         public int Capacity { get; set; }
 
-        [Required]
+        //[Required]
         [StringLength(255)]
         public string BannerImage { get; set; }
+
+
+        // Add a property for the image file
+        [Required]
+        public IFormFile BannerImageFile { get; set; }
     }
 }
