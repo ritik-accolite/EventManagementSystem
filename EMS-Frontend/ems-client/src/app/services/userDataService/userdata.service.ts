@@ -1,6 +1,26 @@
 import { EventEmitter, Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { ReviewInterface } from '../../interface/userInterface/review-interface';
+import { EventBookingInterface } from '../../interface/userInterface/event-booking-interface';
+import { RegisterInterface } from '../../interface/commonInterface/register-interface';
+import { LoginInterface } from '../../interface/commonInterface/login-interface';
+import { CreateEventInterface } from '../../interface/organizerInterface/create-event-interface';
+import { EmailNotificationsInterface } from '../../interface/commonInterface/email-notifications-interface';
+import { EventInterface } from '../../interface/commonInterface/event-interface';
+import { OrganizerEventInterface } from '../../interface/organizerInterface/organizer-event-interface';
+import { ProfileInterface } from '../../interface/commonInterface/profile-interface';
+import { UserEventsInterface } from '../../interface/userInterface/user-events-interface';
+import { EventDetailsInterface } from '../../interface/organizerInterface/event-details-interface';
+import { GetPersonByRoleInterface } from '../../interface/adminInterface/get-person-by-role-interface';
+import { GetAllReviewsInterface } from '../../interface/adminInterface/get-all-reviews-interface';
+import { EventTicketStatus } from '../../interface/organizerInterface/event-ticket-status';
+import { EventDetailsByIdInterface } from '../../interface/organizerInterface/event-details-by-id-interface';
+import { EventByCategoriesInterface } from '../../interface/userInterface/event-by-categories-interface';
+import { ForgetPasswordInterface } from '../../interface/commonInterface/forget-password-interface';
+import { EditProfileInterface } from '../../interface/commonInterface/edit-profile-interface';
+import { UpdateEventInterface } from '../../interface/organizerInterface/update-event-interface';
+import { ResponseInterface } from '../../interface/commonInterface/response-interface';
 
 @Injectable({
   providedIn: 'root'
@@ -66,11 +86,11 @@ export class UserdataService {
 
   constructor(private http: HttpClient) { }
 
-  registerUser(userdata: any): Observable<any> {
+  registerUser(userdata: RegisterInterface): Observable<any> {
     return this.http.post(`${this.registerUrl}/register`,userdata);
   }
 
-  loginUser(userdata: any): Observable<any> {
+  loginUser(userdata: LoginInterface): Observable<any> {
     // this.loginEvent.emit(true); 
     return this.http.post(`${this.registerUrl}/login`,userdata);
   }
@@ -79,70 +99,70 @@ export class UserdataService {
     return this.http.post<any>(`${this.registerUrl}/logout`, {});
   }
 
-  generateForgotEmailToken(email: string): Observable<any> {
-    return this.http.post<any>(`${this.generateForgotEmailTokenUrl}/${email}`,{});
+  generateForgotEmailToken(email: string): Observable<ResponseInterface> {
+    return this.http.post<ResponseInterface>(`${this.generateForgotEmailTokenUrl}/${email}`,{});
   }
 
-  resetPassword(resetForm: any): Observable<any> {
-    return this.http.post<any>(`${this.resetPasswordUrl}`,resetForm);
+  resetPassword(resetForm: any): Observable<ResponseInterface> {
+    return this.http.post<ResponseInterface>(`${this.resetPasswordUrl}`,resetForm);
   }
 
-  getEvents(): Observable<any[]> {
-    return this.http.get<any[]>(this.eventsUrl);
+  getEvents(): Observable<EventInterface> {
+    return this.http.get<EventInterface>(this.eventsUrl);
   }
-  getOrganizerEvents(): Observable<any[]> {
-    return this.http.get<any[]>(this.getOrganizerCreatedEventUrl);
-  }
-
-  getOrganizerEventsById(organizerId : string): Observable<any[]> {
-    return this.http.get<any[]>(`${this.getOrganizerCreatedEventUrl}/${organizerId}`);
+  getOrganizerEvents(): Observable<OrganizerEventInterface> {
+    return this.http.get<OrganizerEventInterface>(this.getOrganizerCreatedEventUrl);
   }
 
-  getOrganizerEventTicketDetails(organizerId: string): Observable<any[]> {
-    return this.http.get<any[]>(`${this.getOrganiserEventTicketDetailsUrl}/${organizerId}`);
+  getOrganizerEventsById(organizerId : string): Observable<OrganizerEventInterface> {
+    return this.http.get<OrganizerEventInterface>(`${this.getOrganizerCreatedEventUrl}/${organizerId}`);
   }
 
-  editProfile(personId: string, formData:any): Observable<any> {
-    return this.http.put(`${this.profileUrl}/updatePerson/${personId}`, formData);
-  }
-  getProfile(personId: string): Observable<any[]> {
-    return this.http.get<any>(`${this.profileUrl}/${personId}`);
+  getOrganizerEventTicketDetails(organizerId: string): Observable<EventTicketStatus> {
+    return this.http.get<EventTicketStatus>(`${this.getOrganiserEventTicketDetailsUrl}/${organizerId}`);
   }
 
-  createEvent(eventdata: any): Observable<any> {
+  editProfile(personId: string, formData:EditProfileInterface): Observable<EditProfileInterface> {
+    return this.http.put<EditProfileInterface>(`${this.profileUrl}/updatePerson/${personId}`, formData);
+  }
+  getProfile(personId: string): Observable<ProfileInterface> {
+    return this.http.get<ProfileInterface>(`${this.profileUrl}/${personId}`);
+  }
+
+  createEvent(eventdata: CreateEventInterface): Observable<any> {
     return this.http.post(`${this.createEventUrl}`,eventdata);
   }
-  updateEvent(eventId: number, eventdata: any): Observable<any> {
-    return this.http.put(`${this.updateEventUrl}/${eventId}`, eventdata);
+  updateEvent(eventId: number, eventdata: UpdateEventInterface): Observable<UpdateEventInterface> {
+    return this.http.put<UpdateEventInterface>(`${this.updateEventUrl}/${eventId}`, eventdata);
   }
 
-  deleteEvent(eventId:number): Observable<any> {
-    return this.http.delete(`${this.createEventUrl}/${eventId}`);
+  deleteEvent(eventId:number): Observable<ResponseInterface> {
+    return this.http.delete<ResponseInterface>(`${this.createEventUrl}/${eventId}`);
   }
 
-  trackTicketDetails(eventId: number): Observable<any>{
-    return this.http.get(`${this.getTicketDetailsUrl}/${eventId}`);
+  trackTicketDetails(eventId: number): Observable<EventDetailsInterface>{
+    return this.http.get<EventDetailsInterface>(`${this.getTicketDetailsUrl}/${eventId}`);
   }
 
-  sendEmailNotifications(eventId: number, emailData: any): Observable<any> {
+  sendEmailNotifications(eventId: number, emailData: EmailNotificationsInterface): Observable<any> {
     return this.http.post(`${this.sendEmailNotificationsUrl}/${eventId}`,emailData);
   }
 
-  bookEvent(userdata: any): Observable<any> {
+  bookEvent(userdata: EventBookingInterface): Observable<any> {
     return this.http.post(`${this.bookEventUrl}`,userdata);
   }
 
-  getUserEvents(): Observable<any> {
-    return this.http.get<any[]>(this.eventsBookedByUserUrl);
+  getUserEvents(): Observable<UserEventsInterface> {
+    return this.http.get<UserEventsInterface>(this.eventsBookedByUserUrl);
   }
-  getUserEventsId(userId : string): Observable<any> {
-    return this.http.get<any[]>(`${this.eventsBookedByUserIdUrl}/${userId}`);
+  getUserEventsId(userId : string): Observable<UserEventsInterface> {
+    return this.http.get<UserEventsInterface>(`${this.eventsBookedByUserIdUrl}/${userId}`);
   }
-  getEventDetails(eventId : number): Observable<any> {
-    return this.http.get<any[]>(`${this.eventsUrl}/${eventId}`);
+  getEventDetails(eventId : number): Observable<EventDetailsByIdInterface> {
+    return this.http.get<EventDetailsByIdInterface>(`${this.eventsUrl}/${eventId}`);
   }
-  getPersonByRole(role : string): Observable<any> {
-    return this.http.get<any[]>(`${this.getPersonByRoleUrl}/${role}`);
+  getPersonByRole(role : string): Observable<GetPersonByRoleInterface> {
+    return this.http.get<GetPersonByRoleInterface>(`${this.getPersonByRoleUrl}/${role}`);
   }
 
   getEventCategories(): Observable<any> {
@@ -153,19 +173,19 @@ export class UserdataService {
     return this.http.get<any[]>(this.getEventLocationsUrl);
   }
 
-  getEventsByCategory(selectedCategory: any): Observable<any> {
-    return this.http.get<any[]>(`${this.getEventsByCategoryUrl}/${selectedCategory}`);
+  getEventsByCategory(selectedCategory: any): Observable<EventByCategoriesInterface> {
+    return this.http.get<EventByCategoriesInterface>(`${this.getEventsByCategoryUrl}/${selectedCategory}`);
   }
 
   getEventsByLocation(selectedLocation: any): Observable<any> {
     return this.http.get<any[]>(`${this.getEventsByLocationUrl}/${selectedLocation}`);
   }
 
-  blockPersonbyId(personId : string): Observable<any> {
-    return this.http.post<any[]>(`${this.blockPersonByIdUrl}/${personId}`,{});
+  blockPersonbyId(personId : string): Observable<ResponseInterface> {
+    return this.http.post<ResponseInterface>(`${this.blockPersonByIdUrl}/${personId}`,{});
   }
-  unBlockPersonbyId(personId : string): Observable<any> {
-    return this.http.post<any[]>(`${this.unBlockPersonByIdUrl}/${personId}`,{});
+  unBlockPersonbyId(personId : string): Observable<ResponseInterface> {
+    return this.http.post<ResponseInterface>(`${this.unBlockPersonByIdUrl}/${personId}`,{});
   }
 
   getEticket(bookingId: number): Observable<Blob> {
@@ -174,15 +194,15 @@ export class UserdataService {
     });
   }
 
-  addReview(userdata: any): Observable<any>{
+  addReview(userdata: ReviewInterface): Observable<any>{
     return this.http.post(`${this.addReviewUrl}/${this.eventId}`,userdata);
   }
 
-  getAllReviews(): Observable<any> {
-    return this.http.get<any>(this.getAllReviewUrl);
+  getAllReviews(): Observable<GetAllReviewsInterface> {
+    return this.http.get<GetAllReviewsInterface>(this.getAllReviewUrl);
   }
-  getAllReviewsByEventId(eventId : number): Observable<any> {
-    return this.http.get<any>(`${this.getAllReviewByEventIdUrl}/${eventId}`);
+  getAllReviewsByEventId(eventId : number): Observable<GetAllReviewsInterface> {
+    return this.http.get<GetAllReviewsInterface>(`${this.getAllReviewByEventIdUrl}/${eventId}`);
   }
 
 }
