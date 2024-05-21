@@ -3,6 +3,10 @@ import { UserdataService } from '../../../services/userDataService/userdata.serv
 import { NgFor, DatePipe } from '@angular/common';
 import { JwtDecodeService } from '../../../services/jwtDecodeService/jwtDecode.service';
 import { Router } from '@angular/router';
+import { OrganizerEventInterface } from '../../../interface/organizerInterface/organizer-event-interface';
+import { AllEventInterface } from '../../../interface/commonInterface/all-event-interface';
+import { EventTicketInterface, EventTicketStatus } from '../../../interface/organizerInterface/event-ticket-status';
+import { MergedEventInterface } from '../../../interface/organizerInterface/merged-event-interface';
 
 @Component({
   selector: 'app-organizerstat',
@@ -13,8 +17,9 @@ import { Router } from '@angular/router';
 })
 export class OrganizerstatComponent implements OnInit { 
   loginUserId : any;
-  events: any[] = [];
-  trackEventTicket: any[] = [];
+  mergedEvent: MergedEventInterface [] =[];
+  events: AllEventInterface [] = [];
+  trackEventTicket: EventTicketInterface[] = [];
   previousEvents: any[] = [];
   upcomingEvents: any[] = [];
   totalEvents : number = 0;
@@ -33,7 +38,7 @@ export class OrganizerstatComponent implements OnInit {
   fetchEvents(): void {
     this.userdataservice.getOrganizerEvents()
       .subscribe(
-        (response : any ) => {
+        (response : OrganizerEventInterface ) => {
           this.events = response.allEvents;
           console.log(this.events);
           this.totalEvents = this.events.length;
@@ -49,7 +54,8 @@ export class OrganizerstatComponent implements OnInit {
   fetchTicketsTrack(organizerId : string): void {
     this.userdataservice.getOrganizerEventTicketDetails(organizerId)
       .subscribe(
-        (response : any ) => {
+        (response : EventTicketStatus ) => {
+          console.log(response);
           this.trackEventTicket = response.events;
           this.mergeEventData();
         },
@@ -63,29 +69,40 @@ export class OrganizerstatComponent implements OnInit {
   mergeEventData(): void {
     // Check if both events and tickets are fetched
     if (this.events.length > 0 && this.trackEventTicket.length > 0) {
+      // Create a new array to store the merged data
+      const mergedEvents: MergedEventInterface[] = [];
+    
       // Merge event and ticket information based on eventId
       this.events.forEach(event => {
-        const correspondingTicket = this.trackEventTicket.find(ticket => ticket.eventId === event.eventId);
+        const correspondingTicket = this.trackEventTicket.find(ticket => ticket.eventId === event.EventId);
         if (correspondingTicket) {
           // Merge ticket information into the event object
-          Object.assign(event, correspondingTicket);
+          const mergedEvent: MergedEventInterface = Object.assign({}, event, correspondingTicket);
+          mergedEvents.push(mergedEvent);
         }
       });
+  
+      // Assign the merged events array to the class property
+      this.mergedEvent = mergedEvents;
+    
+      // Calculate total revenue and total attendees for the merged events
       this.calculateTotalRevenue();
       this.calculateTotalAttendees();
     }
   }
+  
+  
   calculateTotalRevenue(): void {
-    this.totalRevenue = this.events.reduce((total, event) => {
-      const ticketsSold = parseInt(String(event['totalTicketsSold']), 10);
-      const ticketPrice = parseFloat(event['ticketPrice']);
-      const eventRevenue =ticketsSold * ticketPrice;
+    this.totalRevenue = this.mergedEvent.reduce((total, event) => {
+      const ticketsSold = parseInt(String(event.totalTicketsSold), 10);
+      const ticketPrice = event.ticketPrice; // Assuming ticketPrice is already a number
+      const eventRevenue = ticketsSold * ticketPrice;
       return total + eventRevenue;
     }, 0);
   }
   
   calculateTotalAttendees(): void {
-    this.totalAttendees = this.events.reduce((total, event) => {
+    this.totalAttendees = this.mergedEvent.reduce((total, event) => {
       const ticketsSold = parseInt(String(event['totalTicketsSold']), 10);
       return total + ticketsSold;
     }, 0);
@@ -94,11 +111,11 @@ export class OrganizerstatComponent implements OnInit {
   
   get filteredEvents(): any[] {
     if (this.selectedCategory === 'Upcoming') {
-      return this.events.filter(event => new Date(event.eventDate) > new Date())
-                        .sort((a, b) => new Date(a.eventDate).getTime() - new Date(b.eventDate).getTime());
+      return this.events.filter(event => new Date(event.EventDate) > new Date())
+                        .sort((a, b) => new Date(a.EventDate).getTime() - new Date(b.EventDate).getTime());
     } else if (this.selectedCategory === 'Previous') {
-      return this.events.filter(event => new Date(event.eventDate) < new Date())
-                        .sort((a, b) => new Date(b.eventDate).getTime() - new Date(a.eventDate).getTime());
+      return this.events.filter(event => new Date(event.EventDate) < new Date())
+                        .sort((a, b) => new Date(b.EventDate).getTime() - new Date(a.EventDate).getTime());
     } else {
       return this.events;
     }

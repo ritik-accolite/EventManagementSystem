@@ -5,6 +5,10 @@ import { JwtDecodeService } from '../../../services/jwtDecodeService/jwtDecode.s
 import { Router, RouterOutlet } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { EventbycategoryComponent } from "../eventbycategory/eventbycategory.component";
+import { EventByCategoriesInterface } from '../../../interface/userInterface/event-by-categories-interface';
+import { AllEventInterface } from '../../../interface/commonInterface/all-event-interface';
+import { EventUserInterface } from '../../../interface/userInterface/event-user-interface';
+import { EventCategoryInterface } from '../../../interface/userInterface/event-category-interface';
 
 @Component({
     selector: 'app-userstat',
@@ -14,9 +18,9 @@ import { EventbycategoryComponent } from "../eventbycategory/eventbycategory.com
     imports: [NgFor, DatePipe, FormsModule, CommonModule, RouterOutlet, EventbycategoryComponent]
 })
 export class UserstatComponent implements OnInit {
-  events: any[] = [];
+  events: EventUserInterface[] = [];
   showDropdown1 = false;
-  allEventCategory: string[] = [];
+  allEventCategory: AllEventInterface[] = [];
   showDropdown2 = false;
   categoryFilter: any[] = [];
   locationFilter: any[] = [];
@@ -62,7 +66,7 @@ export class UserstatComponent implements OnInit {
 
   fetchEventCategories() {
     this.userdataservice.getEventCategories().subscribe(
-      (response: any) => {
+      (response: EventCategoryInterface) => {
         this.allEventCategory = response.allEventCategory;
       },
       (error: any) => {
@@ -98,7 +102,7 @@ export class UserstatComponent implements OnInit {
   viewEvent() {
     if (this.showDropdown1) {
       this.userdataservice.getEventsByCategory(this.selectedCategory).subscribe(
-        (response: any) => {
+        (response: EventByCategoriesInterface) => {
           this.events = response.categoryEvents;
           console.log(response.categoryEvents);
         },
