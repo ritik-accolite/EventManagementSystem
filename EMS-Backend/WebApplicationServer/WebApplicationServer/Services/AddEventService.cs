@@ -12,10 +12,13 @@ namespace WebApplicationServer.Services
     public class AddEventService : IAddEventService
     {
         private readonly ApplicationDbContext _context;
+        private readonly CloudinaryService _cloudinaryService;
 
-        public AddEventService(ApplicationDbContext context)
+        public AddEventService(ApplicationDbContext context, CloudinaryService cloudinaryService)
         {
             _context = context;
+            _cloudinaryService = cloudinaryService;
+
         }
 
 
@@ -56,8 +59,10 @@ namespace WebApplicationServer.Services
 
 
 
-        public async Task<ResponseViewModel> AddEvent(AddEventViewModel addEvent, string Id)
+        public async Task<ResponseViewModel> AddEvent(AddEventViewModel addEvent, string Id, IFormFile bannerImage)
         {
+            var imageUrl = await _cloudinaryService.UploadImageAsync(bannerImage);
+
             Event eventToBeAdded = new Event
             {
                 EventName = addEvent.EventName,
@@ -69,9 +74,11 @@ namespace WebApplicationServer.Services
                 Description = addEvent.Description,
                 Capacity = addEvent.Capacity,
                 TicketPrice = addEvent.TicketPrice,
-                BannerImage = addEvent.BannerImage,
+                //BannerImage = addEvent.BannerImage,
+                BannerImage = imageUrl,
                 EventOrganizerId = Id
             };
+
             await _context.Events.AddAsync(eventToBeAdded);
             await _context.SaveChangesAsync();
 
