@@ -285,6 +285,17 @@ namespace WebApplicationServer.Services
 
         }
 
+
+
+        public async Task<List<string>> GetUniqueEventLocation()
+        {
+            //var response = new GetAllCategoriesResponseViewModel();
+
+            List<string> eventLocations = await _context.Events.Select(e => e.EventLocation).Distinct().ToListAsync();
+            return eventLocations;
+
+        }
+
         //public async Task<GetPastEventsResponseViewModel> GetPastEvents()
 
         public async Task<IEnumerable<EventViewModel>> GetPastEvents()
@@ -295,7 +306,7 @@ namespace WebApplicationServer.Services
                 var upcomingEvents = await _context.Events
                .Where(e => e.EventDate < currentDate)
                .Select(e => new EventViewModel
-               {
+               {   
                    EventId = e.EventId,
                    EventName = e.EventName,
                    EventCategory = e.EventCategory,
@@ -315,6 +326,7 @@ namespace WebApplicationServer.Services
 
                 return upcomingEvents;
         }
+
 
         public async Task<IEnumerable<EventViewModel>> GetUpcomingEvents()
         {

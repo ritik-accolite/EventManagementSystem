@@ -16,7 +16,7 @@ import { EditProfileInterface } from '../../../interface/commonInterface/edit-pr
 })
 export class UserprofileComponent implements OnInit{
   title = 'ems-client';
-  personId: string = '';
+  personId: any = '';
   firstName : string ='';
   lastName : string ='';
   phoneNumber : string ='';
@@ -28,7 +28,9 @@ export class UserprofileComponent implements OnInit{
   ) {}
 
   ngOnInit(): void{
-    this.personId = this.jwtDecodeService.id;
+    // this.personId = this.jwtDecodeService.id;
+    this.personId = localStorage.getItem('LoginUserId');
+    console.log(this.personId);
     this.fetchProfile(this.personId);
   }
 

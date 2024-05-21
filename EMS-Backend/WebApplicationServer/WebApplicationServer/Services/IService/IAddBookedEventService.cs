@@ -21,10 +21,12 @@ namespace WebApplicationServer.Services.IService
 
         public Task<ResponseViewModel> UnbookEvent(int bookingId);
 
-        public Task<List<BookedEventWithDetailsViewModel>> GetBookedEventsWithDetailsByUser(string userId);
+        public Task<List<EventDetailsViewModel>> GetBookedEventsWithDetailsByUser(string userId);
 
         public Task<ResponseViewModel> BookTickets(AddBookedEventViewModel addBookedEvent);
 
         public Task<EventTicketStatusViewModel> GetEventTicketStatus(string organizerId);
+
+        public Task<List<GetAllBookedEventByAdminViewModel>> GetAllBookedEventsByAdmin();
     }
 }

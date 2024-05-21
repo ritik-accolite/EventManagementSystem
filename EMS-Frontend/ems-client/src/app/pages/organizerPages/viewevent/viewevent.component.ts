@@ -17,7 +17,7 @@ import { EventDetailsInterface } from '../../../interface/organizerInterface/eve
 export class VieweventComponent implements OnInit{
   @ViewChild('scrollContainer') scrollContainer: ElementRef | undefined;
   eventId : number = 0;
-  role : string = '';
+  role : any;
   eventDetails : any;
   displayedUsers: any = []; // Users to be displayed
   allUsers: any = []; // All users
@@ -36,7 +36,7 @@ export class VieweventComponent implements OnInit{
 
   ngOnInit(): void {
     this.eventId = this.userdataService.eventId;
-    this.role = this.jwtdecodeservice.role;
+    this.role = localStorage.getItem('Role');
     if (this.eventId) {
       this.userdataService.trackTicketDetails(this.eventId).subscribe(
         (eventDetails: EventDetailsInterface) => {
@@ -112,6 +112,6 @@ export class VieweventComponent implements OnInit{
 
   navigateToReview(eventId : number){
     this.userdataService.eventId = eventId;
-    this.router.navigate(['user-dash','app-eventreview']);
+    this.router.navigate(['organizer-dash','app-eventreview']);
   }
 }

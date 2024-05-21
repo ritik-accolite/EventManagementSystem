@@ -7,6 +7,6 @@ namespace WebApplicationServer.Models.ResponseModels
     {
         public int Status { get; set; }
         public string Message { get; set; }
-        public List<BookedEventWithDetailsViewModel>? BookedEvents { get; set; }
+        public List<EventDetailsViewModel>? BookedEvents { get; set; }
     }
 }

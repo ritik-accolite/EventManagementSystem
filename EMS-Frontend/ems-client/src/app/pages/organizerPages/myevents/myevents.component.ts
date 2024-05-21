@@ -14,7 +14,7 @@ import { OrganizerEventInterface } from '../../../interface/organizerInterface/o
 })
 export class MyeventsComponent implements OnInit { 
   events: any[] = [];
-  role : string = '';
+  role : any;
   organizerId : string = '';
   constructor(private userdataservice: UserdataService,
               private router: Router,
@@ -23,7 +23,8 @@ export class MyeventsComponent implements OnInit {
 
   //getOrganizerEvents
   ngOnInit(): void {
-    this.role = this.jwtDecodeService.role;
+    this.role = localStorage.getItem('Role');
+    console.log('Role   :', this.role);
     this.route.params.subscribe(params => {
     this.organizerId = this.jwtDecodeService.organizerId;
       // Now you can use this.organizerId as needed
@@ -34,11 +35,11 @@ export class MyeventsComponent implements OnInit {
 
   editEvent(eventId: number) {
     this.userdataservice.eventId = eventId;
-    this.router.navigate(['user-dash','app-editevent']);
+    this.router.navigate(['organizer-dash','app-editevent']);
   }
   viewEvent(eventId: number) {
     this.userdataservice.eventId = eventId;
-    this.router.navigate(['user-dash','app-viewevent']);
+    this.router.navigate(['organizer-dash','app-viewevent']);
   }
   
   fetchEvents(): void {

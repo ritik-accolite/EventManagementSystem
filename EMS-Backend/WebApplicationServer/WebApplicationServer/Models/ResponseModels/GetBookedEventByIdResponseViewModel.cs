@@ -6,6 +6,7 @@
 
         public string Message { get; set; }
 
-        public BookedEvent GetBookedEventById { get; set; }
+        public BookedEvent? GetBookedEventById { get; set; }
+
     }
 }

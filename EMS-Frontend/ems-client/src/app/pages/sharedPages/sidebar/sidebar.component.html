@@ -16,10 +16,10 @@
     <i class="fa fa-clone" aria-hidden="true"></i>
     Profile
   </a>
-  <a>
+  <!-- <a>
     <i class="fa fa-trash-o" aria-hidden="true"></i>
     Track Event Tickets
-  </a>
+  </a> -->
 </aside>
 <ng-template #userContent>
   <aside *ngIf="role === 'User'; else adminContent">
@@ -40,10 +40,10 @@
       <i class="fa fa-clone" aria-hidden="true"></i>
       Profile
     </a>
-    <a>
+    <!-- <a>
       <i class="fa fa-trash-o" aria-hidden="true"></i>
       Track Event Tickets
-    </a>
+    </a> -->
     <button (click)="toggleDropdown()">Filter By Category</button>
   <div class="dropdown-content" *ngIf="showDropdown1">
     <select [(ngModel)]="selectedCategory" (change)="applyFilter(selectedCategory)">
@@ -70,10 +70,10 @@
         <i class="fa fa-star-o" aria-hidden="true"></i>
         Track Organizers
       </a>
-      <a (click)="onTabClick('track-user')">
+      <!-- <a (click)="onTabClick('track-user')">
         <i class="fa fa-star-o" aria-hidden="true"></i>
         Track Users
-      </a>
+      </a> -->
       <a (click)="onTabClick('issues')">
         <i class="fa fa-star-o" aria-hidden="true"></i>
         Reported Issues
