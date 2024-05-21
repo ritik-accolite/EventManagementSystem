@@ -4,6 +4,8 @@ import { NgClass, NgFor, NgIf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { JwtDecodeService } from '../../../services/jwtDecodeService/jwtDecode.service';
 import { Router } from '@angular/router';
+import { EventTicketStatus } from '../../../interface/organizerInterface/event-ticket-status';
+import { EventDetailsInterface } from '../../../interface/organizerInterface/event-details-interface';
 
 @Component({
   selector: 'app-viewevent',
@@ -15,7 +17,7 @@ import { Router } from '@angular/router';
 export class VieweventComponent implements OnInit{
   @ViewChild('scrollContainer') scrollContainer: ElementRef | undefined;
   eventId : number = 0;
-  role : string = '';
+  role : any;
   eventDetails : any;
   displayedUsers: any = []; // Users to be displayed
   allUsers: any = []; // All users
@@ -34,10 +36,10 @@ export class VieweventComponent implements OnInit{
 
   ngOnInit(): void {
     this.eventId = this.userdataService.eventId;
-    this.role = this.jwtdecodeservice.role;
+    this.role = localStorage.getItem('Role');
     if (this.eventId) {
       this.userdataService.trackTicketDetails(this.eventId).subscribe(
-        (eventDetails: any) => {
+        (eventDetails: EventDetailsInterface) => {
           this.eventDetails = eventDetails;
           console.log("ticket and event details", this.eventDetails['bookedUsers']);
           this.allUsers = eventDetails['bookedUsers'];
@@ -110,6 +112,6 @@ export class VieweventComponent implements OnInit{
 
   navigateToReview(eventId : number){
     this.userdataService.eventId = eventId;
-    this.router.navigate(['user-dash','app-eventreview']);
+    this.router.navigate(['organizer-dash','app-eventreview']);
   }
 }

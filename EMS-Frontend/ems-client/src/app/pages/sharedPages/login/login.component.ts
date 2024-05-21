@@ -4,6 +4,7 @@ import { UserdataService } from '../../../services/userDataService/userdata.serv
 import { FormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { JwtDecodeService } from '../../../services/jwtDecodeService/jwtDecode.service';
+import { LoginInterface } from '../../../interface/commonInterface/login-interface';
 
 @Component({
   selector: 'app-login',
@@ -25,11 +26,10 @@ export class LoginComponent {
 
   onSubmit(): void {
    
-    const credentials = {
+    const credentials : LoginInterface= {
       email: this.username,
       password: this.password
     };
-
    
     this.userDataService.loginUser(credentials)
       .subscribe(
@@ -53,7 +53,7 @@ export class LoginComponent {
   redirectUser(role: string): void {
     switch (role) {
       case 'Organizer':
-        this.router.navigate(['/user-dash']); // rename user-dash to org-dash
+        this.router.navigate(['/organizer-dash']); // rename user-dash to org-dash
         break;
       case 'User':
         this.router.navigate(['/user-dash']); // new dash for user

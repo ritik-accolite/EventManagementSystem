@@ -5,6 +5,9 @@ import { Router } from '@angular/router';
 import { JwtDecodeService } from '../../../services/jwtDecodeService/jwtDecode.service';
 import { response } from 'express';
 import { error } from 'console';
+import { GetPersonByRoleInterface } from '../../../interface/adminInterface/get-person-by-role-interface';
+import { GetAllPersonsByAdminInterface } from '../../../interface/adminInterface/get-all-persons-by-admin-interface';
+import { ResponseInterface } from '../../../interface/commonInterface/response-interface';
 
 @Component({
   selector: 'app-trackorgainzers',
@@ -14,7 +17,7 @@ import { error } from 'console';
   styleUrl: './trackorgainzers.component.css'
 })
 export class TrackorgainzersComponent {
-  organizers : any [] = [];
+  organizers : GetAllPersonsByAdminInterface [] = [];
   listTitle: string = "All Organizers";
   constructor(private userdataservice : UserdataService,
               private router : Router,
@@ -28,7 +31,7 @@ export class TrackorgainzersComponent {
   fetchPersons(role : string): void {
     this.userdataservice.getPersonByRole(role)
       .subscribe(
-        (response : any ) => { // change any here !!
+        (response : GetPersonByRoleInterface ) => { // change any here !!
           this.organizers = response.allPersons; 
           this.listTitle = role;
           console.log('organizers fetched successfully:', this.organizers);
@@ -50,7 +53,7 @@ export class TrackorgainzersComponent {
   blockUser(personId : string){
     this.userdataservice.blockPersonbyId(personId).
     subscribe(
-      (response : any) =>{
+      (response : ResponseInterface) =>{
         this.router.navigate(['admin-dash','track-organizer']);
         console.log('response regarding blocking',response);
       },
@@ -63,7 +66,7 @@ export class TrackorgainzersComponent {
   unBlockUser(personId : string){
     this.userdataservice.unBlockPersonbyId(personId).
     subscribe(
-      (response : any) =>{
+      (response : ResponseInterface) =>{
         this.router.navigate(['admin-dash','track-organizer']);
         console.log('response regarding unblocking',response);
       },

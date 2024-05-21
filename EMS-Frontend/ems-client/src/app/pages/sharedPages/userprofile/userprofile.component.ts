@@ -4,29 +4,8 @@ import { UserdataService } from '../../../services/userDataService/userdata.serv
 import { NgFor, NgIf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { JwtDecodeService } from '../../../services/jwtDecodeService/jwtDecode.service';
-
-export interface Person {
-  accessFailedCount: number;
-  concurrencyStamp: string;
-  email: string;
-  emailConfirmed: boolean;
-  firstName: string;
-  id: string;
-  lastName: string;
-  lockoutEnabled: boolean;
-  lockoutEnd: Date | null;
-  normalizedEmail: string;
-  normalizedUserName: string;
-  password: string;
-  passwordHash: string;
-  phoneNumber: string;
-  phoneNumberConfirmed: boolean;
-  role: string;
-  securityStamp: string;
-  twoFactorEnabled: boolean;
-  userName: string;
-}
-
+import { ProfileInterface } from '../../../interface/commonInterface/profile-interface';
+import { EditProfileInterface } from '../../../interface/commonInterface/edit-profile-interface';
 
 @Component({
   selector: 'app-userprofile',
@@ -37,7 +16,7 @@ export interface Person {
 })
 export class UserprofileComponent implements OnInit{
   title = 'ems-client';
-  personId: string = '';
+  personId: any = '';
   firstName : string ='';
   lastName : string ='';
   phoneNumber : string ='';
@@ -49,14 +28,16 @@ export class UserprofileComponent implements OnInit{
   ) {}
 
   ngOnInit(): void{
-    this.personId = this.jwtDecodeService.id;
+    // this.personId = this.jwtDecodeService.id;
+    this.personId = localStorage.getItem('LoginUserId');
+    console.log(this.personId);
     this.fetchProfile(this.personId);
   }
 
   fetchProfile(personId : string): void {
     this.userdataservice.getProfile(personId).subscribe(
-      (response : any) => {
-        const personData: Person = response.getPersonById;
+      (response : ProfileInterface) => {
+        const personData = response.getPersonById;
         this.firstName = personData.firstName;
         this.lastName = personData.lastName;
         this.phoneNumber = personData.phoneNumber;
@@ -76,7 +57,7 @@ export class UserprofileComponent implements OnInit{
     };
     this.userdataservice.editProfile(this.personId, formData)
     .subscribe(
-      (response: any) => {
+      (response: EditProfileInterface) => {
         console.log('Update successful:', response);
         this.showSuccessMessage = true;
         

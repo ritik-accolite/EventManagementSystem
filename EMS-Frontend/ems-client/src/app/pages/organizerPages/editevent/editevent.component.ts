@@ -2,6 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { UserdataService } from '../../../services/userDataService/userdata.service';
 import { Router } from '@angular/router';
+import { EventDetailsInterface } from '../../../interface/organizerInterface/event-details-interface';
+import { EventDetailsByIdInterface } from '../../../interface/organizerInterface/event-details-by-id-interface';
+import { UpdateEventInterface } from '../../../interface/organizerInterface/update-event-interface';
+import { ResponseInterface } from '../../../interface/commonInterface/response-interface';
 
 @Component({
   selector: 'app-editevent',
@@ -36,10 +40,10 @@ export class EditeventComponent implements OnInit {
   ngOnInit(): void {
     this.eventId = this.userdataService.eventId;
     if (this.eventId) {
-      this.userdataService.getEventDetails(this.eventId).subscribe((eventDetails: any) => {
+      this.userdataService.getEventDetails(this.eventId).subscribe((eventDetails: EventDetailsByIdInterface) => {
         // Prefill form with fetched event details
-        console.log("prefil details",eventDetails['getEventById']);
-        this.eventForm.patchValue(eventDetails['getEventById']);
+        console.log("prefil details",eventDetails.getEventById);
+        this.eventForm.patchValue(eventDetails.getEventById);
       },
       (error) => {
         console.error("Error fetching event details:", error);
@@ -50,7 +54,7 @@ export class EditeventComponent implements OnInit {
   onSubmit() {
     if (this.eventForm.valid) {
       // Send a POST request with edited form data to update event details
-      this.userdataService.updateEvent(this.eventId, this.eventForm.value).subscribe((response: any) => {
+      this.userdataService.updateEvent(this.eventId, this.eventForm.value).subscribe((response: UpdateEventInterface) => {
         this.router.navigate(['user-dash','app-myevents']);
       });
     }
@@ -58,7 +62,7 @@ export class EditeventComponent implements OnInit {
 
   onDelete() {
     if (confirm("Are you sure you want to delete this event?")) {
-      this.userdataService.deleteEvent(this.eventId).subscribe((response: any) => {
+      this.userdataService.deleteEvent(this.eventId).subscribe((response: ResponseInterface) => {
         this.router.navigate(['user-dash','/app-myevents']);
       });
     }

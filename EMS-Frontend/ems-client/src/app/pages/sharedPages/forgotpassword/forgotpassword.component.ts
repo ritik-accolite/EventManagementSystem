@@ -5,6 +5,8 @@ import { UserdataService } from '../../../services/userDataService/userdata.serv
 import { Router } from '@angular/router';
 import { response } from 'express';
 import { error } from 'console';
+import { ForgetPasswordInterface } from '../../../interface/commonInterface/forget-password-interface';
+import { ResponseInterface } from '../../../interface/commonInterface/response-interface';
 
 @Component({
   selector: 'app-forgotpassword',
@@ -28,7 +30,7 @@ export class ForgotpasswordComponent {
     this.showPasswordForm = true;
     this.userDataService.generateForgotEmailToken(this.email)
       .subscribe(
-        (response: any) => {
+        (response: ResponseInterface) => {
           console.log('Reset Token successfully Sent:', response);
           this.showPasswordForm = true;
         },
@@ -48,7 +50,7 @@ export class ForgotpasswordComponent {
 
     this.userDataService.resetPassword(resetForm)
       .subscribe(
-      (response : any) => {
+      (response : ResponseInterface) => {
         console.log('Password Successfully Reseted', response);
       },
       (error : any) => {

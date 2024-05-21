@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component , OnInit } from '@angular/core';
 import { UserdataService } from '../../../services/userDataService/userdata.service';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { EventInterface } from '../../../interface/commonInterface/event-interface';
 
 @Component({
   selector: 'app-eventlist',
@@ -25,7 +26,8 @@ export class EventlistComponent implements OnInit{
   fetchEvents(): void {
     this.userdataservice.getEvents()
       .subscribe(
-        (response : any ) => { // change any here !!
+        (response : EventInterface ) => { // change any here !!
+          console.log(response);
           this.events = response.allEvents; 
           console.log('Events fetched successfully:', this.events);
         },

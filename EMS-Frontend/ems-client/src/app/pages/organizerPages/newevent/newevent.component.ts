@@ -38,7 +38,7 @@ export class NeweventComponent {
           console.log('Event created successfully:', response);
           this.showSuccessMessage = true;
           setTimeout(() => {
-            this.router.navigate(['user-dash','app-myevents']);          
+            this.router.navigate(['organizer-dash','app-myevents']);          
           }, 2000);
         },
         (error) => {

@@ -30,7 +30,7 @@
                                 <th>Event Date</th>
                                 <th>Leader/ Chief Guest</th>
                                 <th>Total Revenue</th>
-                                <th>Seats Left</th>
+                                <!-- <th>Seats Left</th> -->
                                 <th class="text-right">Venue</th>
                             </tr>
                         </thead>
@@ -39,8 +39,8 @@
                                 <td>{{ event.eventName }}</td>
                                 <td>{{ event.eventDate | date: 'yyyy-MM-dd' }}</td>
                                 <td>{{ event.chiefGuest }}</td>
-                                <td>₹{{ event.ticketPrice * event.totalTicketsSold }}</td>
-                                <td>{{ event.totalTicketsLeft }}</td>
+                                <td>₹{{ event.ticketPrice }}</td>
+                                <!-- <td>{{ event.totalTicketsLeft }}</td> -->
                                 <td class="text-right">{{ event.eventLocation }}</td>
                             </tr>
                         </tbody>
