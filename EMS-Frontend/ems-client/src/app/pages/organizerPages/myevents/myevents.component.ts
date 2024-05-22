@@ -50,7 +50,6 @@ export class MyeventsComponent implements OnInit {
   
   fetchEvents(): void {
     if(this.organizerId!=''){
-
       this.userdataservice.getOrganizerEventsById(this.organizerId)
       .subscribe(
         (response : OrganizerEventInterface ) => { // change any here !!

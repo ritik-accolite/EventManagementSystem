@@ -41,6 +41,7 @@ export class ReviewComponent implements OnInit{
         eventId: this.eventId,
         UserId: this.id
       };
+      console.log('form', formData);
 
       this.userdataservice.addReview(formData).subscribe(
         (response) => {
