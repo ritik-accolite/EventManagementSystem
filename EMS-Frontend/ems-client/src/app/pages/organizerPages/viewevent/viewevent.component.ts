@@ -4,6 +4,8 @@ import { NgClass, NgFor, NgIf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { JwtDecodeService } from '../../../services/jwtDecodeService/jwtDecode.service';
 import { Router } from '@angular/router';
+import { EventTicketStatus } from '../../../interface/organizerInterface/event-ticket-status';
+import { EventDetailsInterface } from '../../../interface/organizerInterface/event-details-interface';
 
 @Component({
   selector: 'app-viewevent',
@@ -38,8 +40,8 @@ export class VieweventComponent implements OnInit{
     console.log('event id: ',this.eventId);
     if (this.eventId) {
       this.userdataService.trackTicketDetails(this.eventId).subscribe(
-        (eventDetails: any) => {
-          this.eventDetails = eventDetails.eventwithUser;
+        (eventDetails: EventDetailsInterface) => {
+          this.eventDetails = eventDetails;
           console.log("ticket and event details", this.eventDetails['bookedUsers']);
           this.allUsers = this.eventDetails['bookedUsers'];
           console.log('all users', this.allUsers);

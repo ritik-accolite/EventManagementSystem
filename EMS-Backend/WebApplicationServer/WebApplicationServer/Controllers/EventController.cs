@@ -28,11 +28,13 @@ namespace WebApplicationServer.Controllers
         private string connectionString = "Server=tcp:ems-server.database.windows.net,1433;Initial Catalog=emsdatabase;Persist Security Info=False;User ID=ajaykarode;Password=Emspassword@123;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
 
         private readonly IAddEventService _addEventService;
+        private readonly CloudinaryService _cloudinaryService;
 
-        public EventController(IAddEventService addEventService)
+        public EventController(IAddEventService addEventService, CloudinaryService cloudinaryService)
         {
             _addEventService = addEventService;
-
+            _cloudinaryService = cloudinaryService;
+            _cloudinaryService = cloudinaryService;
         }
 
 
@@ -81,11 +83,10 @@ namespace WebApplicationServer.Controllers
 
         [HttpPost]
         [Route("addEvent")]
-        public async Task<ResponseViewModel> AddEvent(AddEventViewModel addEvent)
+        //public async Task<ResponseViewModel> AddEvent(AddEventViewModel addEvent)
+        public async Task<ResponseViewModel> AddEvent([FromForm] AddEventViewModel addEvent)
         {
-
             ResponseViewModel response;
-
             try
             {
                 if (!ModelState.IsValid)
@@ -95,7 +96,6 @@ namespace WebApplicationServer.Controllers
                     response.Message = "Please Enter all the details.";
                     return response;
                 }
-
 
                 var organizer = User.FindFirstValue(ClaimTypes.Name);
                 var Id = User.FindFirstValue("Id");
@@ -109,7 +109,7 @@ namespace WebApplicationServer.Controllers
                     return response;
                 }
 
-                response = await _addEventService.AddEvent(addEvent, Id);
+                response = await _addEventService.AddEvent(addEvent, Id, addEvent.BannerImageFile);
                 return response;
             }
             catch (Exception ex)

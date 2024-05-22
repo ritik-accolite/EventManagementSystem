@@ -4,6 +4,8 @@ import { UserdataService } from '../../../services/userDataService/userdata.serv
 import { NgFor, NgIf } from '@angular/common';
 import { JwtDecodeService } from '../../../services/jwtDecodeService/jwtDecode.service';
 import { Router, RouterLink } from '@angular/router';
+import { UserEventsInterface } from '../../../interface/userInterface/user-events-interface';
+import { BookedEventDetailsInterface } from '../../../interface/userInterface/booked-event-details-interface';
 
 @Component({
   selector: 'app-mybookings',
@@ -14,7 +16,7 @@ import { Router, RouterLink } from '@angular/router';
 })
 export class MybookingsComponent implements OnInit{
   title = 'ems-client';
-  bookedEvents: any[] = [];
+  bookedEvents: BookedEventDetailsInterface[] = [];
 
   constructor(private http: HttpClient ,
               private userdataservice: UserdataService,
@@ -28,14 +30,14 @@ export class MybookingsComponent implements OnInit{
   fetchUserBookedEvents(): void{
     if(this.jwtDecodeService.userId != ''){
       this.userdataservice.getUserEventsId(this.jwtDecodeService.userId)
-      .subscribe((response : any) => {
+      .subscribe((response : UserEventsInterface) => {
         this.bookedEvents  = response.bookedEvents;
         console.log('Booked events fetched 123:', this.bookedEvents);
       },
     error => console.error('Error fetching booked events :', error));
     } else {
     this.userdataservice.getUserEvents()
-      .subscribe((response : any) => {
+      .subscribe((response : UserEventsInterface) => {
         this.bookedEvents  = response.bookedEvents;
         console.log('Booked events fetched 123:', this.bookedEvents);
       },
