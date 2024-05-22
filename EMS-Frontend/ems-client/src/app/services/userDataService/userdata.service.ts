@@ -35,6 +35,7 @@ export class UserdataService {
   loginEvent: EventEmitter<boolean> = new EventEmitter<boolean>(); 
   roleEvent: EventEmitter<string> = new EventEmitter<string>(); 
   private registerUrl = 'http://localhost:5299/api/Account';
+  // private registerUrl = 'https://eventhubfusion.azurewebsites.net/api/Account';
 
   private eventsUrl = 'http://localhost:5299/api/Event';
 
@@ -43,6 +44,8 @@ export class UserdataService {
   private getPersonByRoleUrl ='http://localhost:5299/api/Person/getpersonbyrole';
 
   private createEventUrl = 'http://localhost:5299/api/Event/addEvent';
+
+  private deleteEventUrl = 'http://localhost:5299/api/Event';
 
   private bookEventUrl = 'http://localhost:5299/api/BookedEvent/BookEvent';
 
@@ -82,7 +85,7 @@ export class UserdataService {
 
   private getAllReviewUrl ='http://localhost:5299/admin/allreviews';
 
-  private getAllReviewByEventIdUrl ='http://localhost:5299/reviews';
+  private getAllReviewByEventIdUrl ='http://localhost:5299/admin/reviewsbyeventid';
 
   constructor(private http: HttpClient) { }
 
@@ -137,7 +140,7 @@ export class UserdataService {
   }
 
   deleteEvent(eventId:number): Observable<ResponseInterface> {
-    return this.http.delete<ResponseInterface>(`${this.createEventUrl}/${eventId}`);
+    return this.http.delete<ResponseInterface>(`${this.deleteEventUrl}/${eventId}`);
   }
 
   trackTicketDetails(eventId: number): Observable<EventDetailsInterface>{
