@@ -18,14 +18,14 @@
     <i class="fa-regular fa-calendar-days"></i>
     My Events
   </a>
-  <a (click)="onTabClick('user-profile')">
+  <a (click)="onTabClick('organizer-profile')">
     <i class="fa-regular fa-user"></i>
     Profile
   </a>
   <a>
     <i class="fa-solid fa-ticket"></i>
     Track Event Tickets
-  </a> -->
+  </a>
 </aside>
 <ng-template #userContent>
   <aside *ngIf="role === 'User'; else adminContent">
@@ -50,7 +50,7 @@
       <i class="fa fa-trash-o" aria-hidden="true"></i>
       Track Event Tickets
     </a> -->
-    <button (click)="toggleDropdown()">Filter By Category</button>
+    <!-- <button (click)="toggleDropdown()">Filter By Category</button>
   <div class="dropdown-content" *ngIf="showDropdown1">
     <select [(ngModel)]="selectedCategory" (change)="applyFilter(selectedCategory)">
       <option value="">Select Category</option>
@@ -63,7 +63,7 @@
       <option value="">Select Category</option>
       <option *ngFor="let category of allEventCategory" [value]="category">{{ category }}</option>
     </select>
-  </div>
+  </div> -->
   </aside>
   <ng-template #adminContent>
     <!-- Admin Menu -->

@@ -3,6 +3,7 @@ import { UserdataService } from '../../../services/userDataService/userdata.serv
 import { NgFor, NgIf } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { JwtDecodeService } from '../../../services/jwtDecodeService/jwtDecode.service';
+import { OrganizerEventInterface } from '../../../interface/organizerInterface/organizer-event-interface';
 
 @Component({
   selector: 'app-myevents',
@@ -38,14 +39,20 @@ export class MyeventsComponent implements OnInit {
   }
   viewEvent(eventId: number) {
     this.userdataservice.eventId = eventId;
-    this.router.navigate(['organizer-dash','app-viewevent']);
-  }
+    if(this.jwtDecodeService.role==="Organizer"){
+      this.router.navigate(['organizer-dash','app-viewevent']);
+      } else if (this.jwtDecodeService.role==="Admin"){
+        this.router.navigate(['admin-dash','app-viewevent']);
+      }
+    }
+    // this.router.navigate(['organizer-dash','app-viewevent']);
+  
   
   fetchEvents(): void {
     if(this.organizerId!=''){
       this.userdataservice.getOrganizerEventsById(this.organizerId)
       .subscribe(
-        (response : any ) => { // change any here !!
+        (response : OrganizerEventInterface ) => { // change any here !!
           this.events = response.allEvents;
           console.log('Events fetched successfully 123:', this.events);
         },
@@ -56,7 +63,7 @@ export class MyeventsComponent implements OnInit {
     {
     this.userdataservice.getOrganizerEvents()
       .subscribe(
-        (response : any ) => { // change any here !!
+        (response : OrganizerEventInterface ) => { // change any here !!
           this.events = response.allEvents;
           console.log('Events fetched successfully 123:', this.events);
         },

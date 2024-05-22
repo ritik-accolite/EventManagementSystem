@@ -3,6 +3,7 @@ import { UserdataService } from '../../../services/userDataService/userdata.serv
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { JwtDecodeService } from '../../../services/jwtDecodeService/jwtDecode.service';
+import { ReviewInterface } from '../../../interface/userInterface/review-interface';
 
 @Component({
   selector: 'app-review',

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UserdataService } from '../../../services/userDataService/userdata.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgFor, NgIf } from '@angular/common';
+import { AllReviewsInterface } from '../../../interface/adminInterface/all-reviews-interface';
 
 @Component({
   selector: 'app-reportedissues',
@@ -11,7 +12,7 @@ import { NgFor, NgIf } from '@angular/common';
   styleUrls: ['./reportedissues.component.css']
 })
 export class ReportedissuesComponent implements OnInit {
-  reviews: any[] =[];
+  reviews: AllReviewsInterface[] =[];
   filteredReviews: any[] =[];
   showReported: boolean = false;
   selectedRating: number = 5;

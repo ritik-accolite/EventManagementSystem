@@ -28,7 +28,7 @@ export class NeweventComponent {
       chiefGuest: ['', Validators.required],
       ticketPrice: ['', Validators.required],
       capacity: ['', Validators.required],
-      bannerImage: []
+      bannerImage: ['',Validators.required]
     });
   }
   onSubmit() {

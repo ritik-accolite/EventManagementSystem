@@ -15,10 +15,10 @@ import { UserdataService } from '../../../services/userDataService/userdata.serv
 })
 export class SidebarComponent {
   role : any;
-  showDropdown1 = false;
-  allEventCategory: string[] = [];
-  selectedCategory: string = '';
-  showDropdown2 = false;
+  // showDropdown1 = false;
+  // allEventCategory: string[] = [];
+  // selectedCategory: string = '';
+  // showDropdown2 = false;
   toggleBar = false;
 
   constructor(private router: Router,
@@ -33,7 +33,22 @@ export class SidebarComponent {
     if (this.role === null) {
       this.router.navigate(['/login']);
     }
-    this.fetchEventCategories();
+    // this.fetchEventCategories();
+  }
+
+  activateToggle() : void{
+    const doc = document.getElementById('navbarSupportedSideContent') as HTMLElement;
+    if(this.toggleBar === true){
+      doc.style.display = 'block';
+      this.toggleBar = false;
+    }
+
+  }
+
+  deactivateToggle():void{
+    this.toggleBar = true;
+    const doc = document.getElementById('navbarSupportedSideContent') as HTMLElement;
+    doc.style.display = 'none';
   }
 
   activateToggle() : void{
@@ -52,8 +67,10 @@ export class SidebarComponent {
   }
 
   onTabClick(tabRoute: string) {
-    if (tabRoute === 'user-profile') {
-      this.router.navigate(['user-dash', 'user-profile']);
+    if (tabRoute === 'organizer-profile') {
+      this.router.navigate(['organizer-dash', 'user-profile']);
+    } else if (tabRoute === 'user-profile') {
+      this.router.navigate(['user-dash','user-profile']);
     } else if (tabRoute === 'myevents') {
       this.router.navigate(['organizer-dash','app-myevents']);
     } else if (tabRoute === 'new-event')  {
@@ -64,12 +81,10 @@ export class SidebarComponent {
       this.router.navigate(['user-dash','mybookings'])
     } else if (tabRoute === 'user-stat') {
       this.router.navigate(['user-dash',''])
-    }
-    
-    else if (tabRoute === 'organizer-stat') {
+    } else if (tabRoute === 'organizer-stat') {
       this.router.navigate(['organizer-dash','app-organizerstat'])
     } else if (tabRoute === 'organizer-profile') {
-      this.router.navigate(['admin-dash','user-profile'])
+      this.router.navigate(['organizer-dash','user-profile'])
     } else if (tabRoute === 'track-event') {
       this.router.navigate(['admin-dash','track-event'])
     } else if (tabRoute === 'track-organizer') {
@@ -83,34 +98,34 @@ export class SidebarComponent {
     }
   }
 
-  toggleDropdown() {
-    this.showDropdown1 = !this.showDropdown1;
-    this.showDropdown2 = !this.showDropdown2;
-  }
+  // toggleDropdown() {
+  //   this.showDropdown1 = !this.showDropdown1;
+  //   this.showDropdown2 = !this.showDropdown2;
+  // }
 
 
-  fetchEventCategories() {
-    this.userdataservice.getEventCategories().subscribe(
-      (response: any) => {
-        this.allEventCategory = response.allEventCategory;
-      },
-      (error: any) => {
-        console.error('Error fetching event categories:', error);
-      }
-    );
-  }
+  // fetchEventCategories() {
+  //   this.userdataservice.getEventCategories().subscribe(
+  //     (response: any) => {
+  //       this.allEventCategory = response.allEventCategory;
+  //     },
+  //     (error: any) => {
+  //       console.error('Error fetching event categories:', error);
+  //     }
+  //   );
+  // }
 
 
-  applyFilter(selectedCategory: string) {
-    this.userdataservice.selectedCategory = selectedCategory;
-    console.log(selectedCategory);
-    this.router.navigate(['user-dash' , 'event-by-category']);
-  }
+  // applyFilter(selectedCategory: string) {
+  //   this.userdataservice.selectedCategory = selectedCategory;
+  //   console.log(selectedCategory);
+  //   this.router.navigate(['user-dash' , 'event-by-category']);
+  // }
 
-  applyFilter1(selectedLocation: string) {
-    this.userdataservice.selectedCategory = selectedLocation;
-    console.log(selectedLocation);
-    this.router.navigate(['user-dash' , 'event-by-location']);
-  }
+  // applyFilter1(selectedLocation: string) {
+  //   this.userdataservice.selectedCategory = selectedLocation;
+  //   console.log(selectedLocation);
+  //   this.router.navigate(['user-dash' , 'event-by-location']);
+  // }
 
 }
