@@ -1,21 +1,3 @@
-<!-- <div *ngIf="bookedEvents && bookedEvents.length > 0" class="booked-events-container">
-  <h2>Booked Events</h2>
-  <ul class="event-list">
-    <li *ngFor="let event of bookedEvents" class="event-item">
-      <ul>
-        <li><strong>Event Name:</strong> {{ event.eventName }}</li>
-        <li><strong>Event Date:</strong> {{ event.eventDate }}</li>
-        <li><strong>Event Location:</strong> {{ event.eventLocation }}</li>
-        <li><strong>Event Time:</strong> {{ event.eventTime }}</li>
-        <li><strong>Ticket Price:</strong> {{ event.ticketPrice }}</li>
-      </ul>
-    </li>
-  </ul>
-</div>
-<div *ngIf="!bookedEvents || bookedEvents.length === 0">
-  <p>No events booked.</p>
-</div> -->
-
 <div *ngIf="bookedEvents && bookedEvents.length > 0" class="booked-events-container">
   <h2>Booked Events</h2>
   <div class="row">
@@ -28,8 +10,8 @@
             <li><strong>Event Location:</strong> {{ event.eventLocation }}</li>
             <li><strong>Event Time:</strong> {{ event.eventTime }}</li>
             <li><strong>Ticket Price:</strong> {{ event.ticketPrice }}</li>
-            <button [routerLink]="['review']" (click)="addReview(event.eventId)"><h5 class="fs-6 mb-0">Add Review</h5></button>
-            <button (click)="eTicket(event.bookingId)"><h5 class="fs-6 mb-0">Download E Ticket</h5></button>
+            <button [routerLink]="['review']" (click)="addReview(event.eventId)" *ngIf="!this.disabled"><h5 class="fs-6 mb-0" >Add Review</h5></button>
+            <button (click)="eTicket(event.bookingId)" *ngIf="!this.disabled"><h5 class="fs-6 mb-0">Download E Ticket</h5></button>
           </ul>
         </div>
       </div>

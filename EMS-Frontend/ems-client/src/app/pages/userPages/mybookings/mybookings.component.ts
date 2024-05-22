@@ -16,6 +16,8 @@ import { BookedEventDetailsInterface } from '../../../interface/userInterface/bo
 })
 export class MybookingsComponent implements OnInit{
   title = 'ems-client';
+  role  = '';
+  disabled = false;
   bookedEvents: BookedEventDetailsInterface[] = [];
 
   constructor(private http: HttpClient ,
@@ -32,6 +34,10 @@ export class MybookingsComponent implements OnInit{
       this.userdataservice.getUserEventsId(this.jwtDecodeService.userId)
       .subscribe((response : UserEventsInterface) => {
         this.bookedEvents  = response.bookedEvents;
+        this.role = this.jwtDecodeService.role;
+        if(this.role!="User"){
+          this.disabled = true;
+        }
         console.log('Booked events fetched 123:', this.bookedEvents);
       },
     error => console.error('Error fetching booked events :', error));

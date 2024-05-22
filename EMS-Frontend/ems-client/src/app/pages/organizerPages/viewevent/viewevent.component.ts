@@ -40,9 +40,9 @@ export class VieweventComponent implements OnInit{
     console.log('event id: ',this.eventId);
     if (this.eventId) {
       this.userdataService.trackTicketDetails(this.eventId).subscribe(
-        (eventDetails: EventDetailsInterface) => {
-          this.eventDetails = eventDetails;
-          console.log("ticket and event details", this.eventDetails['bookedUsers']);
+        (eventDetails: any) => {
+          this.eventDetails = eventDetails["eventwithUser"];
+          console.log("ticket and event details", this.eventDetails);
           this.allUsers = this.eventDetails['bookedUsers'];
           console.log('all users', this.allUsers);
           this.loadUsers();
@@ -52,13 +52,11 @@ export class VieweventComponent implements OnInit{
         }
       );
     }
-    // this.allUsers = this.eventDetails.bookedUsers;
-
   }
   isEventDone(): boolean {
     const eventDate = new Date(this.eventDetails.eventDate);
     const today = new Date();
-    return eventDate < today; // Returns true if event date is before today
+    return eventDate < today; 
   }
   calculateTotalRevenue(): number {
     let totalRevenue = 0;

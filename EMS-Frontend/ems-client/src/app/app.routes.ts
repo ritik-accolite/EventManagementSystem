@@ -60,6 +60,7 @@ export const routes: Routes = [
             {path: 'app-myevents', component: MyeventsComponent},
             {path: 'app-viewevent', component : VieweventComponent},
             {path: 'app-eventreview', component : EventreviewComponent},
+            { path:'mybookings', component:MybookingsComponent },
             {path: '**', component : TrackeventComponent},
         ]
     },
