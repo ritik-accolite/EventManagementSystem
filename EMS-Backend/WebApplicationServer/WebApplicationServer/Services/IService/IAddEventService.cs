@@ -7,7 +7,8 @@ namespace WebApplicationServer.Services.IService
 {
     public interface IAddEventService
     {
-        public Task<ResponseViewModel> AddEvent(AddEventViewModel addEvent, string Id);
+        //public Task<ResponseViewModel> AddEvent(AddEventViewModel addEvent, string Id);
+        public Task<ResponseViewModel> AddEvent(AddEventViewModel addEvent, string Id, IFormFile bannerImage);
 
         //public Task<GetAllEventResponseViewModel> GetAllEvents();
 
