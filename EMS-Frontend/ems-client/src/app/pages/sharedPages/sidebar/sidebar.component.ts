@@ -36,15 +36,6 @@ export class SidebarComponent {
     // this.fetchEventCategories();
   }
 
-  activateToggle() : void{
-    const doc = document.getElementById('navbarSupportedSideContent') as HTMLElement;
-    if(this.toggleBar === true){
-      doc.style.display = 'block';
-      this.toggleBar = false;
-    }
-
-  }
-
   deactivateToggle():void{
     this.toggleBar = true;
     const doc = document.getElementById('navbarSupportedSideContent') as HTMLElement;
@@ -59,13 +50,6 @@ export class SidebarComponent {
     }
 
   }
-
-  deactivateToggle():void{
-    this.toggleBar = true;
-    const doc = document.getElementById('navbarSupportedSideContent') as HTMLElement;
-    doc.style.display = 'none';
-  }
-
   onTabClick(tabRoute: string) {
     if (tabRoute === 'organizer-profile') {
       this.router.navigate(['organizer-dash', 'user-profile']);
