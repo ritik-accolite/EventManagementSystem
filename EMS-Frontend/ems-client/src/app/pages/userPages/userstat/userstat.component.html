@@ -5,22 +5,25 @@
                 <div class="projects-inner">
                     <header class="projects-header">
                         <div class="buttons">
-                            <button class="btn btn-secondary dropdown-toggle" (click)="this.showDropdown1 = !showDropdown1">Filter By Category</button>
+                            <!-- <button (click)="selectedField = 'Category'">Category</button> -->
+                            <!-- <button (click)="selectedField = 'Location'">Location</button> -->
+                            <button (click)="selectedField = 'All'">All Events</button>
+                            <button (click)="selectedField = 'Category'" class="btn btn-secondary dropdown-toggle" (click)="toggleDropdown1()">Filter By Category</button>
                             <div class="dropdown-content" *ngIf="showDropdown1">
                                 <select class="form-control" [(ngModel)]="selectedCategory" (change)="applyFilter(selectedCategory)">
                                     <option value="">Select Category</option>
-                                    <option *ngFor="let category of allEventCategory" [value]="category">{{ category }}</option>
+                                    <option *ngFor="let category of categoryFilter" [value]="category">{{ category }}</option>
                                 </select>
                             </div>
-                            <button class="btn btn-secondary dropdown-toggle" (click)="toggleDropdown2()">Filter By Location</button>
+                            <button (click)="selectedField = 'Location'" class="btn btn-secondary dropdown-toggle" (click)="toggleDropdown2()">Filter By Location</button>
                             <div class="dropdown-content" *ngIf="showDropdown2">
                                 <select class="form-control" [(ngModel)]="selectedLocation" (change)="applyFilter1(selectedLocation)">
                                     <option value="">Select Location</option>
-                                    <option *ngFor="let location of allEventCategory" [value]="location">{{ location }}</option>
+                                    <option *ngFor="let location of locationFilter" [value]="location">{{ location }}</option>
                                 </select>
                             </div>
                         </div>
-                        <div class="title">{{ selectedCategory || selectedLocation }} Events</div>
+                        <div class="title">{{ selectedField }} Events</div>
                         <div class="count">| {{ events.length }} Events</div>
                     </header>
                     <table class="table table-striped">

@@ -66,7 +66,7 @@ export class UserdataService {
 
   private getEventCategoriesUrl = 'http://localhost:5299/api/Event/eventCategories';
 
-  private getEventLocationsUrl = '';
+  private getEventLocationsUrl = 'http://localhost:5299/api/Event/eventlocation';
 
   private getEventsByCategoryUrl = 'http://localhost:5299/api/FilterEvents/GetEventsByCategory';
 
@@ -177,8 +177,8 @@ export class UserdataService {
     return this.http.get<EventByCategoriesInterface>(`${this.getEventsByCategoryUrl}/${selectedCategory}`);
   }
 
-  getEventsByLocation(selectedLocation: any): Observable<any> {
-    return this.http.get<any[]>(`${this.getEventsByLocationUrl}/${selectedLocation}`);
+  getEventsByLocation(selectedLocation: any): Observable<EventByCategoriesInterface> {
+    return this.http.get<EventByCategoriesInterface>(`${this.getEventsByLocationUrl}/${selectedLocation}`);
   }
 
   blockPersonbyId(personId : string): Observable<ResponseInterface> {

@@ -44,7 +44,7 @@
       <i class="fa fa-trash-o" aria-hidden="true"></i>
       Track Event Tickets
     </a> -->
-    <button (click)="toggleDropdown()">Filter By Category</button>
+    <!-- <button (click)="toggleDropdown()">Filter By Category</button>
   <div class="dropdown-content" *ngIf="showDropdown1">
     <select [(ngModel)]="selectedCategory" (change)="applyFilter(selectedCategory)">
       <option value="">Select Category</option>
@@ -57,7 +57,7 @@
       <option value="">Select Category</option>
       <option *ngFor="let category of allEventCategory" [value]="category">{{ category }}</option>
     </select>
-  </div>
+  </div> -->
   </aside>
   <ng-template #adminContent>
     <!-- Admin Menu -->
