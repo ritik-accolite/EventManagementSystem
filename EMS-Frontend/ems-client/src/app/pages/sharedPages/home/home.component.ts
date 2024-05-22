@@ -13,9 +13,5 @@ import { EventlistComponent } from '../eventlist/eventlist.component';
 })
 export class HomeComponent {
 
-  constructor(private router: Router) { }
-
-  // navigateToLogin() {
-  //   this.router.navigate(['/user-dash']); // Navigate to the 'login' route
-  // }
+  constructor() { }
 }

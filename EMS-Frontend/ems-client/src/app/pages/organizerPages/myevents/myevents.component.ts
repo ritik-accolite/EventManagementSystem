@@ -38,8 +38,14 @@ export class MyeventsComponent implements OnInit {
   }
   viewEvent(eventId: number) {
     this.userdataservice.eventId = eventId;
-    this.router.navigate(['organizer-dash','app-viewevent']);
-  }
+    if(this.jwtDecodeService.role==="Organizer"){
+      this.router.navigate(['organizer-dash','app-viewevent']);
+      } else if (this.jwtDecodeService.role==="Admin"){
+        this.router.navigate(['admin-dash','app-viewevent']);
+      }
+    }
+    // this.router.navigate(['organizer-dash','app-viewevent']);
+  
   
   fetchEvents(): void {
     if(this.organizerId!=''){

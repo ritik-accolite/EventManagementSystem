@@ -38,8 +38,9 @@ export class OrganizerstatComponent implements OnInit {
           console.log(this.events);
           this.totalEvents = this.events.length;
           this.loginUserId = localStorage.getItem('LoginUserId');
+          console.log('login user id', this.loginUserId);
           this.fetchTicketsTrack(this.loginUserId);
-          this.mergeEventData();
+          // this.mergeEventData();
 
         },
         error => console.error('Error fetching events: ', error)
@@ -50,6 +51,7 @@ export class OrganizerstatComponent implements OnInit {
     this.userdataservice.getOrganizerEventTicketDetails(organizerId)
       .subscribe(
         (response : any ) => {
+          console.log('response', response);
           this.trackEventTicket = response.events;
           this.mergeEventData();
         },
@@ -62,6 +64,8 @@ export class OrganizerstatComponent implements OnInit {
   }
   mergeEventData(): void {
     // Check if both events and tickets are fetched
+    console.log('events in merge', this.events);
+    console.log('events in merge track', this.trackEventTicket);
     if (this.events.length > 0 && this.trackEventTicket.length > 0) {
       // Merge event and ticket information based on eventId
       this.events.forEach(event => {

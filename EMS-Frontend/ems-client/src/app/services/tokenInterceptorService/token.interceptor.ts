@@ -16,5 +16,6 @@ export const tokenInterceptor: HttpInterceptorFn = (req, next) => {
     headers: req.headers.set('Authorization', `Bearer ${token}`),
   });
 
+  console.log("hitted token interceptor")
   return next(modifiedReq);
 };

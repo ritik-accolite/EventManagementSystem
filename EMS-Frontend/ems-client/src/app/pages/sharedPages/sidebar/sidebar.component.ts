@@ -36,8 +36,10 @@ export class SidebarComponent {
   }
 
   onTabClick(tabRoute: string) {
-    if (tabRoute === 'user-profile') {
-      this.router.navigate(['user-dash', 'user-profile']);
+    if (tabRoute === 'organizer-profile') {
+      this.router.navigate(['organizer-dash', 'user-profile']);
+    } else if (tabRoute === 'user-profile') {
+      this.router.navigate(['user-dash','user-profile']);
     } else if (tabRoute === 'myevents') {
       this.router.navigate(['organizer-dash','app-myevents']);
     } else if (tabRoute === 'new-event')  {
@@ -48,12 +50,10 @@ export class SidebarComponent {
       this.router.navigate(['user-dash','mybookings'])
     } else if (tabRoute === 'user-stat') {
       this.router.navigate(['user-dash',''])
-    }
-    
-    else if (tabRoute === 'organizer-stat') {
+    } else if (tabRoute === 'organizer-stat') {
       this.router.navigate(['organizer-dash','app-organizerstat'])
     } else if (tabRoute === 'organizer-profile') {
-      this.router.navigate(['admin-dash','user-profile'])
+      this.router.navigate(['organizer-dash','user-profile'])
     } else if (tabRoute === 'track-event') {
       this.router.navigate(['admin-dash','track-event'])
     } else if (tabRoute === 'track-organizer') {

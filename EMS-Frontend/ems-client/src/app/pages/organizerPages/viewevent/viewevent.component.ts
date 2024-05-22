@@ -35,12 +35,13 @@ export class VieweventComponent implements OnInit{
   ngOnInit(): void {
     this.eventId = this.userdataService.eventId;
     this.role = localStorage.getItem('Role');
+    console.log('event id: ',this.eventId);
     if (this.eventId) {
       this.userdataService.trackTicketDetails(this.eventId).subscribe(
         (eventDetails: any) => {
-          this.eventDetails = eventDetails;
+          this.eventDetails = eventDetails.eventwithUser;
           console.log("ticket and event details", this.eventDetails['bookedUsers']);
-          this.allUsers = eventDetails['bookedUsers'];
+          this.allUsers = this.eventDetails['bookedUsers'];
           console.log('all users', this.allUsers);
           this.loadUsers();
         },
@@ -110,6 +111,10 @@ export class VieweventComponent implements OnInit{
 
   navigateToReview(eventId : number){
     this.userdataService.eventId = eventId;
+    if(this.jwtdecodeservice.role==="Organizer"){
     this.router.navigate(['organizer-dash','app-eventreview']);
+    } else if (this.jwtdecodeservice.role==="Admin"){
+      this.router.navigate(['admin-dash','app-eventreview']);
+    }
   }
 }
