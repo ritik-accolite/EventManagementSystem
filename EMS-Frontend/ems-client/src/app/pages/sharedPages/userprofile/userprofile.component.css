@@ -1,14 +1,48 @@
-.abc{
-  background:#ffdbe2 ;
+
+.content {
+  position: relative;
+}
+
+.heading {
+  font-family: Arial, sans-serif;
+  text-align: center;
+  color: #0e110e;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+.ruler {
+  width: 50%; /* Adjust the width of the ruler as needed */
+  height: 5px; /* Adjust the height of the ruler as needed */
+  background: linear-gradient(120deg, #ee8425 0%, #f9488b 100%), linear-gradient(120deg, #ee8425 0%, #f9488b 100%); /* Add a gradient for decorative effect */
+  margin: 20px auto; /* Add margin to center the ruler horizontally */
+  border-radius: 10%; /* Add rounded corners to the ruler */
+}
+
+.image {
+  position: absolute;
+  top: 150%; /* Adjust top position as needed */
+  right: 5%; /* Adjust right position as needed */
+  width: 35%; /* Adjust image width as needed */
+  height: auto; /* Maintain aspect ratio */
+ /* background-image: url(https://media.istockphoto.com/id/1633161529/photo/3d-render-user-avatar-interface-pop-up-icon-isolated-on-white-background-minimal-adding.jpg?s=1024x1024&w=is&k=20&c=F-hPaeszef6m8lBjKZT4vPkjp11SUPC_xubXmKiW9Jk=); /* Add your image URL here */
+  background-size: cover;
+  background-position: center;
+   /* Ensure the image is behind the text */
+}
+
+/* Responsive adjustments */
+@media only screen and (max-width: 600px) {
+  .heading {
+    font-size: 4vw; /* Adjust font size for smaller screens */
+  }
+  .image {
+    top: 10%; /* Adjust top position for smaller screens */
+    right: 10%; /* Adjust right position for smaller screens */
+    width: 15%; /* Adjust image width for smaller screens */
+  }
 }
 
 
-
-.container {
-    max-width: 800px; 
-    margin: 0 auto;
-    background-color: #ffdbe2;
-  }
 
   .card {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
@@ -43,6 +77,7 @@
 /* Style form group */
 .form-group {
   margin-bottom: 20px;
+  padding: 5px;
 }
 
 /* Style form labels */
@@ -167,7 +202,7 @@
   margin-left: 20px;
 }
 .abc{
-  background: #ffdbe2;
+  background: url(https://plus.unsplash.com/premium_photo-1700834113131-c587280aa770?q=80&w=1412&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D);
   padding: 20px;
   border-radius: 10px;
   max-width: 100%; /* Set max-width */
@@ -180,3 +215,31 @@
   overflow: hidden;
   box-shadow: #333;
 }
+.custom-label {
+  /* Example styling */
+  font-family: 'Arial', sans-serif;
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: #0a0101;
+  /* Add more styles as needed */
+}
+
+@media (max-width: 576px) {
+  /* Adjustments for smaller screens */
+  .custom-label {
+    font-size: 1rem; /* Adjust font size for smaller screens */
+  }
+}
+.alert-custom {
+  padding: 15px;
+  margin-bottom: 20px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+}
+
+.alert-success {
+  color: #3c763d;
+  background-color: #dff0d8;
+  border-color: #d6e9c6;
+}
+
