@@ -1,0 +1,134 @@
+.container {
+  background: url(https://plus.unsplash.com/premium_photo-1700834113131-c587280aa770?q=80&w=1412&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D);
+  padding: 20px;
+  border-radius: 10px;
+  max-width: 100%; /* Set max-width */
+  margin: 0 auto; /* Center container */
+  display: flex; /* Use flexbox */
+  flex-wrap: wrap; /* Enable wrapping */
+  justify-content: center;
+  font-family: Arial, sans-serif; 
+  font-style: italic; /* Align items horizontally in the center */
+  
+}
+  
+.form-group {
+  display: inline-block; /* Display each input field horizontally */
+  width: 100%; /* Set width to control spacing */
+  margin: 5px;
+
+  input{
+    width : 300px;
+  }
+  @media screen and (max-width: 768px) {
+      input {
+      width: auto;
+      
+    }
+  }
+  /* Add margin for spacing */
+}
+.form-group label {
+  color: #333; /* Set label color */
+}
+
+.form-control {
+  border: 1px solid #ddd; /* Set border color */
+  border-radius: 5px; /* Set border radius */
+  width: 100%; /* Set width to 100% */
+  box-sizing: border-box; /* Include padding and border in width */
+  transition: border-color 0.3s ease; /* Add transition animation */
+}
+
+.form-control:focus {
+  border-color: #d8363a; /* Set border color on focus */
+  box-shadow: 0 0 5px rgba(216, 54, 58, 0.5); /* Add box shadow on focus */
+}
+.btn-primary {
+  background: linear-gradient(to right, #ee7724, #d8363a, #dd3675, #b44593); /* Set background gradient */
+  border: none; /* Remove border */
+  color: #fff; /* Set button text color */
+  border-radius: 25px; /* Add border radius */
+  padding: 10px 20px; /* Add padding */
+  cursor: pointer; /* Change cursor on hover */
+  transition: background-color 0.3s ease, transform 0.3s ease; /* Add transition animation */
+}
+
+.btn-primary:hover {
+  transform: scale(1.05); /* Add scaling effect on hover */
+}
+
+
+@media screen and (min-width: 576px) {
+  .form-group {
+    width: 50%; /* Set width to 50% on screens wider than 576px */
+    float: left; /* Float elements side by side */
+    box-sizing: border-box; /* Include padding and border in width */
+    padding: 0 10px; /* Add padding */
+    transition: width 0.3s ease; /* Add transition animation */
+  }
+
+  .form-group:last-child {
+    /* float: right; Float last form group to right */
+  }
+
+  .btn-primary {
+    width: auto; /* Set button width to auto */
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .form-group {
+    width: 100%; /* Set width to 100% on screens smaller than 576px */
+  }
+}
+h2 {
+  color: #333; /* Set text color */
+  transition: color 0.3s ease; /* Add transition animation */
+}
+  
+  label {
+    font-weight: bold;
+  }
+  
+  input[type="text"],
+  input[type="datetime"],
+  input[type="time"],
+  input[type="number"],
+  textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+  
+  textarea {
+    resize: vertical;
+  }
+  
+  .btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  
+  .btn-danger {
+    background-image: linear-gradient(120deg, #ee8425 0%, #f9488b 100%);
+    color: #fff;
+    margin-left: 10px;
+  }
+  
+  .btn-primary:hover,
+  .btn-danger:hover {
+    opacity: 0.8;
+  }
+  
+  @media (max-width: 768px) {
+    .container {
+      max-width: 90%;
+    }
+  }
+  

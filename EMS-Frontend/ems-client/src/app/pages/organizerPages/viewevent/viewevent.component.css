@@ -12,18 +12,20 @@
   .description{
     padding-top: 20px;
     border-radius: 5px;
-    background-color: rgb(26, 168, 168);
+    background-color: #f46c70;
     color: white;
     /* padding-bottom: 20px; */
   }
   .values{
     /* padding : 30px 10px 20px 10px; */
     border-radius: 5px;
-    background-color: azure;
+    background-color: #ecdfad;
     padding-top: 20px;
+    
   }
   .card-desc{
-    color: white;
+    color: rgba(255, 251, 251, 0.993);
+    font-weight: bold;
   }
   
   .done {
@@ -31,5 +33,9 @@
   }
   
   .upcoming {
-    color: #ea8685;
+    color: #350a07;
+  }
+  .card-text{
+    font-weight: bold;
+    color: #350a07;
   }
