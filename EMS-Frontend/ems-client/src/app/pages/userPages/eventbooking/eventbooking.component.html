@@ -33,8 +33,8 @@
                 Number of tickets is required.
             </div>
         </div>
-        <div *ngIf="ticketPrice > 0">
-            <p>Total Price: {{ ticketPrice | currency }}</p>
+        <div *ngIf="totalPrice > 0">
+            <p>Total Price: {{ totalPrice | currency }}</p>
         </div>
         <button type="submit" [disabled]="!bookEventForm.valid" class="btn btn-primary">Book Event</button>
     </form>

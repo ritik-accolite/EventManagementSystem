@@ -21,6 +21,7 @@ export class EventbookingComponent implements OnInit {
   ticketPrice: number = 0;
   bookingMessage: string = '';
   status: number = 0;
+  totalPrice: number = 0;
 
   constructor(
     private fb: FormBuilder,
@@ -74,6 +75,6 @@ export class EventbookingComponent implements OnInit {
   }
   calculatePrice() {
     const numberOfTickets = this.bookEventForm.get('numberOfTickets')?.value;
-    this.ticketPrice = numberOfTickets * this.ticketPrice; 
+    this.totalPrice = numberOfTickets * this.ticketPrice; 
   }
 }

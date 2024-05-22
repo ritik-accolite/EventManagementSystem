@@ -9,6 +9,7 @@ import { EventByCategoriesInterface } from '../../../interface/userInterface/eve
 import { AllEventInterface } from '../../../interface/commonInterface/all-event-interface';
 import { EventUserInterface } from '../../../interface/userInterface/event-user-interface';
 import { EventCategoryInterface } from '../../../interface/userInterface/event-category-interface';
+import { EventInterface } from '../../../interface/commonInterface/event-interface';
 
 @Component({
     selector: 'app-userstat',
@@ -18,13 +19,14 @@ import { EventCategoryInterface } from '../../../interface/userInterface/event-c
     imports: [NgFor, DatePipe, FormsModule, CommonModule, RouterOutlet, EventbycategoryComponent]
 })
 export class UserstatComponent implements OnInit {
-  events: EventUserInterface[] = [];
+  events: any[] = [];
   showDropdown1 = false;
-  allEventCategory: AllEventInterface[] = [];
+  allEventCategory: any[] = [];
   showDropdown2 = false;
   categoryFilter: any[] = [];
   locationFilter: any[] = [];
   totalEvents : number = 0;
+  selectedField : string = 'All';
   selectedCategory: string = ''; 
   selectedLocation: string = '';
   
@@ -32,22 +34,24 @@ export class UserstatComponent implements OnInit {
     private router: Router){}
 
   ngOnInit(): void {
-   // this.fetchEvents();
-    this.fetchEventCategories();
-    this.fetchEventLocations();
+    this.fetchEvents();
+    // this.fetchEventCategories();
+    // this.fetchEventLocations();
   }
 
-  // fetchEvents(): void {
-  //   this.userdataservice.getOrganizerEvents()
-  //     .subscribe(
-  //       (response : any ) => {
-  //         this.events = response;
-  //         this.totalEvents = this.events.length;
-
-  //       },
-  //       error => console.error('Error fetching events: ', error)
-  //     );
-  // }
+  fetchEvents(): void {
+    this.userdataservice.getEvents()
+      .subscribe(
+        (response : EventInterface ) => { // change any here !!
+          console.log(response);
+          this.events = response.allEvents; 
+          console.log('Events fetched successfully:', this.events);
+        },
+        error => console.error('Error fetching events: ', error)
+      );
+      this.fetchEventCategories();
+      this.fetchEventLocations();
+  }
 
   // toggleDropdown() {
   //   this.showDropdown1 = !this.showDropdown1;
@@ -55,19 +59,20 @@ export class UserstatComponent implements OnInit {
   // }
 
   toggleDropdown1() {
-    this.showDropdown1 = !this.showDropdown1;
-    this.showDropdown2 = false;
+    this.showDropdown1 = true;
+    //this.showDropdown2 = false;
 }
 
  toggleDropdown2() {
-    this.showDropdown2 = !this.showDropdown2;
-    this.showDropdown1 = false;
+    this.showDropdown2 = true;
+    //this.showDropdown1 = false;
 }
 
   fetchEventCategories() {
     this.userdataservice.getEventCategories().subscribe(
       (response: EventCategoryInterface) => {
-        this.allEventCategory = response.allEventCategory;
+        this.categoryFilter = response.allEventCategory;
+        console.log(this.allEventCategory);
       },
       (error: any) => {
         console.error('Error fetching event categories:', error);
@@ -76,9 +81,9 @@ export class UserstatComponent implements OnInit {
   }
 
   fetchEventLocations() {
-    this.userdataservice.getEventCategories().subscribe(
-      (response: any) => {
-        this.allEventCategory = response.allEventCategory;
+    this.userdataservice.getEventLocations().subscribe(
+      (response: EventCategoryInterface) => {
+        this.locationFilter = response.allEventCategory;
       },
       (error: any) => {
         console.error('Error fetching event categories:', error);
@@ -87,6 +92,7 @@ export class UserstatComponent implements OnInit {
   }
 
   applyFilter(selectedCategory: string) {
+    this.selectedField = "Category";
     this.selectedCategory = selectedCategory;
     this.viewEvent();
     // console.log(selectedCategory);
@@ -94,13 +100,16 @@ export class UserstatComponent implements OnInit {
   }
 
   applyFilter1(selectedLocation: string) {
-    this.userdataservice.selectedCategory = selectedLocation;
+    this.selectedField = "Location";
+    this.selectedLocation = selectedLocation;
+    this.viewEvent();
     // console.log(selectedLocation);
     // this.router.navigate(['user-dash' , 'event-by-location']);
   }
 
   viewEvent() {
-    if (this.showDropdown1) {
+    if (this.selectedField === "Category") {
+    // if (this.showDropdown1) {
       this.userdataservice.getEventsByCategory(this.selectedCategory).subscribe(
         (response: EventByCategoriesInterface) => {
           this.events = response.categoryEvents;
@@ -112,9 +121,9 @@ export class UserstatComponent implements OnInit {
       );
     }
 
-    else {
+    else if (this.selectedField === "Location") {
       this.userdataservice.getEventsByLocation(this.selectedLocation).subscribe(
-        (response: any) => {
+        (response: EventByCategoriesInterface) => {
           this.events = response.categoryEvents;
           console.log(response.categoryEvents);
         },
@@ -123,13 +132,18 @@ export class UserstatComponent implements OnInit {
         }
       );
     }
+
+    else {
+      this.fetchEvents();
+    }
   }
 
-  // get filteredEvents(): any[] {
-  //   if (this.selectedCategory === 'Category') {
-  //     return this.events.filter(event => new Date(event.eventDate) > new Date())
+  get filteredEvents(): EventUserInterface[] {
+  //   if (this.selectedField === 'Category') {
+      return this.events.filter(event => new Date(event.eventDate) > new Date())
+  }
   //                       .sort((a, b) => new Date(a.eventDate).getTime() - new Date(b.eventDate).getTime());
-  //   } else if (this.selectedCategory === 'Previous') {
+  //   } else if (this.selectedField === 'Location') {
   //     return this.events.filter(event => new Date(event.eventDate) < new Date())
   //                       .sort((a, b) => new Date(b.eventDate).getTime() - new Date(a.eventDate).getTime());
   //   } else {
