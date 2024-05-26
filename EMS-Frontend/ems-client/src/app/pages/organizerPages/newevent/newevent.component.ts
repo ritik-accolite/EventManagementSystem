@@ -28,11 +28,14 @@ export class NeweventComponent {
       chiefGuest: ['', Validators.required],
       ticketPrice: ['', Validators.required],
       capacity: ['', Validators.required],
-      bannerImage: ['',Validators.required]
+      bannerImageFile: ['',Validators.required]
     });
   }
   onSubmit() {
     if (this.eventForm.valid) {
+      const BannerImage = this.eventForm.get('bannerImageFile')?.value || '';
+      const eventData = { ...this.eventForm.value, BannerImage };
+
       this.userdataservice.createEvent(this.eventForm.value).subscribe(
         (response) => {
           console.log('Event created successfully:', response);

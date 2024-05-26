@@ -21,6 +21,7 @@ import { ForgetPasswordInterface } from '../../interface/commonInterface/forget-
 import { EditProfileInterface } from '../../interface/commonInterface/edit-profile-interface';
 import { UpdateEventInterface } from '../../interface/organizerInterface/update-event-interface';
 import { ResponseInterface } from '../../interface/commonInterface/response-interface';
+import { EventDetailInterface } from '../../interface/userInterface/event-detail-interface';
 
 @Injectable({
   providedIn: 'root'
@@ -81,11 +82,13 @@ export class UserdataService {
 
   private unBlockPersonByIdUrl = 'http://localhost:5299/api/Person/unblockperson';
 
-  private addReviewUrl = 'http://localhost:5299/events/reviews';
+  private addReviewUrl = 'https://eventhubfusion.azurewebsites.net/api/Review/events/reviews';
 
   private getAllReviewUrl ='http://localhost:5299/admin/allreviews';
 
   private getAllReviewByEventIdUrl ='http://localhost:5299/admin/reviewsbyeventid';
+
+  private getEventByIdUrl = 'http://localhost:5299/api/Event';
 
   constructor(private http: HttpClient) { }
 
@@ -206,6 +209,10 @@ export class UserdataService {
   }
   getAllReviewsByEventId(eventId : number): Observable<GetAllReviewsInterface> {
     return this.http.get<GetAllReviewsInterface>(`${this.getAllReviewByEventIdUrl}/${eventId}`);
+  }
+
+  getEventById(eventId : number): Observable<EventDetailInterface> {
+    return this.http.get<EventDetailInterface>(`${this.getEventByIdUrl}/${eventId}`);
   }
 
 }
