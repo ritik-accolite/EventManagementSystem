@@ -40,7 +40,6 @@ namespace WebApplicationServer.Services
             ResponseViewModel response = new ResponseViewModel();
 
             var eventDetails = await _context.Events.FindAsync(eventId);
-            //if (eventDetails == null || eventDetails.EventDate > DateTime.Now)
             if (eventDetails == null)
             {
                 response.Status = 400;
@@ -65,7 +64,6 @@ namespace WebApplicationServer.Services
                 return response;
             }
 
-
             var review = new Review
             {
                 EventId = eventId,
@@ -75,15 +73,12 @@ namespace WebApplicationServer.Services
                 IsReported = reviewRequest.IsReported
             };
 
-
             _context.Reviews.Add(review);
             await _context.SaveChangesAsync();
             response.Status = 200;
             response.Message = "Review Added Successfully";
             return response;
         }
-
-
 
         public async Task<List<GetAllReviewViewModel>> GetReviewByEventId(int eventid)
         {

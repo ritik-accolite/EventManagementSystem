@@ -44,7 +44,7 @@ namespace WebApplicationServer.Models.ViewModels
 
 
         // Add a property for the image file
-        [Required]
+       
         public IFormFile BannerImageFile { get; set; }
     }
 }

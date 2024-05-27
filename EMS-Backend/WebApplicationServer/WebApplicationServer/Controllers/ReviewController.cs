@@ -9,8 +9,11 @@ using WebApplicationServer.Models.ResponseModels;
 using WebApplicationServer.Models.ResponseModels;
 using WebApplicationServer.Models.ViewModels;
 using WebApplicationServer.Services.IService;
+
 namespace WebApplicationServer.Controllers
 {
+    [Route("api/[controller]")]
+    [ApiController]
     public class ReviewController : ControllerBase
     {
 
@@ -24,8 +27,6 @@ namespace WebApplicationServer.Controllers
             _eventReviewService = eventReviewService;
             _context = context;
         }
-
-        //GetAllReviews
 
         [HttpGet("admin/allreviews")]
         public async Task<GetAllReviewResponseViewModel> GetAllReviews()
@@ -68,40 +69,7 @@ namespace WebApplicationServer.Controllers
                 response.Message = $"Error adding review: {ex.Message}";
             }
             return response;
-
         }
-
-
-
-        public async Task<ResponseViewModel> DeleteEvent(int id)
-        {
-            ResponseViewModel response = new ResponseViewModel();
-
-            try
-            {
-                var eventToDelete = await _context.Events.FindAsync(id);
-                if (eventToDelete == null)
-                {
-                    response.Status = 404;
-                    response.Message = "Event not found";
-                }
-                else
-                {
-                    _context.Events.Remove(eventToDelete);
-                    await _context.SaveChangesAsync();
-                    response.Status = 200;
-                    response.Message = "Event deleted successfully";
-                }
-            }
-            catch (Exception ex)
-            {
-                response.Status = 500;
-                response.Message = $"Error deleting event: {ex.Message}";
-            }
-            return response;
-        }
-
-
 
         [HttpPost("resolveissue/{userId}/{reviewId}")]
 
@@ -118,10 +86,6 @@ namespace WebApplicationServer.Controllers
                 return response;
 
             } 
-
-
-            
-
             if (user != null)
             {
                 bool emailSent = await _sendRegisterSuccessMailService.SendRegisterSuccessMailAsync(user.Email, "Issue Resolved", "Your reported issue has been resolved.");
@@ -129,7 +93,6 @@ namespace WebApplicationServer.Controllers
 
                 if (!emailSent)
                 {
-                    // Handle email sending failure
                     response.Status = 500;
                     response.Message = "Failed to send Reported issue email";
                     return response;
@@ -138,8 +101,6 @@ namespace WebApplicationServer.Controllers
 
             review.IsReported = false;
             await _context.SaveChangesAsync();
-
-
 
             response.Status = 200;
             response.Message = "Email Sent Successfully and review status updated";

@@ -2,13 +2,6 @@
 {
     public class EventTicketStatusViewModel
     {
-
-        //public string EventName { get; set; }
-        //public int TotalTicketsSold { get; set; }
-        //public int TotalTicketsLeft { get; set; }
-        //public List<UserTicketDetailsViewModel> UserTickets { get; set; }
-
-
         public List<EventStatus> Events { get; set; } = new List<EventStatus>();
 
         public class EventStatus
