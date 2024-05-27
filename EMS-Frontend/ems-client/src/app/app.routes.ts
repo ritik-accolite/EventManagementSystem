@@ -61,6 +61,7 @@ export const routes: Routes = [
             {path: 'app-myevents', component: MyeventsComponent},
             {path: 'app-viewevent', component : VieweventComponent},
             {path: 'app-eventreview', component : EventreviewComponent},
+            { path:'mybookings', component:MybookingsComponent },
             {path: '**', component : TrackeventComponent},
         ]
     },
@@ -109,13 +110,13 @@ export const routes: Routes = [
                 ]
             },
             { path:'event-bookings', component:EventbookingComponent},
-            // { path:'event-list', component:EventlistComponent },
-            // { path:'event-list',
-            //     children: 
-            //     [
-            //         { path:'event-bookings', component:EventbookingComponent}
-            //     ]
-            // },
+            { path:'event-list', component:EventlistComponent },
+            { path:'event-list',
+                children: 
+                [
+                    { path:'event-bookings', component:EventbookingComponent}
+                ]
+            },
             { path: 'event-by-category', component:EventbycategoryComponent},
             { path: 'event-by-location', component:EventbylocationComponent},
             { path: '**', component : UserstatComponent}

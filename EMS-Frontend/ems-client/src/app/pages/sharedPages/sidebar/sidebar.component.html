@@ -22,10 +22,6 @@
     <i class="fa-regular fa-user"></i>
     Profile
   </a>
-  <a>
-    <i class="fa-solid fa-ticket"></i>
-    Track Event Tickets
-  </a>
 </aside>
 <ng-template #userContent>
   <aside *ngIf="role === 'User'; else adminContent">
@@ -46,24 +42,6 @@
       <i class="fa fa-clone" aria-hidden="true"></i>
       Profile
     </a>
-    <!-- <a>
-      <i class="fa fa-trash-o" aria-hidden="true"></i>
-      Track Event Tickets
-    </a> -->
-    <!-- <button (click)="toggleDropdown()">Filter By Category</button>
-  <div class="dropdown-content" *ngIf="showDropdown1">
-    <select [(ngModel)]="selectedCategory" (change)="applyFilter(selectedCategory)">
-      <option value="">Select Category</option>
-      <option *ngFor="let category of allEventCategory" [value]="category">{{ category }}</option>
-    </select>
-  </div> 
-  <button (click)="toggleDropdown()">Filter By Location</button>
-  <div class="dropdown-content" *ngIf="showDropdown2">
-    <select [(ngModel)]="selectedCategory" (change)="applyFilter1(selectedCategory)">
-      <option value="">Select Category</option>
-      <option *ngFor="let category of allEventCategory" [value]="category">{{ category }}</option>
-    </select>
-  </div> -->
   </aside>
   <ng-template #adminContent>
     <!-- Admin Menu -->
@@ -74,17 +52,13 @@
       </a>
       <a (click)="onTabClick('track-organizer')">
         <i class="fa fa-star-o" aria-hidden="true"></i>
-        Track Organizers
+        Track Organizers/Users
       </a>
-      <!-- <a (click)="onTabClick('track-user')">
-        <i class="fa fa-star-o" aria-hidden="true"></i>
-        Track Users
-      </a> -->
       <a (click)="onTabClick('issues')">
         <i class="fa fa-star-o" aria-hidden="true"></i>
         Reported Issues
       </a>
-      <a (click)="onTabClick('organizer-profile')">
+      <a (click)="onTabClick('admin-profile')">
         <i class="fa fa-clone" aria-hidden="true"></i>
         Profile
       </a>

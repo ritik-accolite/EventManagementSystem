@@ -77,7 +77,9 @@ export class SidebarComponent {
       this.router.navigate(['admin-dash','track-organizer'])
     } else if (tabRoute === 'issues') {
       this.router.navigate(['admin-dash','issues'])
-    } else if (tabRoute === 'user-stat') {
+    }  else if (tabRoute === 'admin-profile') {
+      this.router.navigate(['admin-dash','user-profile']);
+    }else if (tabRoute === 'user-stat') {
       this.router.navigate(['user-dash','user-stat'])
     }
   }

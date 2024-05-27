@@ -23,6 +23,12 @@
     padding-top: 20px;
     
   }
+  .image {
+    height: 40vh;
+    border-radius: 12px;
+    margin-bottom: 10px;
+  }
+  
   .card-desc{
     color: rgba(255, 251, 251, 0.993);
     font-weight: bold;

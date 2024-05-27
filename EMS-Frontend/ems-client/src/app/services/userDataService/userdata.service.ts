@@ -88,6 +88,8 @@ export class UserdataService {
 
   private getAllReviewByEventIdUrl ='http://localhost:5299/admin/reviewsbyeventid';
 
+  private resolveReviewUrl = 'http://localhost:5299/resolveissue';
+
   private getEventByIdUrl = 'http://localhost:5299/api/Event';
 
   constructor(private http: HttpClient) { }
@@ -135,7 +137,8 @@ export class UserdataService {
     return this.http.get<ProfileInterface>(`${this.profileUrl}/${personId}`);
   }
 
-  createEvent(eventdata: CreateEventInterface): Observable<any> {
+  createEvent(eventdata: any): Observable<any> {
+    console.log('whilw passing data', eventdata);
     return this.http.post(`${this.createEventUrl}`,eventdata);
   }
   updateEvent(eventId: number, eventdata: UpdateEventInterface): Observable<UpdateEventInterface> {
@@ -209,6 +212,10 @@ export class UserdataService {
   }
   getAllReviewsByEventId(eventId : number): Observable<GetAllReviewsInterface> {
     return this.http.get<GetAllReviewsInterface>(`${this.getAllReviewByEventIdUrl}/${eventId}`);
+  }
+
+  resolveReview(reviewId: string, userId: string): Observable<ResponseInterface> {
+    return this.http.post<any>(`${this.resolveReviewUrl}/${userId}/${reviewId}`,{});
   }
 
   getEventById(eventId : number): Observable<EventDetailInterface> {

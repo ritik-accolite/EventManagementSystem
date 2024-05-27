@@ -1,95 +1,101 @@
 <div class="container-fluid">
-	<div class="row">
-		<main role="main" >
-			<div class="card-list">
-				<div class="row">
-					<div class="col-12 col-md-6 col-lg-4 col-xl-3 mb-4">
-						<div class="card blue">
-							<div class="title">Total Events Posted</div>
-							<!-- <i class="zmdi zmdi-upload"></i> -->
-							<div class="value">{{totalEvents}}</div>
-							<div class="stat"><b>13</b>% increase</div>
-						</div>
-					</div>
-					<div class="col-12 col-md-6 col-lg-4 col-xl-3 mb-4">
-						<div class="card green">
-							<div class="title">Total Person attended</div>
-							<i class="zmdi zmdi-upload"></i>
-							<div class="value">{{totalAttendees}}</div>
-							<div class="stat"><b>4</b>% increase</div>
-						</div>
-					</div>
-					<div class="col-12 col-md-6 col-lg-4 col-xl-3 mb-4">
-						<div class="card orange">
-							<div class="title">Revenue</div>
-							<i class="zmdi zmdi-download"></i>
-							<div class="value">₹{{totalRevenue}}</div>
-							<div class="stat"><b>13</b>% decrease</div>
-						</div>
-					</div>
-					<div class="col-12 col-md-6 col-lg-4 col-xl-3 mb-4">
-						<div class="card red">
-							<div class="title">Average Rating</div>
-							<i class="zmdi zmdi-download"></i>
-							<div class="value">4</div>
-							<div class="stat"><b>13</b>% decrease</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="projects mb-4">
-				<div class="projects-inner">
-					<header class="projects-header">
-						<div class="buttons">
-						  <button (click)="selectedCategory = 'Upcoming'">Upcoming Events</button>
-						  <button (click)="selectedCategory = 'Previous'">Previous Events</button>
-						  <button (click)="selectedCategory = 'All'">All Events</button>
-						</div>
-						<div class="title">{{selectedCategory}} Events</div>
-						<div class="count">| {{ filteredEvents.length }} Events</div>
-					  </header>
-					<table class="projects-table">
-						<thead>
-							<tr>
-								<th>Event</th>
-								<th>Event Date</th>
-								<th>Leader/ Chief Guest</th>
-								<th>Total Revenue</th>
-								<th>Seats Left</th>
-								<th class="text-right">Venue</th>
-							</tr>
-						</thead>
-						<tr *ngFor="let event of filteredEvents" (click)="viewEvent(event.eventId)">
-							<td>
-								<p>{{ event.eventName }}</p>
-								<p></p>
-							</td>
-							<td>
-								<p>{{ event.eventDate | date: 'yyyy-MM-dd' }}</p>
-                                
-							</td>
-							<td class="member">
-								<figure><img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/584938/people_8.png" /></figure>
-								<div class="member-info">
-									<p>{{ event.chiefGuest }}</p>
-									<p></p>
-								</div>
-							</td>
-							<td>
-								<p>₹{{ event.ticketPrice * event.totalTicketsSold}}</p>
-								<p></p>
-							</td>
-							<td class="status">
-								<span class="status-text status-orange">{{ event.totalTicketsLeft }}</span>
-							</td>
-							<td>
-                            <p>{{ event.eventLocation }}</p>
-                            <p></p>
-							</td>
-						</tr>
-					</table>
-				</div>
-			</div>
-		</main>
-	</div>
+  <div class="row">
+    <main role="main">
+      <div class="card-list">
+        <div class="row">
+          <div class="col-12 col-md-6 col-lg-4 col-xl-3 mb-4">
+            <div class="card blue">
+              <div class="title">Events Posted</div>
+              <!-- <i class="zmdi zmdi-upload"></i> -->
+              <div class="value">{{ totalEvents }}</div>
+            </div>
+          </div>
+          <div class="col-12 col-md-6 col-lg-4 col-xl-3 mb-4">
+            <div class="card green">
+              <div class="title">Person attended</div>
+              <i class="zmdi zmdi-upload"></i>
+              <div class="value">{{ totalAttendees }}</div>
+            </div>
+          </div>
+          <div class="col-12 col-md-6 col-lg-4 col-xl-3 mb-4">
+            <div class="card orange">
+              <div class="title">Revenue</div>
+              <i class="zmdi zmdi-download"></i>
+              <div class="value">₹{{ totalRevenue }}</div>
+            </div>
+          </div>
+          <div class="col-12 col-md-6 col-lg-4 col-xl-3 mb-4">
+            <div class="card red">
+              <div class="title">Average Rating</div>
+              <i class="zmdi zmdi-download"></i>
+              <div class="value">{{ getReviewRatio() }}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="projects mb-4">
+        <div class="projects-inner">
+          <header class="projects-header">
+            <div class="buttons">
+              <button (click)="selectedCategory = 'Upcoming'">
+                Upcoming Events
+              </button>
+              <button (click)="selectedCategory = 'Previous'">
+                Previous Events
+              </button>
+              <button (click)="selectedCategory = 'All'">All Events</button>
+            </div>
+            <div class="title">{{ selectedCategory }} Events</div>
+            <div class="count">| {{ filteredEvents.length }} Events</div>
+          </header>
+          <table class="projects-table">
+            <thead>
+              <tr>
+                <th>Event</th>
+                <th>Event Date</th>
+                <th>Leader/ Chief Guest</th>
+                <th>Total Revenue</th>
+                <th>Seats Left</th>
+                <th class="text-right">Venue</th>
+              </tr>
+            </thead>
+            <tr
+              *ngFor="let event of filteredEvents"
+              (click)="viewEvent(event.eventId)"
+            >
+              <td>
+                <p>{{ event.eventName }}</p>
+                <p></p>
+              </td>
+              <td>
+                <p>{{ event.eventDate | date : "yyyy-MM-dd" }}</p>
+              </td>
+              <td class="member">
+                <figure>
+                  <img
+                    src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/584938/people_8.png"
+                  />
+                </figure>
+                <div class="member-info">
+                  <p>{{ event.chiefGuest }}</p>
+                  <p></p>
+                </div>
+              </td>
+              <td>
+                <p>₹{{ event.ticketPrice * event.totalTicketsSold }}</p>
+                <p></p>
+              </td>
+              <td class="status">
+                <p>{{ event.totalTicketsLeft }}</p>
+              </td>
+              <td>
+                <p>{{ event.eventLocation }}</p>
+                <p></p>
+              </td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </main>
+  </div>
 </div>

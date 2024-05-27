@@ -3,6 +3,7 @@ import { UserdataService } from '../../../services/userDataService/userdata.serv
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgFor, NgIf } from '@angular/common';
 import { AllReviewsInterface } from '../../../interface/adminInterface/all-reviews-interface';
+import { error } from 'console';
 
 @Component({
   selector: 'app-reportedissues',
@@ -55,5 +56,15 @@ export class ReportedissuesComponent implements OnInit {
     } else {
       this.filteredReviews = [...this.reviews];
     }
+  }
+
+  resolveReview(reviewId: string, userId: string): void {
+    this.userdataService.resolveReview(reviewId, userId).subscribe(response => {
+      console.log(response);
+    },
+    error => {
+      console.log('Error while resolving review', error);
+    });
+    
   }
 }
