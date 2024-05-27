@@ -1,5 +1,5 @@
 import { CommonModule, DatePipe , NgFor } from '@angular/common';
-import { Component , OnInit} from '@angular/core';
+import { Component , HostListener, OnInit} from '@angular/core';
 import { UserdataService } from '../../../services/userDataService/userdata.service';
 import { JwtDecodeService } from '../../../services/jwtDecodeService/jwtDecode.service';
 import { Router, RouterOutlet } from '@angular/router';
@@ -29,6 +29,8 @@ export class UserstatComponent implements OnInit {
   selectedField : string = 'All';
   selectedCategory: string = ''; 
   selectedLocation: string = '';
+  filteredEvents: any[] = [];
+  searchKeyword: string = '';
   
   constructor(private userdataservice: UserdataService, private jwtDecodeService : JwtDecodeService ,
     private router: Router){}
@@ -45,6 +47,7 @@ export class UserstatComponent implements OnInit {
         (response : EventInterface ) => { // change any here !!
           console.log(response);
           this.events = response.allEvents; 
+          this.filteredEvents = response.allEvents;
           console.log('Events fetched successfully:', this.events);
         },
         error => console.error('Error fetching events: ', error)
@@ -107,6 +110,16 @@ export class UserstatComponent implements OnInit {
     // this.router.navigate(['user-dash' , 'event-by-location']);
   }
 
+  filterEvents() {
+    if (this.searchKeyword.trim() === '') {
+        this.filteredEvents = this.events;
+    } else {
+        this.filteredEvents = this.events.filter(event =>
+            event.eventName.toLowerCase().includes(this.searchKeyword.toLowerCase())
+        );
+    }
+}
+
   viewEvent() {
     if (this.selectedField === "Category") {
     // if (this.showDropdown1) {
@@ -138,10 +151,16 @@ export class UserstatComponent implements OnInit {
     }
   }
 
-  get filteredEvents(): EventUserInterface[] {
-  //   if (this.selectedField === 'Category') {
-      return this.events.filter(event => new Date(event.eventDate) > new Date())
+  showDetail(eventId: number) {
+    this.userdataservice.eventId = eventId;
+    this.router.navigate(['user-dash','event-detail']);
   }
+
+
+  // get filteredEvents(): EventUserInterface[] {
+  // //   if (this.selectedField === 'Category') {
+  //     return this.events.filter(event => new Date(event.eventDate) > new Date())
+  // }
   //                       .sort((a, b) => new Date(a.eventDate).getTime() - new Date(b.eventDate).getTime());
   //   } else if (this.selectedField === 'Location') {
   //     return this.events.filter(event => new Date(event.eventDate) < new Date())
