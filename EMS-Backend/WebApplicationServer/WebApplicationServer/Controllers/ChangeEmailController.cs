@@ -12,16 +12,11 @@ namespace WebApplicationServer.Controllers
     [ApiController]
     public class ChangeEmailController : ControllerBase
     {
-
-        //private readonly IGetAllPerson _getAllPerson;
-        private readonly ISendRegisterSuccessMailService _sendRegisterSuccessMailService;
         private readonly UserManager<Person> _userManager;
         private readonly SignInManager<Person> _signInManager;
 
-        public ChangeEmailController(UserManager<Person> userManager, SignInManager<Person> signInManager, ISendRegisterSuccessMailService sendRegisterSuccessMailService)
+        public ChangeEmailController(UserManager<Person> userManager, SignInManager<Person> signInManager)
         {
-            //_getAllPerson = getAllPerson;
-            _sendRegisterSuccessMailService = sendRegisterSuccessMailService;
             _userManager = userManager;
             _signInManager = signInManager;
         }
@@ -35,8 +30,6 @@ namespace WebApplicationServer.Controllers
             if (ModelState.IsValid)
             {
                 var user = await _userManager.GetUserAsync(User);
-
-                //var u = User.FindFirstValue(ClaimTypes.Name);
 
                 var email = await _userManager.GetEmailAsync(user);
                 if (model.EmailConfirmed != email)
@@ -53,20 +46,6 @@ namespace WebApplicationServer.Controllers
                     response.Status = 200;
                     response.Message = "Email changed Successfully";
 
-
-                    //string path = Path.GetFullPath("C:\\Users\\ajay.k_int1595\\Desktop\\Ems-Project\\EventManagementSystem\\EMS-Backend\\WebApplicationServer\\WebApplicationServer\\HtmlTemplate\\ChangeEmail.html");
-                    //string htmlString = System.IO.File.ReadAllText(path);
-                    ////htmlString = htmlString.Replace("{{title}}", "Email Changed Successfull");
-                    ////htmlString = htmlString.Replace("{{Username}}", model.Email);
-                    //bool emailSent = await _sendRegisterSuccessMailService.SendRegisterSuccessMailAsync(model.Email, "Email Updated Successfully", htmlString);
-
-                    //if (!emailSent)
-                    //{
-                    //    // Handle email sending failure
-                    //    response.Status = 500;
-                    //    response.Message = "Failed to send  Update Email mail";
-                    //    return response;
-                    //}
                     return response;
                 }
             }

@@ -46,7 +46,7 @@ export class TrackorgainzersComponent {
       this.router.navigate(['admin-dash', 'app-myevents']);
     } else if (role === 'User') {
       this.jwtDecodeService.userId = personId;
-      this.router.navigate(['user-dash', 'mybookings']);
+      this.router.navigate(['admin-dash', 'mybookings']);
     }
   }
 

@@ -32,6 +32,7 @@ import { adminGuard } from './guards/adminGuard/admin.guard';
 import { UnauthorisedComponent } from './pages/sharedPages/unauthorised/unauthorised.component';
 import { organizerGuard } from './guards/organizerGuard/organizer.guard';
 import { userGuard } from './guards/userGuard/user.guard';
+import { EventDetailComponent } from './pages/userPages/event-detail/event-detail.component';
 
 export const routes: Routes = [
     {
@@ -60,6 +61,7 @@ export const routes: Routes = [
             {path: 'app-myevents', component: MyeventsComponent},
             {path: 'app-viewevent', component : VieweventComponent},
             {path: 'app-eventreview', component : EventreviewComponent},
+            { path:'mybookings', component:MybookingsComponent },
             {path: '**', component : TrackeventComponent},
         ]
     },
@@ -86,6 +88,13 @@ export const routes: Routes = [
         children: [
             { path: 'user-profile', component: UserprofileComponent },
             { path: 'user-stat', component: UserstatComponent },
+            { path: 'event-detail', component: EventDetailComponent },
+            { path: 'event-detail',
+                children: 
+                [
+                    { path:'event-bookings', component:EventbookingComponent}
+                ]
+            },
             { path: 'user-stat', 
                 children:
                 [

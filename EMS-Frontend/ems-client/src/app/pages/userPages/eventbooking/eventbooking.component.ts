@@ -22,6 +22,8 @@ export class EventbookingComponent implements OnInit {
   bookingMessage: string = '';
   status: number = 0;
   totalPrice: number = 0;
+  paymentForm: FormGroup;
+  showPaymentPopup: boolean = false;
 
   constructor(
     private fb: FormBuilder,
@@ -33,6 +35,12 @@ export class EventbookingComponent implements OnInit {
     this.bookEventForm = this.fb.group({
       numberOfTickets: ['', Validators.required]
     });
+
+    this.paymentForm = this.fb.group({
+      cardNumber: ['',Validators.required],
+      expiryDate: ['',Validators.required],
+      cvv: ['',Validators.required]
+    });
   }
 
   ngOnInit(): void {
@@ -43,6 +51,10 @@ export class EventbookingComponent implements OnInit {
       this.organizerId = this.userdataservice.organizerId;
       this.ticketPrice = this.userdataservice.ticketPrice;
     });
+  }
+
+  openPaymentPopup() {
+    this.showPaymentPopup = true;
   }
 
   onSubmit() {
@@ -77,4 +89,16 @@ export class EventbookingComponent implements OnInit {
     const numberOfTickets = this.bookEventForm.get('numberOfTickets')?.value;
     this.totalPrice = numberOfTickets * this.ticketPrice; 
   }
+
+  // onPaymentSubmit() {
+  //   if (this.paymentForm.valid) {
+  //     const formData = {
+  //       ...this.bookEventForm.value,
+  //       eventId: this.eventId,
+  //       EventOrganizerId: this.organizerId,
+  //       UserId: this.id
+  //     }
+  //   }
+  // }
+
 }

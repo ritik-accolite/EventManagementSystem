@@ -76,6 +76,22 @@
     padding: 8px; /* Adjust padding for smaller screens */
   }
 }
+
+.payment-popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 20px;
+  border: 1px solid #ccc;
+}
+
+.payment-popup-content {
+  width: 300px;
+}
+
+
 body {
   background: #FEF8F8;
 }

@@ -42,7 +42,7 @@ namespace WebApplicationServer.Models
         [Required]
         public int Capacity { get; set; }
 
-        [Required]
+       
         [StringLength(255)]
         public string BannerImage { get; set; }
 

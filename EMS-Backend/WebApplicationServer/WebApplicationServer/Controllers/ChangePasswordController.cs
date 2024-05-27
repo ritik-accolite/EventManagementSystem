@@ -11,14 +11,12 @@ namespace WebApplicationServer.Controllers
     [ApiController]
     public class ChangePasswordController : ControllerBase
     {
-        //private readonly IGetAllPerson _getAllPerson;
         private readonly ISendRegisterSuccessMailService _sendRegisterSuccessMailService;
         private readonly UserManager<Person> _userManager;
         private readonly SignInManager<Person> _signInManager;
 
         public ChangePasswordController(UserManager<Person> userManager, SignInManager<Person> signInManager, ISendRegisterSuccessMailService sendRegisterSuccessMailService)
         {
-            //_getAllPerson = getAllPerson;
             _sendRegisterSuccessMailService = sendRegisterSuccessMailService;
             _userManager = userManager;
             _signInManager = signInManager;

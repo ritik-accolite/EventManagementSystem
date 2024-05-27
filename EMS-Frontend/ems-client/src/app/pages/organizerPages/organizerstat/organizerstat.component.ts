@@ -1,127 +1,163 @@
 import { Component, OnInit } from '@angular/core';
 import { UserdataService } from '../../../services/userDataService/userdata.service';
-import { NgFor, DatePipe } from '@angular/common';
-import { JwtDecodeService } from '../../../services/jwtDecodeService/jwtDecode.service';
+import { NgFor, DatePipe, DecimalPipe } from '@angular/common';
 import { Router } from '@angular/router';
 import { OrganizerEventInterface } from '../../../interface/organizerInterface/organizer-event-interface';
-import { AllEventInterface } from '../../../interface/commonInterface/all-event-interface';
-import { EventTicketInterface, EventTicketStatus } from '../../../interface/organizerInterface/event-ticket-status';
-import { MergedEventInterface } from '../../../interface/organizerInterface/merged-event-interface';
+import { EventTicketInterface } from '../../../interface/organizerInterface/event-ticket-status';
 
 @Component({
   selector: 'app-organizerstat',
   standalone: true,
   imports: [NgFor, DatePipe],
   templateUrl: './organizerstat.component.html',
-  styleUrl: './organizerstat.component.scss'
+  styleUrl: './organizerstat.component.scss',
 })
-export class OrganizerstatComponent implements OnInit { 
-  loginUserId : any;
-  mergedEvent: MergedEventInterface [] =[];
-  events: AllEventInterface [] = [];
+export class OrganizerstatComponent implements OnInit {
+  loginUserId: any;
+  mergedEvent: any[] = [];
+  events: any[] = [];
   trackEventTicket: EventTicketInterface[] = [];
   previousEvents: any[] = [];
   upcomingEvents: any[] = [];
-  totalEvents : number = 0;
-  selectedCategory: string = 'All'; // Default category is 'all'
+  totalEvents: number = 0;
+  selectedCategory: string = 'All';
   totalRevenue: number = 0;
   totalAttendees: number = 0;
-  
-  constructor(private userdataservice: UserdataService,
-              private jwtDecodeService : JwtDecodeService,
-              private router : Router){}
+  eventIdArray: number[] = [];
+  totalRating: number = 0;
+  totalReview: number = 0;
+  reviews: any[] = [];
+
+  constructor(
+    private userdataservice: UserdataService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.fetchEvents();
   }
 
   fetchEvents(): void {
-    this.userdataservice.getOrganizerEvents()
-      .subscribe(
-        (response : OrganizerEventInterface ) => {
-          this.events = response.allEvents;
-          console.log(this.events);
-          this.totalEvents = this.events.length;
-          this.loginUserId = localStorage.getItem('LoginUserId');
-          console.log('login user id', this.loginUserId);
-          this.fetchTicketsTrack(this.loginUserId);
-          // this.mergeEventData();
-
-        },
-        error => console.error('Error fetching events: ', error)
-      );
+    this.userdataservice.getOrganizerEvents().subscribe(
+      (response: OrganizerEventInterface) => {
+        this.events = response.allEvents;
+        this.totalEvents = this.events.length;
+        this.loginUserId = localStorage.getItem('LoginUserId');
+        this.fetchTicketsTrack(this.loginUserId);
+      },
+      (error) => console.error('Error fetching events: ', error)
+    );
   }
 
-  fetchTicketsTrack(organizerId : string): void {
-    this.userdataservice.getOrganizerEventTicketDetails(organizerId)
-      .subscribe(
-        (response : EventTicketStatus ) => {
-          console.log(response);
-          this.trackEventTicket = response.events;
-          this.mergeEventData();
-        },
-        error => console.error('Error fetching events: ', error)
-      );
+  fetchTicketsTrack(organizerId: string): void {
+    this.userdataservice.getOrganizerEventTicketDetails(organizerId).subscribe(
+      (response: any) => {
+        this.trackEventTicket = response.ticketStatus.events;
+        this.mergeEventData();
+      },
+      (error) => console.error('Error fetching events: ', error)
+    );
   }
-  viewEvent(eventId: number) {
+   viewEvent(eventId: number) {
     this.userdataservice.eventId = eventId;
-    this.router.navigate(['organizer-dash','app-viewevent']);
+    this.router.navigate(['organizer-dash', 'app-viewevent']);
   }
   mergeEventData(): void {
-    // Check if both events and tickets are fetched
-    console.log('events in merge', this.events);
-    console.log('events in merge track', this.trackEventTicket);
+    interface MergedEvent {
+      eventId: number;
+      eventName: string;
+      eventDate: Date;
+      chiefGuest: string;
+      eventLocation: string;
+      eventDescription: string;
+      ticketPrice: number;
+      totalTicketsSold: number;
+      totalTicketsLeft: number;
+    }
+
     if (this.events.length > 0 && this.trackEventTicket.length > 0) {
-      // Create a new array to store the merged data
-      const mergedEvents: MergedEventInterface[] = [];
-    
-      // Merge event and ticket information based on eventId
-      this.events.forEach(event => {
-        const correspondingTicket = this.trackEventTicket.find(ticket => ticket.eventId === event.EventId);
+      const mergedEvents: MergedEvent[] = [];
+
+      this.events.forEach((event) => {
+        this.eventIdArray.push(event.eventId);
+        const correspondingTicket = this.trackEventTicket.find(
+          (ticket) => ticket.eventId === event.eventId
+        );
         if (correspondingTicket) {
           // Merge ticket information into the event object
-          const mergedEvent: MergedEventInterface = Object.assign({}, event, correspondingTicket);
+          const mergedEvent: MergedEvent = {
+            eventId: event.eventId,
+            eventName: event.eventName,
+            eventDate: event.eventDate,
+            chiefGuest: event.chiefGuest,
+            eventLocation: event.eventLocation,
+            eventDescription: event.eventDescription,
+            ticketPrice: correspondingTicket.ticketPrice,
+            totalTicketsSold: correspondingTicket.totalTicketsSold,
+            totalTicketsLeft: correspondingTicket.totalTicketsLeft,
+          };
           mergedEvents.push(mergedEvent);
         }
       });
-  
-      // Assign the merged events array to the class property
+
       this.mergedEvent = mergedEvents;
-    
-      // Calculate total revenue and total attendees for the merged events
       this.calculateTotalRevenue();
       this.calculateTotalAttendees();
+      this.eventIdArray.forEach((eventId) => {
+        this.userdataservice
+          .getAllReviewsByEventId(eventId)
+          .subscribe((data) => {
+            this.reviews = data.allReviews;
+            this.reviews.forEach((review) => {
+              this.totalReview = this.totalReview + 1;
+              this.totalRating =
+                this.totalRating + parseInt(review['rating'], 10);
+            });
+          });
+      });
     }
   }
-  
-  
+
   calculateTotalRevenue(): void {
     this.totalRevenue = this.mergedEvent.reduce((total, event) => {
       const ticketsSold = parseInt(String(event.totalTicketsSold), 10);
-      const ticketPrice = event.ticketPrice; // Assuming ticketPrice is already a number
+      const ticketPrice = event.ticketPrice;
       const eventRevenue = ticketsSold * ticketPrice;
       return total + eventRevenue;
     }, 0);
   }
-  
+
   calculateTotalAttendees(): void {
     this.totalAttendees = this.mergedEvent.reduce((total, event) => {
       const ticketsSold = parseInt(String(event['totalTicketsSold']), 10);
       return total + ticketsSold;
     }, 0);
   }
-  
-  
-  get filteredEvents(): any[] {
-    if (this.selectedCategory === 'Upcoming') {
-      return this.events.filter(event => new Date(event.EventDate) > new Date())
-                        .sort((a, b) => new Date(a.EventDate).getTime() - new Date(b.EventDate).getTime());
-    } else if (this.selectedCategory === 'Previous') {
-      return this.events.filter(event => new Date(event.EventDate) < new Date())
-                        .sort((a, b) => new Date(b.EventDate).getTime() - new Date(a.EventDate).getTime());
-    } else {
-      return this.events;
-    }
+
+  getReviewRatio(): string {
+    const ratio =
+      this.totalReview !== 0 ? this.totalRating / this.totalReview : 0;
+    const decimalPipe = new DecimalPipe('en-US');
+    return decimalPipe.transform(ratio, '1.1-1') || '0'; // Default to '0' if ratio is NaN
   }
 
+  get filteredEvents(): any[] {
+    if (this.selectedCategory === 'Upcoming') {
+      return this.mergedEvent
+        .filter((event) => new Date(event.eventDate) > new Date())
+        .sort(
+          (a, b) =>
+            new Date(a.EventDate).getTime() - new Date(b.eventDate).getTime()
+        );
+    } else if (this.selectedCategory === 'Previous') {
+      return this.mergedEvent
+        .filter((event) => new Date(event.eventDate) < new Date())
+        .sort(
+          (a, b) =>
+            new Date(b.EventDate).getTime() - new Date(a.eventDate).getTime()
+        );
+    } else {
+      return this.mergedEvent;
+    }
+  }
 }

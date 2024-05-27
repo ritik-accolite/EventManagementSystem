@@ -5,24 +5,27 @@
                 <div class="projects-inner">
                     <header class="projects-header">
                         <div class="buttons">
-                            <!-- <button (click)="selectedField = 'Category'">Category</button> -->
-                            <!-- <button (click)="selectedField = 'Location'">Location</button> -->
-                            <button (click)="selectedField = 'All'">All Events</button>
-                            <button (click)="selectedField = 'Category'" class="btn btn-secondary dropdown-toggle" (click)="toggleDropdown1()">Filter By Category</button>
-                            <div class="dropdown-content" *ngIf="showDropdown1">
-                                <select class="form-control" [(ngModel)]="selectedCategory" (change)="applyFilter(selectedCategory)">
+                            <button (click)="selectedField = 'All'" class="btn-event">All Events</button>
+                            <button (click)="selectedField = 'Category'" class="btn btn-secondary dropdown-toggle custom-dropdown" (click)="toggleDropdown1()">Filter By Category</button>
+                            <div class="dropdown-content custom-dropdown-content" [ngClass]="{ 'show': showDropdown1 }">
+                                <select class="custom-select" [(ngModel)]="selectedCategory" (change)="applyFilter(selectedCategory)">
                                     <option value="">Select Category</option>
                                     <option *ngFor="let category of categoryFilter" [value]="category">{{ category }}</option>
                                 </select>
                             </div>
-                            <button (click)="selectedField = 'Location'" class="btn btn-secondary dropdown-toggle" (click)="toggleDropdown2()">Filter By Location</button>
-                            <div class="dropdown-content" *ngIf="showDropdown2">
-                                <select class="form-control" [(ngModel)]="selectedLocation" (change)="applyFilter1(selectedLocation)">
+                            <button (click)="selectedField = 'Location'" class="btn btn-secondary dropdown-toggle custom-dropdown" (click)="toggleDropdown2()">Filter By Location</button>
+                            <div class="dropdown-content custom-dropdown-content" [ngClass]="{ 'show': showDropdown2 }">
+                                <select class="custom-select" [(ngModel)]="selectedLocation" (change)="applyFilter1(selectedLocation)">
                                     <option value="">Select Location</option>
                                     <option *ngFor="let location of locationFilter" [value]="location">{{ location }}</option>
                                 </select>
                             </div>
+                            <div class="search-bar mb-3">
+                                <input (click)="selectedField = 'All'" type="text" class="form-control" placeholder="Search Events" [(ngModel)]="searchKeyword" (input)="filterEvents()">
+                            </div>
                         </div>
+                        
+                        
                         <div class="title">{{ selectedField }} Events</div>
                         <div class="count">| {{ events.length }} Events</div>
                     </header>
@@ -33,23 +36,21 @@
                                 <th>Event Date</th>
                                 <th>Leader/ Chief Guest</th>
                                 <th>Total Revenue</th>
-                                <!-- <th>Seats Left</th> -->
                                 <th class="text-right">Venue</th>
                             </tr>
                         </thead>
                         <tbody class="table-body">
-                            <tr *ngFor="let event of events">
+                            <tr *ngFor="let event of events" (click)="showDetail(event.eventId)">
                                 <td>{{ event.eventName }}</td>
                                 <td>{{ event.eventDate | date: 'yyyy-MM-dd' }}</td>
                                 <td>{{ event.chiefGuest }}</td>
                                 <td>₹{{ event.ticketPrice }}</td>
-                                <!-- <td>{{ event.totalTicketsLeft }}</td> -->
                                 <td class="text-right">{{ event.eventLocation }}</td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
             </div>
-            </main>
+        </main>
     </div>
 </div>
