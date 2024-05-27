@@ -62,7 +62,7 @@ export class OrganizerstatComponent implements OnInit {
         error => console.error('Error fetching events: ', error)
       );
   }
-  viewEvent(eventId: number) {
+   viewEvent(eventId: number) {
     this.userdataservice.eventId = eventId;
     this.router.navigate(['organizer-dash','app-viewevent']);
   }

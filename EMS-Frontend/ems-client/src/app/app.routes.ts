@@ -28,6 +28,7 @@ import { EventbylocationComponent } from './pages/userPages/eventbylocation/even
 import { ReviewComponent } from './pages/userPages/review/review.component';
 import { EventreviewComponent } from './pages/organizerPages/eventreview/eventreview.component';
 import { UserstatComponent } from './pages/userPages/userstat/userstat.component';
+import { EventDetailComponent } from './pages/userPages/event-detail/event-detail.component';
 
 export const routes: Routes = [
     {
@@ -87,6 +88,13 @@ export const routes: Routes = [
         children: [
             { path: 'user-profile', component: UserprofileComponent },
             { path: 'user-stat', component: UserstatComponent },
+            { path: 'event-detail', component: EventDetailComponent },
+            { path: 'event-detail',
+                children: 
+                [
+                    { path:'event-bookings', component:EventbookingComponent}
+                ]
+            },
             { path: 'user-stat', 
                 children:
                 [
