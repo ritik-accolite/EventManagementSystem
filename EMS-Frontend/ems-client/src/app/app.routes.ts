@@ -34,6 +34,7 @@ import { organizerGuard } from './guards/organizerGuard/organizer.guard';
 import { userGuard } from './guards/userGuard/user.guard';
 import { EventDetailComponent } from './pages/userPages/event-detail/event-detail.component';
 
+
 export const routes: Routes = [
     {
         path:'event-list',

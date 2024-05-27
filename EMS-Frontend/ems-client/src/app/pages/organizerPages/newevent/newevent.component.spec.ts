@@ -2,6 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { NeweventComponent } from './newevent.component';
 
+
 describe('NeweventComponent', () => {
   let component: NeweventComponent;
   let fixture: ComponentFixture<NeweventComponent>;
@@ -21,3 +22,4 @@ describe('NeweventComponent', () => {
     expect(component).toBeTruthy();
   });
 });
+

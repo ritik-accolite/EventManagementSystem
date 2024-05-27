@@ -3,7 +3,7 @@
     <form [formGroup]="bookEventForm"> 
         <div class="form-group">
             <label for="numberOfTickets">Number of Tickets</label>
-            <input type="number" id="numberOfTickets" formControlName="numberOfTickets" class="form-control"
+            <input type="number" id="numberOfTickets" formControlName="numberOfTickets" class="form-control small-input"
                 (input)="calculatePrice()" />
             <div *ngIf="bookEventForm.get('numberOfTickets')?.errors && bookEventForm.get('numberOfTickets')?.touched"
                 class="text-danger">
@@ -13,7 +13,9 @@
         <div *ngIf="totalPrice > 0">
             <p>Total Price: {{ totalPrice | currency }}</p>
         </div>
-        <button *ngIf="!showPaymentPopup" (click)="openPaymentPopup()" class="btn btn-primary">Book Now</button>
+        <div class="center-container">
+            <button type="submit" [disabled]="!bookEventForm.valid" class="btn btn-primary">Book Event</button>
+        </div>
     </form>
     <div *ngIf="bookingMessage" class="booking-message">
         {{ bookingMessage }}

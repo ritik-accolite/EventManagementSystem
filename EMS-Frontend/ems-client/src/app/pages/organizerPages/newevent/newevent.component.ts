@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -8,6 +8,7 @@ import {
 import { UserdataService } from '../../../services/userDataService/userdata.service';
 import { Router } from '@angular/router';
 import { NgIf } from '@angular/common';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-newevent',
@@ -19,6 +20,7 @@ import { NgIf } from '@angular/common';
 export class NeweventComponent {
   eventForm: FormGroup;
   showSuccessMessage: boolean = false;
+  toaster= inject(ToastrService);
 
   constructor(
     private fb: FormBuilder,
@@ -57,8 +59,10 @@ export class NeweventComponent {
       });
       this.userdataservice.createEvent(formData).subscribe(
         (response) => {
+          this.toaster.success("Event created successfully","Success");
           console.log('Event created successfully:', response);
           this.showSuccessMessage = true;
+          
           setTimeout(() => {
             this.router.navigate(['organizer-dash', 'app-myevents']);
           }, 2000);

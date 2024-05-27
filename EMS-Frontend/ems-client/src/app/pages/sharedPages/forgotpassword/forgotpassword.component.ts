@@ -1,5 +1,5 @@
 import { NgIf } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { UserdataService } from '../../../services/userDataService/userdata.service';
 import { Router } from '@angular/router';
@@ -7,6 +7,7 @@ import { response } from 'express';
 import { error } from 'console';
 import { ForgetPasswordInterface } from '../../../interface/commonInterface/forget-password-interface';
 import { ResponseInterface } from '../../../interface/commonInterface/response-interface';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-forgotpassword',
@@ -21,6 +22,7 @@ export class ForgotpasswordComponent {
   emailToken: string = '';
   newPassword: string = '';
   confirmPassword: string = '';
+  toaster=inject(ToastrService);
 
   constructor(private userDataService : UserdataService,
               private router : Router
@@ -51,6 +53,7 @@ export class ForgotpasswordComponent {
     this.userDataService.resetPassword(resetForm)
       .subscribe(
       (response : ResponseInterface) => {
+        this.toaster.success("Successfully updated password");
         console.log('Password Successfully Reseted', response);
       },
       (error : any) => {
