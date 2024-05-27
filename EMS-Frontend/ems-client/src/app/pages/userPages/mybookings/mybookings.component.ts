@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { UserdataService } from '../../../services/userDataService/userdata.service';
-import { NgFor, NgIf } from '@angular/common';
+import { DatePipe, NgFor, NgIf } from '@angular/common';
 import { JwtDecodeService } from '../../../services/jwtDecodeService/jwtDecode.service';
 import { Router, RouterLink } from '@angular/router';
 import { UserEventsInterface } from '../../../interface/userInterface/user-events-interface';
@@ -10,53 +10,55 @@ import { BookedEventDetailsInterface } from '../../../interface/userInterface/bo
 @Component({
   selector: 'app-mybookings',
   standalone: true,
-  imports: [NgIf , NgFor, RouterLink],
+  imports: [NgIf, NgFor, RouterLink, DatePipe],
   templateUrl: './mybookings.component.html',
-  styleUrl: './mybookings.component.css'
+  styleUrl: './mybookings.component.css',
 })
-export class MybookingsComponent implements OnInit{
+export class MybookingsComponent implements OnInit {
   title = 'ems-client';
-  role  = '';
+  role = '';
   disabled = false;
   bookedEvents: BookedEventDetailsInterface[] = [];
 
-  constructor(private http: HttpClient ,
-              private userdataservice: UserdataService,
-              private jwtDecodeService: JwtDecodeService,
-              private router : Router) {}
+  constructor(
+    private userdataservice: UserdataService,
+    private jwtDecodeService: JwtDecodeService
+  ) {}
 
   ngOnInit(): void {
-      this.fetchUserBookedEvents();
+    this.fetchUserBookedEvents();
   }
 
-  fetchUserBookedEvents(): void{
-    if(this.jwtDecodeService.userId != ''){
-      this.userdataservice.getUserEventsId(this.jwtDecodeService.userId)
-      .subscribe((response : UserEventsInterface) => {
-        this.bookedEvents  = response.bookedEvents;
-        this.role = this.jwtDecodeService.role;
-        if(this.role!="User"){
-          this.disabled = true;
-        }
-        console.log('Booked events fetched 123:', this.bookedEvents);
-      },
-    error => console.error('Error fetching booked events :', error));
+  fetchUserBookedEvents(): void {
+    if (this.jwtDecodeService.userId != '') {
+      this.userdataservice
+        .getUserEventsId(this.jwtDecodeService.userId)
+        .subscribe(
+          (response: UserEventsInterface) => {
+            this.bookedEvents = response.bookedEvents;
+            this.role = this.jwtDecodeService.role;
+            if (this.role != 'User') {
+              this.disabled = true;
+            }
+          },
+          (error) => console.error('Error fetching booked events :', error)
+        );
     } else {
-    this.userdataservice.getUserEvents()
-      .subscribe((response : UserEventsInterface) => {
-        this.bookedEvents  = response.bookedEvents;
-        console.log('Booked events fetched 123:', this.bookedEvents);
-      },
-    error => console.error('Error fetching booked events :', error));
+      this.userdataservice.getUserEvents().subscribe(
+        (response: UserEventsInterface) => {
+          this.bookedEvents = response.bookedEvents;
+        },
+        (error) => console.error('Error fetching booked events :', error)
+      );
+    }
   }
-}
 
   eTicket(bookingId: number): void {
     this.userdataservice.getEticket(bookingId).subscribe(
-      (response : any) => { 
+      (response: any) => {
         this.downloadFile(response);
       },
-      error => console.error('Error downloading the E-ticket :',error)
+      (error) => console.error('Error downloading the E-ticket :', error)
     );
   }
 
@@ -70,9 +72,8 @@ export class MybookingsComponent implements OnInit{
     window.URL.revokeObjectURL(url);
   }
 
-  addReview(eventId: number): void{
+  addReview(eventId: number): void {
     this.userdataservice.eventId = eventId;
     console.log(eventId);
   }
-
 }

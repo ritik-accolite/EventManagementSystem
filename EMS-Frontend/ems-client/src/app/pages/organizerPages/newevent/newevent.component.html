@@ -12,55 +12,56 @@
         <div class="col-md-6 col-6">
           <div class="form-group mt-3 col-3">
             <label for="name">Event Name:</label>
-            <input type="text" id="name" formControlName="eventName" class="form-control">
+            <input type="text" id="name" formControlName="EventName" class="form-control">
           </div>
           <div class="form-group mt-3 col-3">
             <label for="date">Date:</label>
-            <input type="date" id="date" formControlName="eventDate" class="form-control">
-            <div *ngIf="eventForm.controls['eventDate'].errors && eventForm.controls['eventDate'].errors['futureDate']" class="custom-alert">
+            <input type="date" id="date" formControlName="EventDate" class="form-control">
+            <!-- <div *ngIf="eventForm.controls['eventDate'].errors && eventForm.controls['eventDate'].errors['futureDate']" class="custom-alert">
               *Event date should be at least the next date.
-          </div>
+          </div> -->
           </div>
           <div class="form-group mt-3 col-3">
             <label for="description">Description:</label>
-            <textarea id="description" formControlName="description" class="form-control" rows="4"></textarea>
+            <textarea id="description" formControlName="Description" class="form-control" rows="4"></textarea>
           </div>
           <div class="form-group mt-3 col-3">
             <label for="description">Category:</label>
-            <input id="description" formControlName="eventCategory" class="form-control">
+            <input id="description" formControlName="EventCategory" class="form-control">
           </div>
           
         </div>
         <div class="col-md-6 col-6">
           <div class="form-group mt-3 col-3">
             <label for="location">Location:</label>
-            <input type="text" id="location" formControlName="eventLocation" class="form-control">
+            <input type="text" id="location" formControlName="EventLocation" class="form-control">
           </div>
           <div class="form-group mt-3 col-3">
             <label for="description">Time:</label>
-            <input type="time" id="description" formControlName="event_Time" class="form-control">
+            <input type="time" id="description" formControlName="Event_Time" class="form-control">
           </div>
           <div class="form-group mt-3 col-3">
             <label for="description">Ticket Price:</label>
-            <input id="description" formControlName="ticketPrice" class="form-control">
+            <input id="description" formControlName="TicketPrice" class="form-control">
           </div>
           <div class="form-group mt-3 col-3">
             <label for="description">Capacity:</label>
-            <input id="description" formControlName="capacity" class="form-control">
+            <input id="description" formControlName="Capacity" class="form-control">
           </div>
           <div class="form-group mt-3 col-6">
-            <label for="bannerImage">Banner Image:</label>
-            <input type="file" id="bannerImage" formControlName="bannerImage" class="form-control">
+            <label for="BannerImageFile">Banner Image:</label>
+            <input type="file" id="BannerImageFile" formControlName="BannerImageFile" class="form-control">
           </div>
           <div class="form-group mt-3 col-3">
             <label for="description">Chief Guest:</label>
-            <input id="description" formControlName="chiefGuest" class="form-control">
+            <input id="description" formControlName="ChiefGuest" class="form-control">
           </div>
         </div>
       </div>
       <div class="row justify-content-center">
       <div class="col-md-12 my-4 ">
-         <button type="submit" [disabled]="!eventForm.valid" class="btn btn-primary">Create Event</button>
+         <button type="submit" class="btn btn-primary">Create Event</button>
+         <!-- <button type="submit" [disabled]="!eventForm.valid" class="btn btn-primary">Create Event</button> -->
       </div>
       </div>
     </div>

@@ -47,7 +47,7 @@ namespace WebApplicationServer.Controllers
             return response;
         }
 
-        [HttpPost("events/{eventId}/reviews")]
+        [HttpPost("events/reviews/{eventId}")]
         [Authorize]
         public async Task<ResponseViewModel> AddReview(int eventId, [FromBody] ReviewViewModel reviewRequest)
         {

@@ -1,4 +1,4 @@
-import { NgFor, NgIf } from '@angular/common';
+import { DatePipe, NgFor, NgIf } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component , OnInit } from '@angular/core';
 import { UserdataService } from '../../../services/userDataService/userdata.service';
@@ -8,7 +8,7 @@ import { EventInterface } from '../../../interface/commonInterface/event-interfa
 @Component({
   selector: 'app-eventlist',
   standalone: true,
-  imports: [NgIf,NgFor, RouterLink ],
+  imports: [NgIf,NgFor, RouterLink, DatePipe ],
   templateUrl: './eventlist.component.html',
   styleUrl: './eventlist.component.css'
 })

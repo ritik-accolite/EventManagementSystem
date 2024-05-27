@@ -1,39 +1,35 @@
 import { Component } from '@angular/core';
 import { UserdataService } from '../../../services/userDataService/userdata.service';
-import { NgFor, NgIf } from '@angular/common';
-import { JwtDecodeService } from '../../../services/jwtDecodeService/jwtDecode.service';
+import { NgFor, NgIf, DatePipe } from '@angular/common';
 import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-trackevent',
   standalone: true,
-  imports: [NgFor , NgIf],
+  imports: [NgFor, NgIf, DatePipe],
   templateUrl: './trackevent.component.html',
-  styleUrl: './trackevent.component.css'
+  styleUrl: './trackevent.component.css',
 })
 export class TrackeventComponent {
-  events : any [] = [];
-  constructor(private userdataservice : UserdataService,
-              private router : Router
+  events: any[] = [];
+  constructor(
+    private userdataservice: UserdataService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
-    this.fetchEvents(); 
+    this.fetchEvents();
   }
-
   fetchEvents(): void {
-    this.userdataservice.getEvents()
-      .subscribe(
-        (response : any ) => { // change any here !!
-          this.events = response.allEvents; 
-          console.log('Events fetched successfully:', this.events);
-        },
-        error => console.error('Error fetching events: ', error)
-      );
+    this.userdataservice.getEvents().subscribe(
+      (response: any) => {
+        this.events = response.allEvents;
+      },
+      (error) => console.error('Error fetching events: ', error)
+    );
   }
-  onSelectEvent(eventId : number): void{
+  onSelectEvent(eventId: number): void {
     this.userdataservice.eventId = eventId;
-    this.router.navigate(['admin-dash','app-viewevent']);
+    this.router.navigate(['admin-dash', 'app-viewevent']);
   }
-
 }

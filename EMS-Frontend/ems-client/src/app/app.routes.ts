@@ -102,13 +102,13 @@ export const routes: Routes = [
                 ]
             },
             { path:'event-bookings', component:EventbookingComponent},
-            // { path:'event-list', component:EventlistComponent },
-            // { path:'event-list',
-            //     children: 
-            //     [
-            //         { path:'event-bookings', component:EventbookingComponent}
-            //     ]
-            // },
+            { path:'event-list', component:EventlistComponent },
+            { path:'event-list',
+                children: 
+                [
+                    { path:'event-bookings', component:EventbookingComponent}
+                ]
+            },
             { path: 'event-by-category', component:EventbycategoryComponent},
             { path: 'event-by-location', component:EventbylocationComponent},
             { path: '**', component : UserstatComponent}
