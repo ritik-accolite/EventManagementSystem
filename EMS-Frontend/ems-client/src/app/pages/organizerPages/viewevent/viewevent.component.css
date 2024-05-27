@@ -3,11 +3,45 @@
     font-weight: bold;
     margin-left: 10px;
   }
+  .card{
+    border: 1px black;
+  }
+  .card-body{
+    padding: 0;
+  }
+  .description{
+    padding-top: 20px;
+    border-radius: 5px;
+    background-color: #f46c70;
+    color: white;
+    /* padding-bottom: 20px; */
+  }
+  .values{
+    /* padding : 30px 10px 20px 10px; */
+    border-radius: 5px;
+    background-color: #ecdfad;
+    padding-top: 20px;
+    
+  }
+  .image {
+    height: 40vh;
+    border-radius: 12px;
+    margin-bottom: 10px;
+  }
+  
+  .card-desc{
+    color: rgba(255, 251, 251, 0.993);
+    font-weight: bold;
+  }
   
   .done {
     color: green;
   }
   
   .upcoming {
-    color: yellow;
+    color: #350a07;
+  }
+  .card-text{
+    font-weight: bold;
+    color: #350a07;
   }

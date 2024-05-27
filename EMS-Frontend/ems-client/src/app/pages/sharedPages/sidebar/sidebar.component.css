@@ -1,10 +1,22 @@
 aside {
   color: #fff;
   width: 250px;
-  padding-left: 20px;
+  padding-top: 12px;
   height: 100vh;
+  margin-bottom: 20px;
+  left: 0 !important;
   background-image: linear-gradient(30deg , #ee7724, #dd3675);
   border-top-right-radius: 80px;
+}
+
+@media screen and (max-width: 768px) {
+  aside {
+    width: auto;
+    height: auto;
+    text-align: center;
+    border-top-right-radius: 0px;
+    border-radius: 5px;
+  }
 }
 
 aside a {
@@ -13,8 +25,8 @@ aside a {
   display: block;
   padding-bottom: 10px;
   margin-bottom: 10px;
-  padding: 12px;
-  padding-left: 30px;
+  padding: 12px 12px 12px 0px;
+  padding-left: 0px;
   text-decoration: none;
   -webkit-tap-highlight-color:transparent;
 }
@@ -26,12 +38,12 @@ aside a:hover {
   outline: none;
   position: relative;
   background-color: #fff;
-  border-top-left-radius: 20px;
-  border-bottom-left-radius: 20px;
 }
 
 aside a i {
   margin-right: 3px;
+  padding-left: 16px;
+  padding-right: 16px;
 }
 
 aside a:hover::after {
@@ -42,7 +54,7 @@ aside a:hover::after {
   right: 0;
   height: 35px;
   width: 35px;
-  border-bottom-right-radius: 18px;
+  border-bottom-right-radius: 8px;
   box-shadow: 0 20px 0 0 #fff;
 }
 
@@ -85,6 +97,26 @@ body {
   border-radius: 50%;
   top:5px;
   right:5px;
+}
+
+.open-btn {
+  font-size: 20px;
+  cursor: pointer;
+  background-color: #fff;
+  padding: 2px 10px;
+  /* position: fixed; */
+  margin-left : 10px;
+  /* top: 10px; */
+  border-radius: 5px;
+}
+.closebtn{
+  right: 8px;
+  top: 8px;
+  position: absolute;
+  font-size: 22px !important;
+}
+.toggle-button{
+  margin-bottom: 20px;
 }
 
 /* .sidebar {

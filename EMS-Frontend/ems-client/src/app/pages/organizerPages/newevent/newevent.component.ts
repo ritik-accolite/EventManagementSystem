@@ -1,44 +1,66 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators , ReactiveFormsModule} from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { UserdataService } from '../../../services/userDataService/userdata.service';
-import { NgIf } from '@angular/common';
 import { Router } from '@angular/router';
+import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-newevent',
   standalone: true,
   imports: [ReactiveFormsModule, NgIf],
   templateUrl: './newevent.component.html',
-  styleUrl: './newevent.component.css'
+  styleUrls: ['./newevent.component.css'],
 })
 export class NeweventComponent {
   eventForm: FormGroup;
   showSuccessMessage: boolean = false;
 
-  constructor(private fb: FormBuilder,
-              private userdataservice: UserdataService,
-              private router : Router) {
+  constructor(
+    private fb: FormBuilder,
+    private userdataservice: UserdataService,
+    private router: Router
+  ) {
     this.eventForm = this.fb.group({
-      eventName: ['', Validators.required],
-      eventDate: ['', [Validators.required, this.futureDateValidator()]],
-      eventLocation: ['', Validators.required],
-      description: [''],
-      eventCategory: ['', Validators.required],
-      event_Time: ['', Validators.required],
-      chiefGuest: ['', Validators.required],
-      ticketPrice: ['', Validators.required],
-      capacity: ['', Validators.required],
-      bannerImage: []
+      EventName: ['', Validators.required],
+      EventDate: ['', [Validators.required, this.futureDateValidator()]],
+      EventLocation: ['', Validators.required],
+      Description: [''],
+      EventCategory: ['', Validators.required],
+      Event_Time: ['', Validators.required],
+      ChiefGuest: ['', Validators.required],
+      TicketPrice: ['', Validators.required],
+      Capacity: ['', Validators.required],
+      BannerImage: ['good'],
+      BannerImageFile: [null], // Set to null initially, will be populated with file data
     });
   }
+
   onSubmit() {
+    console.log('This is event form', this.eventForm.value);
     if (this.eventForm.valid) {
-      this.userdataservice.createEvent(this.eventForm.value).subscribe(
+      const formData = new FormData();
+      const fileInput = document.getElementById(
+        'BannerImageFile'
+      ) as HTMLInputElement;
+      if (fileInput.files && fileInput.files.length > 0) {
+        formData.append('BannerImageFile', fileInput.files[0]);
+      }
+      Object.keys(this.eventForm.value).forEach((key) => {
+        if (key != 'BannerImageFile') {
+          formData.append(key, this.eventForm.get(key)?.value);
+        }
+      });
+      this.userdataservice.createEvent(formData).subscribe(
         (response) => {
           console.log('Event created successfully:', response);
           this.showSuccessMessage = true;
           setTimeout(() => {
-            this.router.navigate(['organizer-dash','app-myevents']);          
+            this.router.navigate(['organizer-dash', 'app-myevents']);
           }, 2000);
         },
         (error) => {
@@ -55,6 +77,4 @@ export class NeweventComponent {
       return selectedDate >= currentDate ? null : { futureDate: true };
     };
   }
-
 }
-

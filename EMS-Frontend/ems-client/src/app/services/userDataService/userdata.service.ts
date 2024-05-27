@@ -21,6 +21,7 @@ import { ForgetPasswordInterface } from '../../interface/commonInterface/forget-
 import { EditProfileInterface } from '../../interface/commonInterface/edit-profile-interface';
 import { UpdateEventInterface } from '../../interface/organizerInterface/update-event-interface';
 import { ResponseInterface } from '../../interface/commonInterface/response-interface';
+import { EventDetailInterface } from '../../interface/userInterface/event-detail-interface';
 
 @Injectable({
   providedIn: 'root'
@@ -35,6 +36,7 @@ export class UserdataService {
   loginEvent: EventEmitter<boolean> = new EventEmitter<boolean>(); 
   roleEvent: EventEmitter<string> = new EventEmitter<string>(); 
   private registerUrl = 'http://localhost:5299/api/Account';
+  // private registerUrl = 'https://eventhubfusion.azurewebsites.net/api/Account';
 
   private eventsUrl = 'http://localhost:5299/api/Event';
 
@@ -43,6 +45,8 @@ export class UserdataService {
   private getPersonByRoleUrl ='http://localhost:5299/api/Person/getpersonbyrole';
 
   private createEventUrl = 'http://localhost:5299/api/Event/addEvent';
+
+  private deleteEventUrl = 'http://localhost:5299/api/Event';
 
   private bookEventUrl = 'http://localhost:5299/api/BookedEvent/BookEvent';
 
@@ -66,7 +70,7 @@ export class UserdataService {
 
   private getEventCategoriesUrl = 'http://localhost:5299/api/Event/eventCategories';
 
-  private getEventLocationsUrl = '';
+  private getEventLocationsUrl = 'http://localhost:5299/api/Event/eventlocation';
 
   private getEventsByCategoryUrl = 'http://localhost:5299/api/FilterEvents/GetEventsByCategory';
 
@@ -78,11 +82,15 @@ export class UserdataService {
 
   private unBlockPersonByIdUrl = 'http://localhost:5299/api/Person/unblockperson';
 
-  private addReviewUrl = 'http://localhost:5299/events/reviews';
+  private addReviewUrl = 'https://eventhubfusion.azurewebsites.net/api/Review/events/reviews';
 
   private getAllReviewUrl ='http://localhost:5299/admin/allreviews';
 
-  private getAllReviewByEventIdUrl ='http://localhost:5299/reviews';
+  private getAllReviewByEventIdUrl ='http://localhost:5299/admin/reviewsbyeventid';
+
+  private resolveReviewUrl = 'http://localhost:5299/resolveissue';
+
+  private getEventByIdUrl = 'http://localhost:5299/api/Event';
 
   constructor(private http: HttpClient) { }
 
@@ -129,7 +137,8 @@ export class UserdataService {
     return this.http.get<ProfileInterface>(`${this.profileUrl}/${personId}`);
   }
 
-  createEvent(eventdata: CreateEventInterface): Observable<any> {
+  createEvent(eventdata: any): Observable<any> {
+    console.log('whilw passing data', eventdata);
     return this.http.post(`${this.createEventUrl}`,eventdata);
   }
   updateEvent(eventId: number, eventdata: UpdateEventInterface): Observable<UpdateEventInterface> {
@@ -137,7 +146,7 @@ export class UserdataService {
   }
 
   deleteEvent(eventId:number): Observable<ResponseInterface> {
-    return this.http.delete<ResponseInterface>(`${this.createEventUrl}/${eventId}`);
+    return this.http.delete<ResponseInterface>(`${this.deleteEventUrl}/${eventId}`);
   }
 
   trackTicketDetails(eventId: number): Observable<EventDetailsInterface>{
@@ -177,8 +186,8 @@ export class UserdataService {
     return this.http.get<EventByCategoriesInterface>(`${this.getEventsByCategoryUrl}/${selectedCategory}`);
   }
 
-  getEventsByLocation(selectedLocation: any): Observable<any> {
-    return this.http.get<any[]>(`${this.getEventsByLocationUrl}/${selectedLocation}`);
+  getEventsByLocation(selectedLocation: any): Observable<EventByCategoriesInterface> {
+    return this.http.get<EventByCategoriesInterface>(`${this.getEventsByLocationUrl}/${selectedLocation}`);
   }
 
   blockPersonbyId(personId : string): Observable<ResponseInterface> {
@@ -203,6 +212,14 @@ export class UserdataService {
   }
   getAllReviewsByEventId(eventId : number): Observable<GetAllReviewsInterface> {
     return this.http.get<GetAllReviewsInterface>(`${this.getAllReviewByEventIdUrl}/${eventId}`);
+  }
+
+  resolveReview(reviewId: string, userId: string): Observable<ResponseInterface> {
+    return this.http.post<any>(`${this.resolveReviewUrl}/${userId}/${reviewId}`,{});
+  }
+
+  getEventById(eventId : number): Observable<EventDetailInterface> {
+    return this.http.get<EventDetailInterface>(`${this.getEventByIdUrl}/${eventId}`);
   }
 
 }

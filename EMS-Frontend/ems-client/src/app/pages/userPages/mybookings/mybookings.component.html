@@ -1,41 +1,51 @@
-<!-- <div *ngIf="bookedEvents && bookedEvents.length > 0" class="booked-events-container">
-  <h2>Booked Events</h2>
-  <ul class="event-list">
-    <li *ngFor="let event of bookedEvents" class="event-item">
-      <ul>
-        <li><strong>Event Name:</strong> {{ event.eventName }}</li>
-        <li><strong>Event Date:</strong> {{ event.eventDate }}</li>
-        <li><strong>Event Location:</strong> {{ event.eventLocation }}</li>
-        <li><strong>Event Time:</strong> {{ event.eventTime }}</li>
-        <li><strong>Ticket Price:</strong> {{ event.ticketPrice }}</li>
-      </ul>
-    </li>
-  </ul>
-</div>
-<div *ngIf="!bookedEvents || bookedEvents.length === 0">
-  <p>No events booked.</p>
-</div> -->
-
-<div *ngIf="bookedEvents && bookedEvents.length > 0" class="booked-events-container">
-  <h2>Booked Events</h2>
+<div
+  *ngIf="bookedEvents && bookedEvents.length > 0"
+  class="booked-events-container"
+>
+  <h2 class="text-center">Booked Events</h2>
   <div class="row">
     <div *ngFor="let event of bookedEvents" class="col-md-4">
       <div class="card mb-3">
         <div class="card-body">
           <h5 class="card-title">{{ event.eventName }}</h5>
-          <ul class="list-unstyled">
-            <li><strong>Event Date:</strong> {{ event.eventDate }}</li>
-            <li><strong>Event Location:</strong> {{ event.eventLocation }}</li>
-            <li><strong>Event Time:</strong> {{ event.eventTime }}</li>
-            <li><strong>Ticket Price:</strong> {{ event.ticketPrice }}</li>
-            <button [routerLink]="['review']" (click)="addReview(event.eventId)"><h5 class="fs-6 mb-0">Add Review</h5></button>
-            <button (click)="eTicket(event.bookingId)"><h5 class="fs-6 mb-0">Download E Ticket</h5></button>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+              <strong>Event Date: </strong>
+              <span>{{ event.eventDate | date : "yyyy-MM-dd" }}</span>
+            </li>
+            <li class="list-group-item">
+              <strong>Event Location: </strong>
+              <span>{{ event.eventLocation }}</span>
+            </li>
+            <li class="list-group-item">
+              <strong>Event Time: </strong> <span>{{ event.eventTime }}</span>
+            </li>
+            <li class="list-group-item">
+              <strong>Ticket Price: </strong>
+              <span>₹ {{ event.ticketPrice }}</span>
+            </li>
+
+            <div *ngIf="!disabled" class="btn-container">
+              <button
+                [routerLink]="['review']"
+                (click)="addReview(event.eventId)"
+                class="btn-primary"
+              >
+                <h5 class="fs-6 mb-0">Add Review</h5>
+              </button>
+              <button (click)="eTicket(event.bookingId)" class="btn-secondary">
+                <img
+                  src="https://cdn.iconscout.com/icon/premium/png-512-thumb/download-2693143-2234826.png?f=webp&w=256"
+                  alt="Download E Ticket"
+                />
+              </button>
+            </div>
           </ul>
         </div>
       </div>
     </div>
   </div>
 </div>
-<div *ngIf="!bookedEvents || bookedEvents.length === 0"> 
+<div *ngIf="!bookedEvents || bookedEvents.length === 0">
   <p>No events booked.</p>
 </div>

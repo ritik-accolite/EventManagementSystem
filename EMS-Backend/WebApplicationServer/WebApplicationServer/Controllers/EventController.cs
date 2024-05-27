@@ -23,7 +23,6 @@ namespace WebApplicationServer.Controllers
         }
 
 
-        //THIS API IS ONLY FOR ADMIN 
         [HttpGet]
         public async Task<GetAllEventResponseViewModel> GetAllEvents()
         {

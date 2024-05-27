@@ -108,7 +108,9 @@ namespace WebApplicationServer.Controllers
             
         }
 
-        [HttpGet("admin/reviewsbyeventid")]
+
+        //GetReviewByEventId
+        [HttpGet("admin/reviewsbyeventid/{eventid}")]
         public async Task<GetAllReviewResponseViewModel> GetReviewByEventId(int eventid)
         {
             GetAllReviewResponseViewModel response = new GetAllReviewResponseViewModel();

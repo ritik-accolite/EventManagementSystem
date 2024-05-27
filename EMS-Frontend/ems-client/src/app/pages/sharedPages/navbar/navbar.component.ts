@@ -27,7 +27,6 @@ export class NavbarComponent implements OnInit {
       this.role = localStorage.getItem('Role');
       console.log('Role while loading: ', this.role);
       if (this.role === null) {
-        this.router.navigate(['/login']);
         this.isLoggedIn = false;
       }
       else{

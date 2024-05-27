@@ -21,7 +21,7 @@
                  <div class="row align-items-center g-0 mt-7">
                     <div class="col lh-1 ">
                        <h5 class="mb-1">Chief Guest: {{ event.chiefGuest }}</h5>
-                       <h5 class="fs-6 mb-0">Event Date: {{ event.eventDate }}</h5>
+                       <h5 class="fs-6 mb-0">Event Date: {{ event.eventDate | date: 'yyyy-MM-dd' }}</h5>
                        <a routerLink="event-bookings"><button (click)="bookEvent(event.eventId, event.eventOrganizerId , event.ticketPrice)"><h5 class="fs-6 mb-0">Book Now</h5></button></a>
                     </div>
 
@@ -45,34 +45,6 @@
 <div *ngIf="events && events.length > 0" class="row">
   <div class="col-lg-12">
       <div class="schedule-tab"> 
-           <!-- <ul class="nav nav-tabs" role="tablist">
-              <li class="nav-item">
-                  <a class="nav-link active" data-toggle="tab"  role="tab"
-                      aria-selected="true">
-                      <h3>Sports</h3>
-                  </a>
-              </li>
-              <li class="nav-item">
-                  <a class="nav-link" data-toggle="tab"  role="tab" aria-selected="false">
-                      <h3>Business</h3>
-                  </a>
-              </li>
-              <li class="nav-item">
-                  <a class="nav-link" data-toggle="tab" role="tab" aria-selected="false">
-                      <h3>Music</h3>
-                  </a>
-              </li>
-              <li class="nav-item">
-                  <a class="nav-link" data-toggle="tab"  role="tab" aria-selected="false">
-                      <h3>Comedy</h3>
-                  </a>
-              </li>
-              <li class="nav-item">
-                  <a class="nav-link" data-toggle="tab"  role="tab" aria-selected="false">
-                      <h3>Dance</h3>
-                  </a>
-              </li>
-          </ul>  -->
            <div class="tab-content">
               <div class="tab-pane active" id="tabs-1" role="tabpanel">
                   <div *ngFor="let event of events; let i = index" [class.active]="i === 0" class="st-content">
@@ -88,8 +60,8 @@
                                   <div class="sc-text">
                                       <h4>{{ event.eventName }}</h4>
                                       <ul>
-                                          <li><i class="fa fa-user"></i>Chief Guest: {{ event.chiefGuest }}</li>
-                                          <li><i class="fa fa-envelope"></i> Event Date: {{ event.eventDate }}
+                                          <li><i class="fa-regular fa-user"></i>Chief Guest: {{ event.chiefGuest }}</li>
+                                          <li><i class="fa fa-envelope"></i> Event Date: {{ event.eventDate | date: 'yyyy-MM-dd' }}
                                           </li>
                                       </ul>
                                   </div>
