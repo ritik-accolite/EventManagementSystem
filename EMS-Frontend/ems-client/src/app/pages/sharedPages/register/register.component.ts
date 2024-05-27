@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { UserdataService } from '../../../services/userDataService/userdata.service';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-register',
   standalone: true,
@@ -16,6 +17,7 @@ import { Router, RouterLink } from '@angular/router';
 })
 export class RegisterComponent implements OnInit {
   userDataForm!: FormGroup;
+  toaster=inject(ToastrService);
   form: any;
   constructor(
     private fb: FormBuilder,
@@ -48,6 +50,7 @@ export class RegisterComponent implements OnInit {
       this.userDataService.registerUser(this.userDataForm.value).subscribe(
         response => {
           this.router.navigate(['/login']);
+          this.toaster.success("Registered Successfully");
           console.log('User registered successfully:', response);
           // this.userDataForm.reset();
         },

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { UserdataService } from '../../../services/userDataService/userdata.service';
 import { NgFor, NgIf } from '@angular/common';
 import { Router } from '@angular/router';
@@ -8,6 +8,7 @@ import { error } from 'console';
 import { GetPersonByRoleInterface } from '../../../interface/adminInterface/get-person-by-role-interface';
 import { GetAllPersonsByAdminInterface } from '../../../interface/adminInterface/get-all-persons-by-admin-interface';
 import { ResponseInterface } from '../../../interface/commonInterface/response-interface';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-trackorgainzers',
@@ -18,6 +19,7 @@ import { ResponseInterface } from '../../../interface/commonInterface/response-i
 })
 export class TrackorgainzersComponent {
   organizers : GetAllPersonsByAdminInterface [] = [];
+  toaster=inject(ToastrService);
   listTitle: string = "All Organizers";
   constructor(private userdataservice : UserdataService,
               private router : Router,
@@ -54,6 +56,7 @@ export class TrackorgainzersComponent {
     this.userdataservice.blockPersonbyId(personId).
     subscribe(
       (response : ResponseInterface) =>{
+        this.toaster.success("Blocked Succesfully");
         this.router.navigate(['admin-dash','track-organizer']);
         console.log('response regarding blocking',response);
       },
@@ -67,6 +70,7 @@ export class TrackorgainzersComponent {
     this.userdataservice.unBlockPersonbyId(personId).
     subscribe(
       (response : ResponseInterface) =>{
+        this.toaster.success("Unblocked Succesfully");
         this.router.navigate(['admin-dash','track-organizer']);
         console.log('response regarding unblocking',response);
       },

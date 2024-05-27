@@ -1,11 +1,12 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { UserdataService } from '../../../services/userDataService/userdata.service';
 import { NgFor, NgIf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { JwtDecodeService } from '../../../services/jwtDecodeService/jwtDecode.service';
 import { ProfileInterface } from '../../../interface/commonInterface/profile-interface';
 import { EditProfileInterface } from '../../../interface/commonInterface/edit-profile-interface';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-userprofile',
@@ -22,6 +23,7 @@ export class UserprofileComponent implements OnInit{
   phoneNumber : string ='';
   editMode: boolean = false;
   showSuccessMessage: boolean = false;
+  toaster=inject(ToastrService);
 
   constructor(private http: HttpClient , private userdataservice: UserdataService,
               private jwtDecodeService : JwtDecodeService
@@ -60,6 +62,7 @@ export class UserprofileComponent implements OnInit{
       (response: EditProfileInterface) => {
         console.log('Update successful:', response);
         this.showSuccessMessage = true;
+        this.toaster.success("Updated Succesfully","Success");
         
       },
       (error: any) => {

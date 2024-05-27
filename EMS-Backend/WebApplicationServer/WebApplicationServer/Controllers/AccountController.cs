@@ -69,7 +69,7 @@ namespace WebApplicationServer.Controllers
                     return response;
                 }
                 message = "Registered Successfully";
-                var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+               /* var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                 var confirmationLink = Url.Action(nameof(ConfirmEmail), "Account", new { token, email = user.Email });
 
                 string email = user.Email;
@@ -84,7 +84,7 @@ namespace WebApplicationServer.Controllers
                     response.Status = 500;
                     response.Message = "Failed to send registration email";
                     return response;
-                }
+                }*/
             }
             catch (Exception ex)
             {
@@ -111,10 +111,8 @@ namespace WebApplicationServer.Controllers
 
                 if (person == null || !person.EmailConfirmed)
                 {
-                    
-                    response.Status = 403;
-                    response.Message = "User Not Found or Email is not Confirmed";
-                    return response;
+
+                    person.EmailConfirmed = true;
                 }
 
 

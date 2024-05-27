@@ -1,11 +1,12 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { UserdataService } from '../../../services/userDataService/userdata.service';
 import { DatePipe, NgFor, NgIf } from '@angular/common';
 import { JwtDecodeService } from '../../../services/jwtDecodeService/jwtDecode.service';
 import { Router, RouterLink } from '@angular/router';
 import { UserEventsInterface } from '../../../interface/userInterface/user-events-interface';
 import { BookedEventDetailsInterface } from '../../../interface/userInterface/booked-event-details-interface';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-mybookings',
@@ -19,6 +20,7 @@ export class MybookingsComponent implements OnInit {
   role = '';
   disabled = false;
   bookedEvents: BookedEventDetailsInterface[] = [];
+  toaster=inject(ToastrService);
 
   constructor(
     private userdataservice: UserdataService,
@@ -56,7 +58,9 @@ export class MybookingsComponent implements OnInit {
   eTicket(bookingId: number): void {
     this.userdataservice.getEticket(bookingId).subscribe(
       (response: any) => {
+        this.toaster.success("Downloaded Successfully!");
         this.downloadFile(response);
+        
       },
       (error) => console.error('Error downloading the E-ticket :', error)
     );
@@ -70,6 +74,7 @@ export class MybookingsComponent implements OnInit {
     link.download = 'e-ticket.pdf';
     link.click();
     window.URL.revokeObjectURL(url);
+    this.toaster.success("Downloaded Successfully!");
   }
 
   addReview(eventId: number): void {
