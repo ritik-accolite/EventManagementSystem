@@ -17,7 +17,7 @@ namespace WebApplicationServer.Controllers
         public FilterEventsController(IAddEventService addEventService)
         {
             _addEventService = addEventService;
-  
+
         }
 
         [HttpGet("GetEventsByCategory/{category}")]

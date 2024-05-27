@@ -25,12 +25,10 @@ namespace WebApplicationServer.Controllers
         private string connectionString = "Server=tcp:ems-server.database.windows.net,1433;Initial Catalog=emsdatabase;Persist Security Info=False;User ID=ajaykarode;Password=Emspassword@123;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
 
         private readonly IGetAllPerson _getAllPerson;
-        private readonly UserManager<Person> _userManager;
 
-        public PersonController(UserManager<Person> userManager, IGetAllPerson getAllPerson)
+        public PersonController(IGetAllPerson getAllPerson)
         {
             _getAllPerson = getAllPerson;
-            _userManager = userManager;
         }
 
         [HttpGet, Authorize]
@@ -61,13 +59,10 @@ namespace WebApplicationServer.Controllers
             return response;
         }
 
-
-
         [HttpDelete("{Id}")]
         public async Task<ResponseViewModel> DeletePerson(string Id)
         {
             ResponseViewModel response;
-            //var user = await _userManager.GetUserAsync(User);
             response = await _getAllPerson.DeletePerson(Id);
             return response;
         }
@@ -96,10 +91,9 @@ namespace WebApplicationServer.Controllers
         public async Task<ResponseViewModel> BlockPerson(string personId)
         {
             ResponseViewModel response = new ResponseViewModel();
-            response = await _getAllPerson.BlockPerson(personId);
-
-/*            response.Status = 200;
-            response.Message = "Person Blocked Successfully";*/
+            //response = await _getAllPerson.BlockPerson(personId);
+            //response.Status = 200;
+            //response.Message = "Person Blocked Successfully";
             return response;
 
         }

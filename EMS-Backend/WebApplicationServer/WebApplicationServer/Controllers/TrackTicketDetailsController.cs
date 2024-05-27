@@ -17,20 +17,16 @@ namespace WebApplicationServer.Controllers
     {
 
         private readonly IAddEventService _addEventService;
-        private readonly UserManager<Person> _userManager;
 
-        public TrackTicketDetailsController(IAddEventService addEventService, UserManager<Person> userManager)
+        public TrackTicketDetailsController(IAddEventService addEventService)
         {
             _addEventService = addEventService;
-            _userManager = userManager;
         }
 
         //[Authorize(Roles = "Organizer")]
         [HttpGet("trackTicketDetails/{eventId}")]
         public async Task<IActionResult> TrackTicketDetails(int eventId)
         {
-            //var organizerId = User.FindFirstValue(ClaimTypes.Name);
-
             var organizerId = User.FindFirstValue("Id");
 
             var ticketDetails = await _addEventService.GetTicketDetailsForOrganizer(eventId, organizerId);

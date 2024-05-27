@@ -14,48 +14,7 @@ namespace WebApplicationServer.Services
         {
             _configuration = configuration;
         }
-        //public async Task<bool> SendRegisterSuccessMailAsync(string email, string Subject, string message)
-        //{
-        //    bool status = false;
-        //    try
-        //    {
-        //        GetRegisterSuccessMailViewModel getRegisterSuccessMailViewModel = new GetRegisterSuccessMailViewModel()
-        //        {
-        //            SecretKey = _configuration.GetValue<string>("AppSettings:SecretKey"),
-        //            From = _configuration.GetValue<string>("AppSettings:EmailSettings:From"),
-        //            SmtpServer = _configuration.GetValue<string>("AppSettings:EmailSettings : SmtpServer"),
-        //            Port = _configuration.GetValue<int>("AppSettings:EmailSettings : Port"),
-        //            EnableSSL = _configuration.GetValue<bool>("AppSettings:EmailSettings : EnableSSL")
-
-        //        };
-
-        //        MailMessage mailMessage = new MailMessage()
-        //        {
-        //            From = new MailAddress(getRegisterSuccessMailViewModel.From),
-        //            Subject = Subject,
-        //            Body = message
-        //        };
-        //        mailMessage.To.Add(email);
-
-        //        SmtpClient smtpClient = new SmtpClient(getRegisterSuccessMailViewModel.SmtpServer)
-        //        {
-        //            Port = getRegisterSuccessMailViewModel.Port,
-        //            Credentials = new NetworkCredential(getRegisterSuccessMailViewModel.From, getRegisterSuccessMailViewModel.SecretKey),
-        //            EnableSsl = getRegisterSuccessMailViewModel.EnableSSL
-        //        };
-
-        //        await smtpClient.SendMailAsync(mailMessage);
-        //        status = true;
-        //    }
-        //    catch (Exception)
-        //    {
-
-        //        status = false;
-        //    }
-        //    return status;
-        //}
-
-
+  
         public async Task<bool> SendRegisterSuccessMailAsync(string email, string Subject, string message)
         {
             bool status = false;

@@ -10,10 +10,7 @@ namespace WebApplicationServer.Services
 {
     public class GetAllPerson : IGetAllPerson
     {
-
         private readonly ApplicationDbContext _context;
-
-
         public GetAllPerson(ApplicationDbContext context)
         {
             _context = context;
@@ -24,7 +21,7 @@ namespace WebApplicationServer.Services
             GetAllPersonResponseViewModel response = new GetAllPersonResponseViewModel();
             response.Status = 200;
             response.Message = "All Persons Fetched";
-            response.AllPersons= await _context.Users.ToListAsync();
+            response.AllPersons = await _context.Users.ToListAsync();
             return response;
         }
 
@@ -54,19 +51,7 @@ namespace WebApplicationServer.Services
                 }).ToListAsync();
 
             return allperson;
-            //var allperson = await _context.Users.Where(e => e.Role == role).ToListAsync();
-            //return allperson;
-
-            //GetAllPersonResponseViewModel response = new GetAllPersonResponseViewModel();
-            //response.Status = 200;
-            //response.Message = "All Persons Fetched";
-            //response.AllPersons = await _context.Users.Where(e => e.Role == role).ToListAsync();
-            //return response;
         }
-
-    
-
-
 
         public async Task<ResponseViewModel> DeletePerson(string Id)
         {
@@ -111,7 +96,6 @@ namespace WebApplicationServer.Services
                     return response;
                 }
 
-                // Update event properties
                 personToUpdate.FirstName = updatePerson.FirstName;
                 personToUpdate.LastName = updatePerson.LastName;
                 personToUpdate.PhoneNumber = updatePerson.PhoneNumber;
@@ -130,8 +114,6 @@ namespace WebApplicationServer.Services
             return response;
         }
 
-
-
         public async Task<ResponseViewModel> BlockPerson(string personId)
         {
             ResponseViewModel response = new ResponseViewModel();
@@ -139,20 +121,20 @@ namespace WebApplicationServer.Services
             {
                 var person = await _context.Users.FindAsync(personId);
 
-            if (person == null)
-            {
-                response.Status = 400;
-                response.Message = $"Person with ID '{personId}' not found.";
-                return response;
-            }
+                if (person == null)
+                {
+                    response.Status = 400;
+                    response.Message = $"Person with ID '{personId}' not found.";
+                    return response;
+                }
 
-            person.IsBlocked = true;
-            
+                person.IsBlocked = true;
+
                 await _context.SaveChangesAsync();
 
                 response.Status = 200;
                 response.Message = $"Person with ID '{personId}' has been blocked successfully.";
-                return response;        
+                return response;
             }
             catch (Exception ex)
             {
@@ -169,15 +151,15 @@ namespace WebApplicationServer.Services
             {
                 var person = await _context.Users.FindAsync(personId);
 
-            if (person == null)
-            {
-                response.Status = 400;
-                response.Message = $"Person with ID '{personId}' not found.";
-            }
+                if (person == null)
+                {
+                    response.Status = 400;
+                    response.Message = $"Person with ID '{personId}' not found.";
+                }
 
-            person.IsBlocked = false;
-         
-            
+                person.IsBlocked = false;
+
+
                 await _context.SaveChangesAsync();
 
                 response.Status = 200;
