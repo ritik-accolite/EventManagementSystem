@@ -19,6 +19,7 @@ export class SidebarComponent {
   // allEventCategory: string[] = [];
   // selectedCategory: string = '';
   // showDropdown2 = false;
+  toggleBar = false;
 
   constructor(private router: Router,
               private jwtDecodeService : JwtDecodeService,
@@ -35,9 +36,25 @@ export class SidebarComponent {
     // this.fetchEventCategories();
   }
 
+  deactivateToggle():void{
+    this.toggleBar = true;
+    const doc = document.getElementById('navbarSupportedSideContent') as HTMLElement;
+    doc.style.display = 'none';
+  }
+
+  activateToggle() : void{
+    const doc = document.getElementById('navbarSupportedSideContent') as HTMLElement;
+    if(this.toggleBar === true){
+      doc.style.display = 'block';
+      this.toggleBar = false;
+    }
+
+  }
   onTabClick(tabRoute: string) {
-    if (tabRoute === 'user-profile') {
-      this.router.navigate(['user-dash', 'user-profile']);
+    if (tabRoute === 'organizer-profile') {
+      this.router.navigate(['organizer-dash', 'user-profile']);
+    } else if (tabRoute === 'user-profile') {
+      this.router.navigate(['user-dash','user-profile']);
     } else if (tabRoute === 'myevents') {
       this.router.navigate(['organizer-dash','app-myevents']);
     } else if (tabRoute === 'new-event')  {
@@ -48,12 +65,10 @@ export class SidebarComponent {
       this.router.navigate(['user-dash','mybookings'])
     } else if (tabRoute === 'user-stat') {
       this.router.navigate(['user-dash',''])
-    }
-    
-    else if (tabRoute === 'organizer-stat') {
+    } else if (tabRoute === 'organizer-stat') {
       this.router.navigate(['organizer-dash','app-organizerstat'])
     } else if (tabRoute === 'organizer-profile') {
-      this.router.navigate(['admin-dash','user-profile'])
+      this.router.navigate(['organizer-dash','user-profile'])
     } else if (tabRoute === 'track-event') {
       this.router.navigate(['admin-dash','track-event'])
     } else if (tabRoute === 'track-organizer') {

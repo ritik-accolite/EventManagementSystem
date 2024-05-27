@@ -54,16 +54,17 @@ export class EditeventComponent implements OnInit {
   onSubmit() {
     if (this.eventForm.valid) {
       // Send a POST request with edited form data to update event details
-      this.userdataService.updateEvent(this.eventId, this.eventForm.value).subscribe((response: UpdateEventInterface) => {
-        this.router.navigate(['user-dash','app-myevents']);
+      this.userdataService.updateEvent(this.eventId, this.eventForm.value).subscribe((response: any) => {
+        this.router.navigate(['organizer-dash','app-myevents']);
       });
     }
   }
 
   onDelete() {
     if (confirm("Are you sure you want to delete this event?")) {
-      this.userdataService.deleteEvent(this.eventId).subscribe((response: ResponseInterface) => {
-        this.router.navigate(['user-dash','/app-myevents']);
+      this.userdataService.deleteEvent(this.eventId).subscribe((response: any) => {
+        console.log('Response while deleting: ', response);
+        this.router.navigate(['organizer-dash','/app-myevents']);
       });
     }
 }

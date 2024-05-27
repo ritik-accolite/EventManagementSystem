@@ -149,7 +149,7 @@ namespace WebApplicationServer.Controllers
 
 
         //GetReviewByEventId
-        [HttpGet("admin/reviewsbyeventid")]
+        [HttpGet("admin/reviewsbyeventid/{eventid}")]
         public async Task<GetAllReviewResponseViewModel> GetReviewByEventId(int eventid)
         {
             GetAllReviewResponseViewModel response = new GetAllReviewResponseViewModel();

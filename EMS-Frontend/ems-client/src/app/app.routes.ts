@@ -28,25 +28,23 @@ import { EventbylocationComponent } from './pages/userPages/eventbylocation/even
 import { ReviewComponent } from './pages/userPages/review/review.component';
 import { EventreviewComponent } from './pages/organizerPages/eventreview/eventreview.component';
 import { UserstatComponent } from './pages/userPages/userstat/userstat.component';
+import { adminGuard } from './guards/adminGuard/admin.guard';
+import { UnauthorisedComponent } from './pages/sharedPages/unauthorised/unauthorised.component';
+import { organizerGuard } from './guards/organizerGuard/organizer.guard';
+import { userGuard } from './guards/userGuard/user.guard';
 import { EventDetailComponent } from './pages/userPages/event-detail/event-detail.component';
 
 export const routes: Routes = [
     {
-        path:'',
-        redirectTo:'Home',
-        pathMatch:'full'
+        path:'event-list',
+        component:EventlistComponent
     },
     {
         path:'Home',
-        component:HomeComponent,
+        component: HomeComponent,
         children: [
             { path: 'event-list', component: EventlistComponent }
           ]
-    },
-    {
-        path:'new-event',
-        component:NeweventComponent,
-        canActivate: [AuthGuard]
     },
     {
         path:'event-list',
@@ -55,21 +53,21 @@ export const routes: Routes = [
     {
         path: 'admin-dash',
         component : AdmindashComponent,
-        canActivate : [AuthGuard],
-        canActivateChild: [ChildAuthGuard],
+        canActivate : [adminGuard],
         children : [
             {path: 'user-profile', component : UserprofileComponent},
             {path: 'track-organizer', component : TrackorgainzersComponent},
             {path: 'issues', component : ReportedissuesComponent},
             {path: 'app-myevents', component: MyeventsComponent},
+            {path: 'app-viewevent', component : VieweventComponent},
+            {path: 'app-eventreview', component : EventreviewComponent},
             {path: '**', component : TrackeventComponent},
         ]
     },
     {
         path : 'organizer-dash',
         component:CommondashComponent,
-        canActivate: [AuthGuard],
-        canActivateChild: [ChildAuthGuard],
+        canActivate: [organizerGuard],
         children: [
             { path: 'user-profile', component: UserprofileComponent },
             { path: 'new-event', component: NeweventComponent},
@@ -77,14 +75,15 @@ export const routes: Routes = [
             { path: 'app-viewevent', component : VieweventComponent},
             { path: 'app-editevent', component: EditeventComponent },
             { path: 'app-eventreview', component : EventreviewComponent},
+            { path:'mybookings', component:MybookingsComponent },
+            { path:'event-bookings', component:EventbookingComponent},
             { path: '**', component: OrganizerstatComponent }
         ]
     },
     {
         path:'user-dash',
         component:CommondashComponent,
-        canActivate: [AuthGuard],
-        canActivateChild: [ChildAuthGuard],
+        canActivate: [userGuard],
         children: [
             { path: 'user-profile', component: UserprofileComponent },
             { path: 'user-stat', component: UserstatComponent },
@@ -110,13 +109,13 @@ export const routes: Routes = [
                 ]
             },
             { path:'event-bookings', component:EventbookingComponent},
-            { path:'event-list', component:EventlistComponent },
-            { path:'event-list',
-                children: 
-                [
-                    { path:'event-bookings', component:EventbookingComponent}
-                ]
-            },
+            // { path:'event-list', component:EventlistComponent },
+            // { path:'event-list',
+            //     children: 
+            //     [
+            //         { path:'event-bookings', component:EventbookingComponent}
+            //     ]
+            // },
             { path: 'event-by-category', component:EventbycategoryComponent},
             { path: 'event-by-location', component:EventbylocationComponent},
             { path: '**', component : UserstatComponent}
@@ -144,17 +143,21 @@ export const routes: Routes = [
         canActivate: [AuthGuard]
     },
     {
-        path:'my-events',
-        component:MyeventsComponent,
-        canActivate: [AuthGuard]
-    },
-    {
         path:'aboutus',
         component:AboutusComponent
     },
     {
         path:'contactus',
         component: ContactusComponent
+    },
+    {
+        path: 'unauthorised',
+        component : UnauthorisedComponent
+    },
+    {
+        path:'',
+        redirectTo:'Home',
+        pathMatch:'full'
     }
 ];
 

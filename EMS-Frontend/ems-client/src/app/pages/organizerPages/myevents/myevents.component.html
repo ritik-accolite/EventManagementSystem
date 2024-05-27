@@ -20,7 +20,7 @@
             </ul>
             <a class="btn btn-primary" (click)="viewEvent(event.eventId)">View Details</a>
             <ng-container *ngIf="role === 'Organizer'">
-              <a class="btn btn-primary" (click)="editEvent(event.eventId)">Edit Details</a>
+              <a class="btn btn-primary btn-second" (click)="editEvent(event.eventId)">Edit Details</a>
             </ng-container>
           </div>
         </div>
