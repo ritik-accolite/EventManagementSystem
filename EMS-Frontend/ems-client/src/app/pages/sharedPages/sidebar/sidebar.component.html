@@ -31,11 +31,11 @@
   <aside *ngIf="role === 'User'; else adminContent">
     <!-- User Menu -->
     <a (click)="onTabClick('user-stat')">
-      <i class="fa fa-star-o" aria-hidden="true"></i>
+      <i class="fa fa-tachometer" aria-hidden="true"></i>
       Dashboard
     </a>
     <a (click)="onTabClick('event-list')">
-      <i class="fa fa-user-o" aria-hidden="true"></i>
+      <i class="fa fa-calendar-plus" aria-hidden="true"></i>
       Book Event
     </a>
     <a (click)="onTabClick('mybookings')">
@@ -46,6 +46,8 @@
       <i class="fa fa-clone" aria-hidden="true"></i>
       Profile
     </a>
+    
+
     <!-- <a>
       <i class="fa fa-trash-o" aria-hidden="true"></i>
       Track Event Tickets
@@ -69,25 +71,26 @@
     <!-- Admin Menu -->
     <aside *ngIf="role === 'Admin'">
       <a (click)="onTabClick('track-event')">
-        <i class="fa fa-star-o" aria-hidden="true"></i>
+        <i class="fa fa-calendar" aria-hidden="true"></i>
         Track Events
       </a>
       <a (click)="onTabClick('track-organizer')">
-        <i class="fa fa-star-o" aria-hidden="true"></i>
+        <i class="fa fa-users" aria-hidden="true"></i>
         Track Organizers
       </a>
       <!-- <a (click)="onTabClick('track-user')">
-        <i class="fa fa-star-o" aria-hidden="true"></i>
+        <i class="fa fa-user" aria-hidden="true"></i>
         Track Users
       </a> -->
       <a (click)="onTabClick('issues')">
-        <i class="fa fa-star-o" aria-hidden="true"></i>
+        <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
         Reported Issues
       </a>
       <a (click)="onTabClick('organizer-profile')">
-        <i class="fa fa-clone" aria-hidden="true"></i>
+        <i class="fa fa-user-circle" aria-hidden="true"></i>
         Profile
       </a>
+      
     </aside>
   </ng-template>
 </ng-template>
