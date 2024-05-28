@@ -70,6 +70,7 @@ export class OrganizerstatComponent implements OnInit {
       chiefGuest: string;
       eventLocation: string;
       eventDescription: string;
+      bannerImage: string,
       ticketPrice: number;
       totalTicketsSold: number;
       totalTicketsLeft: number;
@@ -92,6 +93,7 @@ export class OrganizerstatComponent implements OnInit {
             chiefGuest: event.chiefGuest,
             eventLocation: event.eventLocation,
             eventDescription: event.eventDescription,
+            bannerImage: event.bannerImage,
             ticketPrice: correspondingTicket.ticketPrice,
             totalTicketsSold: correspondingTicket.totalTicketsSold,
             totalTicketsLeft: correspondingTicket.totalTicketsLeft,

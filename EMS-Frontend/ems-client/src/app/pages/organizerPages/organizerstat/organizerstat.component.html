@@ -1,30 +1,30 @@
 <div class="container-fluid">
   <div class="row">
     <main role="main">
-      <div class="card-list">
-        <div class="row">
-          <div class="col-12 col-md-6 col-lg-4 col-xl-3 mb-4">
+      <div class="card-list mb-4">
+        <div class="row alignment">
+          <div class="col-12 col-md-6 col-lg-3 col-xl-3 mb-4">
             <div class="card blue">
               <div class="title">Events Posted</div>
               <!-- <i class="zmdi zmdi-upload"></i> -->
               <div class="value">{{ totalEvents }}</div>
             </div>
           </div>
-          <div class="col-12 col-md-6 col-lg-4 col-xl-3 mb-4">
+          <div class="col-12 col-md-6 col-lg-3 col-xl-3 mb-4">
             <div class="card green">
               <div class="title">Person attended</div>
               <i class="zmdi zmdi-upload"></i>
               <div class="value">{{ totalAttendees }}</div>
             </div>
           </div>
-          <div class="col-12 col-md-6 col-lg-4 col-xl-3 mb-4">
+          <div class="col-12 col-md-6 col-lg-3 col-xl-3 mb-4">
             <div class="card orange">
               <div class="title">Revenue</div>
               <i class="zmdi zmdi-download"></i>
               <div class="value">₹{{ totalRevenue }}</div>
             </div>
           </div>
-          <div class="col-12 col-md-6 col-lg-4 col-xl-3 mb-4">
+          <div class="col-12 col-md-6 col-lg-3 col-xl-3 mb-4">
             <div class="card red">
               <div class="title">Average Rating</div>
               <i class="zmdi zmdi-download"></i>
@@ -43,9 +43,9 @@
               <button (click)="selectedCategory = 'Previous'">
                 Previous Events
               </button>
-              <button (click)="selectedCategory = 'All'">All Events</button>
+              <button  (click)="selectedCategory = 'All'">All Events</button>
             </div>
-            <div class="title">{{ selectedCategory }} Events</div>
+            <div class="title ">{{ selectedCategory }} Events</div>
             <div class="count">| {{ filteredEvents.length }} Events</div>
           </header>
           <table class="projects-table">
@@ -64,33 +64,36 @@
               (click)="viewEvent(event.eventId)"
             >
               <td>
-                <p>{{ event.eventName }}</p>
-                <p></p>
+                <p class="text-size">{{ event.eventName }}</p>
+                <p class="text-size"></p>
               </td>
               <td>
-                <p>{{ event.eventDate | date : "yyyy-MM-dd" }}</p>
+                <p class="text-size2">{{ event.eventDate | date : "yyyy-MM-dd" }}</p>
               </td>
               <td class="member">
-                <figure>
-                  <img
+                <!-- <figure> -->
+                  <!-- <img
                     src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/584938/people_8.png"
-                  />
-                </figure>
+                  /> -->
+                  <!-- <img src="{{ event.bannerImage }}" class="card-img-top" alt="Event Banner" /> -->
+                  <!-- <img src="{{ event.bannerImage }}" alt="Banner Image"> -->
+
+                <!-- </figure> -->
                 <div class="member-info">
-                  <p>{{ event.chiefGuest }}</p>
-                  <p></p>
+                  <p class="text-size">{{ event.chiefGuest }}</p>
+                  <p class="text-size"></p>
                 </div>
               </td>
               <td>
-                <p>₹{{ event.ticketPrice * event.totalTicketsSold }}</p>
-                <p></p>
+                <p class="text-size">₹{{ event.ticketPrice * event.totalTicketsSold }}</p>
+                <p class="text-size"></p>
               </td>
               <td class="status">
-                <p>{{ event.totalTicketsLeft }}</p>
+                <p class="text-size2">{{ event.totalTicketsLeft }}</p>
               </td>
               <td>
-                <p>{{ event.eventLocation }}</p>
-                <p></p>
+                <p class="text-size">{{ event.eventLocation }}</p>
+                <p class="text-size"></p>
               </td>
             </tr>
           </table>

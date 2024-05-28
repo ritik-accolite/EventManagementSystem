@@ -35,62 +35,91 @@ export class UserdataService {
 
   loginEvent: EventEmitter<boolean> = new EventEmitter<boolean>(); 
   roleEvent: EventEmitter<string> = new EventEmitter<string>(); 
-  private registerUrl = 'http://localhost:5299/api/Account';
-  // private registerUrl = 'https://eventhubfusion.azurewebsites.net/api/Account';
 
-  private eventsUrl = 'http://localhost:5299/api/Event';
+  // https://eventhubfusion.azurewebsites.net/
 
-  private profileUrl = 'http://localhost:5299/api/Person';
+  // private registerUrl = 'http://localhost:5299/api/Account';
+  private registerUrl = 'https://eventhubfusion.azurewebsites.net/api/Account';
 
-  private getPersonByRoleUrl ='http://localhost:5299/api/Person/getpersonbyrole';
+  // private eventsUrl = 'http://localhost:5299/api/Event';
+  private eventsUrl = 'https://eventhubfusion.azurewebsites.net/api/Event';
 
-  private createEventUrl = 'http://localhost:5299/api/Event/addEvent';
+  // private profileUrl = 'http://localhost:5299/api/Person';
+  private profileUrl = 'https://eventhubfusion.azurewebsites.net/api/Person';
 
-  private deleteEventUrl = 'http://localhost:5299/api/Event';
+  // private getPersonByRoleUrl ='http://localhost:5299/api/Person/getpersonbyrole';
+  private getPersonByRoleUrl ='https://eventhubfusion.azurewebsites.net/api/Person/getpersonbyrole';
 
-  private bookEventUrl = 'http://localhost:5299/api/BookedEvent/BookEvent';
+  // private createEventUrl = 'http://localhost:5299/api/Event/addEvent';
+  private createEventUrl = 'https://eventhubfusion.azurewebsites.net/api/Event/addEvent';
 
-  private eventsBookedByUserUrl = 'http://localhost:5299/api/BookedEvent/GetBookedEventsByUser';
+  // private deleteEventUrl = 'http://localhost:5299/api/Event';
+  private deleteEventUrl = 'https://eventhubfusion.azurewebsites.net/api/Event';
 
-  private eventsBookedByUserIdUrl = 'http://localhost:5299/api/BookedEvent/GetBookedEventsByUserId';
+  // private bookEventUrl = 'http://localhost:5299/api/BookedEvent/BookEvent';
+  private bookEventUrl = 'https://eventhubfusion.azurewebsites.net/api/BookedEvent/BookEvent';
 
-  private getOrganizerCreatedEventUrl = 'http://localhost:5299/api/Event/myevents';
+  // private eventsBookedByUserUrl = 'http://localhost:5299/api/BookedEvent/GetBookedEventsByUser';
+  private eventsBookedByUserUrl = 'https://eventhubfusion.azurewebsites.net/api/BookedEvent/GetBookedEventsByUser';
 
-  private getOrganiserEventTicketDetailsUrl = 'http://localhost:5299/api/BookedEvent/tracktickets';
+  // private eventsBookedByUserIdUrl = 'http://localhost:5299/api/BookedEvent/GetBookedEventsByUserId';
+  private eventsBookedByUserIdUrl = 'https://eventhubfusion.azurewebsites.net/api/BookedEvent/GetBookedEventsByUserId';
 
-  private updateEventUrl = 'http://localhost:5299/api/Event/updateEvent';
+  // private getOrganizerCreatedEventUrl = 'http://localhost:5299/api/Event/myevents';
+  private getOrganizerCreatedEventUrl = 'https://eventhubfusion.azurewebsites.net/api/Event/myevents';
+
+  // private getOrganiserEventTicketDetailsUrl = 'http://localhost:5299/api/BookedEvent/tracktickets';
+  private getOrganiserEventTicketDetailsUrl = 'https://eventhubfusion.azurewebsites.net/api/BookedEvent/tracktickets';
+
+  // private updateEventUrl = 'http://localhost:5299/api/Event/updateEvent';
+  private updateEventUrl = 'https://eventhubfusion.azurewebsites.net/api/Event/updateEvent';
   
-  private getTicketDetailsUrl = 'http://localhost:5299/api/Event/eventuserdetails';
+  // private getTicketDetailsUrl = 'http://localhost:5299/api/Event/eventuserdetails';
+  private getTicketDetailsUrl = 'https://eventhubfusion.azurewebsites.net/api/Event/eventuserdetails';
 
-  private sendEmailNotificationsUrl = 'http://localhost:5299/api/Email/SendEmailNotification';
+  // private sendEmailNotificationsUrl = 'http://localhost:5299/api/Email/SendEmailNotification';
+  private sendEmailNotificationsUrl = 'https://eventhubfusion.azurewebsites.net/api/Email/SendEmailNotification';
 
-  private generateForgotEmailTokenUrl = 'http://localhost:5299/api/ForgetPassword/send-reset-password-token-email';
+  // private generateForgotEmailTokenUrl = 'http://localhost:5299/api/ForgetPassword/send-reset-password-token-email';
+  private generateForgotEmailTokenUrl = 'https://eventhubfusion.azurewebsites.net/api/ForgetPassword/send-reset-password-token-email';
 
-  private resetPasswordUrl = 'http://localhost:5299/api/ForgetPassword/forget-password';
+  // private resetPasswordUrl = 'http://localhost:5299/api/ForgetPassword/forget-password';
+  private resetPasswordUrl = 'https://eventhubfusion.azurewebsites.net/api/ForgetPassword/forget-password';
 
-  private getEventCategoriesUrl = 'http://localhost:5299/api/Event/eventCategories';
+  // private getEventCategoriesUrl = 'http://localhost:5299/api/Event/eventCategories';
+  private getEventCategoriesUrl = 'https://eventhubfusion.azurewebsites.net/api/Event/eventCategories';
 
-  private getEventLocationsUrl = 'http://localhost:5299/api/Event/eventlocation';
+  // private getEventLocationsUrl = 'http://localhost:5299/api/Event/eventlocation';
+  private getEventLocationsUrl = 'https://eventhubfusion.azurewebsites.net/api/Event/eventlocation';
 
-  private getEventsByCategoryUrl = 'http://localhost:5299/api/FilterEvents/GetEventsByCategory';
+  // private getEventsByCategoryUrl = 'http://localhost:5299/api/FilterEvents/GetEventsByCategory';
+  private getEventsByCategoryUrl = 'https://eventhubfusion.azurewebsites.net/api/FilterEvents/GetEventsByCategory';
 
-  private getEventsByLocationUrl = 'http://localhost:5299/api/FilterEvents/GetEventsByLocation';
+  // private getEventsByLocationUrl = 'http://localhost:5299/api/FilterEvents/GetEventsByLocation';
+  private getEventsByLocationUrl = 'https://eventhubfusion.azurewebsites.net/api/FilterEvents/GetEventsByLocation';
 
-  private getEticketUrl = 'http://localhost:5299/api/SendETickets/generateticket';
+  // private getEticketUrl = 'http://localhost:5299/api/SendETickets/generateticket';
+  private getEticketUrl = 'https://eventhubfusion.azurewebsites.net/api/SendETickets/generateticket';
 
-  private blockPersonByIdUrl = 'http://localhost:5299/api/Person/blockperson';
+  // private blockPersonByIdUrl = 'http://localhost:5299/api/Person/blockperson';
+  private blockPersonByIdUrl = 'https://eventhubfusion.azurewebsites.net/api/Person/blockperson';
 
-  private unBlockPersonByIdUrl = 'http://localhost:5299/api/Person/unblockperson';
+  // private unBlockPersonByIdUrl = 'http://localhost:5299/api/Person/unblockperson';
+  private unBlockPersonByIdUrl = 'https://eventhubfusion.azurewebsites.net/api/Person/unblockperson';
 
   private addReviewUrl = 'https://eventhubfusion.azurewebsites.net/api/Review/events/reviews';
 
-  private getAllReviewUrl ='http://localhost:5299/admin/allreviews';
+  // private getAllReviewUrl ='http://localhost:5299/admin/allreviews';
+  private getAllReviewUrl ='https://eventhubfusion.azurewebsites.net/api/Review/admin/allreviews';
 
-  private getAllReviewByEventIdUrl ='http://localhost:5299/admin/reviewsbyeventid';
+  // private getAllReviewByEventIdUrl ='http://localhost:5299/admin/reviewsbyeventid';
+  private getAllReviewByEventIdUrl ='https://eventhubfusion.azurewebsites.net/api/Review/admin/reviewsbyeventid';
 
-  private resolveReviewUrl = 'http://localhost:5299/resolveissue';
+  // private resolveReviewUrl = 'http://localhost:5299/resolveissue';
+  private resolveReviewUrl = 'https://eventhubfusion.azurewebsites.net/api/Review/resolveissue';
 
-  private getEventByIdUrl = 'http://localhost:5299/api/Event';
+  // private getEventByIdUrl = 'http://localhost:5299/api/Event';
+  private getEventByIdUrl = 'https://eventhubfusion.azurewebsites.net/api/Event';
 
   constructor(private http: HttpClient) { }
 

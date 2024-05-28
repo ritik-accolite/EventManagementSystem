@@ -135,16 +135,16 @@ namespace WebApplicationServer.Controllers
                     return response;
                 }
 
-                string email = login.Email;
-                bool emailSent = await _sendRegisterSuccessMailService.SendRegisterSuccessMailAsync(login.Email, "Successful log on to EventHub", $"Dear {email},{Environment.NewLine}We are pleased to inform you that your recent login to EventHub was successful. If this was not you, please secure your account immediately.{Environment.NewLine}You can review your account details and recent activities by logging into your account. If you have any questions or encounter any issues, our support team is here to help.{Environment.NewLine}Thank you for being a valued member of our community!{Environment.NewLine}Best Regards,{Environment.NewLine}EventHub Team");
+                //string email = login.Email;
+                //bool emailSent = await _sendRegisterSuccessMailService.SendRegisterSuccessMailAsync(login.Email, "Successful log on to EventHub", $"Dear {email},{Environment.NewLine}We are pleased to inform you that your recent login to EventHub was successful. If this was not you, please secure your account immediately.{Environment.NewLine}You can review your account details and recent activities by logging into your account. If you have any questions or encounter any issues, our support team is here to help.{Environment.NewLine}Thank you for being a valued member of our community!{Environment.NewLine}Best Regards,{Environment.NewLine}EventHub Team");
 
-                if (!emailSent)
-                {
-                    // Handle email sending failure
-                    response.Status = 500;
-                    response.Message = "Failed to send Login email";
-                    return response;
-                }
+                //if (!emailSent)
+                //{
+                //    // Handle email sending failure
+                //    response.Status = 500;
+                //    response.Message = "Failed to send Login email";
+                //    return response;
+                //}
                 message = "Login Successfully";
 
                 string role = person.Role;

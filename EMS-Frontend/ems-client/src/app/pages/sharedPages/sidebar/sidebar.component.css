@@ -104,9 +104,7 @@ body {
   cursor: pointer;
   background-color: #fff;
   padding: 2px 10px;
-  /* position: fixed; */
   margin-left : 10px;
-  /* top: 10px; */
   border-radius: 5px;
 }
 .closebtn{
@@ -118,38 +116,3 @@ body {
 .toggle-button{
   margin-bottom: 20px;
 }
-
-/* .sidebar {
-    background-color: #7fee63; 
-    padding: 20px; 
-  }
-  
-  .nav-link {
-    color: #000; 
-  }
-  
-  .nav-link:hover {
-    color: #007bff; 
-  }
-   */
-
-/* .sidebar {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 200px;
-    background-color: #9ec6ee;
-    padding: 20px;
-    z-index: 1000; 
-    margin-top: 4%;
-  }
-  
-  .main-content {
-    margin-left: 220px; 
-    padding-top: 60px; 
-  } */
-  
-  
-  
-  

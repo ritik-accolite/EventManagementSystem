@@ -32,15 +32,10 @@
             <p class="card-desc">Location:</p>
             <p class="card-desc">Ticket Price:</p>
             <p class="card-desc">Seats Left:</p>
-            <p class="card-desc">Total Revenue:</p>
-            <button
-            *ngIf="role === 'Organizer'"
-            class="btn btn-primary"
-            (click)="showEmailForm()"
-            >
-            Send Mail to Users
-          </button>
+            <p class="card-desc">Total Revenue:</p>   
+                   
         </div>
+
         <div class="col-lg-9 col-sm-6 col-7 values" >
             <p class="card-text">{{ eventDetails.eventCategory }}</p>
             <p class="card-text">{{ eventDetails.description }}</p>
@@ -126,3 +121,8 @@
     </button>
   </div>
 </div>
+
+
+
+
+
