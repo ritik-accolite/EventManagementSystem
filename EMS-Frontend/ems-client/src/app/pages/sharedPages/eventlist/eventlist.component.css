@@ -126,10 +126,10 @@
 }
 
 .schedule-tab .st-content .sc-text ul li:after {
-  position: absolute;
-  right: -18px;
-  top: 0;
-  content: "/";
+    position: absolute;
+    right: -18px;
+    top: 0;
+    /* content: "/"; */
 }
 
 .schedule-tab .st-content .sc-text ul li i {
@@ -151,11 +151,10 @@
 .price-item .pi-price,
 .price-item .tr-tag,
 .schedule-tab .nav-tabs .nav-item .nav-link.active,
-.site-btn {
-  background-image: -o-linear-gradient(330deg, #ee8425 0%, #f9488b 100%),
-    -o-linear-gradient(330deg, #ee8425 0%, #f9488b 100%);
-  background-image: linear-gradient(120deg, #ee8425 0%, #f9488b 100%),
-    linear-gradient(120deg, #ee8425 0%, #f9488b 100%);
+.site-btn,
+.gradient {
+    background-image: -o-linear-gradient(330deg, #ee8425 0%, #f9488b 100%), -o-linear-gradient(330deg, #ee8425 0%, #f9488b 100%);
+    background-image: linear-gradient(120deg, #ee8425 0%, #f9488b 100%), linear-gradient(120deg, #ee8425 0%, #f9488b 100%);
 }
 
 .schedule-tab .st-content .sc-widget li {
@@ -179,17 +178,81 @@
 }
 
 a:link {
-  text-decoration: none;
-}
+    text-decoration: none;
+  }
+  
+  a:visited {
+    text-decoration: none;
+  }
+  
 
-a:visited {
-  text-decoration: none;
-}
+  .gap{
+    margin-bottom: 70px;
+  }
 
-a:hover {
-  text-decoration: underline;
-}
+  .event-image {
+    background-size: cover;
+    background-position: center;
+    height: 100%;
+    min-height: 300px; /* Adjust as needed */
+  }
+  
+  .event-details {
+    padding: 2rem; /* Adjust padding as needed */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
 
-a:active {
-  text-decoration: underline;
-}
+  .event-details .badge {
+    font-size: 1rem;
+    text-decoration: none;
+  }
+  
+  .event-details h1 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+  
+  .event-details h5 {
+    font-size: 1rem;
+  }
+  
+  .event-details button {
+    background-color: #ffcc00; /* Custom button color */
+    border: none;
+    color: #fff;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .event-details button:hover {
+    background-color: #e6b800; /* Darken on hover */
+  }
+  
+  a:hover {
+    text-decoration: underline;
+  }
+  
+  a:active {
+    text-decoration: underline;
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

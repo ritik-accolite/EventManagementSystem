@@ -24,14 +24,15 @@
     
   }
   .image {
-    height: 40vh;
+    height: 50vh;
     border-radius: 12px;
     margin-bottom: 10px;
   }
-  
+
   .card-desc{
     color: rgba(255, 251, 251, 0.993);
     font-weight: bold;
+
   }
   
   .done {
@@ -44,6 +45,12 @@
   .card-text{
     font-weight: bold;
     color: #350a07;
+    
+  }
+
+  .card-img-top{
+    padding: 0px;
+    background-size: contain;
   }
   /* Table styles */
 .table {

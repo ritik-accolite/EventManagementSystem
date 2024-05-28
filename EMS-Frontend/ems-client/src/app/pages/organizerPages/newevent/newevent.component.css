@@ -1,4 +1,62 @@
+.abcd{
+  margin-bottom: 20px;
+}
+
+
+
 .gradient-custom-2 {
+  /* fallback for old browsers */
+  * {
+    overflow-x: hidden;
+  }
+  background: linear-gradient(to right, #16a085, #f4d03f, #ff6e7f, #bfe9ff);
+
+  /* Chrome 10-25, Safari 5.1-6 */
+  background: -webkit-linear-gradient(
+    to right,
+    #ee7724,
+    #d8363a,
+    #dd3675,
+    #b44593
+  );
+
+  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  background: linear-gradient(to right, #ee7724, #d8363a, #dd3675, #b44593);
+}
+
+.gradient-custom-2 {
+  /* fallback for old browsers */
+  background: #fccb90;
+
+  /* Chrome 10-25, Safari 5.1-6 */
+  background: -webkit-linear-gradient(
+    to right,
+    #ee7724,
+    #f3adae,
+    #f0a5c2,
+    #b44593
+  );
+
+  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  background: linear-gradient(to right, #f1a874, #ebb0b1, #eea6c1, #f89ddd);
+}
+.container {
+  background: url(https://plus.unsplash.com/premium_photo-1700834113131-c587280aa770?q=80&w=1412&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D);
+  padding: 20px;
+  border-radius: 10px;
+  max-width: 100%; /* Set max-width */
+  margin: 0 auto; /* Center container */
+  display: flex; /* Use flexbox */
+  flex-wrap: wrap; /* Enable wrapping */
+  justify-content: center;
+  font-family: Arial, sans-serif;
+  font-style: italic; /* Align items horizontally in the center */
+}
+
+.form-group {
+  display: inline-block; /* Display each input field horizontally */
+  width: 100%; /* Set width to control spacing */
+  margin: 5px;
   /* fallback for old browsers */
   * {
     overflow-x: hidden;
@@ -79,6 +137,13 @@ h4 {
   box-sizing: border-box; /* Include padding and border in width */
   transition: border-color 0.3s ease; /* Add transition animation */
 }
+.form-control2 {
+  border: 1px solid #ddd; /* Set border color */
+  border-radius: 5px; /* Set border radius */
+  width: 138%; /* Set width to 100% */
+  box-sizing: border-box; /* Include padding and border in width */
+  transition: border-color 0.3s ease; /* Add transition animation */
+}
 
 .form-control:focus {
   border-color: #d8363a; /* Set border color on focus */
@@ -112,10 +177,6 @@ h4 {
     box-sizing: border-box; /* Include padding and border in width */
     padding: 0 10px; /* Add padding */
     transition: width 0.3s ease; /* Add transition animation */
-  }
-
-  .form-group:last-child {
-    /* float: right; Float last form group to right */
   }
 
   .btn-primary {

@@ -1,16 +1,18 @@
-import { DatePipe, NgFor, NgIf } from '@angular/common';
+import { DatePipe, NgFor, NgIf, CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component , OnInit, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { UserdataService } from '../../../services/userDataService/userdata.service';
-import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink, RouterOutlet } from '@angular/router';
 import { EventInterface } from '../../../interface/commonInterface/event-interface';
+
 
 @Component({
   selector: 'app-eventlist',
   standalone: true,
-  imports: [NgIf, NgFor, RouterLink, DatePipe],
+  imports: [NgIf,NgFor, RouterLink, DatePipe, CommonModule, RouterOutlet ],
   templateUrl: './eventlist.component.html',
   styleUrl: './eventlist.component.css',
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class EventlistComponent implements OnInit {
   title = 'ems-client';
@@ -43,4 +45,5 @@ export class EventlistComponent implements OnInit {
     this.userdataservice.ticketPrice = ticketPrice;
     this.router.navigate(['event-bookings']);
   }
-}
+  }
+
