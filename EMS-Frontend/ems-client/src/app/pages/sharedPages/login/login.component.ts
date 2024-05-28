@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { UserdataService } from '../../../services/userDataService/userdata.service';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { JwtDecodeService } from '../../../services/jwtDecodeService/jwtDecode.service';
 import { NgIf } from '@angular/common';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-login',
@@ -15,6 +16,7 @@ import { NgIf } from '@angular/common';
 })
 export class LoginComponent {
   loginDataForm!: FormGroup;
+  toaster=inject(ToastrService);
   username: string = '';
   password: string = '';
   invalidLogin: boolean = true;
@@ -37,6 +39,7 @@ export class LoginComponent {
     this.userDataService.loginUser(this.loginDataForm.value)
       .subscribe(
         (response: any) => {
+          this.toaster.success("Successfully Logged In","Success");
           const token = response.token;
           localStorage.setItem("jwt", token); 
           const decodedToken = this.jwtDecodeService.decodeToken(token);

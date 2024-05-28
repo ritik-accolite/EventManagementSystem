@@ -14,15 +14,12 @@ namespace WebApplicationServer.Controllers
     [ApiController]
     public class EmailController : ControllerBase
     {
-        private readonly IAddBookedEventService _addBookedEventService;
-
         private readonly ISendRegisterSuccessMailService _sendRegisterSuccessMailService;
         private readonly ApplicationDbContext _context;
 
 
-        public EmailController(IAddBookedEventService addBookedEventService, ISendRegisterSuccessMailService sendRegisterSuccessMailService, ApplicationDbContext context)
+        public EmailController(ISendRegisterSuccessMailService sendRegisterSuccessMailService, ApplicationDbContext context)
         {
-            _addBookedEventService = addBookedEventService;
             _sendRegisterSuccessMailService = sendRegisterSuccessMailService;
             _context = context;
         }
@@ -34,20 +31,18 @@ namespace WebApplicationServer.Controllers
             ResponseViewModel response = new ResponseViewModel();
             try
             {
-                //var organizer = await _userManager.GetUserAsync(User);
                 var organizer = User.FindFirstValue(ClaimTypes.Name);
-                //var role = User.FindFirstValue(ClaimTypes.Role);
                 var role = User.FindFirstValue("Role");
+
 
                 if (organizer == null || role != "Organizer")
                 {
-                    //response = new ResponseViewModel();
                     response.Status = 401;
                     response.Message = "You are either not logged in or you are not a Organizer.";
                     return response;
                 }
 
-                // Get the list of users who have booked the event
+                // Get the list of email of users who have booked the event
                 var bookedUsers = await _context.BookedEvents
                     .Where(be => be.EventId == eventId)
                     .Select(be => be.User.Email)
@@ -56,12 +51,15 @@ namespace WebApplicationServer.Controllers
                 // Send email notification to each booked user
                 foreach (var email in bookedUsers)
                 {
-                    bool emailSent = await _sendRegisterSuccessMailService.SendRegisterSuccessMailAsync(email, "Event booking", "congrats you have an upcoming event");
+                    bool emailSent = await _sendRegisterSuccessMailService.SendRegisterSuccessMailAsync(email, "Upcoming Event Reminder", $"Hey {email},\r\n " +
+                        $"We are excited to remind you about your upcoming event! We noticed that you have booked a ticket for the event, and we want to ensure you have all the necessary details to make the most of your experience.\r\n " +
+                        $"Please take a moment to review your event details in your account.\r\n " +
+                        $"If you have any questions or need further assistance, do not hesitate to contact us on 1800456123.\r\n" +
+                        $"We look forward to seeing you at the event!\r\n" +
+                        $"Best Regards,\r\n" +
+                        $"EventHub Team");
                     if (!emailSent)
                     {
-                        // Handle email sending failure for individual users
-                        // You can choose to continue sending emails or break the loop
-                        //response = new ResponseViewModel();
                         response.Status = 500;
                         response.Message = "Failed to send Mail";
                         return response;
@@ -72,22 +70,14 @@ namespace WebApplicationServer.Controllers
                 response.Message = "Email notification sent successfully to all booked users";
                 return response;
 
-                //return Ok("Email notification sent successfully to all booked users.");
             }
             catch (Exception ex)
             {
                 response.Status = 400;
                 response.Message = "something went wrong" + ex.Message;
                 return response;
-                //return StatusCode(500, $"An error occurred: {ex.Message}");
             }
         }
-
-
-
-
-
-
 
         [HttpPost("SendEmailNotification/{eventId}")]
         public async Task<ResponseViewModel> SendEmailNotification(int eventId, SendEmailViewModel sendEmailViewModel)
@@ -95,31 +85,24 @@ namespace WebApplicationServer.Controllers
             ResponseViewModel response = new ResponseViewModel();
             try
             {
-                //var organizer = await _userManager.GetUserAsync(User);
                 var organizer = User.FindFirstValue(ClaimTypes.Name);
                 var role = User.FindFirstValue("Role");
-                //var role = User.FindFirstValue(ClaimTypes.Role);
                 if (organizer == null || role != "Organizer")
                 {
-                    //response = new ResponseViewModel();
                     response.Status = 401;
                     response.Message = "You are either not logged in or you are not a Organizer.";
                     return response;
                 }
-                // Get the list of users who have booked the event
                 var bookedUsers = await _context.BookedEvents
                     .Where(be => be.EventId == eventId)
                     .Select(be => be.User.Email)
                     .ToListAsync();
-                // Send email notification to each booked user
                 foreach (var email in bookedUsers)
                 {
                     bool emailSent = await _sendRegisterSuccessMailService.SendRegisterSuccessMailAsync(email, sendEmailViewModel.Subject, sendEmailViewModel.Message);
                     if (!emailSent)
                     {
-                        // Handle email sending failure for individual users
-                        // You can choose to continue sending emails or break the loop
-                        //response = new ResponseViewModel();
+
                         response.Status = 500;
                         response.Message = "Failed to send Mail";
                         return response;
@@ -128,14 +111,12 @@ namespace WebApplicationServer.Controllers
                 response.Status = 200;
                 response.Message = "Email notification sent successfully to all booked users";
                 return response;
-                //return Ok("Email notification sent successfully to all booked users.");
             }
             catch (Exception ex)
             {
                 response.Status = 400;
                 response.Message = "something went wrong" + ex.Message;
                 return response;
-                //return StatusCode(500, $"An error occurred: {ex.Message}");
             }
         }
     }

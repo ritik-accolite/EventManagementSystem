@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { UserdataService } from '../../../services/userDataService/userdata.service';
 import { Router } from '@angular/router';
@@ -6,6 +6,7 @@ import { EventDetailsInterface } from '../../../interface/organizerInterface/eve
 import { EventDetailsByIdInterface } from '../../../interface/organizerInterface/event-details-by-id-interface';
 import { UpdateEventInterface } from '../../../interface/organizerInterface/update-event-interface';
 import { ResponseInterface } from '../../../interface/commonInterface/response-interface';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-editevent',
@@ -17,6 +18,7 @@ import { ResponseInterface } from '../../../interface/commonInterface/response-i
 export class EditeventComponent implements OnInit {
   eventForm: FormGroup;
   eventId: any;
+  toaster=inject(ToastrService);
 
   constructor(
     private fb: FormBuilder,
@@ -54,6 +56,7 @@ export class EditeventComponent implements OnInit {
   onSubmit() {
     if (this.eventForm.valid) {
       // Send a POST request with edited form data to update event details
+      this.toaster.success("Succesfully Submitted","Success");
       this.userdataService.updateEvent(this.eventId, this.eventForm.value).subscribe((response: any) => {
         this.router.navigate(['organizer-dash','app-myevents']);
       });
@@ -62,6 +65,7 @@ export class EditeventComponent implements OnInit {
 
   onDelete() {
     if (confirm("Are you sure you want to delete this event?")) {
+      this.toaster.info("Deleted Succesfully");
       this.userdataService.deleteEvent(this.eventId).subscribe((response: any) => {
         this.router.navigate(['user-dash','/app-myevents']);
       });

@@ -6,27 +6,12 @@ namespace WebApplicationServer.Services.IService
 {
     public interface IAddBookedEventService
     {
-        //public Task<ResponseViewModel> AddBookedEvent(AddBookedEventViewModel addBookedEvent, string Id);
-
-        //public Task<GetAllBookedEventResposeViewModel> GetAllBookedEvents();
         public Task<List<BookedEvent>> GetAllBookedEvents();
-
-        //public Task<GetBookedEventByIdResponseViewModel> GetBookedEventsById(int id);
         public Task<BookedEvent> GetBookedEventsById(int BookingId);
-
-
-        //public Task<ResponseViewModel> DeleteBookedEvent(int id);
-
-        //public Task<ResponseViewModel> BookEvent(AddBookedEventViewModel addBookedEvent);
-
         public Task<ResponseViewModel> UnbookEvent(int bookingId);
-
         public Task<List<EventDetailsViewModel>> GetBookedEventsWithDetailsByUser(string userId);
-
         public Task<ResponseViewModel> BookTickets(AddBookedEventViewModel addBookedEvent);
-
         public Task<EventTicketStatusViewModel> GetEventTicketStatus(string organizerId);
-
         public Task<List<GetAllBookedEventByAdminViewModel>> GetAllBookedEventsByAdmin();
     }
 }

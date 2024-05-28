@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -9,6 +9,7 @@ import { UserdataService } from '../../../services/userDataService/userdata.serv
 import { JwtDecodeService } from '../../../services/jwtDecodeService/jwtDecode.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule, NgIf } from '@angular/common';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-eventbooking',
@@ -29,6 +30,7 @@ export class EventbookingComponent implements OnInit {
   totalPrice: number = 0;
   paymentForm: FormGroup;
   showPaymentPopup: boolean = false;
+  toaster = inject(ToastrService);
 
   constructor(
     private fb: FormBuilder,
@@ -73,16 +75,19 @@ export class EventbookingComponent implements OnInit {
 
       this.userdataservice.bookEvent(formData).subscribe(
         (response) => {
+          this.toaster.success('Updated Succesfully');
           this.status = response.status;
           if (this.status === 200) {
             this.bookingMessage = response.message;
             this.showPaymentPopup = false;
+            this.toaster.success('Updated Succesfully');
             this.router.navigate(['mybookings']);
           } else {
             this.bookingMessage = 'Error: ' + response.message;
             this.showPaymentPopup = false;
           }
           console.log('Booked event successfully', response);
+          this.toaster.success('Updated Succesfully');
         },
         (error) => {
           this.status = error.status || 500;

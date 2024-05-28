@@ -9,6 +9,7 @@ import {
   withInterceptors,
 } from '@angular/common/http';
 import { tokenInterceptor } from './services/tokenInterceptorService/token.interceptor';
+import { provideToastr } from 'ngx-toastr';
 
 export function tokenGetter() {
   return localStorage?.getItem('jwt');
@@ -17,8 +18,9 @@ export function tokenGetter() {
 export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes),
-    provideHttpClient(withInterceptors([tokenInterceptor])),
-    provideClientHydration(),
+    provideToastr(), 
+    provideHttpClient(withInterceptors([tokenInterceptor])), 
+    provideClientHydration(), 
     provideHttpClient(withFetch()),
 
     importProvidersFrom(

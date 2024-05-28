@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { UserdataService } from '../../../services/userDataService/userdata.service';
 import { NgFor, NgIf } from '@angular/common';
 import { Router } from '@angular/router';
@@ -6,6 +6,7 @@ import { JwtDecodeService } from '../../../services/jwtDecodeService/jwtDecode.s
 import { GetPersonByRoleInterface } from '../../../interface/adminInterface/get-person-by-role-interface';
 import { GetAllPersonsByAdminInterface } from '../../../interface/adminInterface/get-all-persons-by-admin-interface';
 import { ResponseInterface } from '../../../interface/commonInterface/response-interface';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-trackorgainzers',
@@ -15,12 +16,12 @@ import { ResponseInterface } from '../../../interface/commonInterface/response-i
   styleUrl: './trackorgainzers.component.css',
 })
 export class TrackorgainzersComponent {
-  organizers: GetAllPersonsByAdminInterface[] = [];
-  listTitle: string = 'All Organizers';
-  constructor(
-    private userdataservice: UserdataService,
-    private router: Router,
-    private jwtDecodeService: JwtDecodeService
+  organizers : GetAllPersonsByAdminInterface [] = [];
+  toaster=inject(ToastrService);
+  listTitle: string = "All Organizers";
+  constructor(private userdataservice : UserdataService,
+              private router : Router,
+              private jwtDecodeService : JwtDecodeService
   ) {}
 
   ngOnInit(): void {
@@ -47,11 +48,13 @@ export class TrackorgainzersComponent {
     }
   }
 
-  blockUser(personId: string) {
-    this.userdataservice.blockPersonbyId(personId).subscribe(
-      (response: ResponseInterface) => {
-        this.router.navigate(['admin-dash', 'track-organizer']);
-        console.log('response regarding blocking', response);
+  blockUser(personId : string){
+    this.userdataservice.blockPersonbyId(personId).
+    subscribe(
+      (response : ResponseInterface) =>{
+        this.toaster.success("Blocked Successfully");
+        this.router.navigate(['admin-dash','track-organizer']);
+        console.log('response regarding blocking',response);
       },
       (error: any) => {
         console.log('Error regarding blocking', error);
@@ -59,11 +62,13 @@ export class TrackorgainzersComponent {
     );
   }
 
-  unBlockUser(personId: string) {
-    this.userdataservice.unBlockPersonbyId(personId).subscribe(
-      (response: ResponseInterface) => {
-        this.router.navigate(['admin-dash', 'track-organizer']);
-        console.log('response regarding unblocking', response);
+  unBlockUser(personId : string){
+    this.userdataservice.unBlockPersonbyId(personId).
+    subscribe(
+      (response : ResponseInterface) =>{
+        this.toaster.success("Unblocked Successfully");
+        this.router.navigate(['admin-dash','track-organizer']);
+        console.log('response regarding unblocking',response);
       },
       (error: any) => {
         console.log('Error regarding Unblocking', error);

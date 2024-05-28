@@ -2,6 +2,10 @@
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 1px; /* Decrease top padding */
+  padding-bottom: 1px;
 }
 
 .header-section.header-normal {
@@ -31,7 +35,7 @@
 .nav-menu .mainmenu ul li {
   display: inline-block;
   list-style: none;
-  margin-right: 40px;
+  margin-right: 20px;
   position: relative;
 }
 
@@ -121,13 +125,16 @@
 .slicknav_menu {
   display: none;
 }
+.primary-btn.top-btn {
+  padding: 2px 1px; /* Adjust padding for buttons */
+}
+
 .toggle-button {
-  margin-top: 25px;
+  margin-top: 10px;
   margin-right: 18px;
   position: relative;
 }
 
-/* ------------------------------------------------------------ */
 .myNav {
   background-color: #32333b !important;
   z-index: 1100;

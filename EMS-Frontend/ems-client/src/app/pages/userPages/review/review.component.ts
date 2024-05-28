@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { UserdataService } from '../../../services/userDataService/userdata.service';
 import {
   FormBuilder,
@@ -9,6 +9,7 @@ import {
 import { ActivatedRoute, Router } from '@angular/router';
 import { JwtDecodeService } from '../../../services/jwtDecodeService/jwtDecode.service';
 import { ReviewInterface } from '../../../interface/userInterface/review-interface';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-review',
@@ -22,6 +23,7 @@ export class ReviewComponent implements OnInit {
   eventId: number = 0;
   id: string = '';
   status: number = 0;
+  toaster=inject(ToastrService);
 
   constructor(
     private fb: FormBuilder,
@@ -53,6 +55,7 @@ export class ReviewComponent implements OnInit {
       };
       this.userdataservice.addReview(formData).subscribe(
         (response) => {
+          this.toaster.success("Successfully Submitted");
           this.status = response.status;
           if (this.status === 200) {
             console.log('Review added successfully : ', response.message);

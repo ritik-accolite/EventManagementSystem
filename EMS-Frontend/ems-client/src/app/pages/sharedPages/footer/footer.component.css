@@ -22,11 +22,14 @@
 
 .footer-text {
   text-align: center;
-  padding-top: 60px;
+  padding-top: 5px;
+  padding-right: 3px;
+  padding-bottom: 0px;
+  padding-left: 5px;
 }
 
 .footer-text .ft-logo {
-  margin-bottom: 20px;
+  margin-bottom: 2px;
 }
 .ft-logo:hover {
   color: linear-gradient(120deg, #ee8425 0%, #f9488b 100%),
@@ -40,13 +43,14 @@
 }
 
 .footer-text ul {
-  margin-bottom: 18px;
+  margin-bottom: 4px;
+  margin-top: 0;
 }
 
 .footer-text ul li {
   list-style: none;
   display: inline-block;
-  margin-right: 52px;
+  margin-right: 35px;
 }
 
 .footer-text ul li:last-child {
@@ -72,7 +76,7 @@
 .footer-text .copyright-text {
   font-size: 14px;
   color: #a0a1b5;
-  margin-bottom: 28px;
+  margin-bottom: 2px;
 }
 
 .footer-text .copyright-text i {

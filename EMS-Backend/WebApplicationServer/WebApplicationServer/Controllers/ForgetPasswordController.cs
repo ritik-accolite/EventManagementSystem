@@ -16,31 +16,19 @@ namespace WebApplicationServer.Controllers
     [ApiController]
     public class ForgetPasswordController : ControllerBase
     {
-
-        private readonly IGetAllPerson _getAllPerson;
         private readonly ISendRegisterSuccessMailService _sendRegisterSuccessMailService;
-        private readonly UserManager<Person> _userManager;
-        private readonly SignInManager<Person> _signInManager;
         private readonly ApplicationDbContext _context;
 
-        public ForgetPasswordController(ApplicationDbContext context, UserManager<Person> userManager, SignInManager<Person> signInManager, IGetAllPerson getAllPerson, ISendRegisterSuccessMailService sendRegisterSuccessMailService)
+        public ForgetPasswordController(ApplicationDbContext context, ISendRegisterSuccessMailService sendRegisterSuccessMailService)
         {
-            _getAllPerson = getAllPerson;
             _sendRegisterSuccessMailService = sendRegisterSuccessMailService;
-            _userManager = userManager;
-            _signInManager = signInManager;
             _context = context;
         }
-
-
 
         [HttpPost("send-reset-password-token-email/{email}")]
         public async Task<ResponseViewModel> SendMail(string email)
         {
             var user = await _context.Users.FirstOrDefaultAsync(a => a.UserName == email);
-            //var Id = User.FindFirstValue("Id");
-
-            
             ResponseViewModel response = new ResponseViewModel();
 
             if (user == null)
@@ -55,22 +43,15 @@ namespace WebApplicationServer.Controllers
             user.ResetPasswordToken = emailToken;
             user.ResetPasswordExpiry = DateTime.Now.AddMinutes(30);
 
+            var firstName = user.FirstName;
+            var lastName = user.LastName;
+            var userName = user.Email;
 
-            string path = Path.GetFullPath("C:\\Users\\ajay.k_int1595\\Desktop\\Ems-Project\\EventManagementSystem\\EMS-Backend\\WebApplicationServer\\WebApplicationServer\\HtmlTemplate\\ResetPasswordToken.html");
-            string htmlString = System.IO.File.ReadAllText(path);
-            htmlString = htmlString.Replace("{{emailtoken}}", emailToken);
-            htmlString = htmlString.Replace("{{firstname}}", user.FirstName);
-            htmlString = htmlString.Replace("{{lastname}}", user.LastName);
-            htmlString = htmlString.Replace("{{title}}", "Reset Password");
-            htmlString = htmlString.Replace("{{Username}}", user.Email);
-            //htmlString = htmlString.Replace("{{firstName}}", user.FirstName);
-            //htmlString = htmlString.Replace("{{lastName}}", user.LastName);
 
-            bool emailSent = await _sendRegisterSuccessMailService.SendRegisterSuccessMailAsync(user.Email, "Reset Password Mail", htmlString);
+            bool emailSent = await _sendRegisterSuccessMailService.SendRegisterSuccessMailAsync(user.Email, "Reset Password Mail", $"Dear {firstName}{lastName}, We have received a request to change password for {userName} Account. Please use the following Token to set new password. The Token is only valid for 30 minutes. Your token is : {emailToken}. If you have not initiated this request, please contact us on 1800329432 immediately.");
 
             if (!emailSent)
             {
-                // Handle email sending failure
                 response.Status = 500;
                 response.Message = "Failed to send reset password Token";
                 return response;
@@ -88,7 +69,7 @@ namespace WebApplicationServer.Controllers
         public async Task<ResponseViewModel> ResetPassword(ResetPassword resetPassword)
         {
             ResponseViewModel response = new ResponseViewModel();
-             
+
             var newToken = resetPassword.EmailToken.Replace(" ", "+");
             var user = await _context.Users.AsNoTracking().FirstOrDefaultAsync(a => a.Email == resetPassword.Email);
 
@@ -102,7 +83,7 @@ namespace WebApplicationServer.Controllers
 
             var tokenCode = user.ResetPasswordToken;
             DateTime emailTokenExpiry = user.ResetPasswordExpiry;
-            if(tokenCode!= resetPassword.EmailToken || emailTokenExpiry < DateTime.Now)
+            if (tokenCode != resetPassword.EmailToken || emailTokenExpiry < DateTime.Now)
             {
                 response.Status = 400;
                 response.Message = "Invalid Reset Link";
