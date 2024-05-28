@@ -36,6 +36,7 @@ export class VieweventComponent implements OnInit {
   ngOnInit(): void {
     this.eventId = this.userdataService.eventId;
     this.role = localStorage.getItem('Role');
+    //this.eventDetails=this.eventDetails.substring(0,10) +"...";
     if (this.eventId) {
       this.userdataService.trackTicketDetails(this.eventId).subscribe(
         (eventDetails: any) => {
@@ -63,6 +64,14 @@ export class VieweventComponent implements OnInit {
     }
     return totalRevenue;
   }
+  truncateDescription(description: string, maxLength: number): string {
+    if (description.length <= maxLength) {
+      return description;
+    } else {
+      return description.substring(0, maxLength) + '...';
+    }
+  }
+
   loadUsers(): void {
     const startIndex = this.displayedUsers.length;
     const endIndex = startIndex + this.pageSize;

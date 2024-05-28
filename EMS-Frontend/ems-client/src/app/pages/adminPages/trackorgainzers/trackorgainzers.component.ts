@@ -56,7 +56,7 @@ export class TrackorgainzersComponent {
     this.userdataservice.blockPersonbyId(personId).
     subscribe(
       (response : ResponseInterface) =>{
-        this.toaster.success("Blocked Succesfully");
+        this.toaster.success("Blocked Successfully");
         this.router.navigate(['admin-dash','track-organizer']);
         console.log('response regarding blocking',response);
       },
@@ -70,7 +70,7 @@ export class TrackorgainzersComponent {
     this.userdataservice.unBlockPersonbyId(personId).
     subscribe(
       (response : ResponseInterface) =>{
-        this.toaster.success("Unblocked Succesfully");
+        this.toaster.success("Unblocked Successfully");
         this.router.navigate(['admin-dash','track-organizer']);
         console.log('response regarding unblocking',response);
       },
