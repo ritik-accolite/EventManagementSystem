@@ -1,5 +1,5 @@
 export interface EditProfileInterface {
-    firstName : string,
-    lastName : string,
-    phoneNumber : string
+  firstName: string;
+  lastName: string;
+  phoneNumber: string;
 }

@@ -1,108 +1,25 @@
-/* form {
-    max-width: 400px;
-    margin: 0 auto;
-}
-h1 {
-    text-align: center;
-    margin-bottom: 30px;
-}
-label {
-    font-weight: bold;
-}
-.form-group {
-    margin-bottom: 20px;
-}
-button {
-    background-color: #42f548;
-    border: none;
-    color: white;
-    padding: 15px 32px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 4px 2px;
-    cursor: pointer;
-    border-radius: 2px;
-    border-color: #114413;
-}
-p {
-    text-align: center;
-    margin-top: 20px;
-}
-a:link {
-    text-decoration: none;
-  }
-  
-  a:visited {
-    text-decoration: none;
-  }
-  
-  a:hover {
-    text-decoration: underline;
-  }
-  
-  a:active {
-    text-decoration: underline;
-  } */
-
 body {
-    background-color: #f8f9fa;
-    padding-top: 50px;
-    position: fixed;
+  background-color: #f8f9fa;
+  padding-top: 50px;
+  position: fixed;
 }
-.main{
-    height: 600px;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    padding-top: 60px;
-    padding-left: 100px;
-    padding-right: 100px;
-    float: right;
-}
-
-/* .sidebar {
-    height: 100%;
-    width: 250px;
-    position: absolute;
-    top: 0;
-    left: 0;
-    background-color: #f9c806;
-    z-index: 1000;
-    margin-top: 5.4%;
-    padding-left: 2%;
-    color: black;
-    padding: 2px;
-    border: 1px solid;
-    border-color: rgb(85, 75, 30);
-}
-.nav-item {
-    padding: 8px 0;
-    padding-left: 2%;
-    font-size: larger;
+.main {
+  height: 600px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  padding-top: 60px;
+  padding-left: 100px;
+  padding-right: 100px;
+  float: right;
 }
 
-.nav-link {
-    padding: 10px 15px;
-    display: block;
-    color: #333;
-}
-
-.nav-link:hover {
-    background-color: #cfad3c;
-}
- */
 .content {
-    margin-left: 250px;
-    padding: 20px;
-    /* background-image: url(../../../assets/img/userdash_back.jpg); */
-    height: 600px;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    padding-top: 60px;
-    /* padding-left: 100px;
-    padding-right: 100px; */
-    /* float: right; */
+  margin-left: 250px;
+  padding: 20px;
+  height: 600px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  padding-top: 60px;
 }

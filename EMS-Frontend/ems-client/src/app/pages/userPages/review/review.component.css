@@ -1,131 +1,122 @@
 /* General styles */
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-    margin: 0;
-    padding: 0;
-    
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  margin: 0;
+  padding: 0;
 }
-.abc{
-    background:url(https://t4.ftcdn.net/jpg/04/19/14/99/360_F_419149934_WSp3kO3EV5sRz72REbTG3C4qU3wag8F2.jpg);
-    width: 100%;
-    height: 23vh;
+.abc {
+  background: url(https://t4.ftcdn.net/jpg/04/19/14/99/360_F_419149934_WSp3kO3EV5sRz72REbTG3C4qU3wag8F2.jpg);
+  width: 100%;
+  height: 23vh;
 }
-.def{
-    padding: 0;
+.def {
+  padding: 0;
 }
-  
-  form {
-    width:100%;
-    margin: 0 auto;
-    padding: 20px;
-    overflow: hidden;
-    
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    border: 2px solid #f9488b;
-  }
-  
-  label {
-    font-weight: bold;
-    color: #0a0303;
-    margin-bottom: 5px;
-  }
-  
-  input[type="number"],
-  textarea,
-  input[type="checkbox"] {
-    width: 5%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-    margin-bottom: 10px;
-    
-  }
-  
-  button[type="submit"] {
-    padding: 10px 20px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    background-image: linear-gradient(120deg, #ee8425 0%, #f9488b 100%);
-    color: #fff;
-  }
-  
-  button[type="submit"]:hover {
-    opacity: 0.8;
-  }
-  
 
-textarea, input[type="number"] {
-    width: calc(100% - 12px);
-    padding: 6px;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 3px;
-    box-sizing: border-box;
+form {
+  width: 100%;
+  margin: 0 auto;
+  padding: 20px;
+  overflow: hidden;
+
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border: 2px solid #f9488b;
+}
+
+label {
+  font-weight: bold;
+  color: #0a0303;
+  margin-bottom: 5px;
+}
+
+input[type="number"],
+textarea,
+input[type="checkbox"] {
+  width: 5%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  margin-bottom: 10px;
+}
+
+button[type="submit"] {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  background-image: linear-gradient(120deg, #ee8425 0%, #f9488b 100%);
+  color: #fff;
+}
+
+button[type="submit"]:hover {
+  opacity: 0.8;
+}
+
+textarea,
+input[type="number"] {
+  width: calc(100% - 12px);
+  padding: 6px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  box-sizing: border-box;
 }
 
 button {
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 3px;
-    cursor: pointer;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
 }
 
 button:hover {
-    background-color: #0056b3;
+  background-color: #0056b3;
 }
 /* Star rating styles */
 .star-rating {
-    unicode-bidi: bidi-override;
-    direction: rtl;
-    text-align: center;
+  unicode-bidi: bidi-override;
+  direction: rtl;
+  text-align: center;
 }
 .star-rating input[type="radio"] {
-    display: none;
+  display: none;
 }
 .star-rating label {
-    font-size: 30px; /* Increase the font size of the stars */
-    padding: 5px;
-    cursor: pointer;
-    color: #928181; /* Dark color for stars */
-    transition: transform 0.2s; /* Add transition for hover effect */
+  font-size: 30px; /* Increase the font size of the stars */
+  padding: 5px;
+  cursor: pointer;
+  color: #928181; /* Dark color for stars */
+  transition: transform 0.2s; /* Add transition for hover effect */
 }
 .star-rating label:hover {
-    transform: scale(1.2); /* Apply hover effect */
+  transform: scale(1.2); /* Apply hover effect */
 }
 .star-rating input[type="radio"]:checked ~ label {
-    color: #fdd835; /* Change the color of selected stars */
+  color: #fdd835; /* Change the color of selected stars */
 }
-
-
 
 /* Additional styling for the form */
 .form-image {
-    max-width: 50%;
-    height: 50vh;
-    width:150%;
-    float: right;
-    margin-top: 35px;
+  max-width: 50%;
+  height: 50vh;
+  width: 150%;
+  float: right;
+  margin-top: 35px;
 }
 label[for="IsReported"] {
-    margin-bottom: 5px; /* Adjust margin bottom to move closer to heading */
+  margin-bottom: 5px; /* Adjust margin bottom to move closer to heading */
 }
 
 input[type="checkbox"] {
-    margin-right: 5px;
-    transform: scale(1.5); /* Increase the size of the checkbox */
-    vertical-align: middle; /* Align the checkbox vertically */
+  margin-right: 5px;
+  transform: scale(1.5); /* Increase the size of the checkbox */
+  vertical-align: middle; /* Align the checkbox vertically */
 }
 textarea#Description {
-    width: 48%; /* Adjust the width as needed */
+  width: 48%; /* Adjust the width as needed */
 }
-
-
-
-
-

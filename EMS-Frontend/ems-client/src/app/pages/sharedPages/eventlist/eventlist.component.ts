@@ -14,30 +14,32 @@ import { EventInterface } from '../../../interface/commonInterface/event-interfa
   styleUrl: './eventlist.component.css',
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class EventlistComponent implements OnInit{
+export class EventlistComponent implements OnInit {
   title = 'ems-client';
   events: any[] = [];
   organizer: any[] = [];
 
-  constructor(private http: HttpClient , private userdataservice: UserdataService , private route: ActivatedRoute , private router: Router) { }
+  constructor(
+    private http: HttpClient,
+    private userdataservice: UserdataService,
+    private route: ActivatedRoute,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
-    this.fetchEvents(); 
+    this.fetchEvents();
   }
 
   fetchEvents(): void {
-    this.userdataservice.getEvents()
-      .subscribe(
-        (response : EventInterface ) => { // change any here !!
-          console.log(response);
-          this.events = response.allEvents; 
-          console.log('Events fetched successfully:', this.events);
-        },
-        error => console.error('Error fetching events: ', error)
-      );
+    this.userdataservice.getEvents().subscribe(
+      (response: EventInterface) => {
+        this.events = response.allEvents;
+      },
+      (error) => console.error('Error fetching events: ', error)
+    );
   }
 
-  bookEvent(eventId: number, organizerId: string , ticketPrice: number): void {
+  bookEvent(eventId: number, organizerId: string, ticketPrice: number): void {
     this.userdataservice.eventId = eventId;
     this.userdataservice.organizerId = organizerId;
     this.userdataservice.ticketPrice = ticketPrice;

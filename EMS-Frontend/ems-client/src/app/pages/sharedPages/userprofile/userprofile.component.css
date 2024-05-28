@@ -1,4 +1,3 @@
-
 .content {
   position: relative;
 }
@@ -13,7 +12,8 @@
 .ruler {
   width: 50%; /* Adjust the width of the ruler as needed */
   height: 5px; /* Adjust the height of the ruler as needed */
-  background: linear-gradient(120deg, #ee8425 0%, #f9488b 100%), linear-gradient(120deg, #ee8425 0%, #f9488b 100%); /* Add a gradient for decorative effect */
+  background: linear-gradient(120deg, #ee8425 0%, #f9488b 100%),
+    linear-gradient(120deg, #ee8425 0%, #f9488b 100%); /* Add a gradient for decorative effect */
   margin: 20px auto; /* Add margin to center the ruler horizontally */
   border-radius: 10%; /* Add rounded corners to the ruler */
 }
@@ -24,10 +24,10 @@
   right: 5%; /* Adjust right position as needed */
   width: 35%; /* Adjust image width as needed */
   height: auto; /* Maintain aspect ratio */
- /* background-image: url(https://media.istockphoto.com/id/1633161529/photo/3d-render-user-avatar-interface-pop-up-icon-isolated-on-white-background-minimal-adding.jpg?s=1024x1024&w=is&k=20&c=F-hPaeszef6m8lBjKZT4vPkjp11SUPC_xubXmKiW9Jk=); /* Add your image URL here */
+  /* background-image: url(https://media.istockphoto.com/id/1633161529/photo/3d-render-user-avatar-interface-pop-up-icon-isolated-on-white-background-minimal-adding.jpg?s=1024x1024&w=is&k=20&c=F-hPaeszef6m8lBjKZT4vPkjp11SUPC_xubXmKiW9Jk=); /* Add your image URL here */
   background-size: cover;
   background-position: center;
-   /* Ensure the image is behind the text */
+  /* Ensure the image is behind the text */
 }
 
 /* Responsive adjustments */
@@ -42,22 +42,20 @@
   }
 }
 
+.card {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: rgb(215, 248, 27);
+}
 
+.update-profile-btn {
+  margin-top: 10px;
+}
 
-  .card {
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
-    background-color: rgb(215, 248, 27);
-  }
-  
-  .update-profile-btn {
-    margin-top: 10px;
-  }
-  
-  .alert {
-    margin-top: 20px; 
-  }
-  
-  /* Reset default browser styles */
+.alert {
+  margin-top: 20px;
+}
+
+/* Reset default browser styles */
 * {
   box-sizing: border-box;
   margin: 0;
@@ -201,23 +199,23 @@
 .mx-3 {
   margin-left: 20px;
 }
-.abc{
+.abc {
   background: url(https://plus.unsplash.com/premium_photo-1700834113131-c587280aa770?q=80&w=1412&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D);
   padding: 20px;
   border-radius: 10px;
   max-width: 100%; /* Set max-width */
   margin: 0 auto; /* Center container */
-   /* Use flexbox */
+  /* Use flexbox */
   flex-wrap: wrap; /* Enable wrapping */
   justify-content: center;
-  font-family: Arial, sans-serif; 
+  font-family: Arial, sans-serif;
   font-style: italic;
   overflow: hidden;
   box-shadow: #333;
 }
 .custom-label {
   /* Example styling */
-  font-family: 'Arial', sans-serif;
+  font-family: "Arial", sans-serif;
   font-size: 1.2rem;
   font-weight: 800;
   color: #0a0101;
@@ -242,4 +240,3 @@
   background-color: #dff0d8;
   border-color: #d6e9c6;
 }
-

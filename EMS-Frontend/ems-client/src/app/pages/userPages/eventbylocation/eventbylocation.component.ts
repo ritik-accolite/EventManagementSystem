@@ -7,20 +7,19 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './eventbylocation.component.html',
-  styleUrl: './eventbylocation.component.css'
+  styleUrl: './eventbylocation.component.css',
 })
 export class EventbylocationComponent {
   selectedLocation = this.userdataservice.selectedLocation;
 
   events: any[] = [];
 
-  constructor(private userdataservice: UserdataService) { }
+  constructor(private userdataservice: UserdataService) {}
 
-  ngOnInit(){
+  ngOnInit() {
     this.userdataservice.getEventsByLocation(this.selectedLocation).subscribe(
       (response: any) => {
         this.events = response.categoryEvents;
-        console.log(response.categoryEvents);
       },
       (error: any) => {
         console.error('Error fetching events by category:', error);

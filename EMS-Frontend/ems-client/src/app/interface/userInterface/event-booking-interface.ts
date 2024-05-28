@@ -1,3 +1,3 @@
 export interface EventBookingInterface {
-    numberOfTickets: number
+  numberOfTickets: number;
 }

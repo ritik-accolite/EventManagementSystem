@@ -2,41 +2,79 @@
   <form (ngSubmit)="onSubmit()" #formData="ngForm">
     <div class="container">
       <div class="content">
-      <h3 class="heading">Welcome to your Profile</h3>
-      <hr class="ruler">
-      <img src="https://cdn-icons-png.flaticon.com/512/1083/1083062.png" alt="Your Image" class="image">
+        <h3 class="heading">Welcome to your Profile</h3>
+        <hr class="ruler" />
+        <img
+          src="https://cdn-icons-png.flaticon.com/512/1083/1083062.png"
+          alt="Your Image"
+          class="image"
+        />
       </div>
-      
-      
-    <div class="form-group row">
-      <label for="firstName" class="col-sm-2 col-form-label custom-label">First Name</label>
-      <div class="col-sm-4 col-4">
-        <input type="text" class="form-control" id="firstName" name="firstName" [(ngModel)]="firstName" [disabled]="!editMode">
-      </div>
-    </div>
-    <div class="form-group row">
-      <label for="lastName" class="col-sm-2 col-form-label custom-label">Last Name</label>
 
-      <div class="col-sm-4 col-6">
-        <input type="text" class="form-control" id="lastName" name="lastName" [(ngModel)]="lastName" [disabled]="!editMode">
+      <div class="form-group row">
+        <label for="firstName" class="col-sm-2 col-form-label custom-label"
+          >First Name</label
+        >
+        <div class="col-sm-4 col-4">
+          <input
+            type="text"
+            class="form-control"
+            id="firstName"
+            name="firstName"
+            [(ngModel)]="firstName"
+            [disabled]="!editMode"
+          />
+        </div>
       </div>
-    </div>
-    <div class="form-group row">
-      <label for="phoneNumber" class="col-sm-2 col-form-label custom-label">Phone Number</label>
-      <div class="col-sm-4 col-6">
-        <input type="text" class="form-control" id="phoneNumber" name="phoneNumber" [(ngModel)]="phoneNumber" [disabled]="!editMode">
+      <div class="form-group row">
+        <label for="lastName" class="col-sm-2 col-form-label custom-label"
+          >Last Name</label
+        >
+
+        <div class="col-sm-4 col-6">
+          <input
+            type="text"
+            class="form-control"
+            id="lastName"
+            name="lastName"
+            [(ngModel)]="lastName"
+            [disabled]="!editMode"
+          />
+        </div>
       </div>
-    </div>
-    <div class="form-group row">
-      <div class="col-sm-10">
-        <button type="button" class="btn btn-warning" (click)="toggleEditMode()">{{ editMode ? 'Cancel' : 'Edit' }}</button>
-        <button type="submit" class="btn btn-primary mx-3" *ngIf="editMode">Submit</button>
+      <div class="form-group row">
+        <label for="phoneNumber" class="col-sm-2 col-form-label custom-label"
+          >Phone Number</label
+        >
+        <div class="col-sm-4 col-6">
+          <input
+            type="text"
+            class="form-control"
+            id="phoneNumber"
+            name="phoneNumber"
+            [(ngModel)]="phoneNumber"
+            [disabled]="!editMode"
+          />
+        </div>
       </div>
-    </div>
+      <div class="form-group row">
+        <div class="col-sm-10">
+          <button
+            type="button"
+            class="btn btn-warning"
+            (click)="toggleEditMode()"
+          >
+            {{ editMode ? "Cancel" : "Edit" }}
+          </button>
+          <button type="submit" class="btn btn-primary mx-3" *ngIf="editMode">
+            Submit
+          </button>
+        </div>
+      </div>
     </div>
   </form>
-  <div class="alert alert-custom alert-success" role="alert" *ngIf="showSuccessMessage">
+  <!-- <div class="alert alert-custom alert-success" role="alert" *ngIf="showSuccessMessage">
     Profile successfully updated!
-  </div>
+  </div> -->
   </div>
   

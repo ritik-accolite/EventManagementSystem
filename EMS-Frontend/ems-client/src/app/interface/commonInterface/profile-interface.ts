@@ -1,7 +1,7 @@
-import { PersonInterface } from "./person-interface";
+import { PersonInterface } from './person-interface';
 
 export interface ProfileInterface {
-    Status : number,
-    Message :  string,
-    getPersonById : PersonInterface
+  Status: number;
+  Message: string;
+  getPersonById: PersonInterface;
 }

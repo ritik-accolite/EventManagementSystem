@@ -1,4 +1,4 @@
 export interface EmailNotificationsInterface {
-    Subject: string,
-    Message: string    
+  Subject: string;
+  Message: string;
 }

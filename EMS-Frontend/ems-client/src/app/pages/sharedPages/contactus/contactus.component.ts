@@ -5,8 +5,6 @@ import { Component } from '@angular/core';
   standalone: true,
   imports: [],
   templateUrl: './contactus.component.html',
-  styleUrl: './contactus.component.css'
+  styleUrl: './contactus.component.css',
 })
-export class ContactusComponent {
-
-}
+export class ContactusComponent {}

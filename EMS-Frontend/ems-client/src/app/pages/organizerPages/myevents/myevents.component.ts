@@ -26,11 +26,8 @@ export class MyeventsComponent implements OnInit {
   //getOrganizerEvents
   ngOnInit(): void {
     this.role = localStorage.getItem('Role');
-    console.log('Role   :', this.role);
     this.route.params.subscribe((params) => {
       this.organizerId = this.jwtDecodeService.organizerId;
-      // Now you can use this.organizerId as needed
-      console.log('Organizer ID:', this.organizerId);
     });
     this.fetchEvents();
   }
@@ -60,18 +57,14 @@ export class MyeventsComponent implements OnInit {
     if (this.organizerId != '') {
       this.userdataservice.getOrganizerEventsById(this.organizerId).subscribe(
         (response: OrganizerEventInterface) => {
-          // change any here !!
           this.events = response.allEvents;
-          console.log('Events fetched successfully 123:', this.events);
         },
         (error) => console.error('Error fetching events: ', error)
       );
     } else {
       this.userdataservice.getOrganizerEvents().subscribe(
         (response: OrganizerEventInterface) => {
-          // change any here !!
           this.events = response.allEvents;
-          console.log('Events fetched successfully 123:', this.events);
         },
         (error) => console.error('Error fetching events: ', error)
       );

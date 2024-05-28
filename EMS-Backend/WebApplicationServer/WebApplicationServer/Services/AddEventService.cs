@@ -151,7 +151,8 @@ namespace WebApplicationServer.Services
                 eventToUpdate.EventLocation = updateEvent.EventLocation;
                 eventToUpdate.TicketPrice = updateEvent.TicketPrice;
                 eventToUpdate.Capacity = updateEvent.Capacity;
-                eventToUpdate.BannerImage = updateEvent.BannerImage;
+                eventToUpdate.BannerImage = eventToUpdate.BannerImage;
+                //eventToUpdate.BannerImage = updateEvent.BannerImage;
 
                 await _context.SaveChangesAsync();
 

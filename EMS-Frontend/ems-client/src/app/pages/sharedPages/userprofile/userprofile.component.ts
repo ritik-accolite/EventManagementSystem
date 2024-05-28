@@ -1,48 +1,50 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { UserdataService } from '../../../services/userDataService/userdata.service';
 import { NgFor, NgIf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { JwtDecodeService } from '../../../services/jwtDecodeService/jwtDecode.service';
 import { ProfileInterface } from '../../../interface/commonInterface/profile-interface';
 import { EditProfileInterface } from '../../../interface/commonInterface/edit-profile-interface';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-userprofile',
   standalone: true,
-  imports: [NgFor , NgIf, FormsModule],
+  imports: [NgFor, NgIf, FormsModule],
   templateUrl: './userprofile.component.html',
-  styleUrl: './userprofile.component.css'
+  styleUrl: './userprofile.component.css',
 })
-export class UserprofileComponent implements OnInit{
+export class UserprofileComponent implements OnInit {
   title = 'ems-client';
   personId: any = '';
-  firstName : string ='';
-  lastName : string ='';
-  phoneNumber : string ='';
+  firstName: string = '';
+  lastName: string = '';
+  phoneNumber: string = '';
   editMode: boolean = false;
   showSuccessMessage: boolean = false;
+  toaster=inject(ToastrService);
 
-  constructor(private http: HttpClient , private userdataservice: UserdataService,
-              private jwtDecodeService : JwtDecodeService
+  constructor(
+    private http: HttpClient,
+    private userdataservice: UserdataService,
+    private jwtDecodeService: JwtDecodeService
   ) {}
 
-  ngOnInit(): void{
-    // this.personId = this.jwtDecodeService.id;
+  ngOnInit(): void {
     this.personId = localStorage.getItem('LoginUserId');
-    console.log(this.personId);
     this.fetchProfile(this.personId);
   }
 
-  fetchProfile(personId : string): void {
+  fetchProfile(personId: string): void {
     this.userdataservice.getProfile(personId).subscribe(
-      (response : ProfileInterface) => {
+      (response: ProfileInterface) => {
         const personData = response.getPersonById;
         this.firstName = personData.firstName;
         this.lastName = personData.lastName;
         this.phoneNumber = personData.phoneNumber;
       },
-      error => console.error('Error fetching profile :',error)
+      (error) => console.error('Error fetching profile :', error)
     );
   }
   toggleEditMode(): void {
@@ -53,13 +55,13 @@ export class UserprofileComponent implements OnInit{
     const formData = {
       firstName: this.firstName,
       lastName: this.lastName,
-      phoneNumber: this.phoneNumber
+      phoneNumber: this.phoneNumber,
     };
-    this.userdataservice.editProfile(this.personId, formData)
-    .subscribe(
+    this.userdataservice.editProfile(this.personId, formData).subscribe(
       (response: EditProfileInterface) => {
         console.log('Update successful:', response);
         this.showSuccessMessage = true;
+        this.toaster.success("Updated Succesfully","Success");
         
       },
       (error: any) => {
@@ -67,6 +69,4 @@ export class UserprofileComponent implements OnInit{
       }
     );
   }
-
-  
 }
