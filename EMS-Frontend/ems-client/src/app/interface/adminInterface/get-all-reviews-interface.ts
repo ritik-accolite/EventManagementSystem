@@ -1,7 +1,7 @@
-import { AllReviewsInterface } from "./all-reviews-interface";
+import { AllReviewsInterface } from './all-reviews-interface';
 
 export interface GetAllReviewsInterface {
-    status : number,
-    message : string,
-    allReviews : AllReviewsInterface []
+  status: number;
+  message: string;
+  allReviews: AllReviewsInterface[];
 }

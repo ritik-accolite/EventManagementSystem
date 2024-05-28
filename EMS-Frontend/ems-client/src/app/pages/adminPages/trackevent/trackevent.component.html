@@ -1,31 +1,30 @@
 <div class="container">
-<h2>All Events</h2>
-<table class="table table-striped table-hover">
-  <thead class="table-dark">
-    <tr>
-      <th>Event ID</th>
-      <th>Organizer Name</th>
-      <th>EventName</th>
-      <th>Date</th>
-      <th>Time</th>
-      <th>Seats Left</th>
-      <th>Ticket Price</th>
-    </tr>
-  </thead>
-  <tbody>
-    <ng-container *ngFor="let event of events">
-      <tr role="button" *ngIf="event" (click)="onSelectEvent(event.eventId)">
-
-        <td>{{ event.eventId }}</td>
-        <td>{{ event.organizerFirstName }} {{ event.organizerLastName }}</td>
-        <td>{{ event.eventName }} || {{ event.eventCategory }}</td>
-        <td>{{ event.eventDate | date: 'yyyy-MM-dd' }}</td>
-        <!-- <td>{{event.eventDate}}</td> -->
-        <td>{{ event.eventTime }}</td>
-        <td>{{ event.capacity }}</td>
-        <td>₹{{ event.ticketPrice }}</td>
+  <h2>All Events</h2>
+  <table class="table table-striped table-hover">
+    <thead class="table-dark">
+      <tr>
+        <th>Event ID</th>
+        <th>Organizer Name</th>
+        <th>EventName</th>
+        <th>Date</th>
+        <th>Time</th>
+        <th>Seats Left</th>
+        <th>Ticket Price</th>
       </tr>
-    </ng-container>
-  </tbody>
-</table>
+    </thead>
+    <tbody>
+      <ng-container *ngFor="let event of events">
+        <tr role="button" *ngIf="event" (click)="onSelectEvent(event.eventId)">
+          <td>{{ event.eventId }}</td>
+          <td>{{ event.organizerFirstName }} {{ event.organizerLastName }}</td>
+          <td>{{ event.eventName }} || {{ event.eventCategory }}</td>
+          <td>{{ event.eventDate | date : "yyyy-MM-dd" }}</td>
+          <!-- <td>{{event.eventDate}}</td> -->
+          <td>{{ event.eventTime }}</td>
+          <td>{{ event.capacity }}</td>
+          <td>₹{{ event.ticketPrice }}</td>
+        </tr>
+      </ng-container>
+    </tbody>
+  </table>
 </div>

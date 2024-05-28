@@ -10,39 +10,39 @@ import { EditProfileInterface } from '../../../interface/commonInterface/edit-pr
 @Component({
   selector: 'app-userprofile',
   standalone: true,
-  imports: [NgFor , NgIf, FormsModule],
+  imports: [NgFor, NgIf, FormsModule],
   templateUrl: './userprofile.component.html',
-  styleUrl: './userprofile.component.css'
+  styleUrl: './userprofile.component.css',
 })
-export class UserprofileComponent implements OnInit{
+export class UserprofileComponent implements OnInit {
   title = 'ems-client';
   personId: any = '';
-  firstName : string ='';
-  lastName : string ='';
-  phoneNumber : string ='';
+  firstName: string = '';
+  lastName: string = '';
+  phoneNumber: string = '';
   editMode: boolean = false;
   showSuccessMessage: boolean = false;
 
-  constructor(private http: HttpClient , private userdataservice: UserdataService,
-              private jwtDecodeService : JwtDecodeService
+  constructor(
+    private http: HttpClient,
+    private userdataservice: UserdataService,
+    private jwtDecodeService: JwtDecodeService
   ) {}
 
-  ngOnInit(): void{
-    // this.personId = this.jwtDecodeService.id;
+  ngOnInit(): void {
     this.personId = localStorage.getItem('LoginUserId');
-    console.log(this.personId);
     this.fetchProfile(this.personId);
   }
 
-  fetchProfile(personId : string): void {
+  fetchProfile(personId: string): void {
     this.userdataservice.getProfile(personId).subscribe(
-      (response : ProfileInterface) => {
+      (response: ProfileInterface) => {
         const personData = response.getPersonById;
         this.firstName = personData.firstName;
         this.lastName = personData.lastName;
         this.phoneNumber = personData.phoneNumber;
       },
-      error => console.error('Error fetching profile :',error)
+      (error) => console.error('Error fetching profile :', error)
     );
   }
   toggleEditMode(): void {
@@ -53,20 +53,16 @@ export class UserprofileComponent implements OnInit{
     const formData = {
       firstName: this.firstName,
       lastName: this.lastName,
-      phoneNumber: this.phoneNumber
+      phoneNumber: this.phoneNumber,
     };
-    this.userdataservice.editProfile(this.personId, formData)
-    .subscribe(
+    this.userdataservice.editProfile(this.personId, formData).subscribe(
       (response: EditProfileInterface) => {
         console.log('Update successful:', response);
         this.showSuccessMessage = true;
-        
       },
       (error: any) => {
         console.error('Error submitting form data:', error);
       }
     );
   }
-
-  
 }

@@ -6,7 +6,7 @@ import { Location } from '@angular/common';
   standalone: true,
   imports: [],
   templateUrl: './unauthorised.component.html',
-  styleUrl: './unauthorised.component.css'
+  styleUrl: './unauthorised.component.css',
 })
 export class UnauthorisedComponent {
   constructor(private location: Location) {}

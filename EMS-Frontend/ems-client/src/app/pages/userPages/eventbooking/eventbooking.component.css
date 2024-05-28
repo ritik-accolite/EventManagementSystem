@@ -1,8 +1,8 @@
 .event-booking-form {
-  margin-top: 20px; 
+  margin-top: 20px;
   background: linear-gradient(120deg, #ee8425 0%, #f9488b 100%);
-  padding: 20px; 
-  border-radius: 10px; 
+  padding: 20px;
+  border-radius: 10px;
 }
 
 .event-booking-form h2 {
@@ -41,7 +41,7 @@
   .event-booking-form {
     padding: 15px; /* Reduce padding for smaller screens */
   }
-  
+
   .event-booking-form h2 {
     font-size: 1.5rem; /* Decrease font size for smaller screens */
   }
@@ -65,5 +65,3 @@
 .payment-popup-content {
   width: 300px;
 }
-
-

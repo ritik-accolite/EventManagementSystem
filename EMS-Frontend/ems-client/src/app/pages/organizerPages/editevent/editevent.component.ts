@@ -63,8 +63,7 @@ export class EditeventComponent implements OnInit {
   onDelete() {
     if (confirm("Are you sure you want to delete this event?")) {
       this.userdataService.deleteEvent(this.eventId).subscribe((response: any) => {
-        console.log('Response while deleting: ', response);
-        this.router.navigate(['organizer-dash','/app-myevents']);
+        this.router.navigate(['user-dash','/app-myevents']);
       });
     }
 }

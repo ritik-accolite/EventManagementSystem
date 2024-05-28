@@ -1,43 +1,74 @@
 <div class="event-booking-form">
-    <h2>Book Event</h2>
-    <form [formGroup]="bookEventForm"> 
-        <div class="form-group">
-            <label for="numberOfTickets">Number of Tickets</label>
-            <input type="number" id="numberOfTickets" formControlName="numberOfTickets" class="form-control"
-                (input)="calculatePrice()" />
-            <div *ngIf="bookEventForm.get('numberOfTickets')?.errors && bookEventForm.get('numberOfTickets')?.touched"
-                class="text-danger">
-                Number of tickets is required.
-            </div>
-        </div>
-        <div *ngIf="totalPrice > 0">
-            <p>Total Price: {{ totalPrice | currency }}</p>
-        </div>
-        <button *ngIf="!showPaymentPopup" (click)="openPaymentPopup()" class="btn btn-primary">Book Now</button>
-    </form>
-    <div *ngIf="bookingMessage" class="booking-message">
-        {{ bookingMessage }}
+  <h2>Book Event</h2>
+  <form [formGroup]="bookEventForm">
+    <div class="form-group">
+      <label for="numberOfTickets">Number of Tickets</label>
+      <input
+        type="number"
+        id="numberOfTickets"
+        formControlName="numberOfTickets"
+        class="form-control"
+        (input)="calculatePrice()"
+      />
+      <div
+        *ngIf="
+          bookEventForm.get('numberOfTickets')?.errors &&
+          bookEventForm.get('numberOfTickets')?.touched
+        "
+        class="text-danger"
+      >
+        Number of tickets is required.
+      </div>
     </div>
+    <div *ngIf="totalPrice > 0">
+      <p>Total Price: {{ totalPrice | currency }}</p>
+    </div>
+    <button
+      *ngIf="!showPaymentPopup"
+      (click)="openPaymentPopup()"
+      class="btn btn-primary"
+    >
+      Book Now
+    </button>
+  </form>
+  <div *ngIf="bookingMessage" class="booking-message">
+    {{ bookingMessage }}
+  </div>
 
-    <!-- Payment popup -->
-    <div *ngIf="showPaymentPopup" class="payment-popup">
-        <div class="payment-popup-content">
-            <h2>Enter Payment Details</h2>
-            <form (ngSubmit)="onSubmit()" [formGroup]="paymentForm">
-                <div class="form-group">
-                    <label for="cardNumber">Card Number</label>
-                    <input type="number" id="cardNumber" formControlName="cardNumber" class="form-control" />
-                </div>
-                <div class="form-group">
-                    <label for="expiryDate">Expiry Date</label>
-                    <input type="date" id="expiryDate" formControlName="expiryDate" class="form-control" />
-                </div>
-                <div class="form-group">
-                    <label for="cvv">CVV</label>
-                    <input type="number" id="cvv" formControlName="cvv" class="form-control" />
-                </div>
-                <button type="submit" class="btn btn-primary">Submit Payment</button>
-            </form>
+  <!-- Payment popup -->
+  <div *ngIf="showPaymentPopup" class="payment-popup">
+    <div class="payment-popup-content">
+      <h2>Enter Payment Details</h2>
+      <form (ngSubmit)="onSubmit()" [formGroup]="paymentForm">
+        <div class="form-group">
+          <label for="cardNumber">Card Number</label>
+          <input
+            type="number"
+            id="cardNumber"
+            formControlName="cardNumber"
+            class="form-control"
+          />
         </div>
+        <div class="form-group">
+          <label for="expiryDate">Expiry Date</label>
+          <input
+            type="date"
+            id="expiryDate"
+            formControlName="expiryDate"
+            class="form-control"
+          />
+        </div>
+        <div class="form-group">
+          <label for="cvv">CVV</label>
+          <input
+            type="number"
+            id="cvv"
+            formControlName="cvv"
+            class="form-control"
+          />
+        </div>
+        <button type="submit" class="btn btn-primary">Submit Payment</button>
+      </form>
     </div>
+  </div>
 </div>
