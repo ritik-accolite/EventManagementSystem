@@ -1,17 +1,17 @@
-import { PersonInterface } from "../commonInterface/person-interface";
+import { PersonInterface } from '../commonInterface/person-interface';
 
 export interface EventDetailInterface {
-    eventId: number,
-    eventName: string,
-    eventCategory: string,
-    description: string,
-    chiefGuest: string,
-    eventDate: Date,
-    eventTime: string,
-    eventLocation: string,
-    ticketPrice: number,
-    capacity: number,
-    bannerImage: string,
-    eventOrganizerId: string,
-    organizer: PersonInterface
+  eventId: number;
+  eventName: string;
+  eventCategory: string;
+  description: string;
+  chiefGuest: string;
+  eventDate: Date;
+  eventTime: string;
+  eventLocation: string;
+  ticketPrice: number;
+  capacity: number;
+  bannerImage: string;
+  eventOrganizerId: string;
+  organizer: PersonInterface;
 }

@@ -43,7 +43,6 @@ export class NeweventComponent {
   }
 
   onSubmit() {
-    console.log('This is event form', this.eventForm.value);
     if (this.eventForm.valid) {
       const formData = new FormData();
       const fileInput = document.getElementById(

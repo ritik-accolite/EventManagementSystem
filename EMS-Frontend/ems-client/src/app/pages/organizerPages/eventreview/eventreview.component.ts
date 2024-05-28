@@ -52,12 +52,6 @@ export class EventreviewComponent {
         (review) => review.rating == this.selectedRating
       );
       this.headingText = `Events with ${this.selectedRating} ratings`;
-      console.log(
-        'filtered rating ',
-        this.selectedRating,
-        '   :',
-        this.filteredReviews
-      );
     } else {
       this.filteredReviews = [...this.reviews];
     }

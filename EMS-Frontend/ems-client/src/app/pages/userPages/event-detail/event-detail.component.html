@@ -1,17 +1,31 @@
 <div class="card">
-    <div class="card-body">
-      <h5 class="card-title">Hi {{ eventDetails.eventName }}
-        <p class="card-text">Category: {{ eventDetails.eventCategory }}</p>
-        <p class="card-text">Description: {{ eventDetails.description }}</p>
-        <p class="card-text">Chief Guest: {{ eventDetails.chiefGuest }}</p>
-        <p class="card-text">Date: {{ eventDetails.eventDate }}</p>
-        <p class="card-text">Time: {{ eventDetails.eventTime }}</p>
-        <p class="card-text">Location: {{ eventDetails.eventLocation }}</p>
-        <p class="card-text">Ticket Price: ₹{{ eventDetails.ticketPrice }}</p>
-        <p class="card-text">Seats Left: {{ eventDetails.capacity }}</p>
-        <div class="book-div">
-            <a routerLink="event-bookings"><button class="primary-btn" (click)="bookEvent(eventDetails.eventId, eventDetails.eventOrganizerId , eventDetails.ticketPrice)"><h5 class="fs-6 mb-0">Book Now</h5></button></a>
-          </div>
-       </h5>
-    </div>
+  <div class="card-body">
+    <h5 class="card-title">
+      Hi {{ eventDetails.eventName }}
+      <p class="card-text">Category: {{ eventDetails.eventCategory }}</p>
+      <p class="card-text">Description: {{ eventDetails.description }}</p>
+      <p class="card-text">Chief Guest: {{ eventDetails.chiefGuest }}</p>
+      <p class="card-text">Date: {{ eventDetails.eventDate }}</p>
+      <p class="card-text">Time: {{ eventDetails.eventTime }}</p>
+      <p class="card-text">Location: {{ eventDetails.eventLocation }}</p>
+      <p class="card-text">Ticket Price: ₹{{ eventDetails.ticketPrice }}</p>
+      <p class="card-text">Seats Left: {{ eventDetails.capacity }}</p>
+      <div class="book-div">
+        <a routerLink="event-bookings"
+          ><button
+            class="primary-btn"
+            (click)="
+              bookEvent(
+                eventDetails.eventId,
+                eventDetails.eventOrganizerId,
+                eventDetails.ticketPrice
+              )
+            "
+          >
+            <h5 class="fs-6 mb-0">Book Now</h5>
+          </button></a
+        >
+      </div>
+    </h5>
+  </div>
 </div>

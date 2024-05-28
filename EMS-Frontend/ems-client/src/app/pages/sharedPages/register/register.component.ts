@@ -9,11 +9,9 @@ import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [ReactiveFormsModule,
-    HttpClientModule, RouterLink, CommonModule
-  ],
+  imports: [ReactiveFormsModule, HttpClientModule, RouterLink, CommonModule],
   templateUrl: './register.component.html',
-  styleUrl: './register.component.css'
+  styleUrl: './register.component.css',
 })
 export class RegisterComponent implements OnInit {
   userDataForm!: FormGroup;
@@ -30,31 +28,37 @@ export class RegisterComponent implements OnInit {
       lastname: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
-      confirmPassword: ['', [Validators.required, Validators.minLength(6), this.passwordMatchValidator]],
+      confirmPassword: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(6),
+          this.passwordMatchValidator,
+        ],
+      ],
       phonenumber: ['', Validators.required],
-      role: ['', Validators.required]
+      role: ['', Validators.required],
     });
   }
   passwordMatchValidator(group: FormGroup) {
     const password = group.get('password')?.value;
     const confirmPassword = group.get('confirmPassword')?.value;
     if (password === confirmPassword) {
-      return null; // Passwords match, return null (no error)
+      return null;
     } else {
-      return { mismatch: true }; // Passwords don't match, return error
+      return { mismatch: true };
     }
   }
   onSubmit() {
     if (this.userDataForm.valid) {
-      console.log("Inside")
+      console.log('Inside');
       this.userDataService.registerUser(this.userDataForm.value).subscribe(
-        response => {
+        (response) => {
           this.router.navigate(['/login']);
           this.toaster.success("Registered Successfully");
           console.log('User registered successfully:', response);
-          // this.userDataForm.reset();
         },
-        error => {
+        (error) => {
           console.error('Error registering user:', error);
         }
       );
@@ -63,12 +67,3 @@ export class RegisterComponent implements OnInit {
     }
   }
 }
-
-
-
-
-
-
-
-
-

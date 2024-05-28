@@ -1,144 +1,155 @@
 .gradient-custom-2 {
-    /* fallback for old browsers */
-    *{
-      overflow-x: hidden;
-    }
-    background: linear-gradient(to right, #16A085, #F4D03F, #ff6e7f, #bfe9ff);
-    
-    /* Chrome 10-25, Safari 5.1-6 */
-    background: -webkit-linear-gradient(to right, #ee7724, #d8363a, #dd3675, #b44593);
-    
-    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-    background: linear-gradient(to right, #ee7724, #d8363a, #dd3675, #b44593);
-    }
-    
-      
-      .gradient-custom-2 {
-          /* fallback for old browsers */
-          background: #fccb90;
-          
-          /* Chrome 10-25, Safari 5.1-6 */
-          background: -webkit-linear-gradient(to right, #ee7724, #f3adae, #f0a5c2, #b44593);
-          
-          /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-          background: linear-gradient(to right, #f1a874, #ebb0b1, #eea6c1, #f89ddd);
-          }
-          .container {
-            background: url(https://plus.unsplash.com/premium_photo-1700834113131-c587280aa770?q=80&w=1412&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D);
-        padding: 20px;
-        border-radius: 10px;
-        max-width: 100%; /* Set max-width */
-        margin: 0 auto; /* Center container */
-        display: flex; /* Use flexbox */
-        flex-wrap: wrap; /* Enable wrapping */
-        justify-content: center;
-        font-family: Arial, sans-serif; 
-        font-style: italic; /* Align items horizontally in the center */
-        
-      }
-      
-      .form-group {
-        display: inline-block; /* Display each input field horizontally */
-        width: 100%; /* Set width to control spacing */
-        margin: 5px;
+  /* fallback for old browsers */
+  * {
+    overflow-x: hidden;
+  }
+  background: linear-gradient(to right, #16a085, #f4d03f, #ff6e7f, #bfe9ff);
 
-        input{
-          width : 300px;
-        }
-        @media screen and (max-width: 768px) {
-            input {
-            width: auto;
-            
-          }
-        }
-        /* Add margin for spacing */
-      }
-      
-            
-            h4 {
-              color: #333; /* Set text color */
-              transition: color 0.3s ease; /* Add transition animation */
-            }
-            
-            .form-group label {
-              color: #333; /* Set label color */
-            }
-            
-            .form-control {
-              border: 1px solid #ddd; /* Set border color */
-              border-radius: 5px; /* Set border radius */
-              width: 100%; /* Set width to 100% */
-              box-sizing: border-box; /* Include padding and border in width */
-              transition: border-color 0.3s ease; /* Add transition animation */
-            }
-            
-            .form-control:focus {
-              border-color: #d8363a; /* Set border color on focus */
-              box-shadow: 0 0 5px rgba(216, 54, 58, 0.5); /* Add box shadow on focus */
-            }
-            
-            .btn-primary {
-              background: linear-gradient(to right, #ee7724, #d8363a, #dd3675, #b44593); /* Set background gradient */
-              border: none; /* Remove border */
-              color: #fff; /* Set button text color */
-              border-radius: 25px; /* Add border radius */
-              padding: 10px 20px; /* Add padding */
-              cursor: pointer; /* Change cursor on hover */
-              transition: background-color 0.3s ease, transform 0.3s ease; /* Add transition animation */
-            }
-            
-            .btn-primary:hover {
-              transform: scale(1.05); /* Add scaling effect on hover */
-            }
-            
-            
-            @media screen and (min-width: 576px) {
-              .form-group {
-                width: 50%; /* Set width to 50% on screens wider than 576px */
-                float: left; /* Float elements side by side */
-                box-sizing: border-box; /* Include padding and border in width */
-                padding: 0 10px; /* Add padding */
-                transition: width 0.3s ease; /* Add transition animation */
-              }
-            
-              .form-group:last-child {
-                /* float: right; Float last form group to right */
-              }
-            
-              .btn-primary {
-                width: auto; /* Set button width to auto */
-              }
-            }
-            
-            @media screen and (max-width: 576px) {
-              .form-group {
-                width: 100%; /* Set width to 100% on screens smaller than 576px */
-              }
-            }
-            .sub{
-              font-size: large;
-              color: rgb(14, 1, 1);
-            } 
-            
-            .body{
-              height: 100%;
-              width: 100%;
-            }
-            .custom-alert {
-              font-family: Arial, sans-serif; /* Example font family */
-              font-size: 1rem; /* Example font size */
-              font-weight: 300; /* Example font weight */
-              color: #e70f0f; /* Example color */
-              /* Example border color */
-              padding: 10px; /* Example padding */
-          }
-          .custom-label {
-            /* Example styling */
-            font-family: 'Arial', sans-serif;
-            font-size: 1.2rem;
-            font-weight: 800;
-            color: #0a0101;
-            /* Add more styles as needed */
-          }
-          
-            
+  /* Chrome 10-25, Safari 5.1-6 */
+  background: -webkit-linear-gradient(
+    to right,
+    #ee7724,
+    #d8363a,
+    #dd3675,
+    #b44593
+  );
+
+  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  background: linear-gradient(to right, #ee7724, #d8363a, #dd3675, #b44593);
+}
+
+.gradient-custom-2 {
+  /* fallback for old browsers */
+  background: #fccb90;
+
+  /* Chrome 10-25, Safari 5.1-6 */
+  background: -webkit-linear-gradient(
+    to right,
+    #ee7724,
+    #f3adae,
+    #f0a5c2,
+    #b44593
+  );
+
+  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  background: linear-gradient(to right, #f1a874, #ebb0b1, #eea6c1, #f89ddd);
+}
+.container {
+  background: url(https://plus.unsplash.com/premium_photo-1700834113131-c587280aa770?q=80&w=1412&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D);
+  padding: 20px;
+  border-radius: 10px;
+  max-width: 100%; /* Set max-width */
+  margin: 0 auto; /* Center container */
+  display: flex; /* Use flexbox */
+  flex-wrap: wrap; /* Enable wrapping */
+  justify-content: center;
+  font-family: Arial, sans-serif;
+  font-style: italic; /* Align items horizontally in the center */
+}
+
+.form-group {
+  display: inline-block; /* Display each input field horizontally */
+  width: 100%; /* Set width to control spacing */
+  margin: 5px;
+
+  input {
+    width: 300px;
+  }
+  @media screen and (max-width: 768px) {
+    input {
+      width: auto;
+    }
+  }
+  /* Add margin for spacing */
+}
+
+h4 {
+  color: #333; /* Set text color */
+  transition: color 0.3s ease; /* Add transition animation */
+}
+
+.form-group label {
+  color: #333; /* Set label color */
+}
+
+.form-control {
+  border: 1px solid #ddd; /* Set border color */
+  border-radius: 5px; /* Set border radius */
+  width: 100%; /* Set width to 100% */
+  box-sizing: border-box; /* Include padding and border in width */
+  transition: border-color 0.3s ease; /* Add transition animation */
+}
+
+.form-control:focus {
+  border-color: #d8363a; /* Set border color on focus */
+  box-shadow: 0 0 5px rgba(216, 54, 58, 0.5); /* Add box shadow on focus */
+}
+
+.btn-primary {
+  background: linear-gradient(
+    to right,
+    #ee7724,
+    #d8363a,
+    #dd3675,
+    #b44593
+  ); /* Set background gradient */
+  border: none; /* Remove border */
+  color: #fff; /* Set button text color */
+  border-radius: 25px; /* Add border radius */
+  padding: 10px 20px; /* Add padding */
+  cursor: pointer; /* Change cursor on hover */
+  transition: background-color 0.3s ease, transform 0.3s ease; /* Add transition animation */
+}
+
+.btn-primary:hover {
+  transform: scale(1.05); /* Add scaling effect on hover */
+}
+
+@media screen and (min-width: 576px) {
+  .form-group {
+    width: 50%; /* Set width to 50% on screens wider than 576px */
+    float: left; /* Float elements side by side */
+    box-sizing: border-box; /* Include padding and border in width */
+    padding: 0 10px; /* Add padding */
+    transition: width 0.3s ease; /* Add transition animation */
+  }
+
+  .form-group:last-child {
+    /* float: right; Float last form group to right */
+  }
+
+  .btn-primary {
+    width: auto; /* Set button width to auto */
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .form-group {
+    width: 100%; /* Set width to 100% on screens smaller than 576px */
+  }
+}
+.sub {
+  font-size: large;
+  color: rgb(14, 1, 1);
+}
+
+.body {
+  height: 100%;
+  width: 100%;
+}
+.custom-alert {
+  font-family: Arial, sans-serif; /* Example font family */
+  font-size: 1rem; /* Example font size */
+  font-weight: 300; /* Example font weight */
+  color: #e70f0f; /* Example color */
+  /* Example border color */
+  padding: 10px; /* Example padding */
+}
+.custom-label {
+  /* Example styling */
+  font-family: "Arial", sans-serif;
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: #0a0101;
+  /* Add more styles as needed */
+}

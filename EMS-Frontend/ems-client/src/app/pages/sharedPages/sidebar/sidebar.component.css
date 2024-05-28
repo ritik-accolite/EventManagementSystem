@@ -5,7 +5,7 @@ aside {
   height: 100vh;
   margin-bottom: 20px;
   left: 0 !important;
-  background-image: linear-gradient(30deg , #ee7724, #dd3675);
+  background-image: linear-gradient(30deg, #ee7724, #dd3675);
   border-top-right-radius: 80px;
 }
 
@@ -28,7 +28,7 @@ aside a {
   padding: 12px 12px 12px 0px;
   padding-left: 0px;
   text-decoration: none;
-  -webkit-tap-highlight-color:transparent;
+  -webkit-tap-highlight-color: transparent;
 }
 
 aside a:hover {
@@ -76,14 +76,14 @@ aside p {
 }
 
 body {
-  font-family: 'Roboto';
+  font-family: "Roboto";
   width: 100%;
   height: 100vh;
   margin: 0;
 }
 
 .social {
-  height: 0;  
+  height: 0;
 }
 
 .social i:before {
@@ -95,8 +95,8 @@ body {
   background: #dd3675;
   padding: 10px;
   border-radius: 50%;
-  top:5px;
-  right:5px;
+  top: 5px;
+  right: 5px;
 }
 
 .open-btn {
@@ -105,51 +105,16 @@ body {
   background-color: #fff;
   padding: 2px 10px;
   /* position: fixed; */
-  margin-left : 10px;
+  margin-left: 10px;
   /* top: 10px; */
   border-radius: 5px;
 }
-.closebtn{
+.closebtn {
   right: 8px;
   top: 8px;
   position: absolute;
   font-size: 22px !important;
 }
-.toggle-button{
+.toggle-button {
   margin-bottom: 20px;
 }
-
-/* .sidebar {
-    background-color: #7fee63; 
-    padding: 20px; 
-  }
-  
-  .nav-link {
-    color: #000; 
-  }
-  
-  .nav-link:hover {
-    color: #007bff; 
-  }
-   */
-
-/* .sidebar {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 200px;
-    background-color: #9ec6ee;
-    padding: 20px;
-    z-index: 1000; 
-    margin-top: 4%;
-  }
-  
-  .main-content {
-    margin-left: 220px; 
-    padding-top: 60px; 
-  } */
-  
-  
-  
-  

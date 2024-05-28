@@ -46,10 +46,11 @@
         <label for="capacity">Capacity</label>
         <input type="number" class="form-control" id="capacity" formControlName="capacity">
       </div>
-      <div class="form-group mt-3 col-3">
+      <div [hidden]="true" class="form-group mt-3 col-3">
         <label for="bannerImage">Banner Image</label>
-        <input type="text" class="form-control-file" id="bannerImage" formControlName="bannerImage">
-      </div></div></div>
+        <input type="text"  class="form-control-file" id="bannerImage" formControlName="bannerImage">
+      </div>
+    </div></div>
       <button type="submit" class="btn btn-primary">Submit</button>
       <button type="button" class="btn btn-danger" (click)="onDelete()">Delete</button>
     </form>

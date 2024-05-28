@@ -1,76 +1,72 @@
-.h2{
+.h2 {
   text-align: center;
-  
 }
-  .card-body {
-    padding: 20px;
-  }
-  
-  .card-body ul {
-    padding: 0;
-  }
-  
-  .card-body ul li {
-    margin-bottom: 10px;
-    color: #333;
-  }
-  .card {
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    border-radius: 10px;
-    background-color: #fff;
-    transition: box-shadow 0.3s ease, transform 0.3s ease; /* Add transform transition */
-    margin-bottom: 20px; 
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add margin between cards */
-  }
-  
-  .card:hover {
-    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2),
-                0 0 20px rgba(255, 165, 0, 0.6); /* Glowing effect */
-    outline: 2px solid transparent; 
-    transform:scale(1.1)/* Add border to the hover state */
-  }
-  
-  .card:hover .glow-border {
-    outline: 2px solid rgba(255, 165, 0, 0.6); /* Adjust glow color */
-  }
-  
-  .glow-border {
-    border: 2px solid transparent; /* Add transparent border */
-    border-radius: 10px;
-  }
-  
-  
-  
-  /* Typography */
-  .card-title {
-    font-size: 1.2rem;
-    font-weight: bold;
-    color: #333; /* Add color for better readability */
-  }
-  .btn-primary {
-    background-image: linear-gradient(120deg, #ee8425 0%, #f9488b 100%);
-    color: #fff;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    margin-right: 10px; /* Adjust margin as needed */
-  }
-  
-  .btn-secondary {
-    background-image: linear-gradient(120deg, #ee8425 0%, #f9488b 100%);
-    color: #fff;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  
-  .btn-primary:hover,
-  .btn-secondary:hover {
-    opacity: 0.8;
-  }
-  .btn-primary,
+.card-body {
+  padding: 20px;
+}
+
+.card-body ul {
+  padding: 0;
+}
+
+.card-body ul li {
+  margin-bottom: 10px;
+  color: #333;
+}
+.card {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  background-color: #fff;
+  transition: box-shadow 0.3s ease, transform 0.3s ease; /* Add transform transition */
+  margin-bottom: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add margin between cards */
+}
+
+.card:hover {
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2), 0 0 20px rgba(255, 165, 0, 0.6); /* Glowing effect */
+  outline: 2px solid transparent;
+  transform: scale(1.1); /* Add border to the hover state */
+}
+
+.card:hover .glow-border {
+  outline: 2px solid rgba(255, 165, 0, 0.6); /* Adjust glow color */
+}
+
+.glow-border {
+  border: 2px solid transparent; /* Add transparent border */
+  border-radius: 10px;
+}
+
+/* Typography */
+.card-title {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #333; /* Add color for better readability */
+}
+.btn-primary {
+  background-image: linear-gradient(120deg, #ee8425 0%, #f9488b 100%);
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-right: 10px; /* Adjust margin as needed */
+}
+
+.btn-secondary {
+  background-image: linear-gradient(120deg, #ee8425 0%, #f9488b 100%);
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.btn-primary:hover,
+.btn-secondary:hover {
+  opacity: 0.8;
+}
+.btn-primary,
 .btn-secondary {
   width: 100%;
   max-width: 200px; /* Adjust max-width as needed */
@@ -104,10 +100,10 @@
 }
 
 .btn-secondary {
-  background:#fff;
+  background: #fff;
   width: 10%; /* Adjust width to make the button smaller */
   height: 3px;
-  
+
   padding: 5px 1px; /* Adjust padding to make the button smaller */
   font-size: 1px;
 }
@@ -154,9 +150,3 @@
 .list-group-item span {
   color: #666; /* Adjust color as needed */
 }
-
-
-
-  
-  
-  

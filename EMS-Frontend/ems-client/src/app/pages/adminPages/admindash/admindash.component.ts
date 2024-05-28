@@ -7,8 +7,6 @@ import { SidebarComponent } from '../../sharedPages/sidebar/sidebar.component';
   standalone: true,
   imports: [RouterOutlet, SidebarComponent],
   templateUrl: './admindash.component.html',
-  styleUrl: './admindash.component.css'
+  styleUrl: './admindash.component.css',
 })
-export class AdmindashComponent {
-
-}
+export class AdmindashComponent {}

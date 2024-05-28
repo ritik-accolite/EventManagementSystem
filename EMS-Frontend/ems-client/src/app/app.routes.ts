@@ -36,130 +36,125 @@ import { EventDetailComponent } from './pages/userPages/event-detail/event-detai
 
 
 export const routes: Routes = [
-    {
-        path:'event-list',
-        component:EventlistComponent
-    },
-    {
-        path:'Home',
-        component: HomeComponent,
+  {
+    path: 'event-list',
+    component: EventlistComponent,
+  },
+  {
+    path: 'Home',
+    component: HomeComponent,
+    children: [{ path: 'event-list', component: EventlistComponent }],
+  },
+  {
+    path: 'event-list',
+    component: EventlistComponent,
+  },
+  {
+    path: 'admin-dash',
+    component: AdmindashComponent,
+    canActivate: [adminGuard],
+    children: [
+      { path: 'user-profile', component: UserprofileComponent },
+      { path: 'track-organizer', component: TrackorgainzersComponent },
+      { path: 'issues', component: ReportedissuesComponent },
+      { path: 'app-myevents', component: MyeventsComponent },
+      { path: 'app-viewevent', component: VieweventComponent },
+      { path: 'app-eventreview', component: EventreviewComponent },
+      { path: 'mybookings', component: MybookingsComponent },
+      { path: '**', component: TrackeventComponent },
+    ],
+  },
+  {
+    path: 'organizer-dash',
+    component: CommondashComponent,
+    canActivate: [organizerGuard],
+    children: [
+      { path: 'user-profile', component: UserprofileComponent },
+      { path: 'new-event', component: NeweventComponent },
+      { path: 'app-myevents', component: MyeventsComponent },
+      { path: 'app-viewevent', component: VieweventComponent },
+      { path: 'app-editevent', component: EditeventComponent },
+      { path: 'app-eventreview', component: EventreviewComponent },
+      { path: 'mybookings', component: MybookingsComponent },
+      { path: 'event-bookings', component: EventbookingComponent },
+      { path: '**', component: OrganizerstatComponent },
+    ],
+  },
+  {
+    path: 'user-dash',
+    component: CommondashComponent,
+    canActivate: [userGuard],
+    children: [
+      { path: 'user-profile', component: UserprofileComponent },
+      { path: 'user-stat', component: UserstatComponent },
+      { path: 'event-detail', component: EventDetailComponent },
+      {
+        path: 'event-detail',
         children: [
-            { path: 'event-list', component: EventlistComponent }
-          ]
-    },
-    {
-        path:'event-list',
-        component:EventlistComponent
-    },
-    {
-        path: 'admin-dash',
-        component : AdmindashComponent,
-        canActivate : [adminGuard],
-        children : [
-            {path: 'user-profile', component : UserprofileComponent},
-            {path: 'track-organizer', component : TrackorgainzersComponent},
-            {path: 'issues', component : ReportedissuesComponent},
-            {path: 'app-myevents', component: MyeventsComponent},
-            {path: 'app-viewevent', component : VieweventComponent},
-            {path: 'app-eventreview', component : EventreviewComponent},
-            { path:'mybookings', component:MybookingsComponent },
-            {path: '**', component : TrackeventComponent},
-        ]
-    },
-    {
-        path : 'organizer-dash',
-        component:CommondashComponent,
-        canActivate: [organizerGuard],
+          { path: 'event-bookings', component: EventbookingComponent },
+        ],
+      },
+      {
+        path: 'user-stat',
         children: [
-            { path: 'user-profile', component: UserprofileComponent },
-            { path: 'new-event', component: NeweventComponent},
-            { path: 'app-myevents', component: MyeventsComponent},
-            { path: 'app-viewevent', component : VieweventComponent},
-            { path: 'app-editevent', component: EditeventComponent },
-            { path: 'app-eventreview', component : EventreviewComponent},
-            { path:'mybookings', component:MybookingsComponent },
-            { path:'event-bookings', component:EventbookingComponent},
-            { path: '**', component: OrganizerstatComponent }
-        ]
-    },
-    {
-        path:'user-dash',
-        component:CommondashComponent,
-        canActivate: [userGuard],
+          { path: 'event-by-category', component: EventbycategoryComponent },
+          { path: 'event-by-location', component: EventbylocationComponent },
+        ],
+      },
+      { path: 'mybookings', component: MybookingsComponent },
+      {
+        path: 'mybookings',
+        children: [{ path: 'review', component: ReviewComponent }],
+      },
+      { path: 'event-bookings', component: EventbookingComponent },
+      { path: 'event-list', component: EventlistComponent },
+      {
+        path: 'event-list',
         children: [
-            { path: 'user-profile', component: UserprofileComponent },
-            { path: 'user-stat', component: UserstatComponent },
-            { path: 'event-detail', component: EventDetailComponent },
-            { path: 'event-detail',
-                children: 
-                [
-                    { path:'event-bookings', component:EventbookingComponent}
-                ]
-            },
-            { path: 'user-stat', 
-                children:
-                [
-                    { path:'event-by-category', component: EventbycategoryComponent },
-                    { path:'event-by-location', component: EventbylocationComponent }
-                ]
-            },
-            { path:'mybookings', component:MybookingsComponent },
-            { path:'mybookings', 
-                children:
-                [
-                    { path:'review', component: ReviewComponent}
-                ]
-            },
-            { path:'event-bookings', component:EventbookingComponent},
-            { path:'event-list', component:EventlistComponent },
-            { path:'event-list',
-                children: 
-                [
-                    { path:'event-bookings', component:EventbookingComponent}
-                ]
-            },
-            { path: 'event-by-category', component:EventbycategoryComponent},
-            { path: 'event-by-location', component:EventbylocationComponent},
-            { path: '**', component : UserstatComponent}
-          ]
-    },
-    {
-        path:'register',
-        component:RegisterComponent
-    },
-    {
-        path:'login',
-        component:LoginComponent
-    },
-    {
-        path:'forgot-password',
-        component:ForgotpasswordComponent
-    },
-    {
-        path:'navbar',
-        component:NavbarComponent
-    },
-    {
-        path:'sidebar',
-        component:SidebarComponent,
-        canActivate: [AuthGuard]
-    },
-    {
-        path:'aboutus',
-        component:AboutusComponent
-    },
-    {
-        path:'contactus',
-        component: ContactusComponent
-    },
-    {
-        path: 'unauthorised',
-        component : UnauthorisedComponent
-    },
-    {
-        path:'',
-        redirectTo:'Home',
-        pathMatch:'full'
-    }
+          { path: 'event-bookings', component: EventbookingComponent },
+        ],
+      },
+      { path: 'event-by-category', component: EventbycategoryComponent },
+      { path: 'event-by-location', component: EventbylocationComponent },
+      { path: '**', component: UserstatComponent },
+    ],
+  },
+  {
+    path: 'register',
+    component: RegisterComponent,
+  },
+  {
+    path: 'login',
+    component: LoginComponent,
+  },
+  {
+    path: 'forgot-password',
+    component: ForgotpasswordComponent,
+  },
+  {
+    path: 'navbar',
+    component: NavbarComponent,
+  },
+  {
+    path: 'sidebar',
+    component: SidebarComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'aboutus',
+    component: AboutusComponent,
+  },
+  {
+    path: 'contactus',
+    component: ContactusComponent,
+  },
+  {
+    path: 'unauthorised',
+    component: UnauthorisedComponent,
+  },
+  {
+    path: '',
+    redirectTo: 'Home',
+    pathMatch: 'full',
+  },
 ];
-

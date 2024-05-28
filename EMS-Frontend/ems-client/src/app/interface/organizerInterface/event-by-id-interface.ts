@@ -1,3 +1,1 @@
-export interface EventByIdInterface {
-    
-}
+export interface EventByIdInterface {}
