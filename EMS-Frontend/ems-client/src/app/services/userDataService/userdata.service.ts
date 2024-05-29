@@ -108,7 +108,8 @@ export class UserdataService {
   private unBlockPersonByIdUrl = 'https://eventhubfusion.azurewebsites.net/api/Person/unblockperson';
 
   private addReviewUrl =
-    'http://localhost:5299/events/reviews';
+    // 'http://localhost:5299/events/reviews';
+   'https://eventhubfusion.azurewebsites.net/api/Review/events/reviews'
 
   // private getAllReviewUrl ='http://localhost:5299/admin/allreviews';
   private getAllReviewUrl ='https://eventhubfusion.azurewebsites.net/api/Review/admin/allreviews';

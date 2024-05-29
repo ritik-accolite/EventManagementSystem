@@ -292,13 +292,15 @@ header::before {
   position: absolute;
   top: 0;
   left: 0;
-  width: 100%;
+  width: 84%;
+  margin-left: 104px;
   height: 100%;
   background-image: url("https://media.istockphoto.com/id/1357362371/photo/diverse-human-faces.jpg?s=1024x1024&w=is&k=20&c=smlNBhH491ehMfxrRcLZ2Y__Z3bCTVndbs6wu0OIOzw=");
   background-position: bottom;
   background-size: cover;
   opacity: 0.8;
   z-index: -1;
+  border-radius: 10px;
 }
 
 header::after {
@@ -622,3 +624,4 @@ footer {
   transform: translateY(-5px);
   filter: drop-shadow(5px 6px 7px black);
 }
+

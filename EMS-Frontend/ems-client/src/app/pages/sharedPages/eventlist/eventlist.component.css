@@ -97,11 +97,20 @@
 }
 
 .schedule-tab .st-content .sc-pic img {
-  height: 120px;
-  width: 120px;
+  height: 162px;
+  width: 161px;
   border-radius: 50%;
 }
 
+
+
+.sc-widget{
+  margin-top: 35px;
+}
+
+.btnmargin{
+  margin-top: 5px;
+}
 .schedule-tab .st-content .sc-text {
   padding: 58px 0;
 }
