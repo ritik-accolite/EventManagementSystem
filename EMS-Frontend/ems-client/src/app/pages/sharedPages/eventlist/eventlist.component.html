@@ -1,5 +1,5 @@
 
-<swiper-container loop="true" navigation="true" lazy="true">
+<!-- <swiper-container loop="true" navigation="true" lazy="true">
   <swiper-slide *ngFor="let event of events" loading="lazy">
     <div class="row no-gutters">
       <div class="col-md-6">
@@ -25,7 +25,7 @@
       </div>
     </div>
   </swiper-slide>
-</swiper-container>
+</swiper-container> -->
 
 <div *ngIf="events && events.length > 0" class="row">
   <div class="col-lg-12">
@@ -55,14 +55,14 @@
                               </div>
                               <div class="col-lg-4">
                                   <ul class="sc-widget">
-                                      <li><i class="fa fa-clock-o"></i> {{event.eventTime}}</li>
+                                      <li><i class="fa fa-clock-o"></i> Time : {{event.eventTime}}</li>
                                       <li><i class="fa fa-map-marker"></i> {{event.eventLocation}}
                                       </li>
                                   </ul>
                               </div>
                               <div class="col-lg-2">
                                   <div class="book-div">
-                                    <a routerLink="event-bookings"><button class="primary-btn" (click)="bookEvent(event.eventId, event.eventOrganizerId , event.ticketPrice)"><h5 class="fs-6 mb-0">Book Now</h5></button></a>
+                                    <a routerLink="event-bookings"><button class="primary-btn btnmargin" (click)="bookEvent(event.eventId, event.eventOrganizerId , event.ticketPrice)"><h5 class="fs-6 mb-0">Book Now</h5></button></a>
                                   </div>
                               </div>
                           </div>
@@ -73,5 +73,36 @@
       </div>
   </div>
 </div>
+
+
+
+
+<swiper-container loop="true" navigation="true" lazy="true">
+  <swiper-slide *ngFor="let event of events" loading="lazy">
+    <div class="row no-gutters">
+      <div class="col-md-6">
+        <div class="event-image" [ngStyle]="{'background-image': 'url(' + event.bannerImage + ')'}"></div>
+      </div>
+      <div class="col-md-6">
+        <div class="event-details">
+          <a class="badge bg-warning mb-3 gradient">{{ event.eventCategory }}</a>
+          <h1 class="mb-4">{{ event.eventName }}</h1>
+          <h5>{{ event.description }}</h5>
+          <div class="row align-items-center g-0 mt-7">
+            <div class="col lh-1">
+              <h5 class="mb-1">Chief Guest: {{ event.chiefGuest }}</h5>
+              <h5 class="fs-6 mb-0">Event Date: {{ event.eventDate | date: 'yyyy-MM-dd' }}</h5>
+              <a routerLink="event-bookings">
+                <button class="gradient" (click)="bookEvent(event.eventId, event.eventOrganizerId, event.ticketPrice)">
+                  <h5 class="fs-6 mb-0">Book Now</h5>
+                </button>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </swiper-slide>
+</swiper-container>
 
 <div *ngIf="!events || events.length === 0">No events found.</div>

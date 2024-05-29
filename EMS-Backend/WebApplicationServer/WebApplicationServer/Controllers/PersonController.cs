@@ -91,9 +91,9 @@ namespace WebApplicationServer.Controllers
         public async Task<ResponseViewModel> BlockPerson(string personId)
         {
             ResponseViewModel response = new ResponseViewModel();
-            //response = await _getAllPerson.BlockPerson(personId);
-            //response.Status = 200;
-            //response.Message = "Person Blocked Successfully";
+            response = await _getAllPerson.BlockPerson(personId);
+            response.Status = 200;
+            response.Message = "Person Blocked Successfully";
             return response;
 
         }
@@ -106,9 +106,8 @@ namespace WebApplicationServer.Controllers
             ResponseViewModel response = new ResponseViewModel();
 
             response = await _getAllPerson.UnBlockPerson(personId);
-
-/*            response.Status = 200;
-            response.Message = "Person UnBlocked Successfully";*/
+            response.Status = 200;
+            response.Message = "Person UnBlocked Successfully";
             return response;
 
         }
