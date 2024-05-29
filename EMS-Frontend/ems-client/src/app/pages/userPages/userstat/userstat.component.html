@@ -79,7 +79,7 @@
                 (click)="showDetail(event.eventId)"
               >
                 <td>{{ event.eventName }}</td>
-                <td>{{ event.eventDate | date : "yyyy-MM-dd" }}</td>
+                <td>{{ event.eventDate | date : "dd-MM-yyyy" }}</td>
                 <td>{{ event.chiefGuest }}</td>
                 <td>₹{{ event.ticketPrice }}</td>
                 <td class="text-right">{{ event.eventLocation }}</td>

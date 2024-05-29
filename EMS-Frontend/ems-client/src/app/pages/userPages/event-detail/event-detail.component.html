@@ -1,31 +1,23 @@
-<div class="card">
-  <div class="card-body">
-    <h5 class="card-title">
-      Hi {{ eventDetails.eventName }}
-      <p class="card-text">Category: {{ eventDetails.eventCategory }}</p>
-      <p class="card-text">Description: {{ eventDetails.description }}</p>
-      <p class="card-text">Chief Guest: {{ eventDetails.chiefGuest }}</p>
-      <p class="card-text">Date: {{ eventDetails.eventDate }}</p>
-      <p class="card-text">Time: {{ eventDetails.eventTime }}</p>
-      <p class="card-text">Location: {{ eventDetails.eventLocation }}</p>
-      <p class="card-text">Ticket Price: ₹{{ eventDetails.ticketPrice }}</p>
-      <p class="card-text">Seats Left: {{ eventDetails.capacity }}</p>
-      <div class="book-div">
-        <a routerLink="event-bookings"
-          ><button
-            class="primary-btn"
-            (click)="
-              bookEvent(
-                eventDetails.eventId,
-                eventDetails.eventOrganizerId,
-                eventDetails.ticketPrice
-              )
-            "
-          >
-            <h5 class="fs-6 mb-0">Book Now</h5>
-          </button></a
-        >
-      </div>
-    </h5>
+<div class="event-container">
+  <div class="banner">
+    <img src="{{ eventDetails.bannerImage }}" alt="Event Banner">
+  </div>
+  <div class="event-details">
+    <h1>{{ eventDetails.eventName }}</h1>
+    <p class="category">{{ eventDetails.eventCategory }}</p>
+    <p class="description">{{ eventDetails.description }}</p>
+    <p class="chief-guest"><strong>Chief Guest:</strong> {{ eventDetails.chiefGuest }}</p>
+    <p class="date-time"><strong>Date:</strong> {{ eventDetails.eventDate | date: 'dd-MM-yyyy' }}</p>
+    <p class="date-time"><strong>Time:</strong> {{ eventDetails.event_Time }}</p>
+    <p class="location"><strong>Location:</strong> {{ eventDetails.eventLocation }}</p>
+    <p class="price"><strong>Price:</strong> ₹{{ eventDetails.ticketPrice }}</p>
+    <p class="seats-left"><strong>Seats Left:</strong> {{ eventDetails.capacity }}</p>
+    <button class="book-now" (click)="
+    bookEvent(
+      eventDetails.eventId,
+      eventDetails.eventOrganizerId,
+      eventDetails.ticketPrice
+    )
+  ">Book Now</button>
   </div>
 </div>

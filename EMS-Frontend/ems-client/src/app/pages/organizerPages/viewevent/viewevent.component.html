@@ -41,7 +41,7 @@
             <p class="card-text">{{ truncateDescription(eventDetails.description,30) }}</p>
             <p class="card-text">{{ eventDetails.chiefGuest }}</p>
             <p class="card-text">
-              {{ eventDetails.eventDate | date : "yyyy-MM-dd" }}
+              {{ eventDetails.eventDate | date : "dd-MM-yyyy" }}
             </p>
             <p class="card-text">{{ eventDetails.eventTime }}</p>
             <p class="card-text">{{ eventDetails.eventLocation }}</p>

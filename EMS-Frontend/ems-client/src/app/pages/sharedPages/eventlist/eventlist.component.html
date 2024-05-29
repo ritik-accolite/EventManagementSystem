@@ -48,7 +48,7 @@
                                       <h4>{{ event.eventName }}</h4>
                                       <ul>
                                           <li><i class="fa-regular fa-user"></i>Chief Guest: {{ event.chiefGuest }}</li>
-                                          <li><i class="fa fa-envelope"></i> Event Date: {{ event.eventDate | date: 'yyyy-MM-dd' }}
+                                          <li><i class="fa fa-envelope"></i> Event Date: {{ event.eventDate | date: 'dd-MM-yyyy' }}
                                           </li>
                                       </ul>
                                   </div>
@@ -91,7 +91,7 @@
           <div class="row align-items-center g-0 mt-7">
             <div class="col lh-1">
               <h5 class="mb-1">Chief Guest: {{ event.chiefGuest }}</h5>
-              <h5 class="fs-6 mb-0">Event Date: {{ event.eventDate | date: 'yyyy-MM-dd' }}</h5>
+              <h5 class="fs-6 mb-0">Event Date: {{ event.eventDate | date: 'dd-MM-yyyy' }}</h5>
               <a routerLink="event-bookings">
                 <button class="gradient" (click)="bookEvent(event.eventId, event.eventOrganizerId, event.ticketPrice)">
                   <h5 class="fs-6 mb-0">Book Now</h5>
