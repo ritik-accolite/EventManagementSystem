@@ -398,11 +398,12 @@ figure {
 
 .custom-select {
   /* Style for the select element */
-  width: 100%;
+  width: 189%;
+  height: 40px;
   padding: 0.375rem 0.75rem;
   font-size: 1rem;
   line-height: 1.5;
-  border-radius: 0.25rem;
+  border-radius: 0.15rem;
   border: 1px solid #ced4da; /* Example border color */
 }
 

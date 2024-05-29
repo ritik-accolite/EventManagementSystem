@@ -40,6 +40,7 @@ export class ReportedissuesComponent implements OnInit {
       this.headingText = `Reported Events`;
     } else {
       this.filteredReviews = [...this.reviews];
+      this.buttonText = `Show Reported Events`;
       this.headingText = `UnReported Events`;
     }
   }

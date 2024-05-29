@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink, Router, RouterOutlet } from '@angular/router';
 import { UserdataService } from '../../../services/userDataService/userdata.service';
 import { JwtDecodeService } from '../../../services/jwtDecodeService/jwtDecode.service';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-navbar',
@@ -17,7 +18,7 @@ export class NavbarComponent implements OnInit {
   isLoggedIn: boolean = false;
   searchQuery: string = '';
   dashboardLink: string = '/Home';
-
+  toaster = inject(ToastrService)
   constructor(
     private userDataService: UserdataService,
     private jwtDecodeService: JwtDecodeService,
@@ -64,7 +65,9 @@ export class NavbarComponent implements OnInit {
         localStorage.removeItem('jwt');
         localStorage.removeItem('Role');
         console.log('Logout successful:', response.message);
+        this.toaster.info('Successfully Logged out.')
         this.isLoggedIn = false;
+        this.setDashboardLink('Home');
         this.router.navigate(['/login']);
       },
       (error: any) => {

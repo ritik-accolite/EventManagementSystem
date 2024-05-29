@@ -58,7 +58,6 @@ export class MybookingsComponent implements OnInit {
   eTicket(bookingId: number): void {
     this.userdataservice.getEticket(bookingId).subscribe(
       (response: any) => {
-        this.toaster.success("Downloaded Successfully!");
         this.downloadFile(response);
         
       },
@@ -74,7 +73,7 @@ export class MybookingsComponent implements OnInit {
     link.download = 'e-ticket.pdf';
     link.click();
     window.URL.revokeObjectURL(url);
-    this.toaster.success("Downloaded Successfully!");
+    this.toaster.info("Downloaded Successfully!");
   }
 
   addReview(eventId: number): void {

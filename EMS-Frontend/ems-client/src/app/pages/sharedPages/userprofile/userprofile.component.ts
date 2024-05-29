@@ -7,6 +7,7 @@ import { JwtDecodeService } from '../../../services/jwtDecodeService/jwtDecode.s
 import { ProfileInterface } from '../../../interface/commonInterface/profile-interface';
 import { EditProfileInterface } from '../../../interface/commonInterface/edit-profile-interface';
 import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-userprofile',
@@ -28,7 +29,7 @@ export class UserprofileComponent implements OnInit {
   constructor(
     private http: HttpClient,
     private userdataservice: UserdataService,
-    private jwtDecodeService: JwtDecodeService
+    private router : Router
   ) {}
 
   ngOnInit(): void {
@@ -59,10 +60,9 @@ export class UserprofileComponent implements OnInit {
     };
     this.userdataservice.editProfile(this.personId, formData).subscribe(
       (response: EditProfileInterface) => {
-        console.log('Update successful:', response);
-        this.showSuccessMessage = true;
-        this.toaster.success("Updated Succesfully","Success");
-        
+        this.toggleEditMode();
+        this.toaster.success("Profile Updated Succesfully");
+        this.router.navigate(['user-dash','user-profile']);
       },
       (error: any) => {
         console.error('Error submitting form data:', error);
