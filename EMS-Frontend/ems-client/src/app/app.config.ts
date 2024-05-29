@@ -10,6 +10,7 @@ import {
 } from '@angular/common/http';
 import { tokenInterceptor } from './services/tokenInterceptorService/token.interceptor';
 import { provideToastr } from 'ngx-toastr';
+import { provideAnimations } from '@angular/platform-browser/animations';
 
 export function tokenGetter() {
   return localStorage?.getItem('jwt');
@@ -19,6 +20,7 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes),
     provideToastr(), 
+    provideAnimations(),
     provideHttpClient(withInterceptors([tokenInterceptor])), 
     provideClientHydration(), 
     provideHttpClient(withFetch()),

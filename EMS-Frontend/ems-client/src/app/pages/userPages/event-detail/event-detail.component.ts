@@ -14,7 +14,6 @@ export class EventDetailComponent implements OnInit {
   eventId: number = 0;
   eventDetails: any;
   constructor(
-    private http: HttpClient,
     private userdataService: UserdataService,
     private router: Router
   ) {}
