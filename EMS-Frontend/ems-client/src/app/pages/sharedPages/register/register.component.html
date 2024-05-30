@@ -175,8 +175,7 @@
                         >Phone Number is required.</small
                       >
                       <small *ngIf="userDataForm.controls['phonenumber'].errors?.['pattern']">Phone Number can only contain digits.</small>
-                      <small *ngIf="userDataForm.controls['phonenumber'].errors?.['minlength']">Phone Number should have 10 digits.</small>
-                      <small *ngIf="userDataForm.controls['phonenumber'].errors?.['mzxlength']">Phone Number should have 10 digits.</small>
+                      <!-- <small *ngIf="userDataForm.controls['phonenumber'].errors?.['maxlength']">Phone Number should have 10 digits.</small> -->
                     </div>
                   </div>
                   <div data-mdb-input-init class="form-outline mb-4">

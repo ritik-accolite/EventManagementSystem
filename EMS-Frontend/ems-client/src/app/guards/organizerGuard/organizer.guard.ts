@@ -32,7 +32,6 @@ export class organizerGuard implements CanActivate {
       this.router.navigate(['/unauthorised']);
       return false;
     } catch (e) {
-      console.log('error Organizer guard', e);
       return false;
     }
   }
