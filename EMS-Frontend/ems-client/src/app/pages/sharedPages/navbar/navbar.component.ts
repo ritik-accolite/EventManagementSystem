@@ -21,7 +21,6 @@ export class NavbarComponent implements OnInit {
   toaster = inject(ToastrService)
   constructor(
     private userDataService: UserdataService,
-    private jwtDecodeService: JwtDecodeService,
     private router: Router,
     private jwtHelper: JwtHelperService
   ) {}
@@ -74,6 +73,16 @@ export class NavbarComponent implements OnInit {
         console.error('Logout failed:', error.message); // Handle error if any
       }
     );
+  }
+
+  toggleNavbar() {
+    const navbarCollapse = document.getElementById('navbarSupportedContent');
+    const navbarToggler = document.querySelector('.navbar-toggler');
+
+    if (navbarCollapse && navbarToggler) {
+      navbarCollapse.classList.remove('show');
+      navbarToggler.classList.add('collapsed');
+    }
   }
 
   setDashboardLink(role: string): void {

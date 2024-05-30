@@ -36,7 +36,7 @@ export class RegisterComponent implements OnInit {
           this.passwordMatchValidator,
         ],
       ],
-      phonenumber: ['', Validators.required, Validators.minLength(9), Validators.maxLength(10)],
+      phonenumber: ['', Validators.required],
       role: ['', Validators.required],
     });
   }
@@ -50,6 +50,8 @@ export class RegisterComponent implements OnInit {
     }
   }
   onSubmit() {
+
+    console.log('Outside');
     if (this.userDataForm.valid) {
       console.log('Inside');
       this.userDataService.registerUser(this.userDataForm.value).subscribe(

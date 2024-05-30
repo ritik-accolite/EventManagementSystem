@@ -19,6 +19,7 @@ export class SidebarComponent {
 
   ngOnInit(): void {
     this.role = localStorage.getItem('Role');
+    console.log('Role', this.role);
     if (this.role === null) {
       this.router.navigate(['/login']);
     }
@@ -39,6 +40,15 @@ export class SidebarComponent {
     if (this.toggleBar === true) {
       doc.style.display = 'block';
       this.toggleBar = false;
+    }
+  }
+  toggleSidebar() {
+    const sidebarCollapse = document.getElementById('navbarSupportedSideContent');
+    const sidebarToggler = document.querySelector('.navbar-toggler');
+    
+    if (sidebarCollapse && sidebarToggler) {
+      sidebarToggler.classList.add('collapsed');
+      sidebarCollapse.classList.remove('show');
     }
   }
   onTabClick(tabRoute: string) {

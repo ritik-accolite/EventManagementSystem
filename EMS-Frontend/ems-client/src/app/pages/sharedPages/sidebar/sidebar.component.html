@@ -26,19 +26,19 @@
   >
     <aside *ngIf="role === 'Organizer'; else userContent">
       <!-- Organizer Menu -->
-      <a (click)="onTabClick('organizer-stat')">
+      <a (click)="onTabClick('organizer-stat'); toggleSidebar()">
         <i class="fa-solid fa-right-to-bracket"></i>
         Dashboard
       </a>
-      <a (click)="onTabClick('new-event')">
+      <a (click)="onTabClick('new-event'); toggleSidebar()">
         <i class="fa-solid fa-plus"></i>
         Create Event
       </a>
-      <a (click)="onTabClick('myevents')">
+      <a (click)="onTabClick('myevents'); toggleSidebar()">
         <i class="fa-regular fa-calendar-days"></i>
         My Events
       </a>
-      <a (click)="onTabClick('organizer-profile')">
+      <a (click)="onTabClick('organizer-profile'); toggleSidebar()">
         <i class="fa-regular fa-user"></i>
         Profile
       </a>
@@ -46,50 +46,31 @@
     <ng-template #userContent>
       <aside *ngIf="role === 'User'; else adminContent">
         <!-- User Menu -->
-        <a (click)="onTabClick('user-stat')">
+        <a (click)="onTabClick('user-stat'); toggleSidebar()">
           <i class="fa fa-tachometer" aria-hidden="true"></i>
           Dashboard
         </a>
-        <a (click)="onTabClick('event-list')">
+        <a (click)="onTabClick('event-list'); toggleSidebar()">
           <i class="fa fa-calendar-plus" aria-hidden="true"></i>
           Book Event
         </a>
-        <a (click)="onTabClick('mybookings')">
+        <a (click)="onTabClick('mybookings'); toggleSidebar()">
           <i class="fa fa-laptop" aria-hidden="true"></i>
           My Bookings
         </a>
-        <a (click)="onTabClick('user-profile')">
+        <a (click)="onTabClick('user-profile'); toggleSidebar()">
           <i class="fa fa-clone" aria-hidden="true"></i>
           Profile
         </a>
-
-        <!-- <a>
-      <i class="fa fa-trash-o" aria-hidden="true"></i>
-      Track Event Tickets
-    </a> -->
-        <!-- <button (click)="toggleDropdown()">Filter By Category</button>
-  <div class="dropdown-content" *ngIf="showDropdown1">
-    <select [(ngModel)]="selectedCategory" (change)="applyFilter(selectedCategory)">
-      <option value="">Select Category</option>
-      <option *ngFor="let category of allEventCategory" [value]="category">{{ category }}</option>
-    </select>
-  </div> 
-  <button (click)="toggleDropdown()">Filter By Location</button>
-  <div class="dropdown-content" *ngIf="showDropdown2">
-    <select [(ngModel)]="selectedCategory" (change)="applyFilter1(selectedCategory)">
-      <option value="">Select Category</option>
-      <option *ngFor="let category of allEventCategory" [value]="category">{{ category }}</option>
-    </select>
-  </div> -->
       </aside>
       <ng-template #adminContent>
         <!-- Admin Menu -->
         <aside *ngIf="role === 'Admin'">
-          <a (click)="onTabClick('track-event')">
+          <a (click)="onTabClick('track-event'); toggleSidebar()">
             <i class="fa fa-calendar" aria-hidden="true"></i>
             Track Events
           </a>
-          <a (click)="onTabClick('track-organizer')">
+          <a (click)="onTabClick('track-organizer'); toggleSidebar()">
             <i class="fa fa-users" aria-hidden="true"></i>
             Track Organizers
           </a>
@@ -97,11 +78,11 @@
         <i class="fa fa-user" aria-hidden="true"></i>
         Track Users
       </a> -->
-          <a (click)="onTabClick('issues')">
+          <a (click)="onTabClick('issues'); toggleSidebar()">
             <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
             Track Reviews
           </a>
-          <a (click)="onTabClick('admin-profile')">
+          <a (click)="onTabClick('admin-profile'); toggleSidebar()">
             <i class="fa fa-user-circle" aria-hidden="true"></i>
             Profile
           </a>

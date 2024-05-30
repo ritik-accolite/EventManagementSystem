@@ -29,7 +29,6 @@ export class adminGuard implements CanActivate {
       console.log('not admin');
       return false;
     } catch (e) {
-      console.log('error Admin guard', e);
       return false;
     }
   }

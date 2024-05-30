@@ -32,7 +32,8 @@ export class ForgotpasswordComponent {
   submitEmailForm() {
     this.showPasswordForm = true;
     this.userDataService.generateForgotEmailToken(this.email).subscribe(
-      (response: ResponseInterface) => {
+      (response: ResponseInterface) => {  
+        this.toaster.info("Reset Token successfully Sent");
         console.log('Reset Token successfully Sent:', response);
         this.showPasswordForm = true;
       },
@@ -57,6 +58,7 @@ export class ForgotpasswordComponent {
         console.log('Password Successfully Reseted', response);
       },
       (error: any) => {
+        this.toaster.error("Error updating Password");
         console.error('PAssword not sent: ', error);
       }
     );
