@@ -6,7 +6,6 @@ import { ActivatedRoute, Router, RouterLink, RouterOutlet } from '@angular/route
 import { EventInterface } from '../../../interface/commonInterface/event-interface';
 import { ToastrService } from 'ngx-toastr';
 
-
 @Component({
   selector: 'app-eventlist',
   standalone: true,

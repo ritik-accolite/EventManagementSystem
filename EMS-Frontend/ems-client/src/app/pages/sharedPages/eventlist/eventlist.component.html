@@ -20,31 +20,4 @@
     </div>
   </div>
   </div>
-
-  <swiper-container loop="true" navigation="true" lazy="true">
-  <swiper-slide *ngFor="let event of events" loading="lazy">
-    <div class="row no-gutters">
-      <div class="col-md-6">
-        <div class="event-image" [ngStyle]="{'background-image': 'url(' + event.bannerImage + ')'}"></div>
-      </div>
-      <div class="col-md-6">
-        <div class="event-details">
-          <a class="badge bg-warning mb-3 gradient">{{ event.eventCategory }}</a>
-          <h1 class="mb-4">{{ event.eventName }}</h1>
-          <h5>{{ event.description }}</h5>
-          <div class="row align-items-center g-0 mt-7">
-            <div class="col lh-1">
-              <h5 class="mb-1">Chief Guest: {{ event.chiefGuest }}</h5>
-              <h5 class="fs-6 mb-0">Event Date: {{ event.eventDate | date: 'dd-MM-yyyy' }}</h5>
-              <button class="gradient" (click)="bookEvent(event.eventId, event.eventOrganizerId, event.ticketPrice)">
-                  <h5 class="fs-6 mb-0">Book Now</h5>
-                </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </swiper-slide>
-</swiper-container>
-
 <div *ngIf="!events || events.length === 0">No events found.</div>
