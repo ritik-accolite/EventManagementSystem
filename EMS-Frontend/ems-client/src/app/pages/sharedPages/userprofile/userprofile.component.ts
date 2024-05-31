@@ -62,7 +62,19 @@ export class UserprofileComponent implements OnInit {
       (response: EditProfileInterface) => {
         this.toggleEditMode();
         this.toaster.success("Profile Updated Succesfully");
-        this.router.navigate(['user-dash','user-profile']);
+        try{
+          const role = localStorage.getItem('Role');
+          if(role =='User'){
+            this.router.navigate(['user-dash','user-profile']);
+          } else if (role =='Admin'){
+            this.router.navigate(['admin-dash','user-profile']);
+          } else if (role == 'Organizer'){
+            this.router.navigate(['organizer-dash','user-profile']);
+          }
+          } catch{
+            this.router.navigate(['/login']);
+            this.toaster.error('Try Again');
+          }
       },
       (error: any) => {
         console.error('Error submitting form data:', error);

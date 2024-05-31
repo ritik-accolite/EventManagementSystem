@@ -19,7 +19,6 @@ export class SidebarComponent {
 
   ngOnInit(): void {
     this.role = localStorage.getItem('Role');
-    console.log('Role', this.role);
     if (this.role === null) {
       this.router.navigate(['/login']);
     }

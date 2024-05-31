@@ -38,6 +38,7 @@ export class TrackorgainzersComponent {
     );
   }
 
+
   redirectToViewEvent(personId: string, role: string) {
     if (role === 'Organizer') {
       this.jwtDecodeService.organizerId = personId;
@@ -54,7 +55,6 @@ export class TrackorgainzersComponent {
       (response : ResponseInterface) =>{
         this.toaster.success("Blocked Successfully");
         this.router.navigate(['admin-dash','track-organizer']);
-        console.log('response regarding blocking',response);
       },
       (error: any) => {
         console.log('Error regarding blocking', error);
@@ -68,7 +68,6 @@ export class TrackorgainzersComponent {
       (response : ResponseInterface) =>{
         this.toaster.success("Unblocked Successfully");
         this.router.navigate(['admin-dash','track-organizer']);
-        console.log('response regarding unblocking',response);
       },
       (error: any) => {
         console.log('Error regarding Unblocking', error);

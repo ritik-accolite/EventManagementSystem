@@ -26,7 +26,6 @@ export class adminGuard implements CanActivate {
         return true;
       }
       this.router.navigate(['/unauthorised']);
-      console.log('not admin');
       return false;
     } catch (e) {
       return false;
