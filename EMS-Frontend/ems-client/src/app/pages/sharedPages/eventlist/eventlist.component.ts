@@ -44,7 +44,6 @@ export class EventlistComponent implements OnInit {
 
   bookEvent(eventId: number, organizerId: string, ticketPrice: number): void {
     if(localStorage.getItem('jwt')!=null){
-      console.log('in jwt not null');
       this.userdataservice.eventId = eventId;
       this.userdataservice.organizerId = organizerId;
       this.userdataservice.ticketPrice = ticketPrice;

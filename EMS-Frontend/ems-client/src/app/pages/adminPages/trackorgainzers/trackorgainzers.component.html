@@ -8,10 +8,10 @@
     </button>
   </div>
   <h2>All {{ listTitle }}</h2>
+  <div class="table-responsive">
   <table class="table table-striped table-hover">
     <thead class="table-dark">
       <tr>
-        <th>{{ listTitle }} ID</th>
         <th>{{ listTitle }} Name</th>
         <th>Email</th>
         <th>Phone</th>
@@ -24,7 +24,6 @@
         *ngFor="let person of organizers"
         (click)="redirectToViewEvent(person.id, listTitle)"
       >
-        <td>{{ person.id }}</td>
         <td>{{ person.firstName }} {{ person.lastName }}</td>
         <td>{{ person.email }}</td>
         <td>{{ person.phoneNumber }}</td>
@@ -47,4 +46,5 @@
       </tr>
     </tbody>
   </table>
+</div>
 </div>

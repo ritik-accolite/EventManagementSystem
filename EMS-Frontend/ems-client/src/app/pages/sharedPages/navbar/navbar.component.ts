@@ -63,7 +63,7 @@ export class NavbarComponent implements OnInit {
       (response: any) => {
         localStorage.removeItem('jwt');
         localStorage.removeItem('Role');
-        console.log('Logout successful:', response.message);
+        localStorage.removeItem('LoginUserId');
         this.toaster.info('Successfully Logged out.')
         this.isLoggedIn = false;
         this.setDashboardLink('Home');
