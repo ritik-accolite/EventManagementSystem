@@ -38,8 +38,8 @@ namespace WebApplicationServer.Controllers
                 return response;
             }
 
-            var tokenByte = RandomNumberGenerator.GetBytes(64);
-            var emailToken = Convert.ToBase64String(tokenByte);
+            var tokenByte = RandomNumberGenerator.GetInt32(100000,1000000);
+            var emailToken = Convert.ToString(tokenByte);
             user.ResetPasswordToken = emailToken;
             user.ResetPasswordExpiry = DateTime.Now.AddMinutes(30);
 

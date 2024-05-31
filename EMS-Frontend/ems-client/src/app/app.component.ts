@@ -7,6 +7,7 @@ import { HomeComponent } from './pages/sharedPages/home/home.component';
 import { Router } from 'express';
 import { NavbarComponent } from "./pages/sharedPages/navbar/navbar.component";
 import { FooterComponent } from './pages/sharedPages/footer/footer.component';
+import { SpinnerComponent } from './pages/sharedPages/spinner/spinner.component';
 
 @Component({
     selector: 'app-root',
@@ -16,7 +17,7 @@ import { FooterComponent } from './pages/sharedPages/footer/footer.component';
     providers: [NavbarComponent, HomeComponent, FooterComponent],
     imports: [RouterOutlet, FormsModule, HttpClientModule, CommonModule,
         RouterModule, RouterLink, RouterLinkActive, NavbarComponent,
-        FooterComponent]
+        FooterComponent,SpinnerComponent]
 })
 export class AppComponent { 
   registerObj: any = {

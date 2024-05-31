@@ -15,6 +15,7 @@ import { ToastrService } from 'ngx-toastr';
   styleUrl: './login.component.css'
 })
 export class LoginComponent {
+  // isLoading: boolean = false;
   loginDataForm!: FormGroup;
   toaster=inject(ToastrService);
   username: string = '';
@@ -33,6 +34,11 @@ export class LoginComponent {
       password: ['', [Validators.required, Validators.minLength(6)]]
     });
   }
+
+  // handleLoading() : void {
+  //   console.log("Logging")
+  //   this.isLoading = !this.isLoading
+  // }
 
   onSubmit(): void {
   

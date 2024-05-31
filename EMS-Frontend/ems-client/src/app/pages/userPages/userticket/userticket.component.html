@@ -1,0 +1,166 @@
+<div class="invoice">
+  <div class="container">
+    <div class="card">
+      <div class="card-body">
+        <button type="button" class="btn btn-dark" (click)="generatePDF()">
+          <i class="fa fa-print"></i> Download Ticket
+        </button>
+        <div id="invoice">
+          <div class="toolbar hidden-print">
+            <div class="text-end">
+            </div>
+            <hr />
+          </div>
+          <div class="invoice overflow-auto">
+            <div style="min-width: 600px">
+              <header>
+                <div class="row">
+                  <div class="col">
+                    <a >
+                      <img
+                        src="../../../../assets/img/eventhubLogo/182260711_padded_logo.png"
+                        width="80"
+                        alt=""
+                      />
+                    </a>
+                  </div>
+                  <div class="col company-details">
+                    <h2 class="name">
+                      <a > EventHub </a>
+                    </h2>
+                    <div>
+                      Sector 58, Magnum Towers, Gurugram, Haryana, 120006
+                    </div>
+                    <div>+91-9999193330</div>
+                    <div>ajay.karode&#64;accolitedigital.com</div>
+                  </div>
+                </div>
+              </header>
+              <main>
+                <div class="row contacts">
+                  <div class="col invoice-to">
+                    <div class="text-gray-light">INVOICE TO:</div>
+                    <h5 class="to">{{eventDetails.userName}}</h5>
+                    <div class="email">
+                      <h6
+                        >{{eventDetails.userEmail}}</h6
+                      >
+                    </div>
+                  </div>
+                  <div class="col invoice-details">
+                    <h5 class="invoice-id">Booking ID : {{eventDetails.bookingId}}</h5>
+                    <div class="date">Date of Invoice: {{currentDate | date : 'dd-MM-yyyy-HH-mm'}}</div>
+                  </div>
+                </div>
+                <table>
+                  <thead>
+                    <tr>
+                      <th>EVENT ID</th>
+                      <th class="text-left">EVENT NAME</th>
+                      <th class="text-right">TOTAL TICKETS</th>
+                      <th class="text-right">TICKET PRICE</th>
+                      <th class="text-right">TOTAL</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td class="no">04</td>
+                      <td class="text-left">
+                        <h3>{{ eventDetails.eventName }}</h3>
+                      </td>
+                      <td class="unit">{{ eventDetails.numberOfTickets }}</td>
+                      <td class="qty">₹ {{ eventDetails.ticketPrice }}</td>
+                      <td class="total">₹ {{ eventDetails.totalPrice }}</td>
+                    </tr>
+                  </tbody>
+                  <tfoot>
+                    <tr>
+                      <td colspan="2"></td>
+                      <td colspan="2">GRAND TOTAL</td>
+                      <td>₹ {{ eventDetails.totalPrice }}</td>
+                    </tr>
+                  </tfoot>
+                </table>
+
+                <h3><strong>EVENT DETAILS</strong></h3>
+
+                <table class="table table-striped">
+                  <thead>
+                    <tr>
+                      <th scope="row">EVENT DATE</th>
+                      <td>{{ eventDetails.eventDate | date : 'dd-MM-yyyy' }}</td>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th scope="row">EVENT TIME</th>
+                      <td>{{eventDetails.eventTime}}</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">LOCATION</th>
+                      <td>{{eventDetails.eventLocation}}</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">CHIEF GUEST</th>
+                      <td>{{eventDetails.chiefGuest}}</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">DESCRIPTION</th>
+                      <td>
+                        {{eventDetails.eventDescription}}
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+
+                <div class="thanks">Thank you!</div>
+                <div class="notices">
+                  <div>NOTICE:</div>
+                  <div class="notice">
+                    <p>
+                      <strong>Cancellation Policy:</strong> Cancellations must
+                      be made at least 48 hours before the event start time to
+                      receive a full refund.
+                    </p>
+                    <p>
+                      <strong>Refund Policy:</strong> Refunds will be processed
+                      within 5-7 business days after the cancellation request is
+                      approved.
+                    </p>
+                    <p>
+                      <strong>Contact Information:</strong> For any questions or
+                      issues, please contact our support team.
+                    </p>
+                    <p>
+                      <strong>Terms and Conditions:</strong> By booking this
+                      event, you agree to our terms and conditions.
+                    </p>
+                    <p>
+                      <strong>Important Dates:</strong> Last date for
+                      cancellation without penalty is [Date]. Early bird
+                      discount ends on [Date].
+                    </p>
+                    <p>
+                      <strong>Safety Notice:</strong> Please adhere to all
+                      safety protocols and guidelines provided by the event
+                      organizers.
+                    </p>
+                  </div>
+                </div>
+              </main>
+              <footer>
+                Invoice was created on a computer and is valid without the
+                signature and seal.
+              </footer>
+            </div>
+
+            <!--DO NOT DELETE THIS div. IT is responsible for showing footer always at the bottom-->
+            <div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- <button (click)="generatePDF()">Download Invoice</button> -->
+</div>
