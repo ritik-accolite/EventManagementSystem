@@ -13,5 +13,6 @@ namespace WebApplicationServer.Services.IService
         public Task<ResponseViewModel> BookTickets(AddBookedEventViewModel addBookedEvent);
         public Task<EventTicketStatusViewModel> GetEventTicketStatus(string organizerId);
         public Task<List<GetAllBookedEventByAdminViewModel>> GetAllBookedEventsByAdmin();
+        public Task<ETicketViewModel> GenerateETicketAsync(int bookingId);
     }
 }

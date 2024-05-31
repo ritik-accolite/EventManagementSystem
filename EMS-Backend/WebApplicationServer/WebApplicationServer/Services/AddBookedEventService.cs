@@ -225,5 +225,41 @@ namespace WebApplicationServer.Services
             return eventTicketStatus;
         }
 
-    }
+
+        public async Task<ETicketViewModel> GenerateETicketAsync(int bookingId)
+        {
+            var response = new ETicketViewModel();
+
+            var bookedEventDetails = await _context.BookedEvents
+                .Where(be => be.BookingId == bookingId)
+                .Include(be => be.Event)
+                .ThenInclude(e => e.Organizer)
+                .Include(be => be.User)
+                .FirstOrDefaultAsync();
+
+
+            var eTicket = new ETicketViewModel
+            {
+                BookingId = bookingId,
+                EventName = bookedEventDetails.Event.EventName,
+                EventDate = bookedEventDetails.Event.EventDate,
+                EventLocation = bookedEventDetails.Event.EventLocation,
+                BookingDate = bookedEventDetails.BookingDate,
+                UserName = $"{bookedEventDetails.User?.FirstName} {bookedEventDetails.User?.LastName}",
+                UserEmail = bookedEventDetails.User.Email,
+                UserPhone = bookedEventDetails.User?.PhoneNumber,
+                TicketPrice = bookedEventDetails.Event.TicketPrice,
+                EventTime = bookedEventDetails.Event.Event_Time,
+                ChiefGuest = bookedEventDetails.Event.ChiefGuest,
+                NumberOfTickets = bookedEventDetails.NumberOfTickets,
+                BannerImage = bookedEventDetails.Event.BannerImage,
+                EventDescription = bookedEventDetails.Event.Description,
+                EventCategory = bookedEventDetails.Event.EventCategory,
+                OrganizerName = $"{bookedEventDetails.Event.Organizer?.FirstName} {bookedEventDetails.Event.Organizer?.LastName}",
+                OrganizerEmail = bookedEventDetails.Event.Organizer?.Email,
+                TotalPrice = bookedEventDetails.NumberOfTickets * bookedEventDetails.Event.TicketPrice
+            };
+            return eTicket;
+        }
+        }
 }

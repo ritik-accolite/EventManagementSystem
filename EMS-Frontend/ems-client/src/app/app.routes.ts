@@ -33,6 +33,7 @@ import { UnauthorisedComponent } from './pages/sharedPages/unauthorised/unauthor
 import { organizerGuard } from './guards/organizerGuard/organizer.guard';
 import { userGuard } from './guards/userGuard/user.guard';
 import { EventDetailComponent } from './pages/userPages/event-detail/event-detail.component';
+import { UserticketComponent } from './pages/userPages/userticket/userticket.component';
 
 
 export const routes: Routes = [
@@ -116,6 +117,7 @@ export const routes: Routes = [
       },
       { path: 'event-by-category', component: EventbycategoryComponent },
       { path: 'event-by-location', component: EventbylocationComponent },
+      { path: 'user-ticket', component : UserticketComponent},
       { path: '**', component: UserstatComponent },
     ],
   },

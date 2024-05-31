@@ -6,6 +6,8 @@ import { Router, RouterLink } from '@angular/router';
 import { UserEventsInterface } from '../../../interface/userInterface/user-events-interface';
 import { BookedEventDetailsInterface } from '../../../interface/userInterface/booked-event-details-interface';
 import { ToastrService } from 'ngx-toastr';
+import { response } from 'express';
+import { error } from 'console';
 
 @Component({
   selector: 'app-mybookings',
@@ -23,7 +25,8 @@ export class MybookingsComponent implements OnInit {
 
   constructor(
     private userdataservice: UserdataService,
-    private jwtDecodeService: JwtDecodeService
+    private jwtDecodeService: JwtDecodeService,
+    private router : Router
   ) {}
 
   ngOnInit(): void {
@@ -53,16 +56,46 @@ export class MybookingsComponent implements OnInit {
       );
     }
   }
-
-  eTicket(bookingId: number): void {
-    this.userdataservice.getEticket(bookingId).subscribe(
-      (response: any) => {
-        this.downloadFile(response);
-        
-      },
-      (error) => console.error('Error downloading the E-ticket :', error)
-    );
+  viewTicket(bookingId : number, eventId : number){
+    this.userdataservice.eventId = eventId;
+    this.userdataservice.bookingId = bookingId;
+    this.router.navigate(['user-dash','user-ticket']);
+   }
+   isEventDateInPast(date : Date): boolean {
+    const eventDate = new Date(date);
+    const currentDate = new Date();
+    return eventDate <= currentDate;
   }
+
+   cancelBooking(bookingId: number){
+    this.userdataservice.cancelEvent(bookingId).subscribe(
+      (response: any) => {
+        if(response.status == 200){
+          this.router.navigate(['user-dash','event-list']);
+          this.toaster.success('Event Unbooked Successfully.');
+        } else if (response.status == 404){
+          this.toaster.info('Event not Found. Try Again');
+        } else if (response.status == 500){
+          this.toaster.error('Error Unbooking Event. Try Again!');
+        }
+      },
+      (error: any) => {
+        this.toaster.error('Error Unbooking Event. Try Again!');
+        console.log(error);
+      }
+    )
+   }
+
+  // eTicket(bookingId: number): void {
+  //   this.userdataservice.getEticket(bookingId).subscribe(
+  //     (response: any) => {
+  //       this.toaster.success("Downloaded Successfully!");
+  //       this.downloadFile(response);
+        
+  //     },
+  //     (error) => console.error('Error downloading the E-ticket :', error)
+  //   );
+  // }
 
   downloadFile(data: Blob): void {
     const blob = new Blob([data], { type: 'application/pdf' });
