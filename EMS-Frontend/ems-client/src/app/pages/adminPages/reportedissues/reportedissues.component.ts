@@ -3,6 +3,8 @@ import { UserdataService } from '../../../services/userDataService/userdata.serv
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgFor, NgIf } from '@angular/common';
 import { AllReviewsInterface } from '../../../interface/adminInterface/all-reviews-interface';
+import { theme } from '@cloudinary/url-gen/actions/effect';
+import { ProfileInterface } from '../../../interface/commonInterface/profile-interface';
 
 @Component({
   selector: 'app-reportedissues',
@@ -12,6 +14,7 @@ import { AllReviewsInterface } from '../../../interface/adminInterface/all-revie
   styleUrls: ['./reportedissues.component.css'],
 })
 export class ReportedissuesComponent implements OnInit {
+  name : string = '';
   reviews: AllReviewsInterface[] = [];
   filteredReviews: any[] = [];
   showReported: boolean = false;
@@ -31,7 +34,6 @@ export class ReportedissuesComponent implements OnInit {
       this.filteredReviews = [...this.reviews];
     });
   }
-
   toggleReported() {
     this.showReported = !this.showReported;
     if (this.showReported) {

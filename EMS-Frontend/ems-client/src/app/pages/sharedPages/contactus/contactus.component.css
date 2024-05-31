@@ -356,8 +356,8 @@ body {
   transform: rotateY(0deg);
 }
 .wrapper .back-face img {
-  height: 150px;
-  width: 150px;
+  height: 100px;
+  width: 100px;
   padding: 5px;
   border-radius: 50%;
   background: linear-gradient(375deg, #1cc7d0, #2ede98);
@@ -366,7 +366,7 @@ body {
   text-align: center;
 }
 .back-face .info .title {
-  font-size: 30px;
+  font-size: 25px;
   font-weight: 500;
 }
 .back-face ul {
