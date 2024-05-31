@@ -21,15 +21,14 @@ export class adminGuard implements CanActivate {
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     try {
       const token = localStorage?.getItem('jwt');
-      const role = this.jwtDecodeService.role;
-      if (token && !this.jwtHelper.isTokenExpired(token) && role === 'Admin') {
+      const role = localStorage?.getItem('Role');
+      if (token && !this.jwtHelper.isTokenExpired(token) && role == 'Admin') {
         return true;
       }
       this.router.navigate(['/unauthorised']);
       console.log('not admin');
       return false;
     } catch (e) {
-      console.log('error Admin guard', e);
       return false;
     }
   }

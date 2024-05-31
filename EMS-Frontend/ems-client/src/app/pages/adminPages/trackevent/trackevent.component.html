@@ -5,9 +5,9 @@
       <tr>
         <th>Event ID</th>
         <th>Organizer Name</th>
-        <th>EventName</th>
-        <th>Date</th>
-        <th>Time</th>
+        <th class="tHead">EventName</th>
+        <th class="tHead">Date</th>
+        <th class="tHead">Time</th>
         <th>Seats Left</th>
         <th>Ticket Price</th>
       </tr>
@@ -17,7 +17,7 @@
         <tr role="button" *ngIf="event" (click)="onSelectEvent(event.eventId)">
           <td>{{ event.eventId }}</td>
           <td>{{ event.organizerFirstName }} {{ event.organizerLastName }}</td>
-          <td>{{ event.eventName }} || {{ event.eventCategory }}</td>
+          <td>{{ event.eventName }} | {{ event.eventCategory }}</td>
           <td>{{ event.eventDate | date : "dd-MM-yyyy" }}</td>
           <!-- <td>{{event.eventDate}}</td> -->
           <td>{{ event.eventTime }}</td>

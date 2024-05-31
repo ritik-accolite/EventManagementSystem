@@ -1,9 +1,10 @@
 import { DatePipe, NgFor, NgIf, CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { Component , OnInit, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { Component , OnInit, CUSTOM_ELEMENTS_SCHEMA, inject } from '@angular/core';
 import { UserdataService } from '../../../services/userDataService/userdata.service';
 import { ActivatedRoute, Router, RouterLink, RouterOutlet } from '@angular/router';
 import { EventInterface } from '../../../interface/commonInterface/event-interface';
+import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
@@ -11,13 +12,14 @@ import { EventInterface } from '../../../interface/commonInterface/event-interfa
   standalone: true,
   imports: [NgIf,NgFor, RouterLink, DatePipe, CommonModule, RouterOutlet ],
   templateUrl: './eventlist.component.html',
-  styleUrl: './eventlist.component.css',
+  styleUrls: ['./eventlist.component.css', '../contactus/contactus.component.css'],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class EventlistComponent implements OnInit {
   title = 'ems-client';
   events: any[] = [];
   organizer: any[] = [];
+  toaster = inject(ToastrService);
 
   constructor(
     private http: HttpClient,
@@ -39,11 +41,19 @@ export class EventlistComponent implements OnInit {
     );
   }
 
+
   bookEvent(eventId: number, organizerId: string, ticketPrice: number): void {
-    this.userdataservice.eventId = eventId;
-    this.userdataservice.organizerId = organizerId;
-    this.userdataservice.ticketPrice = ticketPrice;
-    this.router.navigate(['event-bookings']);
+    if(localStorage.getItem('jwt')!=null){
+      console.log('in jwt not null');
+      this.userdataservice.eventId = eventId;
+      this.userdataservice.organizerId = organizerId;
+      this.userdataservice.ticketPrice = ticketPrice;
+      this.router.navigate(['user-dash','event-bookings']);
+    }
+    else{
+      this.toaster.info('Please Login to book the events!');
+      this.router.navigate(['/login']);
+    }
   }
   }
 

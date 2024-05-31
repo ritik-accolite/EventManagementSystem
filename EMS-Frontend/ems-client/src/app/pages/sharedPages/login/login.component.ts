@@ -45,7 +45,19 @@ export class LoginComponent {
     this.userDataService.loginUser(this.loginDataForm.value)
       .subscribe(
         (response: any) => {
-          this.toaster.success("Successfully Logged In","Success");
+          if(response.status == 403){
+            this.toaster.error("You have Been Blocked by Admin");
+            this.invalidLogin = true; 
+            return;
+          } else if (response.status == 400){
+            this.toaster.error("Please verify the token sent on mail.");
+            this.invalidLogin = true; 
+            return;
+          } else if (response.status == 401){
+            this.toaster.error("Please enter valid credentials.");
+            this.invalidLogin = true;
+          }
+          this.toaster.success("Successfully Logged In");
           const token = response.token;
           localStorage.setItem("jwt", token); 
           const decodedToken = this.jwtDecodeService.decodeToken(token);

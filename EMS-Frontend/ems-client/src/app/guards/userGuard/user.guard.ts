@@ -21,14 +21,13 @@ export class userGuard implements CanActivate {
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     try {
       const token = localStorage?.getItem('jwt');
-      const role = this.jwtDecodeService.role;
-      if (token && !this.jwtHelper.isTokenExpired(token) && role === 'User') {
+      const role = localStorage?.getItem('Role');
+      if (token && !this.jwtHelper.isTokenExpired(token) && role == 'User') {
         return true;
       }
       this.router.navigate(['/unauthorised']);
       return false;
     } catch (e) {
-      console.log('error Organizer guard', e);
       return false;
     }
   }

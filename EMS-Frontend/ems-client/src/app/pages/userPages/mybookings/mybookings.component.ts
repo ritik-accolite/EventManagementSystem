@@ -1,4 +1,3 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit, inject } from '@angular/core';
 import { UserdataService } from '../../../services/userDataService/userdata.service';
 import { DatePipe, NgFor, NgIf } from '@angular/common';
@@ -106,7 +105,7 @@ export class MybookingsComponent implements OnInit {
     link.download = 'e-ticket.pdf';
     link.click();
     window.URL.revokeObjectURL(url);
-    this.toaster.success("Downloaded Successfully!");
+    this.toaster.info("Downloaded Successfully!");
   }
 
   addReview(eventId: number): void {

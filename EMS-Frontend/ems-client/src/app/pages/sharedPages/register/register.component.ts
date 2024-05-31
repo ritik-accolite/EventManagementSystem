@@ -50,6 +50,8 @@ export class RegisterComponent implements OnInit {
     }
   }
   onSubmit() {
+
+    console.log('Outside');
     if (this.userDataForm.valid) {
       console.log('Inside');
       this.userDataService.registerUser(this.userDataForm.value).subscribe(
