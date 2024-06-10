@@ -1,16 +1,23 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { UserdataService } from '../../../services/userDataService/userdata.service';
 import { JwtDecodeService } from '../../../services/jwtDecodeService/jwtDecode.service';
-import { ActivatedRoute , Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule, DatePipe, NgIf } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
+import { error } from 'console';
+
 @Component({
   selector: 'app-eventbooking',
   standalone: true,
-  imports: [ReactiveFormsModule , NgIf , CommonModule, DatePipe],
+  imports: [ReactiveFormsModule, NgIf, CommonModule, DatePipe],
   templateUrl: './eventbooking.component.html',
-  styleUrl: './eventbooking.component.css'
+  styleUrls: ['./eventbooking.component.css'],
 })
 export class EventbookingComponent implements OnInit {
   bookEventForm: FormGroup;
@@ -22,10 +29,12 @@ export class EventbookingComponent implements OnInit {
   bookingMessage: string = '';
   status: number = 0;
   totalPrice: number = 0;
-  paymentForm: FormGroup;
   showPaymentPopup: boolean = false;
-  eventDetails : any;
-  toaster=inject(ToastrService);
+  eventDetails: any;
+  toaster = inject(ToastrService);
+  validatePayment: boolean = false;
+  token: string = '';
+
   constructor(
     private fb: FormBuilder,
     private userdataservice: UserdataService,
@@ -34,22 +43,22 @@ export class EventbookingComponent implements OnInit {
     private router: Router
   ) {
     this.bookEventForm = this.fb.group({
-      numberOfTickets: ['', Validators.required ]
-    });
-    this.paymentForm = this.fb.group({
-      cardNumber: ['',[Validators.required, Validators.maxLength(16)]],
-      expiryDate: ['',Validators.required],
-      cvv: ['',[Validators.required,Validators.maxLength(3)]]
+      numberOfTickets: [
+        '',
+        [Validators.required, Validators.min(1), Validators.max(5)],
+      ],
     });
   }
+
   ngOnInit(): void {
     this.role = this.jwtDecodeService.role;
     this.id = this.jwtDecodeService.id;
-    this.route.params.subscribe(params => {
+    this.route.params.subscribe((params) => {
       this.eventId = this.userdataservice.eventId;
       this.organizerId = this.userdataservice.organizerId;
       this.ticketPrice = this.userdataservice.ticketPrice;
     });
+
     this.userdataservice.getEventById(this.eventId).subscribe(
       (eventDetails: any) => {
         this.eventDetails = eventDetails.getEventById;
@@ -59,53 +68,70 @@ export class EventbookingComponent implements OnInit {
       }
     );
   }
-  openPaymentPopup() {
-    this.showPaymentPopup = true;
+
+  paymentDone() {
+    this.userdataservice.successPayment(this.token).subscribe(
+      (response: any) => {
+        if (response.status == 200) {
+          this.router.navigate(['user-dash', 'mybookings']);
+          this.toaster.info('Event Ticket Successfuly booked');
+        } else if (response.status == 404) {
+          this.toaster.info('Event not Found. Try Again');
+        }else if (response.status == 400) {
+          this.toaster.info('You have already booked tickets for this event');
+        }else if (response.status == 401) {
+          this.toaster.info('Not enough tickets available for this event');
+        }else if (response.status == 402) {
+          this.toaster.info('You cannot book more than 5 tickets.');
+        } else if (response.status == 500) {
+          this.toaster.error('Error Unbooking Event. Try Again!');
+        }
+      },
+      (error: any) => {
+        console.log(error);
+      }
+    );
   }
-  closePaymentPopup() {
-    this.showPaymentPopup = false;
-  }
+
   onSubmit() {
     if (this.bookEventForm.valid) {
       const formData = {
-        ...this.bookEventForm.value,
         eventId: this.eventId,
-        EventOrganizerId: this.organizerId,
-        UserId: this.id
+        userId: this.id,
+        numberOfTickets: this.bookEventForm.value.numberOfTickets,
       };
-      this.closePaymentPopup();
-      this.userdataservice.bookEvent(formData).subscribe(
-        (response) => {
-          this.status = response.status;
-          if (this.status === 200) {
-            this.bookingMessage = response.message;
-            this.toaster.success("Event Successfully Booked","Success");
-            this.router.navigate(['user-dash','mybookings']);
-          } else {
-            this.bookingMessage = 'Error: ' + response.message;
-            this.toaster.error("Error booking event");
+
+      this.userdataservice
+        .createCheckoutSession(
+          formData.eventId,
+          formData.userId,
+          formData.numberOfTickets
+        )
+        .subscribe(
+          (response: any) => {
+            console.log('res', response.url);
+            console.log(
+              'eventid : ',
+              formData.eventId,
+              'userid: ',
+              formData.userId,
+              'no. of ticket: ',
+              formData.numberOfTickets
+            );
+            window.open(response.url, '_blank'); // stripe
+            this.token = response.token;
+            this.validatePayment = true;
+          },
+          (error) => {
+            this.toaster.error('Error creating checkout session', 'Error');
+            console.error('Error creating checkout session', error);
           }
-        },
-        (error) => {
-          this.status = error.status || 500;
-          this.bookingMessage = 'Error: ' + (error.error.message || 'Unknown error');
-          this.toaster.error("Error booking event");
-          console.error('Error booking event', error);
-        }
-      );
+        );
     }
   }
+
   calculatePrice() {
     const numberOfTickets = this.bookEventForm.get('numberOfTickets')?.value;
     this.totalPrice = numberOfTickets * this.ticketPrice;
   }
 }
-
-
-
-
-
-
-
-
-

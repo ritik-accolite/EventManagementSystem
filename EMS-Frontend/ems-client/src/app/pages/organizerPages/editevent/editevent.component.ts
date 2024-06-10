@@ -1,5 +1,10 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  Validators,
+  ReactiveFormsModule,
+} from '@angular/forms';
 import { UserdataService } from '../../../services/userDataService/userdata.service';
 import { Router } from '@angular/router';
 import { EventDetailsInterface } from '../../../interface/organizerInterface/event-details-interface';
@@ -10,20 +15,20 @@ import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-editevent',
-  standalone : true,
+  standalone: true,
   imports: [ReactiveFormsModule],
   templateUrl: './editevent.component.html',
-  styleUrls: ['./editevent.component.css']
+  styleUrls: ['./editevent.component.css'],
 })
 export class EditeventComponent implements OnInit {
   eventForm: FormGroup;
   eventId: any;
-  toaster=inject(ToastrService);
+  toaster = inject(ToastrService);
 
   constructor(
     private fb: FormBuilder,
     private userdataService: UserdataService,
-    private router : Router
+    private router: Router
   ) {
     this.eventForm = this.fb.group({
       eventName: ['', Validators.required],
@@ -35,40 +40,46 @@ export class EditeventComponent implements OnInit {
       chiefGuest: ['', Validators.required],
       ticketPrice: ['', Validators.required],
       capacity: ['', Validators.required],
-      bannerImage: []
+      bannerImage: [],
     });
   }
 
   ngOnInit(): void {
     this.eventId = this.userdataService.eventId;
     if (this.eventId) {
-      this.userdataService.getEventDetails(this.eventId).subscribe((eventDetails: EventDetailsByIdInterface) => {
-        // Prefill form with fetched event details
-        console.log("prefil details",eventDetails.getEventById);
-        this.eventForm.patchValue(eventDetails.getEventById);
-      },
-      (error) => {
-        console.error("Error fetching event details:", error);
-      });
+      this.userdataService.getEventDetails(this.eventId).subscribe(
+        (eventDetails: EventDetailsByIdInterface) => {
+          // Prefill form with fetched event details
+          console.log('prefil details', eventDetails.getEventById);
+          this.eventForm.patchValue(eventDetails.getEventById);
+        },
+        (error) => {
+          console.error('Error fetching event details:', error);
+        }
+      );
     }
   }
 
   onSubmit() {
     if (this.eventForm.valid) {
       // Send a POST request with edited form data to update event details
-      this.toaster.success("Succesfully Submitted","Success");
-      this.userdataService.updateEvent(this.eventId, this.eventForm.value).subscribe((response: any) => {
-        this.router.navigate(['organizer-dash','app-myevents']);
-      });
+      this.toaster.success('Succesfully Submitted', 'Success');
+      this.userdataService
+        .updateEvent(this.eventId, this.eventForm.value)
+        .subscribe((response: any) => {
+          this.router.navigate(['organizer-dash', 'app-myevents']);
+        });
     }
   }
 
   onDelete() {
-    if (confirm("Are you sure you want to delete this event?")) {
-      this.toaster.info("Deleted Succesfully");
-      this.userdataService.deleteEvent(this.eventId).subscribe((response: any) => {
-        this.router.navigate(['user-dash','/app-myevents']);
-      });
+    if (confirm('Are you sure you want to delete this event?')) {
+      this.toaster.info('Deleted Succesfully');
+      this.userdataService
+        .deleteEvent(this.eventId)
+        .subscribe((response: any) => {
+          this.router.navigate(['user-dash', '/app-myevents']);
+        });
     }
-}
+  }
 }

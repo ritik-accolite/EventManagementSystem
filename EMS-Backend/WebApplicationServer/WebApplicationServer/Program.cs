@@ -5,12 +5,15 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
+using Stripe;
 using System;
 using System.Text;
 using WebApplicationServer.Data;
 using WebApplicationServer.Models;
 using WebApplicationServer.Services;
 using WebApplicationServer.Services.IService;
+using Person = WebApplicationServer.Models.Person;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -34,6 +37,10 @@ builder.Services.AddCors(options =>
 // Configure DbContext
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+
+
+StripeConfiguration.ApiKey = builder.Configuration.GetSection("Stripe:SecretKey").Get<string>();
 
 
 
@@ -75,6 +82,7 @@ builder.Services.AddScoped<IGetAllPerson, GetAllPerson>();
 builder.Services.AddScoped<ISendRegisterSuccessMailService, SendRegisterMailService>();
 builder.Services.AddScoped<IEventReviewService, EventReviewService>();
 builder.Services.AddScoped<CloudinaryService>();
+builder.Services.AddScoped<StripeService>();
 
 // Configure Identity Core
 builder.Services.AddIdentityCore<Person>(options =>

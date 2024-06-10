@@ -70,7 +70,7 @@ export class OrganizerstatComponent implements OnInit {
       chiefGuest: string;
       eventLocation: string;
       eventDescription: string;
-      bannerImage: string,
+      bannerImage: string;
       ticketPrice: number;
       totalTicketsSold: number;
       totalTicketsLeft: number;
@@ -85,7 +85,6 @@ export class OrganizerstatComponent implements OnInit {
           (ticket) => ticket.eventId === event.eventId
         );
         if (correspondingTicket) {
-          // Merge ticket information into the event object
           const mergedEvent: MergedEvent = {
             eventId: event.eventId,
             eventName: event.eventName,

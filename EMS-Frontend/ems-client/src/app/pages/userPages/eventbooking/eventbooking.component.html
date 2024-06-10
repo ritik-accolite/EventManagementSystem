@@ -1,6 +1,6 @@
-<div class="book-event-container" >
+<div class="book-event-container">
   <div class="event-info">
-    <h2>Book Tickets </h2>
+    <h2>Book Tickets</h2>
     <h3 class="text-danger">{{ eventDetails.eventName }}</h3>
     <p class="category">{{ eventDetails.eventCategory }}</p>
     <p class="date-time"><strong>Date:</strong> {{ eventDetails.eventDate | date: 'dd-MM-yyyy' }}</p>
@@ -10,77 +10,22 @@
     <p class="seats-left"><strong>Seats Left:</strong> {{ eventDetails.capacity }}</p>
   </div>
   <div class="book-form">
-    <form [formGroup]="bookEventForm">
+    <form [formGroup]="bookEventForm" (ngSubmit)="onSubmit()">
       <label for="numberOfTickets">Number of Tickets:</label>
-      <input type="number" id="numberOfTickets" formControlName="numberOfTickets" class="form-control"
-        (input)="calculatePrice()" min="1" max="5" required>
-      <div *ngIf="
-        bookEventForm.get('numberOfTickets')?.errors?.['min']
-        && bookEventForm.get('numberOfTickets')?.touched
-      " class="text-danger">
+      <input type="number" id="numberOfTickets" formControlName="numberOfTickets" class="form-control" (input)="calculatePrice()" min="1" max="5" required>
+      <div *ngIf="bookEventForm.get('numberOfTickets')?.errors?.['min'] && bookEventForm.get('numberOfTickets')?.touched" class="text-danger">
         Number of tickets should be more than 1.
       </div>
       <div *ngIf="totalPrice > 0">
         <p>Total Price: ₹ {{ totalPrice }}</p>
       </div>
-      <button class="book-now" *ngIf="!showPaymentPopup" (click)="openPaymentPopup()">Book Now</button>
+      <button type="submit" class="book-now"  [disabled]="validatePayment">Book Now</button>
     </form>
-    <div *ngIf="bookingMessage" class="booking-message">
-      {{ bookingMessage }}
+    <p><strong> Note :</strong> Once The Payment is Done, Visit this page again to confirm your booking by clicking on confirm booking button below.</p>
+    <p>The Button will be activated once the payment is done. Don't refresh the page before clicking on Confirm Booking Button.</p>
+    <div *ngIf="validatePayment">
+      <button class="btn btn-primary" (click) = "paymentDone()" > Confirm Booking</button>
     </div>
-  </div>
-  <!-- Payment popup -->
-  <div *ngIf="showPaymentPopup" class="payment-popup">
-    <div class="payment-popup-content">
-      <h2>Enter Payment Details</h2>
-      <form (ngSubmit)="onSubmit()" [formGroup]="paymentForm">
-        <div class="form-group">
-          <label for="cardNumber">Card Number</label>
-          <input type="number" id="cardNumber" formControlName="cardNumber" class="form-control" maxlength="16" />
-          <div *ngIf="
-              paymentForm.get('cardNumber')?.invalid &&
-              (paymentForm.get('cardNumber')?.dirty ||
-                paymentForm.get('cardNumber')?.touched)
-            ">
-            <div *ngIf="paymentForm.get('cardNumber')?.errors?.['required']">
-              Card number is required.
-            </div>
-            <div *ngIf="paymentForm.get('cardNumber')?.errors?.['maxlength']">
-              Card number must be 16 digits.
-            </div>
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="expiryDate">Expiry Date</label>
-          <input type="text" id="expiryDate" formControlName="expiryDate" class="form-control" placeholder="MM/YYYY" />
-          <div *ngIf="
-              paymentForm.get('expiryDate')?.invalid &&
-              (paymentForm.get('expiryDate')?.dirty ||
-                paymentForm.get('expiryDate')?.touched)
-            ">
-            <div *ngIf="paymentForm.get('expiryDate')?.errors?.['required']">
-              Expiry date is required.
-            </div>
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="cvv">CVV</label>
-          <input type="number" id="cvv" formControlName="cvv" class="form-control" maxlength="3" />
-          <div *ngIf="
-              paymentForm.get('cvv')?.invalid &&
-              (paymentForm.get('cvv')?.dirty || paymentForm.get('cvv')?.touched)
-            ">
-            <div *ngIf="paymentForm.get('cvv')?.errors?.['required']">
-              CVV is required.
-            </div>
-            <div *ngIf="paymentForm.get('cvv')?.errors?.['maxlength']">
-              CVV must be 3 digits.
-            </div>
-          </div>
-        </div>
-        <button type="submit" class="btn btn-primary">Submit Payment</button>
-        <button class="btn btn-danger mx-2 my-2" (click)="closePaymentPopup()">Close</button>
-      </form>
-    </div>
+    
   </div>
 </div>

@@ -4,6 +4,8 @@ using WebApplicationServer.Data;
 using WebApplicationServer.Models.ResponseModels;
 using WebApplicationServer.Models.ViewModels;
 using WebApplicationServer.Services.IService;
+using Stripe.Checkout;
+using static System.Net.WebRequestMethods;
 
 namespace WebApplicationServer.Controllers
 {
