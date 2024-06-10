@@ -23,6 +23,7 @@ import { UpdateEventInterface } from '../../interface/organizerInterface/update-
 import { ResponseInterface } from '../../interface/commonInterface/response-interface';
 import { EventDetailInterface } from '../../interface/userInterface/event-detail-interface';
 import { viewTicketInterface } from '../../interface/userInterface/view-ticket-interface';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -37,6 +38,7 @@ export class UserdataService {
 
   loginEvent: EventEmitter<boolean> = new EventEmitter<boolean>();
   roleEvent: EventEmitter<string> = new EventEmitter<string>();
+
 
   // https://eventhubfusion.azurewebsites.net/
 
@@ -150,7 +152,17 @@ export class UserdataService {
 
   private cancelEventUrl = 'https://eventhubfusion.azurewebsites.net/api/BookedEvent/unbookEvent';
 
+  private readonly BASE_URL = 'https://eventhubfusion.azurewebsites.net/api';
+  // private readonly BASE_URL = 'http://localhost:5299/api';
+  private readonly CHECKOUT_SESSION_URL = `${this.BASE_URL}/checkout/create-checkout-session`;
+
+  private successPaymentUrl = `${this.BASE_URL}/Checkout/bookingconfirmation`;
+
+
+
+
   constructor(private http: HttpClient) {}
+
 
   registerUser(userdata: RegisterInterface): Observable<any> {
     return this.http.post(`${this.registerUrl}/register`, userdata);
@@ -355,6 +367,18 @@ export class UserdataService {
   cancelEvent(bookingId: number): Observable<any> {
     return this.http.delete<any>(
       `${this.cancelEventUrl}/${bookingId}`
+    );
+  }
+
+
+  createCheckoutSession(eventId: number, userId: string, numberOfTickets: number): Observable<any> {
+    const requestBody = { EventId: eventId, UserId: userId, NumberOfTickets: numberOfTickets };
+    return this.http.post<{ status: number; message: string; url: string }>(this.CHECKOUT_SESSION_URL, requestBody);
+  }
+
+  successPayment(sessionId: string): Observable<any> {
+    return this.http.get<any>(
+      `${this.successPaymentUrl}/${sessionId}`
     );
   }
 }

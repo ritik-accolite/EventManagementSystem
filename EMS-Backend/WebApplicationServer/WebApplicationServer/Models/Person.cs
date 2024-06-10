@@ -20,12 +20,6 @@ namespace WebApplicationServer.Models
         public bool IsBlocked { get; set; }
     }
 
-    //public enum UserRole
-    //{
-    //    Admin,
-    //    Organizer,
-    //    User
-    //}
 }
 
 

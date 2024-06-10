@@ -363,9 +363,9 @@ input:focus {
 }
 .container {
   display: flex;
-  justify-content: flex-end; /* Align the container and its contents to the right */
+  justify-content: flex-end;
 }
 #Checkout {
   width: 50%;
-  height: auto; /* Adjust the width of the form as needed */
+  height: auto;
 }

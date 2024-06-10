@@ -112,6 +112,7 @@ namespace WebApplicationServer.Services
         }
 
 
+
         public async Task<ResponseViewModel> UnbookEvent(int bookingId)
         {
             ResponseViewModel response = new ResponseViewModel();
@@ -224,6 +225,10 @@ namespace WebApplicationServer.Services
 
             return eventTicketStatus;
         }
+
+
+
+    
 
 
         public async Task<ETicketViewModel> GenerateETicketAsync(int bookingId)
