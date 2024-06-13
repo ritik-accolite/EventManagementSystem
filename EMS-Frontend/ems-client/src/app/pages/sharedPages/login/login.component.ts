@@ -60,6 +60,7 @@ export class LoginComponent {
         } else if (response.status == 401) {
           this.toaster.error('Please enter valid credentials.');
           this.invalidLogin = true;
+          return ;
         }
         this.toaster.success('Successfully Logged In');
         const token = response.token;

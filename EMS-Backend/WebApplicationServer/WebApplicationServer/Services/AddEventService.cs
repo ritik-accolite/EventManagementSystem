@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using WebApplicationServer.Data;
+using WebApplicationServer.Email;
 using WebApplicationServer.Models;
 using WebApplicationServer.Models.ResponseModels;
 using WebApplicationServer.Models.ViewModels;
@@ -13,11 +14,14 @@ namespace WebApplicationServer.Services
     {
         private readonly ApplicationDbContext _context;
         private readonly CloudinaryService _cloudinaryService;
+        private readonly ISendRegisterSuccessMailService _sendRegisterSuccessMailService;
 
-        public AddEventService(ApplicationDbContext context, CloudinaryService cloudinaryService)
+
+        public AddEventService(ApplicationDbContext context, CloudinaryService cloudinaryService, ISendRegisterSuccessMailService sendRegisterSuccessMailService)
         {
             _context = context;
             _cloudinaryService = cloudinaryService;
+            _sendRegisterSuccessMailService = sendRegisterSuccessMailService;
         }
 
         public async Task<List<EventViewModel>> GetAllEvents()
@@ -152,9 +156,40 @@ namespace WebApplicationServer.Services
                 eventToUpdate.TicketPrice = updateEvent.TicketPrice;
                 eventToUpdate.Capacity = updateEvent.Capacity;
                 eventToUpdate.BannerImage = eventToUpdate.BannerImage;
-                //eventToUpdate.BannerImage = updateEvent.BannerImage;
 
                 await _context.SaveChangesAsync();
+
+                var bookedUsers = await _context.BookedEvents
+                .Where(b => b.EventId == id)
+                .Include(b => b.User) 
+                .ToListAsync();
+
+
+                foreach (var bookedUser in bookedUsers)
+                {
+                    if (bookedUser.User != null)
+                    {
+                        string email = bookedUser.User.Email;
+                        string subject = "Event Updated: " + eventToUpdate.EventName;                        
+                        string message = UpdateEventEmail.EmailBody(
+                            eventToUpdate.EventName,
+                            bookedUser.User.FirstName,
+                            bookedUser.User.LastName,
+                            eventToUpdate.EventDate.ToString(),
+                            eventToUpdate.Event_Time.ToString(),
+                            eventToUpdate.EventLocation,
+                            eventToUpdate.Description);
+
+                        bool emailSent = await _sendRegisterSuccessMailService.SendRegisterSuccessMailAsync(email, subject, message);
+
+                        if (!emailSent)
+                        {
+                            response.Status = 500;
+                            response.Message = "Failed to send update email to some users.";
+                            return response;
+                        }
+                    }
+                }
 
                 response.Status = 200;
                 response.Message = "Event successfully updated";

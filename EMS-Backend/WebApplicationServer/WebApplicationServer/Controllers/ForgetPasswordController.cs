@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using WebApplicationServer.Data;
+using WebApplicationServer.Email;
 using WebApplicationServer.Models;
 using WebApplicationServer.Models.ViewModels;
 using WebApplicationServer.Services.IService;
@@ -47,8 +48,8 @@ namespace WebApplicationServer.Controllers
             var lastName = user.LastName;
             var userName = user.Email;
 
-
-            bool emailSent = await _sendRegisterSuccessMailService.SendRegisterSuccessMailAsync(user.Email, "Reset Password Mail", $"Dear {firstName}{lastName}, We have received a request to change password for {userName} Account. Please use the following Token to set new password. The Token is only valid for 30 minutes. Your token is : {emailToken}. If you have not initiated this request, please contact us on 1800329432 immediately.");
+            string htmlString = ForgetPasswordEmail.ForgetPasswordEmailBody(firstName,lastName,emailToken ,userName);
+            bool emailSent = await _sendRegisterSuccessMailService.SendRegisterSuccessMailAsync(user.Email, "Reset Password Mail", htmlString);
 
             if (!emailSent)
             {

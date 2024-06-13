@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WebApplicationServer.Data;
+using WebApplicationServer.Email;
 using WebApplicationServer.Models;
 using WebApplicationServer.Models.ResponseModels;
 using WebApplicationServer.Models.ResponseModels;
@@ -78,17 +79,21 @@ namespace WebApplicationServer.Controllers
             ResponseViewModel response = new ResponseViewModel();
             var user = await _context.Users.FindAsync(userId);
             var review = await _context.Reviews.FindAsync(reviewId);
-            var reviewid = review.ReviewId;
+            int reviewid = review.ReviewId;
+            var description = review.Description;
+            int eventid = review.EventId;
             if(reviewid == null || !review.IsReported)
             {
                 response.Status = 404;
                 response.Message = "Review not found or not reported";
                 return response;
 
-            } 
+            }
+
+            string htmlstring = IssueResolveEmail.IssueResolveEmailBody(user.Email, reviewid, eventid, description);
             if (user != null)
             {
-                bool emailSent = await _sendRegisterSuccessMailService.SendRegisterSuccessMailAsync(user.Email, "Issue Resolved", "Your reported issue has been resolved.");
+                bool emailSent = await _sendRegisterSuccessMailService.SendRegisterSuccessMailAsync(user.Email, "Issue Resolved", htmlstring);
 
 
                 if (!emailSent)
@@ -109,7 +114,6 @@ namespace WebApplicationServer.Controllers
         }
 
 
-        //GetReviewByEventId
         [HttpGet("admin/reviewsbyeventid/{eventid}")]
         public async Task<GetAllReviewResponseViewModel> GetReviewByEventId(int eventid)
         {

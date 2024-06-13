@@ -1,8 +1,9 @@
 <div class="book-event-container">
+  <h2>Book Tickets</h2>
   <div class="event-info">
-    <h2>Book Tickets</h2>
     <h3 class="text-danger">{{ eventDetails.eventName }}</h3>
     <p class="category">{{ eventDetails.eventCategory }}</p>
+    <p class="date-time"><strong>Description:</strong> {{ eventDetails.description }}</p>
     <p class="date-time"><strong>Date:</strong> {{ eventDetails.eventDate | date: 'dd-MM-yyyy' }}</p>
     <p class="date-time"><strong>Time:</strong> {{ eventDetails.event_Time }}</p>
     <p class="location"><strong>Location:</strong> {{ eventDetails.eventLocation }}</p>
@@ -13,9 +14,13 @@
     <form [formGroup]="bookEventForm" (ngSubmit)="onSubmit()">
       <label for="numberOfTickets">Number of Tickets:</label>
       <input type="number" id="numberOfTickets" formControlName="numberOfTickets" class="form-control" (input)="calculatePrice()" min="1" max="5" required>
-      <div *ngIf="bookEventForm.get('numberOfTickets')?.errors?.['min'] && bookEventForm.get('numberOfTickets')?.touched" class="text-danger">
-        Number of tickets should be more than 1.
-      </div>
+      <span *ngIf="
+      bookEventForm.controls['numberOfTickets']?.errors?.['max']
+      && bookEventForm.controls['numberOfTickets']?.errors?.['min']
+      && bookEventForm.controls['numberOfTickets']?.touched
+    " class="text-danger">
+      Number of tickets should be atleast 1 and less than 6.
+  </span>
       <div *ngIf="totalPrice > 0">
         <p>Total Price: ₹ {{ totalPrice }}</p>
       </div>

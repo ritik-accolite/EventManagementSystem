@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { UserdataService } from '../../../services/userDataService/userdata.service'; // Adjust the import path
+import { UserdataService } from '../../../services/userDataService/userdata.service'; 
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { DatePipe } from '@angular/common';
@@ -16,7 +16,7 @@ export class UserticketComponent implements OnInit {
   eventId: number = 0;
   bookingId: number = 0;
   eventDetails: any;
-  userId: string = ''; // Assume you have the user ID
+  userId: string = '';
   currentDate: Date = new Date();
 
   constructor(

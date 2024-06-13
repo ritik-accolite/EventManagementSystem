@@ -87,7 +87,6 @@ namespace WebApplicationServer.Controllers
 
 
         [HttpPost("blockperson/{personId}")]
-        //[Authorize(Roles = "Admin,SuperAdmin")]
         public async Task<ResponseViewModel> BlockPerson(string personId)
         {
             ResponseViewModel response = new ResponseViewModel();
@@ -100,7 +99,6 @@ namespace WebApplicationServer.Controllers
 
 
         [HttpPost("unblockperson/{personId}")]
-        //[Authorize(Roles = "Admin,SuperAdmin")]
         public async Task<ResponseViewModel> UnblockPerson(string personId)
         {
             ResponseViewModel response = new ResponseViewModel();

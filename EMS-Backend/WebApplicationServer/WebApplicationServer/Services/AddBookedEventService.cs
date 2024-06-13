@@ -185,7 +185,6 @@ namespace WebApplicationServer.Services
         {
             var eventTicketStatus = new EventTicketStatusViewModel();
 
-            // Get events created by the organizer
             var events = await _context.Events
                 .Where(e => e.EventOrganizerId == organizerId)
                 .ToListAsync();
@@ -201,7 +200,6 @@ namespace WebApplicationServer.Services
                     TicketPrice = @event.TicketPrice
                 };
 
-                // Get booked events for the current event
                 var bookedEvents = await _context.BookedEvents
                     .Include(be => be.User)
                     .Where(be => be.EventId == @event.EventId)
@@ -211,7 +209,6 @@ namespace WebApplicationServer.Services
                 {
                     eventStatus.TotalTicketsSold += bookedEvent.NumberOfTickets;
 
-                    // Add user details who booked the event
                     eventStatus.UserTickets.Add(new EventTicketStatusViewModel.UserTicket
                     {
                         Username = $"{bookedEvent.User.FirstName} {bookedEvent.User.LastName}",

@@ -9,6 +9,7 @@ using Org.BouncyCastle.Tls;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using WebApplicationServer.Email;
 using WebApplicationServer.Models;
 using WebApplicationServer.Models.ResponseModels;
 using WebApplicationServer.Models.ViewModels;
@@ -32,6 +33,7 @@ namespace WebApplicationServer.Controllers
             _sendRegisterSuccessMailService = sendRegisterSuccessMailService;
             _userManager = userManager;
             _signInManager = signInManager;
+           
         }
 
         [HttpPost("register")]
@@ -58,7 +60,6 @@ namespace WebApplicationServer.Controllers
                     Role = person.Role,
                     PhoneNumber = person.PhoneNumber,
                     UserName = person.Email,
-                    //Password = person.Password
                 };
 
                 result = await _userManager.CreateAsync(user, person.Password);
@@ -69,18 +70,14 @@ namespace WebApplicationServer.Controllers
                     return response;
                 }
                 message = "Registered Successfully";
-               var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-                var confirmationLink = Url.Action(nameof(ConfirmEmail), "Account", new { token, email = user.Email });
+                var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+                string confirmationLink = Url.Action(nameof(ConfirmEmail), "Account", new { token, email = user.Email });
 
-                string email = user.Email;
-                string space = ".                    ";
-
-                string htmlString = $"Hello {email}, Your Account has been Successfully Created, Please Confirm Your Account By Copying Below Link in the browser : https://eventhubfusion.azurewebsites.net{confirmationLink}{space}BestRegards, EventHub Team";
+                string htmlString = RegisterUserEmail.RegisterEmailBody(user.Email, confirmationLink);
                 bool emailSent = await _sendRegisterSuccessMailService.SendRegisterSuccessMailAsync(user.Email, "Account Created Successfully", htmlString);
 
                 if (!emailSent)
                 {
-                    // Handle email sending failure
                     response.Status = 500;
                     response.Message = "Failed to send registration email";
                     return response;
@@ -134,16 +131,8 @@ namespace WebApplicationServer.Controllers
                     return response;
                 }
 
-                //string email = login.Email;
-                //bool emailSent = await _sendRegisterSuccessMailService.SendRegisterSuccessMailAsync(login.Email, "Successful log on to EventHub", $"Dear {email},{Environment.NewLine}We are pleased to inform you that your recent login to EventHub was successful. If this was not you, please secure your account immediately.{Environment.NewLine}You can review your account details and recent activities by logging into your account. If you have any questions or encounter any issues, our support team is here to help.{Environment.NewLine}Thank you for being a valued member of our community!{Environment.NewLine}Best Regards,{Environment.NewLine}EventHub Team");
-
-                //if (!emailSent)
-                //{
-                //    // Handle email sending failure
-                //    response.Status = 500;
-                //    response.Message = "Failed to send Login email";
-                //    return response;
-                //}
+                string email = login.Email;
+           
                 message = "Login Successfully";
 
                 string role = person.Role;
