@@ -42,13 +42,11 @@ namespace WebApplicationServer.Controllers
                     return response;
                 }
 
-                // Get the list of email of users who have booked the event
                 var bookedUsers = await _context.BookedEvents
                     .Where(be => be.EventId == eventId)
                     .Select(be => be.User.Email)
                     .ToListAsync();
 
-                // Send email notification to each booked user
                 foreach (var email in bookedUsers)
                 {
                     bool emailSent = await _sendRegisterSuccessMailService.SendRegisterSuccessMailAsync(email, "Upcoming Event Reminder", $"Hey {email},\r\n " +

@@ -40,7 +40,6 @@ namespace WebApplicationServer.Controllers
 
                     if (!emailSent)
                     {
-                        // Handle email sending failure
                         response.Status = 500;
                         response.Message = "Failed to send Mail";
                         return response;

@@ -58,6 +58,7 @@ export class ReviewComponent implements OnInit {
           this.toaster.success("Successfully Submitted");
           this.status = response.status;
           if (this.status === 200) {
+            this.router.navigate(['user-dash','mybookings']);
             console.log('Review added successfully : ', response.message);
           }
           console.log(response);
