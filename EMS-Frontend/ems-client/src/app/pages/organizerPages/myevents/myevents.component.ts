@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UserdataService } from '../../../services/userDataService/userdata.service';
-import { DatePipe, NgFor, NgIf } from '@angular/common';
+import { CommonModule, DatePipe, NgFor, NgIf } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { JwtDecodeService } from '../../../services/jwtDecodeService/jwtDecode.service';
 import { OrganizerEventInterface } from '../../../interface/organizerInterface/organizer-event-interface';
@@ -8,14 +8,15 @@ import { OrganizerEventInterface } from '../../../interface/organizerInterface/o
 @Component({
   selector: 'app-myevents',
   standalone: true,
-  imports: [NgFor, NgIf, DatePipe],
+  imports: [NgFor, NgIf, DatePipe, CommonModule],
   templateUrl: './myevents.component.html',
-  styleUrl: './myevents.component.css',
+  styleUrls: ['./myevents.component.css'],
 })
 export class MyeventsComponent implements OnInit {
   events: any[] = [];
   role: any;
   organizerId: string = '';
+
   constructor(
     private userdataservice: UserdataService,
     private router: Router,
@@ -23,7 +24,6 @@ export class MyeventsComponent implements OnInit {
     private route: ActivatedRoute
   ) {}
 
-  //getOrganizerEvents
   ngOnInit(): void {
     this.role = localStorage.getItem('Role');
     this.route.params.subscribe((params) => {
@@ -36,6 +36,7 @@ export class MyeventsComponent implements OnInit {
     this.userdataservice.eventId = eventId;
     this.router.navigate(['organizer-dash', 'app-editevent']);
   }
+
   viewEvent(eventId: number) {
     this.userdataservice.eventId = eventId;
     if (this.jwtDecodeService.role === 'Organizer') {
@@ -58,6 +59,7 @@ export class MyeventsComponent implements OnInit {
       this.userdataservice.getOrganizerEventsById(this.organizerId).subscribe(
         (response: OrganizerEventInterface) => {
           this.events = response.allEvents;
+          this.sortEventsByDate();
         },
         (error) => console.error('Error fetching events: ', error)
       );
@@ -65,9 +67,29 @@ export class MyeventsComponent implements OnInit {
       this.userdataservice.getOrganizerEvents().subscribe(
         (response: OrganizerEventInterface) => {
           this.events = response.allEvents;
+          this.sortEventsByDate();
         },
         (error) => console.error('Error fetching events: ', error)
       );
     }
+  }
+
+  sortEventsByDate(): void {
+    this.events.sort((a, b) => {
+      return new Date(a.eventDate).getTime() - new Date(b.eventDate).getTime();
+    });
+  }
+
+  isEditable(eventDate: string): boolean {
+    const currentDate = new Date();
+    const selectedDate = new Date(eventDate);
+    const diffInDays = (selectedDate.getTime() - currentDate.getTime()) / (1000 * 3600 * 24);
+    return diffInDays > 3;
+  }
+
+  isEventDone(eventDate: string): boolean {
+    const currentDate = new Date();
+    const selectedDate = new Date(eventDate);
+    return selectedDate < currentDate;
   }
 }

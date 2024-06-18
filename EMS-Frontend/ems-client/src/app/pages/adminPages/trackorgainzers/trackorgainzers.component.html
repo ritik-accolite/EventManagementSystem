@@ -1,50 +1,58 @@
 <div class="container">
   <div class="mb-3">
-    <button class="btn btn-primary mx-2" (click)="fetchPersons('Organizer')">
-      Show Organizers
-    </button>
-    <button class="btn btn-primary" (click)="fetchPersons('User')">
-      Show Users
-    </button>
+    <button class="btn btn-primary mx-2" (click)="fetchPersons('Organizer')">Show Organizers</button>
+    <button class="btn btn-primary" (click)="fetchPersons('User')">Show Users</button>
+  </div>
+  <div class="mb-3">
+    <h5>Search</h5>
+    <input
+      type="text"
+      class="form-control"
+      placeholder="Search by Name or Email"
+      [formControl]="searchControl"
+    />
   </div>
   <h2>All {{ listTitle }}</h2>
   <div class="table-responsive">
-  <table class="table table-striped table-hover">
-    <thead class="table-dark">
-      <tr>
-        <th>{{ listTitle }} Name</th>
-        <th>Email</th>
-        <th>Phone</th>
-        <th>Action</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr
-        role="button"
-        *ngFor="let person of organizers"
-        (click)="redirectToViewEvent(person.id, listTitle)"
-      >
-        <td>{{ person.firstName }} {{ person.lastName }}</td>
-        <td>{{ person.email }}</td>
-        <td>{{ person.phoneNumber }}</td>
-        <td>
-          <button
-            class="btn btn-danger"
-            *ngIf="!person.isBlocked"
-            (click)="blockUser(person.id)"
-          >
-            Block
-          </button>
-          <button
-            class="btn btn-success"
-            *ngIf="person.isBlocked"
-            (click)="unBlockUser(person.id)"
-          >
-            Unblock
-          </button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-</div>
+    <table class="table table-striped table-hover">
+      <thead class="table-dark">
+        <tr>
+          <th>{{ listTitle }} Name</th>
+          <th>Email</th>
+          <th>Phone</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngIf="filteredOrganizers.length === 0">
+          <td colspan="4" class="text-center">No Result Found</td>
+        </tr>
+        <tr
+          role="button"
+          *ngFor="let person of filteredOrganizers"
+          (click)="redirectToViewEvent(person.id, listTitle)"
+        >
+          <td>{{ person.firstName }} {{ person.lastName }}</td>
+          <td>{{ person.email }}</td>
+          <td>{{ person.phoneNumber }}</td>
+          <td>
+            <button
+              class="btn btn-danger"
+              *ngIf="!person.isBlocked"
+              (click)="blockUser(person.id); $event.stopPropagation()"
+            >
+              Block
+            </button>
+            <button
+              class="btn btn-success"
+              *ngIf="person.isBlocked"
+              (click)="unBlockUser(person.id); $event.stopPropagation()"
+            >
+              Unblock
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>
