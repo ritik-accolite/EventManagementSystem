@@ -1,4 +1,3 @@
-<!-- app-editevent.component.html -->
 <div class="container">
   <div class="row">
     <div class="col-lg-12">
@@ -16,17 +15,26 @@
             id="eventName"
             formControlName="eventName"
           />
+          <div *ngIf="eventForm.get('eventName')?.invalid && (eventForm.get('eventName')?.touched || eventForm.get('eventName')?.dirty)" class="text-danger">
+            <div *ngIf="eventForm.get('eventName')?.errors?.['required']">Event Name is required.</div>
+          </div>
         </div>
+
         <div class="form-group mt-3 col-3">
           <label for="eventDate">Event Date</label>
-          <!-- <input
-            type="datetime"
+          <input
+            type="date"
             class="form-control"
             id="eventDate"
             formControlName="eventDate"
-          /> -->
-          <input type="date" id="date" formControlName="EventDate" class="form-control">
+          />
+          <div *ngIf="eventForm.get('eventDate')?.invalid && (eventForm.get('eventDate')?.touched || eventForm.get('eventDate')?.dirty)" class="text-danger">
+            <div *ngIf="eventForm.get('eventDate')?.errors?.['required']">Event Date is required.</div>
+            <div *ngIf="eventForm.get('eventDate')?.errors?.['futureDate']">Event date cannot be in the past.</div>
+            <div *ngIf="eventForm.get('eventDate')?.errors?.['editableDate']">Event can only be edited if the date is more than 3 days away.</div>
+          </div>
         </div>
+
         <div class="form-group mt-3 col-3">
           <label for="eventLocation">Event Location</label>
           <input
@@ -35,7 +43,11 @@
             id="eventLocation"
             formControlName="eventLocation"
           />
+          <div *ngIf="eventForm.get('eventLocation')?.invalid && (eventForm.get('eventLocation')?.touched || eventForm.get('eventLocation')?.dirty)" class="text-danger">
+            <div *ngIf="eventForm.get('eventLocation')?.errors?.['required']">Event Location is required.</div>
+          </div>
         </div>
+
         <div class="form-group mt-3 col-3">
           <label for="description">Description</label>
           <textarea
@@ -46,6 +58,7 @@
             formControlName="description"
           ></textarea>
         </div>
+
         <div class="form-group mt-3 col-3">
           <label for="eventCategory">Event Category</label>
           <input
@@ -54,8 +67,12 @@
             id="eventCategory"
             formControlName="eventCategory"
           />
+          <div *ngIf="eventForm.get('eventCategory')?.invalid && (eventForm.get('eventCategory')?.touched || eventForm.get('eventCategory')?.dirty)" class="text-danger">
+            <div *ngIf="eventForm.get('eventCategory')?.errors?.['required']">Event Category is required.</div>
+          </div>
         </div>
       </div>
+
       <div class="col-md-6 col-6">
         <div class="form-group mt-3 col-3">
           <label for="eventTime">Event Time</label>
@@ -65,7 +82,11 @@
             id="eventTime"
             formControlName="event_Time"
           />
+          <div *ngIf="eventForm.get('event_Time')?.invalid && (eventForm.get('event_Time')?.touched || eventForm.get('event_Time')?.dirty)" class="text-danger">
+            <div *ngIf="eventForm.get('event_Time')?.errors?.['required']">Event Time is required.</div>
+          </div>
         </div>
+
         <div class="form-group mt-3 col-3">
           <label for="chiefGuest">Chief Guest</label>
           <input
@@ -74,7 +95,11 @@
             id="chiefGuest"
             formControlName="chiefGuest"
           />
+          <div *ngIf="eventForm.get('chiefGuest')?.invalid && (eventForm.get('chiefGuest')?.touched || eventForm.get('chiefGuest')?.dirty)" class="text-danger">
+            <div *ngIf="eventForm.get('chiefGuest')?.errors?.['required']">Chief Guest is required.</div>
+          </div>
         </div>
+
         <div class="form-group mt-3 col-3">
           <label for="ticketPrice">Ticket Price</label>
           <input
@@ -83,7 +108,12 @@
             id="ticketPrice"
             formControlName="ticketPrice"
           />
+          <div *ngIf="eventForm.get('ticketPrice')?.invalid && (eventForm.get('ticketPrice')?.touched || eventForm.get('ticketPrice')?.dirty)" class="text-danger">
+            <div *ngIf="eventForm.get('ticketPrice')?.errors?.['required']">Ticket Price is required.</div>
+            <div *ngIf="eventForm.get('ticketPrice')?.errors?.['pattern']">Ticket Price must be a positive integer.</div>
+          </div>
         </div>
+
         <div class="form-group mt-3 col-3">
           <label for="capacity">Capacity</label>
           <input
@@ -92,7 +122,12 @@
             id="capacity"
             formControlName="capacity"
           />
+          <div *ngIf="eventForm.get('capacity')?.invalid && (eventForm.get('capacity')?.touched || eventForm.get('capacity')?.dirty)" class="text-danger">
+            <div *ngIf="eventForm.get('capacity')?.errors?.['required']">Capacity is required.</div>
+            <div *ngIf="eventForm.get('capacity')?.errors?.['pattern']">Capacity must be a positive integer.</div>
+          </div>
         </div>
+
         <div class="form-group mt-3 col-3">
           <label for="bannerImage">Banner Image</label>
           <input

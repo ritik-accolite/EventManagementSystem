@@ -158,7 +158,10 @@ export class OrganizerstatComponent implements OnInit {
             new Date(b.EventDate).getTime() - new Date(a.eventDate).getTime()
         );
     } else {
-      return this.mergedEvent;
+      return this.mergedEvent.sort(
+        (a, b) =>
+          new Date(b.EventDate).getTime() - new Date(a.eventDate).getTime()
+      );
     }
   }
 }

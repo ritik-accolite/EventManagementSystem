@@ -1,36 +1,42 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, inject } from '@angular/core';
 import { UserdataService } from '../../../services/userDataService/userdata.service';
-import { NgFor, NgIf } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { JwtDecodeService } from '../../../services/jwtDecodeService/jwtDecode.service';
 import { ProfileInterface } from '../../../interface/commonInterface/profile-interface';
 import { EditProfileInterface } from '../../../interface/commonInterface/edit-profile-interface';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
+import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-userprofile',
   standalone: true,
-  imports: [NgFor, NgIf, FormsModule],
+  imports: [ReactiveFormsModule, NgIf],
   templateUrl: './userprofile.component.html',
-  styleUrl: './userprofile.component.css',
+  styleUrls: ['./userprofile.component.css'],
 })
 export class UserprofileComponent implements OnInit {
   title = 'ems-client';
   personId: any = '';
-  firstName: string = '';
-  lastName: string = '';
-  phoneNumber: string = '';
   editMode: boolean = false;
   showSuccessMessage: boolean = false;
-  toaster=inject(ToastrService);
+  profileForm: FormGroup;
+  toaster = inject(ToastrService);
+  initialFormValues: any = {};
 
   constructor(
+    private fb: FormBuilder,
     private http: HttpClient,
     private userdataservice: UserdataService,
-    private router : Router
-  ) {}
+    private router: Router
+  ) {
+    this.profileForm = this.fb.group({
+      firstName: [{ value: '', disabled: true }, [Validators.required, Validators.minLength(2)]],
+      lastName: [{ value: '', disabled: true }, [Validators.required, Validators.minLength(2)]],
+      phoneNumber: [{ value: '', disabled: true }, [Validators.required, Validators.pattern(/^[0-9]{10}$/)]],
+    });
+  }
 
   ngOnInit(): void {
     this.personId = localStorage.getItem('LoginUserId');
@@ -41,44 +47,64 @@ export class UserprofileComponent implements OnInit {
     this.userdataservice.getProfile(personId).subscribe(
       (response: ProfileInterface) => {
         const personData = response.getPersonById;
-        this.firstName = personData.firstName;
-        this.lastName = personData.lastName;
-        this.phoneNumber = personData.phoneNumber;
+        this.initialFormValues = {
+          firstName: personData.firstName,
+          lastName: personData.lastName,
+          phoneNumber: personData.phoneNumber,
+        };
+        this.profileForm.patchValue({
+          firstName: personData.firstName,
+          lastName: personData.lastName,
+          phoneNumber: personData.phoneNumber,
+        });
       },
       (error) => console.error('Error fetching profile :', error)
     );
   }
+
   toggleEditMode(): void {
     this.editMode = !this.editMode;
+    if (this.editMode) {
+      this.profileForm.enable();
+    } else {
+      this.profileForm.reset(this.initialFormValues);
+      this.profileForm.disable();
+    }
   }
 
   onSubmit(): void {
-    const formData = {
-      firstName: this.firstName,
-      lastName: this.lastName,
-      phoneNumber: this.phoneNumber,
-    };
+    if (this.profileForm.invalid) {
+      this.profileForm.markAllAsTouched(); // To show validation errors
+      return;
+    }
+
+    const formData = this.profileForm.value;
     this.userdataservice.editProfile(this.personId, formData).subscribe(
       (response: EditProfileInterface) => {
         this.toggleEditMode();
-        this.toaster.success("Profile Updated Succesfully");
-        try{
+        this.toaster.success("Profile Updated Successfully");
+        try {
           const role = localStorage.getItem('Role');
-          if(role =='User'){
-            this.router.navigate(['user-dash','user-profile']);
-          } else if (role =='Admin'){
-            this.router.navigate(['admin-dash','user-profile']);
-          } else if (role == 'Organizer'){
-            this.router.navigate(['organizer-dash','user-profile']);
+          if (role == 'User') {
+            this.router.navigate(['user-dash', 'user-profile']);
+          } else if (role == 'Admin') {
+            this.router.navigate(['admin-dash', 'user-profile']);
+          } else if (role == 'Organizer') {
+            this.router.navigate(['organizer-dash', 'user-profile']);
           }
-          } catch{
-            this.router.navigate(['/login']);
-            this.toaster.error('Try Again');
-          }
+        } catch {
+          this.router.navigate(['/login']);
+          this.toaster.error('Try Again');
+        }
       },
       (error: any) => {
         console.error('Error submitting form data:', error);
       }
     );
   }
+
+  // Utility getter for easy access to form controls in the template
+  get firstName() { return this.profileForm.get('firstName'); }
+  get lastName() { return this.profileForm.get('lastName'); }
+  get phoneNumber() { return this.profileForm.get('phoneNumber'); }
 }

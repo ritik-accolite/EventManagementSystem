@@ -12,25 +12,22 @@
         <!-- <img src="{{ event.bannerImage }}" class="card-img-top" alt="Event Banner"> -->
         <div class="card-body">
           <h5 class="card-title">{{ event.eventName }}</h5>
+          <span class="badge" [ngClass]="isEventDone(event.eventDate) ? 'badge-success' : 'badge-warning'">
+            {{ isEventDone(event.eventDate) ? 'Done' : 'Upcoming' }}
+          </span>
           <p class="card-text">
             {{ truncateDescription(event.eventDescription, 30) }}
           </p>
           <ul class="list-group list-group-flush">
             <li class="list-group-item">
-              Date: {{ event.eventDate | date : "dd-MM-yyyy" }}
+              Date: {{ event.eventDate | date: 'dd-MM-yyyy' }}
             </li>
             <li class="list-group-item">Time: {{ event.event_Time }}</li>
             <li class="list-group-item">Location: {{ event.eventLocation }}</li>
           </ul>
-          <a class="btn btn-primary" (click)="viewEvent(event.eventId)"
-            >View Details</a
-          >
-          <ng-container *ngIf="role === 'Organizer'">
-            <a
-              class="btn btn-primary btn-second"
-              (click)="editEvent(event.eventId)"
-              >Edit Details</a
-            >
+          <a class="btn btn-primary" (click)="viewEvent(event.eventId)">View Details</a>
+          <ng-container *ngIf="role === 'Organizer' && isEditable(event.eventDate)">
+            <a class="btn btn-primary btn-second" (click)="editEvent(event.eventId)">Edit Details</a>
           </ng-container>
         </div>
       </div>

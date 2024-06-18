@@ -8,6 +8,15 @@
   <label for="Description">Description:</label>
   <textarea id="Description" formControlName="Description" rows="4"></textarea
   ><br />
+  <span
+  *ngIf="reviewForm.get('Description')?.errors?.['required'] && reviewForm.get('Description')?.touched"
+  class="text-danger"
+  >Please enter Description.</span
+><br />
+  <small class="text-danger"
+  *ngIf="reviewForm.controls['Description'].errors?.['required'] && reviewForm.controls['firstname'].touched"
+  >Description is required.</small
+><br />
 
   <label for="Rating">Rating (1-5):</label>
   <div class="star-rating">
@@ -54,8 +63,19 @@
   </div>
   <br />
 
+  <small class="text-danger"
+  *ngIf="reviewForm.controls['Rating'].errors?.['required']"
+  >Rating is required.</small
+><br />
+
   <label for="IsReported">Reported:</label>
   <input type="checkbox" id="IsReported" formControlName="IsReported" /><br />
+
+  <span
+  *ngIf="invalid"
+  class="text-danger"
+  >Please enter Details Before Submitting.</span
+><br />
 
   <button type="submit">Submit Review</button>
 </form>

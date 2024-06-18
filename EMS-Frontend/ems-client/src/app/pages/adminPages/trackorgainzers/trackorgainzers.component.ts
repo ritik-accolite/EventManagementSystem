@@ -1,43 +1,60 @@
-import { Component, inject } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { UserdataService } from '../../../services/userDataService/userdata.service';
-import { NgFor, NgIf } from '@angular/common';
+import { NgFor, NgIf, CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { JwtDecodeService } from '../../../services/jwtDecodeService/jwtDecode.service';
 import { GetPersonByRoleInterface } from '../../../interface/adminInterface/get-person-by-role-interface';
 import { GetAllPersonsByAdminInterface } from '../../../interface/adminInterface/get-all-persons-by-admin-interface';
 import { ResponseInterface } from '../../../interface/commonInterface/response-interface';
 import { ToastrService } from 'ngx-toastr';
+import { FormBuilder, FormControl, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-trackorgainzers',
   standalone: true,
-  imports: [NgFor, NgIf],
+  imports: [NgFor, NgIf, CommonModule, ReactiveFormsModule],
   templateUrl: './trackorgainzers.component.html',
-  styleUrl: './trackorgainzers.component.css',
+  styleUrls: ['./trackorgainzers.component.css'],
 })
-export class TrackorgainzersComponent {
-  organizers : GetAllPersonsByAdminInterface [] = [];
-  toaster=inject(ToastrService);
-  listTitle: string = "All Organizers";
-  constructor(private userdataservice : UserdataService,
-              private router : Router,
-              private jwtDecodeService : JwtDecodeService
+export class TrackorgainzersComponent implements OnInit {
+  organizers: GetAllPersonsByAdminInterface[] = [];
+  filteredOrganizers: GetAllPersonsByAdminInterface[] = [];
+  toaster = inject(ToastrService);
+  listTitle: string = 'All Organizers';
+  searchControl = new FormControl('');
+
+  constructor(
+    private fb: FormBuilder,
+    private userdataservice: UserdataService,
+    private router: Router,
+    private jwtDecodeService: JwtDecodeService
   ) {}
 
   ngOnInit(): void {
     this.fetchPersons('Organizer');
+    this.searchControl.valueChanges.subscribe((searchTerm) => {
+      this.applyFilter(searchTerm);
+    });
   }
 
   fetchPersons(role: string): void {
     this.userdataservice.getPersonByRole(role).subscribe(
       (response: GetPersonByRoleInterface) => {
         this.organizers = response.allPersons;
+        this.filteredOrganizers = this.organizers;
         this.listTitle = role;
       },
       (error) => console.error('Error fetching organizers: ', error)
     );
   }
 
+  applyFilter(searchTerm: any): void {
+    const lowerCaseSearchTerm = searchTerm.toLowerCase();
+    this.filteredOrganizers = this.organizers.filter((person) =>
+      `${person.firstName} ${person.lastName}`.toLowerCase().includes(lowerCaseSearchTerm) ||
+      person.email.toLowerCase().includes(lowerCaseSearchTerm)
+    );
+  }
 
   redirectToViewEvent(personId: string, role: string) {
     if (role === 'Organizer') {
@@ -49,12 +66,11 @@ export class TrackorgainzersComponent {
     }
   }
 
-  blockUser(personId : string){
-    this.userdataservice.blockPersonbyId(personId).
-    subscribe(
-      (response : ResponseInterface) =>{
-        this.toaster.success("Blocked Successfully");
-        this.router.navigate(['admin-dash','track-organizer']);
+  blockUser(personId: string) {
+    this.userdataservice.blockPersonbyId(personId).subscribe(
+      (response: ResponseInterface) => {
+        this.toaster.success('Blocked Successfully');
+        this.fetchPersons(this.listTitle); // Fetch updated list after blocking
       },
       (error: any) => {
         console.log('Error regarding blocking', error);
@@ -62,12 +78,11 @@ export class TrackorgainzersComponent {
     );
   }
 
-  unBlockUser(personId : string){
-    this.userdataservice.unBlockPersonbyId(personId).
-    subscribe(
-      (response : ResponseInterface) =>{
-        this.toaster.success("Unblocked Successfully");
-        this.router.navigate(['admin-dash','track-organizer']);
+  unBlockUser(personId: string) {
+    this.userdataservice.unBlockPersonbyId(personId).subscribe(
+      (response: ResponseInterface) => {
+        this.toaster.success('Unblocked Successfully');
+        this.fetchPersons(this.listTitle); // Fetch updated list after unblocking
       },
       (error: any) => {
         console.log('Error regarding Unblocking', error);
