@@ -412,3 +412,13 @@ figure {
   outline: 0;
   box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25); /* Example focus shadow */
 }
+
+.swal2-select {
+  max-width: 100%;
+}
+
+.swal2-select option {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

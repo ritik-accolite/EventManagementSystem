@@ -39,14 +39,14 @@
             <button
               class="btn btn-danger"
               *ngIf="!person.isBlocked"
-              (click)="blockUser(person.id); $event.stopPropagation()"
+              (click)="confirmBlockUser(person); $event.stopPropagation()"
             >
               Block
             </button>
             <button
               class="btn btn-success"
               *ngIf="person.isBlocked"
-              (click)="unBlockUser(person.id); $event.stopPropagation()"
+              (click)="confirmUnblockUser(person); $event.stopPropagation()"
             >
               Unblock
             </button>

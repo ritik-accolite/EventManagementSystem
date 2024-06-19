@@ -10,27 +10,39 @@
     <p class="price"><strong>Price:</strong> ₹{{ eventDetails.ticketPrice }}</p>
     <p class="seats-left"><strong>Seats Left:</strong> {{ eventDetails.capacity }}</p>
   </div>
+  
   <div class="book-form">
     <form [formGroup]="bookEventForm" (ngSubmit)="onSubmit()">
       <label for="numberOfTickets">Number of Tickets:</label>
-      <input type="number" id="numberOfTickets" formControlName="numberOfTickets" class="form-control" (input)="calculatePrice()" min="1" max="5" required>
-      <span *ngIf="
-      bookEventForm.controls['numberOfTickets']?.errors?.['max']
-      && bookEventForm.controls['numberOfTickets']?.errors?.['min']
-      && bookEventForm.controls['numberOfTickets']?.touched
-    " class="text-danger">
-      Number of tickets should be atleast 1 and less than 6.
-  </span>
+      <input
+        type="number"
+        id="numberOfTickets"
+        formControlName="numberOfTickets"
+        class="form-control"
+        (input)="calculatePrice()"
+        min="1"
+        max="5"
+        required
+      />
+      <span
+        *ngIf="
+          bookEventForm.controls['numberOfTickets']?.errors?.['max'] ||
+          bookEventForm.controls['numberOfTickets']?.errors?.['min'] &&
+          bookEventForm.controls['numberOfTickets']?.touched
+        "
+        class="text-danger"
+      >
+        Number of tickets should be at least 1 and less than 6.
+      </span>
       <div *ngIf="totalPrice > 0">
-        <p>Total Price: ₹ {{ totalPrice }}</p>
+        <p>Total Price: ₹{{ totalPrice }}</p>
       </div>
-      <button type="submit" class="book-now"  [disabled]="validatePayment">Book Now</button>
+      <button type="submit" class="book-now" [disabled]="validatePayment">Book Now</button>
     </form>
     <p><strong> Note :</strong> Once The Payment is Done, Visit this page again to confirm your booking by clicking on confirm booking button below.</p>
     <p>The Button will be activated once the payment is done. Don't refresh the page before clicking on Confirm Booking Button.</p>
     <div *ngIf="validatePayment">
-      <button class="btn btn-primary" (click) = "paymentDone()" > Confirm Booking</button>
+      <button class="btn btn-primary" (click)="paymentDone()">Confirm Booking</button>
     </div>
-    
   </div>
 </div>
