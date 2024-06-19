@@ -22,7 +22,11 @@
               formControlName="EventName"
               class="form-control"
             />
+            <div *ngIf="eventForm.get('EventName')?.invalid && (eventForm.get('EventName')?.touched || eventForm.get('EventName')?.dirty)" class="text-danger">
+              <div *ngIf="eventForm.get('EventName')?.errors?.['required']">Event Name is required.</div>
+            </div>
           </div>
+
           <div class="form-group mt-3 col-3">
             <label for="date">Date:</label>
             <input
@@ -31,14 +35,25 @@
               formControlName="EventDate"
               class="form-control"
             />
-            <!-- <div *ngIf="eventForm.controls['eventDate'].errors && eventForm.controls['eventDate'].errors['futureDate']" class="custom-alert">
-              *Event date should be at least the next date.
-          </div> -->
+            <div *ngIf="eventForm.get('EventDate')?.invalid && (eventForm.get('EventDate')?.touched || eventForm.get('EventDate')?.dirty)" class="text-danger">
+              <div *ngIf="eventForm.get('EventDate')?.errors?.['required']">Event Date is required.</div>
+              <div *ngIf="eventForm.get('EventDate')?.errors?.['futureDate']">Event date should be at least the next date.</div>
+            </div>
           </div>
+
           <div class="form-group mt-3 col-3">
             <label for="description">Description:</label>
-            <textarea id="description" formControlName="Description" class="form-control2" rows="4"></textarea>
+            <textarea
+              id="description"
+              formControlName="Description"
+              class="form-control2"
+              rows="4"
+            ></textarea>
+            <div *ngIf="eventForm.get('Description')?.invalid && (eventForm.get('Description')?.touched || eventForm.get('Description')?.dirty)" class="text-danger">
+              <div *ngIf="eventForm.get('Description')?.errors?.['required']">Event Category is required.</div>
+            </div>
           </div>
+
           <div class="form-group mt-3 col-3">
             <label for="description">Category:</label>
             <input
@@ -46,8 +61,12 @@
               formControlName="EventCategory"
               class="form-control"
             />
+            <div *ngIf="eventForm.get('EventCategory')?.invalid && (eventForm.get('EventCategory')?.touched || eventForm.get('EventCategory')?.dirty)" class="text-danger">
+              <div *ngIf="eventForm.get('EventCategory')?.errors?.['required']">Event Category is required.</div>
+            </div>
           </div>
         </div>
+
         <div class="col-md-6 col-6">
           <div class="form-group mt-3 col-3">
             <label for="location">Location:</label>
@@ -57,7 +76,11 @@
               formControlName="EventLocation"
               class="form-control"
             />
+            <div *ngIf="eventForm.get('EventLocation')?.invalid && (eventForm.get('EventLocation')?.touched || eventForm.get('EventLocation')?.dirty)" class="text-danger">
+              <div *ngIf="eventForm.get('EventLocation')?.errors?.['required']">Event Location is required.</div>
+            </div>
           </div>
+
           <div class="form-group mt-3 col-3">
             <label for="description">Time:</label>
             <input
@@ -66,7 +89,11 @@
               formControlName="Event_Time"
               class="form-control"
             />
+            <div *ngIf="eventForm.get('Event_Time')?.invalid && (eventForm.get('Event_Time')?.touched || eventForm.get('Event_Time')?.dirty)" class="text-danger">
+              <div *ngIf="eventForm.get('Event_Time')?.errors?.['required']">Event Time is required.</div>
+            </div>
           </div>
+
           <div class="form-group mt-3 col-3">
             <label for="description">Ticket Price:</label>
             <input
@@ -74,7 +101,12 @@
               formControlName="TicketPrice"
               class="form-control"
             />
+            <div *ngIf="eventForm.get('TicketPrice')?.invalid && (eventForm.get('TicketPrice')?.touched || eventForm.get('TicketPrice')?.dirty)" class="text-danger">
+              <div *ngIf="eventForm.get('TicketPrice')?.errors?.['required']">Ticket Price is required.</div>
+              <div *ngIf="eventForm.get('TicketPrice')?.errors?.['pattern']">Ticket Price must be a positive integer.</div>
+            </div>
           </div>
+
           <div class="form-group mt-3 col-3">
             <label for="description">Capacity:</label>
             <input
@@ -82,7 +114,12 @@
               formControlName="Capacity"
               class="form-control"
             />
+            <div *ngIf="eventForm.get('Capacity')?.invalid && (eventForm.get('Capacity')?.touched || eventForm.get('Capacity')?.dirty)" class="text-danger">
+              <div *ngIf="eventForm.get('Capacity')?.errors?.['required']">Capacity is required.</div>
+              <div *ngIf="eventForm.get('Capacity')?.errors?.['pattern']">Capacity must be a positive integer.</div>
+            </div>
           </div>
+
           <div class="form-group mt-3 col-6">
             <label for="BannerImageFile">Banner Image:</label>
             <input
@@ -91,7 +128,11 @@
               formControlName="BannerImageFile"
               class="form-control"
             />
+            <div *ngIf="eventForm.get('BannerImageFile')?.invalid && (eventForm.get('BannerImageFile')?.touched || eventForm.get('BannerImageFile')?.dirty)" class="text-danger">
+              <div *ngIf="eventForm.get('BannerImageFile')?.errors?.['required']">Banner Image is required.</div>
+            </div>
           </div>
+
           <div class="form-group mt-3 col-3">
             <label for="description">Chief Guest:</label>
             <input
@@ -99,12 +140,15 @@
               formControlName="ChiefGuest"
               class="form-control"
             />
+            <div *ngIf="eventForm.get('ChiefGuest')?.invalid && (eventForm.get('ChiefGuest')?.touched || eventForm.get('ChiefGuest')?.dirty)" class="text-danger">
+              <div *ngIf="eventForm.get('ChiefGuest')?.errors?.['required']">Chief Guest is required.</div>
+            </div>
           </div>
         </div>
       </div>
+
       <div class="row justify-content-center">
         <div class="col-md-12 my-4">
-          <!-- <button type="submit" class="btn btn-primary">Create Event</button> -->
           <button
             type="submit"
             [disabled]="!eventForm.valid"
