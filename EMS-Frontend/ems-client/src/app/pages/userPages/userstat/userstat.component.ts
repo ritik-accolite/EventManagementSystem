@@ -127,24 +127,68 @@ export class UserstatComponent implements OnInit {
   }
 
   viewEvent() {
-    if (this.selectedField === 'Category') {
+    // if (this.selectedField === 'Category') {
+    //   this.userdataservice.getEventsByCategory(this.selectedCategory).subscribe(
+    //     (response: EventByCategoriesInterface) => {
+    //       this.events = response.categoryEvents;
+    //     },
+    //     (error: any) => {
+    //       console.error('Error fetching events by category:', error);
+    //     }
+    //   );
+    // } else if (this.selectedField === 'Location') {
+    //   this.userdataservice.getEventsByLocation(this.selectedLocation).subscribe(
+    //     (response: EventByCategoriesInterface) => {
+    //       this.events = response.categoryEvents;
+    //     },
+    //     (error: any) => {
+    //       console.error('Error fetching events by category:', error);
+    //     }
+    //   );
+    // }
+
+    if (this.selectedField === 'Category' && this.selectedCategory !== '') {
       this.userdataservice.getEventsByCategory(this.selectedCategory).subscribe(
         (response: EventByCategoriesInterface) => {
           this.events = response.categoryEvents;
+          this.applyLocationFilter(); 
         },
         (error: any) => {
           console.error('Error fetching events by category:', error);
         }
       );
-    } else if (this.selectedField === 'Location') {
+    } else if (this.selectedField === 'Location' && this.selectedLocation !== '') {
       this.userdataservice.getEventsByLocation(this.selectedLocation).subscribe(
         (response: EventByCategoriesInterface) => {
           this.events = response.categoryEvents;
+          this.applyCategoryFilter(); 
         },
         (error: any) => {
-          console.error('Error fetching events by category:', error);
+          console.error('Error fetching events by location:', error);
         }
       );
+    } else {
+      this.fetchEvents();
+    }
+  }
+
+  applyCategoryFilter() {
+    if (this.selectedCategory !== '') {
+      this.filteredEvents = this.events.filter(event =>
+        event.category === this.selectedCategory
+      );
+    } else {
+      this.filteredEvents = this.events;
+    }
+  }
+  
+  applyLocationFilter() {
+    if (this.selectedLocation !== '') {
+      this.filteredEvents = this.events.filter(event =>
+        event.location === this.selectedLocation
+      );
+    } else {
+      this.filteredEvents = this.events;
     }
   }
 

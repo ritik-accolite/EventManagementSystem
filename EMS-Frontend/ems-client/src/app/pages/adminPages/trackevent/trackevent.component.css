@@ -1,3 +1,10 @@
 .tHead{
     padding: 20px 0;
 }
+.css-serial {
+    counter-reset: serial-number;  
+}
+.css-serial td:first-child:before {
+    counter-increment: serial-number;  
+    content: counter(serial-number);  
+}

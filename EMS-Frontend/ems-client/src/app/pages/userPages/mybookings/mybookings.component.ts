@@ -66,7 +66,7 @@ export class MybookingsComponent implements OnInit {
     const currentDate = new Date();
     return eventDate <= currentDate;
   }
-
+   
    cancelBooking(bookingId: number){
     this.userdataservice.cancelEvent(bookingId).subscribe(
       (response: any) => {
