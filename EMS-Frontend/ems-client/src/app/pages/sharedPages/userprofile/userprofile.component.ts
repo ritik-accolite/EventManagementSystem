@@ -32,8 +32,12 @@ export class UserprofileComponent implements OnInit {
     private router: Router
   ) {
     this.profileForm = this.fb.group({
-      firstName: [{ value: '', disabled: true }, [Validators.required, Validators.minLength(2)]],
-      lastName: [{ value: '', disabled: true }, [Validators.required, Validators.minLength(2)]],
+      firstName: [{ value: '', disabled: true }, [Validators.required, Validators.minLength(3),
+        Validators.maxLength(60),
+        Validators.pattern(/^(?!.*?[^aeiou]{5})(?!.*?[aeiou]{3})[a-zA-Z]*$/),]],
+      lastName: [{ value: '', disabled: true }, [Validators.required, Validators.minLength(3),
+        Validators.maxLength(60),
+        Validators.pattern(/^(?!.*?[^aeiou]{5})(?!.*?[aeiou]{3})[a-zA-Z]*$/),]],
       phoneNumber: [{ value: '', disabled: true }, [Validators.required, Validators.pattern(/^[0-9]{10}$/)]],
     });
   }
