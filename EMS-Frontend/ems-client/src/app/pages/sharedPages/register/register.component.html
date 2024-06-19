@@ -29,7 +29,8 @@
                     <div
                       *ngIf="
                         userDataForm.controls['firstname'].invalid &&
-                        userDataForm.controls['firstname'].touched
+                        (userDataForm.controls['firstname']?.dirty ||
+                        userDataForm.controls['firstname'].touched)
                       "
                       class="text-danger"
                     >
@@ -37,6 +38,15 @@
                         *ngIf="userDataForm.controls['firstname'].errors?.['required']"
                         >First Name is required.</small
                       >
+                      <small *ngIf="userDataForm.get('firstname')?.errors?.['minlength']">
+                        First Name must be at least 3 characters long.
+                      </small>
+                      <small *ngIf="userDataForm.get('firstname')?.errors?.['maxlength']">
+                        First Name cannot be more than 60 characters long.
+                      </small>
+                      <small *ngIf="userDataForm.get('firstname')?.errors?.['pattern']">
+                        First Name must follow specific pattern rules.
+                      </small>
                     </div>
                   </div>
                   <div data-mdb-input-init class="form-outline mb-4">
@@ -52,7 +62,8 @@
                     <div
                       *ngIf="
                         userDataForm.controls['lastname'].invalid &&
-                        userDataForm.controls['lastname'].touched
+                        (userDataForm.controls['lastname']?.dirty ||
+                        userDataForm.controls['lastname'].touched)
                       "
                       class="text-danger"
                     >
@@ -60,6 +71,15 @@
                         *ngIf="userDataForm.controls['lastname'].errors?.['required']"
                         >Last Name is required.</small
                       >
+                      <small *ngIf="userDataForm.get('lastname')?.errors?.['minlength']">
+                        Last Name must be at least 3 characters long.
+                      </small>
+                      <small *ngIf="userDataForm.get('lastname')?.errors?.['maxlength']">
+                        Last Name cannot be more than 60 characters long.
+                      </small>
+                      <small *ngIf="userDataForm.get('lastname')?.errors?.['pattern']">
+                        Last Name must follow specific pattern rules.
+                      </small>
                     </div>
                   </div>
 
@@ -187,7 +207,7 @@
                     >
                       <option value="" disabled selected hidden>Role</option>
                       <option value="User">User</option>
-                      <option value="Admin">Admin</option>
+                      <!-- <option value="Admin">Admin</option> -->
                       <option value="Organizer">Organizer</option>
                     </select>
                     <div

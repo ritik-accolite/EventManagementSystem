@@ -17,13 +17,12 @@
   <h3>{{ headingText }}</h3>
   <div class="table-responsive">
   <table
-    class="table table-striped table-hover"
+    class="table table-striped table-hover css-serial"
     *ngIf="filteredReviews && filteredReviews.length > 0"
   >
     <thead class="table-dark">
       <tr>
-        <th>Review ID</th>
-        <th>Event ID</th>
+        <th>S.No.</th>
         <th>Description</th>
         <th>Rating(1-5)</th>
         <th>Is Reported</th>
@@ -31,8 +30,7 @@
     </thead>
     <tbody>
       <tr *ngFor="let review of filteredReviews">
-        <td>{{ review.reviewId }}</td>
-        <td>{{ review.eventId }}</td>
+        <td></td>
         <td>{{ review.description }}</td>
         <td>{{ review.rating }}</td>
         <td>
