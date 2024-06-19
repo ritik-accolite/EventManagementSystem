@@ -10,7 +10,7 @@ import { JwtDecodeService } from '../../../services/jwtDecodeService/jwtDecode.s
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule, DatePipe, NgIf } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
-import { error } from 'console';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-eventbooking',
@@ -34,6 +34,7 @@ export class EventbookingComponent implements OnInit {
   toaster = inject(ToastrService);
   validatePayment: boolean = false;
   token: string = '';
+  invalid: boolean = false; // Add this line
 
   constructor(
     private fb: FormBuilder,
@@ -74,14 +75,14 @@ export class EventbookingComponent implements OnInit {
       (response: any) => {
         if (response.status == 200) {
           this.router.navigate(['user-dash', 'mybookings']);
-          this.toaster.info('Event Ticket Successfuly booked');
+          this.toaster.info('Event Ticket Successfully booked');
         } else if (response.status == 404) {
           this.toaster.info('Event not Found. Try Again');
-        }else if (response.status == 400) {
+        } else if (response.status == 400) {
           this.toaster.info('You have already booked tickets for this event');
-        }else if (response.status == 401) {
+        } else if (response.status == 401) {
           this.toaster.info('Not enough tickets available for this event');
-        }else if (response.status == 402) {
+        } else if (response.status == 402) {
           this.toaster.info('You cannot book more than 5 tickets.');
         } else if (response.status == 500) {
           this.toaster.error('Error Unbooking Event. Try Again!');
@@ -109,26 +110,34 @@ export class EventbookingComponent implements OnInit {
         )
         .subscribe(
           (response: any) => {
-            console.log('res', response.url);
-            console.log(
-              'eventid : ',
-              formData.eventId,
-              'userid: ',
-              formData.userId,
-              'no. of ticket: ',
-              formData.numberOfTickets
-            );
-            window.open(response.url, '_blank'); // stripe
+            window.open(response.url, '_blank'); // Open Stripe checkout in a new tab
             this.token = response.token;
             this.validatePayment = true;
+
+            // Show confirmation box after opening Stripe checkout
+            Swal.fire({
+              title: 'Payment Confirmation',
+              text: 'Have you completed the payment on Stripe?',
+              icon: 'info',
+              showCancelButton: true,
+              confirmButtonText: 'Yes, payment done!',
+              cancelButtonText: 'No, not yet'
+            }).then((result) => {
+              if (result.isConfirmed) {
+                this.paymentDone();
+              }
+            });
           },
           (error) => {
             this.toaster.error('Error creating checkout session', 'Error');
             console.error('Error creating checkout session', error);
           }
         );
+    } else {
+      this.invalid = true;
     }
   }
+  
 
   calculatePrice() {
     const numberOfTickets = this.bookEventForm.get('numberOfTickets')?.value;

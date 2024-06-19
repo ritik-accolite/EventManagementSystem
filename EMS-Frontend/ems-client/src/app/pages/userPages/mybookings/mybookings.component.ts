@@ -6,7 +6,7 @@ import { Router, RouterLink } from '@angular/router';
 import { UserEventsInterface } from '../../../interface/userInterface/user-events-interface';
 import { BookedEventDetailsInterface } from '../../../interface/userInterface/booked-event-details-interface';
 import { ToastrService } from 'ngx-toastr';
-import { response } from 'express';
+import Swal from 'sweetalert2';
 import { error } from 'console';
 
 @Component({
@@ -67,24 +67,47 @@ export class MybookingsComponent implements OnInit {
     return eventDate <= currentDate;
   }
 
-   cancelBooking(bookingId: number){
-    this.userdataservice.cancelEvent(bookingId).subscribe(
-      (response: any) => {
-        if(response.status == 200){
-          this.router.navigate(['user-dash','event-list']);
-          this.toaster.success('Event Unbooked Successfully.');
-        } else if (response.status == 404){
-          this.toaster.info('Event not Found. Try Again');
-        } else if (response.status == 500){
-          this.toaster.error('Error Unbooking Event. Try Again!');
-        }
-      },
-      (error: any) => {
-        this.toaster.error('Error Unbooking Event. Try Again!');
-        console.log(error);
+  cancelBooking(bookingId: number, ticketPrice: number) {
+    const cancellationFee = ticketPrice * 0.3;
+    const refundedAmount = ticketPrice - cancellationFee;
+
+    Swal.fire({
+      title: 'Are you sure?',
+      html: `
+        <p>You are about to cancel this booking. Please note the following:</p>
+        <ul>
+          <li>30% cancellation fees would be deducted from the original booking amount.</li>
+          <li>Refunds, if applicable, will be processed within 7 business days.</li>
+          <li>This action cannot be undone.</li>
+          <li>The Refunded Amount will be ₹${refundedAmount.toFixed(2)}</li>
+        </ul>
+        <p>Do you really want to proceed?</p>
+      `,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, cancel my ticket!',
+      cancelButtonText: 'No, I want to attend the event'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.userdataservice.cancelEvent(bookingId).subscribe(
+          (response: any) => {
+            if (response.status == 200) {
+              this.router.navigate(['user-dash', 'event-list']);
+              this.toaster.success('Event Unbooked Successfully.');
+            } else if (response.status == 404) {
+              this.toaster.info('Event not Found. Try Again');
+            } else if (response.status == 500) {
+              this.toaster.error('Error Unbooking Event. Try Again!');
+            }
+          },
+          (error: any) => {
+            this.toaster.error('Error Unbooking Event. Try Again!');
+            console.log(error);
+          }
+        );
       }
-    )
-   }
+    });
+  }
 
   // eTicket(bookingId: number): void {
   //   this.userdataservice.getEticket(bookingId).subscribe(
