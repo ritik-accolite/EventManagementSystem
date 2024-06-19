@@ -54,7 +54,7 @@ export class LoginComponent {
           this.invalidLogin = true;
           return;
         } else if (response.status == 402) {
-          this.toaster.error('Please verify the token sent on mail.');
+          this.toaster.error('User Not Found or Email is not Confirmed');
           this.invalidLogin = true;
           return;
         } else if (response.status == 401) {

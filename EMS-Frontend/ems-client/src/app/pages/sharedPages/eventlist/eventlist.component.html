@@ -1,3 +1,5 @@
+<h2 class="upcoming-events-heading">Upcoming Events</h2>
+
 <div class="cards-container" *ngIf="events && events.length > 0">
   <div *ngFor="let event of events; let i = index" [class.active]="i === 0" class="wrapper">
     <div class="card front-face">

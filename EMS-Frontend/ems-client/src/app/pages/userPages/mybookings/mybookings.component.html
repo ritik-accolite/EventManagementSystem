@@ -41,8 +41,7 @@
                 <h5 class="fs-6 mb-0">Add Review</h5>
               </button>
               <button
-              [disabled]="isEventDateInPast(event.eventDate)"
-              
+                *ngIf = "!isEventDateInPast(event.eventDate)"
                 (click)="cancelBooking(event.bookingId)"
                 class="btn-primary mx-2"
               >
@@ -66,3 +65,6 @@
 <div *ngIf="!bookedEvents || bookedEvents.length === 0">
   <p>No events booked.</p>
 </div>
+
+
+

@@ -24,8 +24,12 @@ export class RegisterComponent implements OnInit {
   ) {}
   ngOnInit(): void {
     this.userDataForm = this.fb.group({
-      firstname: ['', Validators.required],
-      lastname: ['', Validators.required],
+      firstname: ['',[Validators.required,Validators.minLength(3),
+        Validators.maxLength(60),
+        Validators.pattern(/^(?!.*?[^aeiou]{5})(?!.*?[aeiou]{3})[a-zA-Z]*$/),]],
+      lastname: ['', [Validators.required,Validators.minLength(3),
+        Validators.maxLength(60),
+        Validators.pattern(/^(?!.*?[^aeiou]{5})(?!.*?[aeiou]{3})[a-zA-Z]*$/),]],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
       confirmPassword: [
@@ -62,6 +66,7 @@ export class RegisterComponent implements OnInit {
         },
         (error) => {
           console.error('Error registering user:', error);
+          this.toaster.error("Something went wrong!");
         }
       );
     } else {
