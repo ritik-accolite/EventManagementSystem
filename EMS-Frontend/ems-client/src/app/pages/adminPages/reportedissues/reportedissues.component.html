@@ -38,7 +38,7 @@
           <button
             class="btn btn-success"
             *ngIf="review.isReported"
-            (click)="resolveReview(review.reviewId, review.userId)"
+            (click)="confirmResolveReview(review.reviewId, review.userId)"
           >
             Resolve
           </button>

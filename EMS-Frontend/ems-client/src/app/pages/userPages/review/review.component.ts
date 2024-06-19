@@ -8,7 +8,7 @@ import {
 } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { JwtDecodeService } from '../../../services/jwtDecodeService/jwtDecode.service';
-import { ReviewInterface } from '../../../interface/userInterface/review-interface';
+import Swal from 'sweetalert2';
 import { ToastrService } from 'ngx-toastr';
 import { NgIf } from '@angular/common';
 
@@ -50,30 +50,39 @@ export class ReviewComponent implements OnInit {
 
   onSubmit() {
     if (this.reviewForm.valid) {
-      const formData = {
-        ...this.reviewForm.value,
-        eventId: this.eventId,
-        UserId: this.id,
-      };
-      this.userdataservice.addReview(formData).subscribe(
-        (response) => {
-          this.status = response.status;
-          if (this.status === 200) {
-            this.router.navigate(['user-dash','mybookings']);
-            this.toaster.success("Review Successfully Submitted");
-          }
-          if (this.status === 400) {
-            this.router.navigate(['user-dash','mybookings']);
-            this.toaster.info("You have already added review for this event.");
-          }
-          console.log(response);
-        },
-        (error) => {
-          console.error('Error adding event', error);
+      Swal.fire({
+        title: 'Confirm Submission',
+        text: 'Are you sure you want to submit this review?',
+        icon: 'info',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, submit it!',
+        cancelButtonText: 'No, keep editing'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          const formData = {
+            ...this.reviewForm.value,
+            eventId: this.eventId,
+            UserId: this.id,
+          };
+          this.userdataservice.addReview(formData).subscribe(
+            (response) => {
+              this.status = response.status;
+              if (this.status === 200) {
+                this.router.navigate(['user-dash', 'mybookings']);
+                this.toaster.success('Review Successfully Submitted');
+              } else if (this.status === 400) {
+                this.router.navigate(['user-dash', 'mybookings']);
+                this.toaster.info('You have already added review for this event.');
+              }
+              console.log(response);
+            },
+            (error) => {
+              console.error('Error adding event', error);
+            }
+          );
         }
-      );
-    }
-    else{
+      });
+    } else {
       this.invalid = true;
     }
   }

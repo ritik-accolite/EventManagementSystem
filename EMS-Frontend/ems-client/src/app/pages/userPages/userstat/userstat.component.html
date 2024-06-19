@@ -3,65 +3,28 @@
     <main role="main">
       <div class="projects mb-4">
         <div class="projects-inner">
-          <header class="projects-header">
-            <div class="buttons">
-              <button (click)="applyFilter2()" class="btn-event">
+          <header class="projects-header d-flex align-items-center justify-content-between">
+            <div class="buttons d-flex">
+              <button (click)="applyFilter2()" class="btn btn-primary mx-2">
                 All Events
               </button>
-              <button
-                (click)="selectedField = 'Category'"
-                class="btn btn-secondary dropdown-toggle custom-dropdown"
-                (click)="toggleDropdown1()"
-              >
-                Filter By Category
+              <button (click)="showFilterDialog()" class="btn btn-primary mx-2">
+                Apply Filters
               </button>
-              <div
-                class="dropdown-content custom-dropdown-content"
-                [ngClass]="{ show: showDropdown1 }"
-              >
-                <select
-                  class="custom-select"
-                  [(ngModel)]="selectedCategory"
-                  (change)="applyFilter(selectedCategory)"
-                >
-                  <option value="">Select Category</option>
-                  <option
-                    *ngFor="let category of categoryFilter"
-                    [value]="category"
-                  >
-                    {{ category }}
-                  </option>
-                </select>
-              </div>
-              <button
-                (click)="selectedField = 'Location'"
-                class="btn btn-secondary dropdown-toggle custom-dropdown"
-                (click)="toggleDropdown2()"
-              >
-                Filter By Location
-              </button>
-              <div
-                class="dropdown-content custom-dropdown-content"
-                [ngClass]="{ show: showDropdown2 }"
-              >
-                <select
-                  class="custom-select"
-                  [(ngModel)]="selectedLocation"
-                  (change)="applyFilter1(selectedLocation)"
-                >
-                  <option value="">Select Location</option>
-                  <option
-                    *ngFor="let location of locationFilter"
-                    [value]="location"
-                  >
-                    {{ location }}
-                  </option>
-                </select>
-              </div>
             </div>
-
-            <div class="title">{{ selectedField }} Events</div>
-            <div class="count">| {{ events.length }} Events</div>
+            <div class="search-bar mx-3">
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Search by name, venue, or chief guest"
+                [(ngModel)]="searchKeyword"
+                (input)="onSearch()"
+              />
+            </div>
+            <div>
+              <div class="title">Filtered Events</div>
+              <div class="count">| {{ filteredEvents.length }} Events</div>
+            </div>
           </header>
           <table class="table table-striped">
             <thead>
@@ -75,7 +38,7 @@
             </thead>
             <tbody class="table-body">
               <tr
-                *ngFor="let event of events"
+                *ngFor="let event of filteredEvents"
                 (click)="showDetail(event.eventId)"
               >
                 <td>{{ event.eventName }}</td>

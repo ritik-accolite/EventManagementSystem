@@ -8,6 +8,7 @@ import { GetAllPersonsByAdminInterface } from '../../../interface/adminInterface
 import { ResponseInterface } from '../../../interface/commonInterface/response-interface';
 import { ToastrService } from 'ngx-toastr';
 import { FormBuilder, FormControl, ReactiveFormsModule } from '@angular/forms';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-trackorgainzers',
@@ -66,7 +67,38 @@ export class TrackorgainzersComponent implements OnInit {
     }
   }
 
+  confirmBlockUser(person: GetAllPersonsByAdminInterface) {
+    Swal.fire({
+      title: `Block ${person.firstName} ${person.lastName}?`,
+      html: `
+        <p>Blocking this person will restrict their access to the system.</p>
+        <p>Please provide a reason for blocking:</p>
+        <input type="text" id="blockReason" class="swal2-input" placeholder="Reason for blocking">
+        <p>Email: <strong>${person.email}</strong></p>
+        <p>The reason will be sent to this persons email.</p>
+      `,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, block them!',
+      cancelButtonText: 'No, cancel',
+      preConfirm: () => {
+        const blockReason = (document.getElementById('blockReason') as HTMLInputElement).value;
+        if (!blockReason) {
+          Swal.showValidationMessage('Reason is required');
+          return false;
+        }
+        return { blockReason };
+      }
+    }).then((result) => {
+      if (result.isConfirmed) {
+        const reason = result.value?.blockReason;
+        this.blockUser(person.id);
+      }
+    });
+  }
+  
   blockUser(personId: string) {
+    // Here you would send the reason along with the request to block the user
     this.userdataservice.blockPersonbyId(personId).subscribe(
       (response: ResponseInterface) => {
         this.toaster.success('Blocked Successfully');
@@ -78,6 +110,22 @@ export class TrackorgainzersComponent implements OnInit {
     );
   }
 
+
+  confirmUnblockUser(person: GetAllPersonsByAdminInterface) {
+    Swal.fire({
+      title: `Unblock ${person.firstName} ${person.lastName}?`,
+      text: "This will restore their access to the system.",
+      icon: 'info',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, unblock them!',
+      cancelButtonText: 'No, cancel'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.unBlockUser(person.id);
+      }
+    });
+  }
+  
   unBlockUser(personId: string) {
     this.userdataservice.unBlockPersonbyId(personId).subscribe(
       (response: ResponseInterface) => {
@@ -89,4 +137,5 @@ export class TrackorgainzersComponent implements OnInit {
       }
     );
   }
+  
 }

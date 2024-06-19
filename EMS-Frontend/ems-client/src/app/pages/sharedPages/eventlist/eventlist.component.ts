@@ -33,8 +33,9 @@ export class EventlistComponent implements OnInit {
 
   fetchEvents(): void {
     this.userdataservice.getEvents().subscribe(
-      (response: EventInterface) => {
-        this.events = response.allEvents;
+      (response: any) => {
+        const currentDate = new Date();
+        this.events = response.allEvents.filter((event: any) => new Date(event.eventDate) > currentDate);
       },
       (error) => console.error('Error fetching events: ', error)
     );

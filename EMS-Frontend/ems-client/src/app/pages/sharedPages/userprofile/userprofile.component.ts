@@ -8,6 +8,7 @@ import { EditProfileInterface } from '../../../interface/commonInterface/edit-pr
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { NgIf } from '@angular/common';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-userprofile',
@@ -70,6 +71,21 @@ export class UserprofileComponent implements OnInit {
       this.profileForm.reset(this.initialFormValues);
       this.profileForm.disable();
     }
+  }
+
+  confirmChanges(): void {
+    Swal.fire({
+      title: 'Confirm Changes',
+      text: 'Do you want to save the changes to your profile?',
+      icon: 'info',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, save changes!',
+      cancelButtonText: 'No, keep editing!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.onSubmit();
+      }
+    });
   }
 
   onSubmit(): void {

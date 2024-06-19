@@ -34,22 +34,23 @@
 
             <div *ngIf="!disabled" class="btn-container">
               <button
+              *ngIf="isEventDateInPast(event.eventDate)"
                 [routerLink]="['review']"
                 (click)="addReview(event.eventId)"
                 class="btn-primary mx-2"
               >
                 <h5 class="fs-6 mb-0">Add Review</h5>
               </button>
-              <button
-                *ngIf = "!isEventDateInPast(event.eventDate)"
-                (click)="cancelBooking(event.bookingId)"
+              <button *ngIf="!isEventDateInPast(event.eventDate)"
+                (click)="cancelBooking(event.bookingId, event.ticketPrice)"
                 class="btn-primary mx-2"
               >
                 <h5 class="fs-6 mb-0 ">Cancel Booking</h5>
               </button>
 
 
-              <button (click)="viewTicket(event.bookingId, event.eventId)" class="btn-secondary downloadticket">
+              <button 
+              (click)="viewTicket(event.bookingId, event.eventId)" class="btn-secondary downloadticket">
                 <img class="img-size"
                   src="https://cdn.iconscout.com/icon/premium/png-512-thumb/download-2693143-2234826.png?f=webp&w=256"
                   alt="View Ticket"
