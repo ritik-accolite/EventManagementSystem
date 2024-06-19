@@ -30,12 +30,20 @@ export class ForgotpasswordComponent {
   ) {}
 
   submitEmailForm() {
-    this.showPasswordForm = true;
+    //this.showPasswordForm = true;
     this.userDataService.generateForgotEmailToken(this.email).subscribe(
       (response: ResponseInterface) => {  
-        this.toaster.info("Reset Token successfully Sent");
-        console.log('Reset Token successfully Sent:', response);
-        this.showPasswordForm = true;
+        if(response.status==200){
+          this.toaster.info("Reset Token successfully Sent");
+          console.log('Reset Token successfully Sent:', response);
+          this.showPasswordForm = true;
+        }
+        else if(response.status==404){
+          this.toaster.error("Email doesn't exist !");
+        }
+        else if(response.status==500){
+          this.toaster.error("Failed to send reset password token !");
+        }
       },
       (error: any) => {
         console.error('Reset Token not sent:', error);
@@ -54,12 +62,20 @@ export class ForgotpasswordComponent {
     this.userDataService.resetPassword(resetForm)
       .subscribe(
       (response : ResponseInterface) => {
+        if(response.status==200){
         this.toaster.success("Successfully updated password");
         console.log('Password Successfully Reseted', response);
+        }
+        else if(response.status==404){
+          this.toaster.error("Email doesn't exist !");
+        }
+        else if(response.status==400){
+          this.toaster.error("Invalid reset link !");
+        }
       },
       (error: any) => {
         this.toaster.error("Error updating Password");
-        console.error('PAssword not sent: ', error);
+        console.error('Password not sent: ', error);
       }
     );
   }
