@@ -23,7 +23,9 @@
           />
           <div *ngIf="firstName?.invalid && (firstName?.dirty || firstName?.touched)" class="text-danger">
             <div *ngIf="firstName?.errors?.['required']">First Name is required.</div>
-            <div *ngIf="firstName?.errors?.['minlength']">First Name must be at least 2 characters long.</div>
+            <div *ngIf="firstName?.errors?.['minlength']">First Name must be at least 3 characters long.</div>
+            <div *ngIf="firstName?.errors?.['maxlength']">First Name cannot be more than 60 characters long.</div>
+            <div *ngIf="firstName?.errors?.['pattern']">First Name must follow specific pattern rules.</div>
           </div>
         </div>
       </div>
@@ -40,7 +42,9 @@
           />
           <div *ngIf="lastName?.invalid && (lastName?.dirty || lastName?.touched)" class="text-danger">
             <div *ngIf="lastName?.errors?.['required']">Last Name is required.</div>
-            <div *ngIf="lastName?.errors?.['minlength']">Last Name must be at least 2 characters long.</div>
+            <div *ngIf="lastName?.errors?.['minlength']">Last Name must be at least 3 characters long.</div>
+            <div *ngIf="lastName?.errors?.['maxlength']">Last Name cannot be more than 60 characters long.</div>
+            <div *ngIf="lastName?.errors?.['pattern']">Last Name must follow specific pattern rules.</div>
           </div>
         </div>
       </div>
