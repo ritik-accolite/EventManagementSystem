@@ -12,18 +12,11 @@ export const tokenInterceptor: HttpInterceptorFn = (req, next) => {
 
   spinnerService.requestStarted(); // Start the spinner
 
-  if (req.url === 'https://eventhubfusion.azurewebsites.net/api/Event' || req.url === 'http://localhost:5299/api/Event') {
+  if (req.url === 'https://eventfusion.azurewebsites.net/api/Event' || req.url === 'http://localhost:5299/api/Event') {
     return next(req).pipe(
       finalize(() => spinnerService.requestEnded()) // Stop the spinner after request
     );
   }
-
-  // if (req.url === 'https://eventhubfusion.azurewebsites.net/api/Event') {
-  //   return next(req);
-  // }
-  // if (req.url === 'http://localhost:5299/api/Event') {
-  //   return next(req);
-  // }
 
   token = localStorage?.getItem('jwt');
   const modifiedReq = req.clone({
