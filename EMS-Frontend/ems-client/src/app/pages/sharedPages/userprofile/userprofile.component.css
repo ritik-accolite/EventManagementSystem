@@ -10,12 +10,12 @@
   text-transform: uppercase;
 }
 .ruler {
-  width: 50%; /* Adjust the width of the ruler as needed */
-  height: 5px; /* Adjust the height of the ruler as needed */
-  background: linear-gradient(120deg, #ee8425 0%, #f9488b 100%),
-    linear-gradient(120deg, #ee8425 0%, #f9488b 100%); /* Add a gradient for decorative effect */
-  margin: 20px auto; /* Add margin to center the ruler horizontally */
-  border-radius: 10%; /* Add rounded corners to the ruler */
+  width: 60%;
+  height: 5px;
+  background: linear-gradient(120deg, #F37303 0%, #EE0860 100%),
+    linear-gradient(120deg, #F87503 0%, #FC0564 100%);
+  margin: 20px auto;
+  border-radius: 10%;
 }
 
 .image {
@@ -90,7 +90,7 @@
 .form-control {
   width: 100%;
   padding: 10px;
-  border: 1px solid #ccc;
+  border: 1px solid #CCC9C9;
   border-radius: 5px;
   background-color: #fff;
   font-size: 16px;

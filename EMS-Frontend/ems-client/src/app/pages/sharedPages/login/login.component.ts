@@ -57,11 +57,15 @@ export class LoginComponent {
           this.toaster.error('User Not Found or Email is not Confirmed');
           this.invalidLogin = true;
           return;
+        } else if (response.status == 405) {
+          this.toaster.error(response.message);
+          this.invalidLogin = true;
+          return;
         } else if (response.status == 401) {
           this.toaster.error('Please enter valid credentials.');
           this.invalidLogin = true;
           return ;
-        }
+        } else if (response.status == 200){
         this.toaster.success('Successfully Logged In');
         const token = response.token;
         localStorage.setItem('jwt', token);
@@ -72,6 +76,11 @@ export class LoginComponent {
         const role = this.jwtDecodeService.role;
         this.redirectUser(role);
         this.userDataService.roleEvent.emit(role);
+        return;
+        } else {
+          this.toaster.error('Something Went Wrong. Please Try Again!');
+          return;
+        }
       },
       (error: any) => {
         console.error('Login failed:', error);

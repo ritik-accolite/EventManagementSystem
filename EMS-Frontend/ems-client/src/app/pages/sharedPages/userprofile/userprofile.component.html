@@ -2,7 +2,7 @@
   <form [formGroup]="profileForm" (ngSubmit)="confirmChanges()">
     <div class="container">
       <div class="content">
-        <h3 class="heading">Welcome to your Profile</h3>
+        <h3 class="heading"><b>Welcome to your Profile</b></h3>
         <hr class="ruler" />
         <img
           src="https://cdn-icons-png.flaticon.com/512/1083/1083062.png"
@@ -25,7 +25,7 @@
             <div *ngIf="firstName?.errors?.['required']">First Name is required.</div>
             <div *ngIf="firstName?.errors?.['minlength']">First Name must be at least 3 characters long.</div>
             <div *ngIf="firstName?.errors?.['maxlength']">First Name cannot be more than 60 characters long.</div>
-            <div *ngIf="firstName?.errors?.['pattern']">First Name must follow specific pattern rules.</div>
+            <div *ngIf="firstName?.errors?.['pattern']">First Name must contain only alphabets.</div>
           </div>
         </div>
       </div>
@@ -44,7 +44,7 @@
             <div *ngIf="lastName?.errors?.['required']">Last Name is required.</div>
             <div *ngIf="lastName?.errors?.['minlength']">Last Name must be at least 3 characters long.</div>
             <div *ngIf="lastName?.errors?.['maxlength']">Last Name cannot be more than 60 characters long.</div>
-            <div *ngIf="lastName?.errors?.['pattern']">Last Name must follow specific pattern rules.</div>
+            <div *ngIf="lastName?.errors?.['pattern']">First Name must contain only alphabets.</div>
           </div>
         </div>
       </div>
@@ -53,7 +53,7 @@
         <label for="phoneNumber" class="col-sm-2 col-form-label custom-label">Phone Number</label>
         <div class="col-sm-4 col-6">
           <input
-            type="text"
+            type="number"
             class="form-control"
             id="phoneNumber"
             formControlName="phoneNumber"
