@@ -45,7 +45,7 @@
                         First Name cannot be more than 60 characters long.
                       </small>
                       <small *ngIf="userDataForm.get('firstname')?.errors?.['pattern']">
-                        First Name must follow specific pattern rules.
+                        First Name must only contain alphabets.
                       </small>
                     </div>
                   </div>
@@ -78,7 +78,7 @@
                         Last Name cannot be more than 60 characters long.
                       </small>
                       <small *ngIf="userDataForm.get('lastname')?.errors?.['pattern']">
-                        Last Name must follow specific pattern rules.
+                        Last Name must only contain alphabets.
                       </small>
                     </div>
                   </div>
@@ -134,10 +134,9 @@
                       >
                       <small
                         *ngIf="userDataForm.get('password')?.errors?.['minlength']"
-                        >Password must be at least 6 characters long and must
-                        contain at least one uppercase letter, one lowercase
-                        letter, one symbol, and one number</small
+                        >Password must be at least 6 characters long </small
                       >
+                      <small *ngIf="userDataForm.get('password')?.errors?.['pattern']">Password must contain at least one uppercase letter, one lowercase letter, one symbol, and one number.</small>
                     </div>
                   </div>
                   <div data-mdb-input-init class="form-outline mb-4">
@@ -158,25 +157,25 @@
                       "
                       class="text-danger"
                     >
-                      <small
-                        *ngIf="userDataForm.get('confirmPassword')?.errors?.['required']"
-                        >Password is required.</small
-                      >
-                      <small
-                        *ngIf="userDataForm.get('confirmPassword')?.errors?.['minlength']"
-                        >Password must be at least 6 characters long and must
-                        match with password.</small
-                      >
-                      <small
-                        *ngIf="userDataForm.get('confirmPassword')?.errors?.['passwordMatchValidator']"
-                        >Password doesn't match.</small
-                      >
+                    <small
+                    *ngIf="userDataForm.get('confirmPassword')?.hasError('required')";
+                    >Password is required.</small
+                  >
+                  <small
+                    *ngIf="userDataForm.get('confirmPassword')?.hasError('minlength')"
+                    >Password must be at least 6 characters long and must
+                    match with password.</small
+                  >
+                  <small
+                    *ngIf="userDataForm.get('confirmPassword')?.hasError('passwordNotMatch')"
+                    >Password doesn't match.</small
+                  >
                     </div>
                   </div>
                   <div data-mdb-input-init class="form-outline mb-4">
                     <input
                       placeholder="Phone Number"
-                      type="tel"
+                      type="number"
                       id="form2Example23"
                       name="phonenumber"
                       class="form-control"
@@ -194,7 +193,7 @@
                         *ngIf="userDataForm.controls['phonenumber'].errors?.['required']"
                         >Phone Number is required.</small
                       >
-                      <small *ngIf="userDataForm.controls['phonenumber'].errors?.['pattern']">Phone Number can only contain digits.</small>
+                      <small *ngIf="userDataForm.controls['phonenumber'].errors?.['pattern']">Phone Number can only contain 10 digits.</small>
                       <!-- <small *ngIf="userDataForm.controls['phonenumber'].errors?.['maxlength']">Phone Number should have 10 digits.</small> -->
                     </div>
                   </div>
