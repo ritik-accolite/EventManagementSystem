@@ -35,10 +35,10 @@ export class UserprofileComponent implements OnInit {
     this.profileForm = this.fb.group({
       firstName: [{ value: '', disabled: true }, [Validators.required, Validators.minLength(3),
         Validators.maxLength(60),
-        Validators.pattern(/^(?!.*?[^aeiou]{5})(?!.*?[aeiou]{3})[a-zA-Z]*$/),]],
+        Validators.pattern(/^[a-zA-Z]*$/),]],
       lastName: [{ value: '', disabled: true }, [Validators.required, Validators.minLength(3),
         Validators.maxLength(60),
-        Validators.pattern(/^(?!.*?[^aeiou]{5})(?!.*?[aeiou]{3})[a-zA-Z]*$/),]],
+        Validators.pattern(/^[a-zA-Z]*$/),]],
       phoneNumber: [{ value: '', disabled: true }, [Validators.required, Validators.pattern(/^[0-9]{10}$/)]],
     });
   }
@@ -78,6 +78,10 @@ export class UserprofileComponent implements OnInit {
   }
 
   confirmChanges(): void {
+    if (this.profileForm.invalid) {
+      this.profileForm.markAllAsTouched(); // To show validation errors
+      return;
+    }
     Swal.fire({
       title: 'Confirm Changes',
       text: 'Do you want to save the changes to your profile?',
@@ -97,11 +101,21 @@ export class UserprofileComponent implements OnInit {
       this.profileForm.markAllAsTouched(); // To show validation errors
       return;
     }
-
     const formData = this.profileForm.value;
+    // formData.phoneNumber = formData.phoneNumber.toString();
+    // if (typeof formData.phoneNumber === 'number') {
+      formData.phoneNumber = formData.phoneNumber.toString();
+      console.log(formData.phoneNumber.length);
+      console.log(typeof(formData.phoneNumber));
+    // }
     this.userdataservice.editProfile(this.personId, formData).subscribe(
       (response: EditProfileInterface) => {
-        this.toggleEditMode();
+        // this.toggleEditMode();
+        console.log(response);
+        this.editMode = !this.editMode;
+        this.initialFormValues.firstName = formData.firstName;
+        this.initialFormValues.lastName = formData.lastName;
+        this.initialFormValues.phoneNumber = formData.phoneNumber;
         this.toaster.success("Profile Updated Successfully");
         try {
           const role = localStorage.getItem('Role');

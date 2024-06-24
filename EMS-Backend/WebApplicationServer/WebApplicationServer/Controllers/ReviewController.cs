@@ -66,7 +66,7 @@ namespace WebApplicationServer.Controllers
             catch (Exception ex)
             {
 
-                response.Status = 200;
+                response.Status = 400;
                 response.Message = $"Error adding review: {ex.Message}";
             }
             return response;
