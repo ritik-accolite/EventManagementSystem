@@ -95,7 +95,7 @@
       <table class="table table-striped table-hover">
         <thead class="table-dark">
           <tr>
-            <th class="scope">User ID</th>
+            <!-- <th class="scope">User ID</th> -->
             <th class="scope">Name</th>
             <th class="scope">Email</th>
             <th class="scope">Phone Number</th>
@@ -106,7 +106,7 @@
         <tbody>
           <ng-container *ngFor="let user of displayedUsers">
             <tr *ngIf="user" scope="row">
-              <td>{{ user.userId }}</td>
+              <!-- <td>{{ user.userId }}</td> -->
               <td>{{ user.firstName }} {{ user.lastName }}</td>
               <td>{{ user.email }}</td>
               <td>{{ user.phoneNumber }}</td>

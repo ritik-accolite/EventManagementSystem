@@ -89,12 +89,12 @@ export class UserstatComponent implements OnInit {
       title: 'Apply Filters',
       html: `
         <div style="text-align: left;">
-          <label for="category">Category</label>
+          <label for="category">Category:</label>
           <select id="category" class="swal2-input">
-            <option value="">All Categories</option>
+            <option class = "my-2"value="">All Categories</option>
             ${this.categoryFilter.map(category => `<option value="${category}">${truncate(category, maxLength)}</option>`).join('')}
           </select></br>
-          <label for="location">Location</label>
+          <label for="location">Location:</label>
           <select id="location" class="swal2-input">
             <option value="">All Locations</option>
             ${this.locationFilter.map(location => `<option value="${location}">${truncate(location, maxLength)}</option>`).join('')}
